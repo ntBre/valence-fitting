@@ -14,7 +14,10 @@ from openff.qcsubmit.results.filters import ResultRecordFilter
 
 if typing.TYPE_CHECKING:
     from qcportal.models import TorsionDriveRecord, OptimizationRecord
-    from openff.qcsubmit.results import TorsionDriveResultCollection, OptimizationResultCollection
+    from openff.qcsubmit.results import (
+        TorsionDriveResultCollection,
+        OptimizationResultCollection,
+    )
     from openff.toolkit import ForceField, Molecule
 
 
@@ -50,7 +53,7 @@ def check_torsion_is_in_ring(
 
     If a torsion I-J-K-L is given, it checks
     whether all bonds I-J, J-K, and K-L are in a ring.
-    
+
     """
     i, j, k, l = indices
     return (
@@ -62,8 +65,7 @@ def check_torsion_is_in_ring(
 
 def label_and_tag_ids(
     record_and_molecule: typing.Tuple[
-        typing.Union["TorsionDriveRecord", "OptimizationRecord"],
-        "Molecule"
+        typing.Union["TorsionDriveRecord", "OptimizationRecord"], "Molecule"
     ],
     force_field: "ForceField",
     parameter_types: typing.List[str],
@@ -90,7 +92,7 @@ def label_and_tag_ids(
                 record_atoms = record.keywords.dihedrals[0]
                 if set(indices[1:3]) != set(record_atoms[1:3]):
                     continue
-            
+
                 # some general parameters overlap with in-ring torsions and
                 # there are many torsion scans from Gen1 sets that have
                 # in-ring torsions and we want to exclude them in training
@@ -101,16 +103,16 @@ def label_and_tag_ids(
                 if parameter.id not in ring_torsions:
                     if check_torsion_is_in_ring(molecule, indices):
                         continue
-            
-            n_heavy_atoms = sum(
-                1 for atom in molecule.atoms if atom.atomic_number != 1
-            )
+
+            n_heavy_atoms = sum(1 for atom in molecule.atoms if atom.atomic_number != 1)
             parameter_ids.add((parameter.id, record.id, n_heavy_atoms))
     return parameter_ids
 
 
 def get_parameter_distribution(
-    dataset: typing.Union["TorsionDriveResultCollection", "OptimizationResultCollection"],
+    dataset: typing.Union[
+        "TorsionDriveResultCollection", "OptimizationResultCollection"
+    ],
     parameter_types: typing.List[str],
     force_field: "ForceField",
     explicit_ring_torsions: typing.Optional[str] = None,
@@ -133,13 +135,13 @@ def get_parameter_distribution(
             for parameter_id, record_id, n_heavy_atoms in parameter_ids:
                 coverage[parameter_id] += 1
                 parameter_records[parameter_id].append((n_heavy_atoms, record_id))
-    
+
     return coverage, dict(parameter_records)
 
 
 def cap_torsions_per_parameter(
     force_field: "ForceField",
-    dataset: "TorsionDriveResultCollection", 
+    dataset: "TorsionDriveResultCollection",
     cap_size: int = 5,
     explicit_ring_torsions: typing.Optional[str] = None,
     method: typing.Literal["pick_random", "pick_heavy", "pick_light"] = "pick_random",
@@ -160,24 +162,20 @@ def cap_torsions_per_parameter(
         else:
             if method == "pick_heavy":
                 n_atom_records = sorted(
-                    parameter_records[parameter_id],
-                    key=lambda x: x[0],
-                    reverse=True
+                    parameter_records[parameter_id], key=lambda x: x[0], reverse=True
                 )[:cap_size]
             elif method == "pick_light":
                 n_atom_records = sorted(
-                    parameter_records[parameter_id],
-                    key=lambda x: x[0],
-                    reverse=False
+                    parameter_records[parameter_id], key=lambda x: x[0], reverse=False
                 )[:cap_size]
             elif method == "pick_random":
                 n_atom_records = random.sample(
                     parameter_records[parameter_id], cap_size
                 )
-        
+
         _, records = zip(*n_atom_records)
         records_to_keep[parameter_id] = records
-    
+
     if verbose:
         print("Final coverage")
         for parameter_id, records in records_to_keep.items():
@@ -185,25 +183,18 @@ def cap_torsions_per_parameter(
                 f"{parameter_id:>6s}: {len(records):>4d} "
                 f"/ {coverage[parameter_id]:>4d} records"
             )
-    
+
     ids_to_keep = [
-        record_id
-        for record_ids in records_to_keep.values()
-        for record_id in record_ids
+        record_id for record_ids in records_to_keep.values() for record_id in record_ids
     ]
     print(f"Total records: {dataset.n_results}")
     print(f"Total records to keep: {len(ids_to_keep)}")
 
     key = list(dataset.entries.keys())[0]
     dataset.entries[key] = [
-        record
-        for record in dataset.entries[key]
-        if record.record_id in ids_to_keep
+        record for record in dataset.entries[key] if record.record_id in ids_to_keep
     ]
     return dataset
-        
-
-
 
 
 def download_and_filter_td_data(
@@ -235,7 +226,7 @@ def download_and_filter_td_data(
         datasets=td_datasets,
         spec_name="default",
     )
-    
+
     # filter out entries to remove
     # client.address is just the key to use to access entries
     dataset.entries[client.address] = [
@@ -244,7 +235,7 @@ def download_and_filter_td_data(
         if entry.record_id not in records_to_remove
     ]
 
-     # in a number of datasets the iodine-containing molecules
+    # in a number of datasets the iodine-containing molecules
     # were tainted due to an auxiliary basis set issue
     # This has since been resolved and entries have been recomputed
     # in new datasets, but we still need to filter the old ones
@@ -252,23 +243,21 @@ def download_and_filter_td_data(
     if include_iodine:
         elements.append("I")
 
-
     # filter out other unsuitable entries
     dataset = dataset.filter(
         HydrogenBondFilter(method="baker-hubbard"),
         RecordStatusFilter(status=RecordStatusEnum.complete),
         ConnectivityFilter(tolerance=1.2),
         UnperceivableStereoFilter(),
-        ElementFilter(
-            allowed_elements=elements
-        ),
-
+        ElementFilter(allowed_elements=elements),
     )
     return dataset
 
 
 def select_parameters(
-    dataset: typing.Union["TorsionDriveResultCollection", "OptimizationResultCollection"],
+    dataset: typing.Union[
+        "TorsionDriveResultCollection", "OptimizationResultCollection"
+    ],
     parameter_types: typing.List[str],
     force_field: "ForceField",
     explicit_ring_torsions: typing.Optional[str] = None,
@@ -296,9 +285,11 @@ def select_parameters(
             selected_parameters[parameter_type].append(parameters[0].smirks)
     return selected_parameters
 
+
 @click.group()
 def cli():
     pass
+
 
 @cli.command("download-td")
 @click.option(
@@ -338,7 +329,7 @@ def cli():
     help=(
         "The name of the initial force field to use. "
         "Alternatively, the path to a force field"
-    )
+    ),
 )
 @click.option(
     "--explicit-ring-torsions",
@@ -420,7 +411,9 @@ def download_td_data(
     td_records_to_remove: typing.Optional[str] = None,
     additional_td_records: typing.Optional[str] = None,
     cap_size: int = 5,
-    cap_method: typing.Literal["pick_random", "pick_heavy", "pick_light"] = "pick_random",
+    cap_method: typing.Literal[
+        "pick_random", "pick_heavy", "pick_light"
+    ] = "pick_random",
     verbose: bool = True,
     n_processes: int = 4,
     min_record_coverage: int = 5,
@@ -487,7 +480,9 @@ def download_td_data(
     if verbose:
         print(f"Number of core entries: {core_dataset.n_results}")
     aux_dataset = download_and_filter_td_data(
-        aux_td_datasets, td_records_to_remove, include_iodine=False,
+        aux_td_datasets,
+        td_records_to_remove,
+        include_iodine=False,
     )
     aux_dataset = cap_torsions_per_parameter(
         ff,
@@ -500,24 +495,21 @@ def download_td_data(
     )
 
     if additional_td_records is not None:
-        additional_records = list(TorsionDriveResultCollection.parse_file(
-            additional_td_records
-        ).entries.values())[0]
+        additional_records = list(
+            TorsionDriveResultCollection.parse_file(
+                additional_td_records
+            ).entries.values()
+        )[0]
     else:
         additional_records = []
 
     key = list(core_dataset.entries.keys())[0]
     all_entries = (
-        core_dataset.entries[key]
-        + aux_dataset.entries[key]
-        + additional_records
+        core_dataset.entries[key] + aux_dataset.entries[key] + additional_records
     )
 
     # filter in case we have doubled up records
-    unique_entries = {
-        record.record_id: record
-        for record in all_entries
-    }
+    unique_entries = {record.record_id: record for record in all_entries}
     new_dataset = TorsionDriveResultCollection(
         entries={key: list(unique_entries.values())}
     )
@@ -525,7 +517,7 @@ def download_td_data(
 
     if verbose:
         print(f"Number of entries after charge check: {filtered_for_charge.n_results}")
-    
+
     with open(output_path, "w") as file:
         file.write(filtered_for_charge.json(indent=2))
     if verbose:
@@ -541,7 +533,6 @@ def download_td_data(
     )
     with open(output_parameter_smirks_path, "w") as file:
         json.dump(selected_parameters, file, indent=2)
-
 
 
 def download_and_filter_opt_data(
@@ -577,7 +568,7 @@ def download_and_filter_opt_data(
     )
     if verbose:
         print(f"Number of entries before filtering: {dataset.n_results}")
-    
+
     # filter out entries to remove
     # client.address is just the key to use to access entries
     dataset.entries[client.address] = [
@@ -586,7 +577,7 @@ def download_and_filter_opt_data(
         if entry.record_id not in records_to_remove
     ]
 
-     # in a number of datasets the iodine-containing molecules
+    # in a number of datasets the iodine-containing molecules
     # were tainted due to an auxiliary basis set issue
     # This has since been resolved and entries have been recomputed
     # in new datasets, but we still need to filter the old ones
@@ -594,19 +585,16 @@ def download_and_filter_opt_data(
     if include_iodine:
         elements.append("I")
 
-
     # filter out other unsuitable entries
     dataset = dataset.filter(
         RecordStatusFilter(status=RecordStatusEnum.complete),
         ConnectivityFilter(tolerance=1.2),
         UnperceivableStereoFilter(),
-        ElementFilter(
-            allowed_elements=elements
-        ),
-        ConformerRMSDFilter(max_conformers=max_opt_conformers)
-
+        ElementFilter(allowed_elements=elements),
+        ConformerRMSDFilter(max_conformers=max_opt_conformers),
     )
     return dataset
+
 
 @cli.command("download-opt")
 @click.option(
@@ -630,7 +618,7 @@ def download_and_filter_opt_data(
     help=(
         "The name of the initial force field to use. "
         "Alternatively, the path to a force field"
-    )
+    ),
 )
 @click.option(
     "--core-opt-dataset",
@@ -729,29 +717,27 @@ def download_opt_data(
     ff = ForceField(initial_forcefield, allow_cosmetic_attributes=True)
 
     core_dataset = download_and_filter_opt_data(
-        core_opt_datasets, opt_records_to_remove, include_iodine=False,
-        max_opt_conformers=max_opt_conformers
+        core_opt_datasets,
+        opt_records_to_remove,
+        include_iodine=False,
+        max_opt_conformers=max_opt_conformers,
     )
     if verbose:
         print(f"Number of filtered core entries: {core_dataset.n_results}")
     iodine_dataset = download_and_filter_opt_data(
-        iodine_opt_datasets, opt_records_to_remove, include_iodine=True,
-        max_opt_conformers=max_opt_conformers
+        iodine_opt_datasets,
+        opt_records_to_remove,
+        include_iodine=True,
+        max_opt_conformers=max_opt_conformers,
     )
     if verbose:
         print(f"Number of filtered aux entries: {iodine_dataset.n_results}")
 
     key = list(core_dataset.entries.keys())[0]
-    all_entries = (
-        core_dataset.entries[key]
-        + iodine_dataset.entries[key]
-    )
+    all_entries = core_dataset.entries[key] + iodine_dataset.entries[key]
 
     # filter in case we have doubled up records
-    unique_entries = {
-        record.record_id: record
-        for record in all_entries
-    }
+    unique_entries = {record.record_id: record for record in all_entries}
     new_dataset = OptimizationResultCollection(
         entries={key: list(unique_entries.values())}
     )
@@ -774,8 +760,6 @@ def download_opt_data(
     )
     with open(output_parameter_smirks_path, "w") as file:
         json.dump(selected_parameters, file, indent=2)
-
-
 
 
 if __name__ == "__main__":

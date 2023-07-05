@@ -1,0 +1,36 @@
+{
+  "entries": {
+    "https://api.qcarchive.molssi.org:443/": [
+      {
+        "type": "optimization",
+        "record_id": "18433006",
+        "cmiles": "[H:17][c:1]1[c:2]([c:5]([c:9]([c:8]([c:4]1[H:20])[c:10]2[c:6]([c:3]([c:7]([c:11](=[O:15])[n:14]2[C:12]([H:24])([H:25])[H:26])[H:23])[H:19])[H:22])[O:16][C:13]([H:27])([H:28])[H:29])[H:21])[H:18]",
+        "inchi_key": "ARUVJLXAYGHGPX-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "18433007",
+        "cmiles": "[H:17][c:1]1[c:2]([c:5]([c:9]([c:8]([c:4]1[H:20])[c:10]2[c:6]([c:3]([c:7]([c:11](=[O:15])[n:14]2[C:12]([H:24])([H:25])[H:26])[H:23])[H:19])[H:22])[O:16][C:13]([H:27])([H:28])[H:29])[H:21])[H:18]",
+        "inchi_key": "ARUVJLXAYGHGPX-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "95602245",
+        "cmiles": "[H:16][c:2]1[c:1]([c:6]([c:5]([c:4]2[c:3]1[N:10]3[C:9](=[C:8]2[H:18])[C:14]([N+:13]([C:12]([C:11]3([H:19])[H:20])([H:21])[H:22])([H:23])[H:24])([H:25])[H:26])[H:17])[F:7])[H:15]",
+        "inchi_key": "BQWBLSAUVGNJOQ-GVDJQSTKNA-O"
+      },
+      {
+        "type": "optimization",
+        "record_id": "95602246",
+        "cmiles": "[H:14][c:1]1[c:2]([c:3]([c:4]([c:5]([c:6]1[C@:7]2([C:9]([C:10]([N+:11]2([H:21])[H:22])([H:19])[H:20])([H:17])[H:18])[H:8])[H:16])[F:12])[F:13])[H:15]",
+        "inchi_key": "HKVNWGNTUHFFFA-MMAMJCGJNA-O"
+      }
+    ]
+  },
+  "provenance": {
+    "applied-filters": {
+      "ChargeCheckFilter-0": {}
+    }
+  },
+  "type": "OptimizationResultCollection"
+}

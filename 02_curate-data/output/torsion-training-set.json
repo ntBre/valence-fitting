@@ -1,0 +1,36 @@
+{
+  "entries": {
+    "https://api.qcarchive.molssi.org:443/": [
+      {
+        "type": "torsion",
+        "record_id": "18535805",
+        "cmiles": "[H:10][c:1]1[c:2]([c:4]([c:6]([c:5]([c:3]1[H:12])[H:14])[C:7]([H:15])([H:16])[C:8]([H:17])([H:18])[F:9])[H:13])[H:11]",
+        "inchi_key": "VEEYKGRLIXCNCZ-UHFFFAOYNA-N"
+      },
+      {
+        "type": "torsion",
+        "record_id": "2703031",
+        "cmiles": "[H:7][C:1]([H:8])([H:9])[O:5][C:3]([H:13])([O:4][H:14])[O:6][C:2]([H:10])([H:11])[H:12]",
+        "inchi_key": "IIGJYLXJNYBXEO-UHFFFAOYNA-N"
+      },
+      {
+        "type": "torsion",
+        "record_id": "2703032",
+        "cmiles": "[H:7][C:1]([H:8])([H:9])[O:5][C:3]([H:13])([O:4][H:14])[O:6][C:2]([H:10])([H:11])[H:12]",
+        "inchi_key": "IIGJYLXJNYBXEO-UHFFFAOYNA-N"
+      },
+      {
+        "type": "torsion",
+        "record_id": "2703402",
+        "cmiles": "[H:6][C:2]([H:7])([H:8])[C:1](=[O:3])[O:5][O:4][H:9]",
+        "inchi_key": "KFSLWBXXFJQRDL-UHFFFAOYNA-N"
+      }
+    ]
+  },
+  "provenance": {
+    "applied-filters": {
+      "ChargeCheckFilter-0": {}
+    }
+  },
+  "type": "TorsionDriveResultCollection"
+}

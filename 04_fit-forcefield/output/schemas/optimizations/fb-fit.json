@@ -1,0 +1,526 @@
+{
+  "type": "general",
+  "id": "fb-fit",
+  "initial_force_field": "/Users/lily/pydev/fit-torsion-fragments/03_generate-initial-ff/output/initial-force-field-msm.offxml",
+  "stages": [
+    {
+      "optimizer": {
+        "type": "ForceBalance",
+        "max_iterations": 1,
+        "job_type": "optimize",
+        "penalty_type": "L2",
+        "step_convergence_threshold": 0.01,
+        "objective_convergence_threshold": 0.1,
+        "gradient_convergence_threshold": 0.1,
+        "n_criteria": 2,
+        "eigenvalue_lower_bound": 0.01,
+        "finite_difference_h": 0.01,
+        "penalty_additive": 1.0,
+        "initial_trust_radius": -1.0,
+        "minimum_trust_radius": 0.05,
+        "error_tolerance": 1.0,
+        "adaptive_factor": 0.2,
+        "adaptive_damping": 1.0,
+        "normalize_weights": false,
+        "extras": {
+          "wq_port": "55387",
+          "asynchronous": "True",
+          "search_tolerance": "0.1",
+          "backup": "0",
+          "retain_micro_outputs": "0"
+        }
+      },
+      "parameters": [
+        {
+          "type": "Angles",
+          "smirks": "[*:1]~[#6X3:2]~[*:3]",
+          "attributes": [
+            "k",
+            "angle"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*:1]~[#6X4:2]-[*:3]",
+          "attributes": [
+            "k",
+            "angle"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[#1:1]-[#6X4:2]-[#1:3]",
+          "attributes": [
+            "k",
+            "angle"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*:1]~[#7X3$(*~[#6X3,#6X2,#7X2+0]):2]~[*:3]",
+          "attributes": [
+            "k",
+            "angle"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[#1:1]-[#6X3:2]~[*:3]",
+          "attributes": [
+            "k",
+            "angle"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*:1]-[#8:2]-[*:3]",
+          "attributes": [
+            "k",
+            "angle"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*:1]~[#7X4,#7X3,#7X2-1:2]~[*:3]",
+          "attributes": [
+            "k",
+            "angle"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*:1]~;!@[*;X3;r5:2]~;@[*;r5:3]",
+          "attributes": [
+            "k",
+            "angle"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*;r6:1]~;@[*;r5:2]~;@[*;r5;x2:3]",
+          "attributes": [
+            "k",
+            "angle"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[#1:1]-[#7X4,#7X3,#7X2-1:2]-[*:3]",
+          "attributes": [
+            "k",
+            "angle"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*:1]@-[r!r6;#7X4,#7X3,#7X2-1:2]@-[*:3]",
+          "attributes": [
+            "k",
+            "angle"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[#6r4:1]-;@[#6r4:2]-;@[#6r4:3]",
+          "attributes": [
+            "k",
+            "angle"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[!#1:1]-[#6r4:2]-;!@[!#1:3]",
+          "attributes": [
+            "k",
+            "angle"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[!#1:1]-[#6r4:2]-;!@[#1:3]",
+          "attributes": [
+            "k",
+            "angle"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6:1]=[#8X1+0,#8X2+1:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X4:1]-[#7X3:2]-[#6X3]=[#8X1+0]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X3:1]-[#7X3:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X3a:1]-[#8X2H0:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X3:1]=[#6X3:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X4:1]-[#1:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X3:1](=[#8X1+0])-[#7X3:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X4:1]-[#8X2H0:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X3:1]-[#1:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X3:1]-[#6X3:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X3:1]:[#6X3:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6:1]-[#7:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X4:1]-[#6X4:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6:1]-[#9:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#7:1]-[#1:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X4:1]-[#6X3:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[*:1]-[#6X4:2]-[#6X4:3]-[*:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[#1:1]-[#6X4:2]-[#6X4:3]-[#9:4]",
+          "attributes": [
+            "k1",
+            "k2"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[#1:1]-[#6X4:2]-[#6X4:3]-[#1:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[#6X4:1]-[#8X2:2]-[#6X4:3]-[#8X2:4]",
+          "attributes": [
+            "k1",
+            "k3",
+            "k2"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[*:1]-[#6X4:2]-[#8X2H0:3]-[*:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[*:1]-[#8:2]-[#8H1:3]-[*:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        }
+      ],
+      "parameter_hyperparameters": [
+        {
+          "type": "Angles",
+          "priors": {
+            "k": 100.0,
+            "angle": 5.0
+          }
+        },
+        {
+          "type": "Bonds",
+          "priors": {
+            "k": 100.0,
+            "length": 0.1
+          }
+        },
+        {
+          "type": "ProperTorsions",
+          "priors": {
+            "k": 5.0
+          }
+        },
+        {
+          "type": "ImproperTorsions",
+          "priors": {
+            "k": 5.0
+          }
+        }
+      ],
+      "targets": [
+        {
+          "weight": 1.0,
+          "reference_data": {
+            "entries": {
+              "https://api.qcarchive.molssi.org:443/": [
+                {
+                  "type": "torsion",
+                  "record_id": "18535805",
+                  "cmiles": "[H:10][c:1]1[c:2]([c:4]([c:6]([c:5]([c:3]1[H:12])[H:14])[C:7]([H:15])([H:16])[C:8]([H:17])([H:18])[F:9])[H:13])[H:11]",
+                  "inchi_key": "VEEYKGRLIXCNCZ-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": "2703031",
+                  "cmiles": "[H:7][C:1]([H:8])([H:9])[O:5][C:3]([H:13])([O:4][H:14])[O:6][C:2]([H:10])([H:11])[H:12]",
+                  "inchi_key": "IIGJYLXJNYBXEO-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": "2703032",
+                  "cmiles": "[H:7][C:1]([H:8])([H:9])[O:5][C:3]([H:13])([O:4][H:14])[O:6][C:2]([H:10])([H:11])[H:12]",
+                  "inchi_key": "IIGJYLXJNYBXEO-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": "2703402",
+                  "cmiles": "[H:6][C:2]([H:7])([H:8])[C:1](=[O:3])[O:5][O:4][H:9]",
+                  "inchi_key": "KFSLWBXXFJQRDL-UHFFFAOYNA-N"
+                }
+              ]
+            },
+            "provenance": {
+              "applied-filters": {
+                "ChargeCheckFilter-0": {},
+                "SMARTSFilter-1": {
+                  "smarts_to_include": null,
+                  "smarts_to_exclude": [
+                    "[#8+1:1]=[#7:2]",
+                    "[#15:1]=[#6:2]",
+                    "[#16+1:1]~[*:2]",
+                    "[*:1]=[#15:2]-[#7:3]~[*:4]",
+                    "[#17:1]~[#1:2]",
+                    "[#16-1:1]~[#15:2]",
+                    "[#7:1]=[#7:2]#[#7:3]",
+                    "[#16-1:1]~[#16:2]"
+                  ]
+                },
+                "SMILESFilter-2": {
+                  "smiles_to_include": null,
+                  "smiles_to_exclude": [
+                    "[S](=[N-])(=O)",
+                    "[H]C([H])(C#N)N=N#N",
+                    "O[O-]"
+                  ]
+                }
+              }
+            },
+            "type": "TorsionDriveResultCollection"
+          },
+          "calculation_specification": null,
+          "extras": {
+            "remote": "1"
+          },
+          "type": "TorsionProfile",
+          "attenuate_weights": true,
+          "energy_denominator": 1.0,
+          "energy_cutoff": 8.0
+        },
+        {
+          "weight": 0.01,
+          "reference_data": {
+            "entries": {
+              "https://api.qcarchive.molssi.org:443/": [
+                {
+                  "type": "optimization",
+                  "record_id": "18433006",
+                  "cmiles": "[H:17][c:1]1[c:2]([c:5]([c:9]([c:8]([c:4]1[H:20])[c:10]2[c:6]([c:3]([c:7]([c:11](=[O:15])[n:14]2[C:12]([H:24])([H:25])[H:26])[H:23])[H:19])[H:22])[O:16][C:13]([H:27])([H:28])[H:29])[H:21])[H:18]",
+                  "inchi_key": "ARUVJLXAYGHGPX-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": "18433007",
+                  "cmiles": "[H:17][c:1]1[c:2]([c:5]([c:9]([c:8]([c:4]1[H:20])[c:10]2[c:6]([c:3]([c:7]([c:11](=[O:15])[n:14]2[C:12]([H:24])([H:25])[H:26])[H:23])[H:19])[H:22])[O:16][C:13]([H:27])([H:28])[H:29])[H:21])[H:18]",
+                  "inchi_key": "ARUVJLXAYGHGPX-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": "95602245",
+                  "cmiles": "[H:16][c:2]1[c:1]([c:6]([c:5]([c:4]2[c:3]1[N:10]3[C:9](=[C:8]2[H:18])[C:14]([N+:13]([C:12]([C:11]3([H:19])[H:20])([H:21])[H:22])([H:23])[H:24])([H:25])[H:26])[H:17])[F:7])[H:15]",
+                  "inchi_key": "BQWBLSAUVGNJOQ-GVDJQSTKNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": "95602246",
+                  "cmiles": "[H:14][c:1]1[c:2]([c:3]([c:4]([c:5]([c:6]1[C@:7]2([C:9]([C:10]([N+:11]2([H:21])[H:22])([H:19])[H:20])([H:17])[H:18])[H:8])[H:16])[F:12])[F:13])[H:15]",
+                  "inchi_key": "HKVNWGNTUHFFFA-MMAMJCGJNA-O"
+                }
+              ]
+            },
+            "provenance": {
+              "applied-filters": {
+                "ChargeCheckFilter-0": {},
+                "SMARTSFilter-1": {
+                  "smarts_to_include": null,
+                  "smarts_to_exclude": [
+                    "[#8+1:1]=[#7:2]",
+                    "[#15:1]=[#6:2]",
+                    "[#16+1:1]~[*:2]",
+                    "[*:1]=[#15:2]-[#7:3]~[*:4]",
+                    "[#17:1]~[#1:2]",
+                    "[#16-1:1]~[#15:2]",
+                    "[#7:1]=[#7:2]#[#7:3]",
+                    "[#16-1:1]~[#16:2]"
+                  ]
+                },
+                "SMILESFilter-2": {
+                  "smiles_to_include": null,
+                  "smiles_to_exclude": [
+                    "[S](=[N-])(=O)",
+                    "[H]C([H])(C#N)N=N#N",
+                    "O[O-]"
+                  ]
+                }
+              }
+            },
+            "type": "OptimizationResultCollection"
+          },
+          "calculation_specification": null,
+          "extras": {
+            "batch_size": "30",
+            "remote": "1"
+          },
+          "type": "OptGeo",
+          "bond_denominator": 0.05,
+          "angle_denominator": 5.0,
+          "dihedral_denominator": 10.0,
+          "improper_denominator": 10.0
+        }
+      ]
+    }
+  ]
+}

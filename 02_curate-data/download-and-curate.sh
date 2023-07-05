@@ -2,7 +2,7 @@
 
 
 source ~/.bashrc
-micromamba activate fb-195-tk-014-py39
+micromamba activate fb-195-tk-014-py310
 
 python curate-dataset.py download-opt                                           \
     --core-opt-dataset          "OpenFF Gen 2 Opt Set 1 Roche"                      \

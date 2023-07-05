@@ -1,0 +1,30 @@
+name: fb-195-tk-014-py310
+channels:
+  - conda-forge
+  - openeye
+dependencies:
+  - python=3.10
+  # MM calculations
+  - openff-toolkit=0.14.0
+  - openeye-toolkits
+  - pymbar=3.1.0
+  - openff-forcefields
+  - openff-qcsubmit
+  - openff-bespokefit
+  - qcportal
+  - tqdm
+  - openmm 
+  - openmmforcefields
+  - conda-forge::libiconv
+  - ambertools
+  - qubekit
+  - forcebalance=1.9.5
+  - ndcctools
+  - cmiles
+  - geometric
+  - click
+  - jupyter
+  - black
+  - isort
+  - flake8 
+  - mamba

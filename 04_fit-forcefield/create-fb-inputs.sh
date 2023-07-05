@@ -2,7 +2,7 @@
 
 
 source ~/.bashrc
-micromamba activate fb-195-tk-014-py39
+micromamba activate fb-195-tk-014-py310
 
 
 python create-fb-inputs.py                                                                          \

@@ -4,6 +4,6 @@ In this directory we generate the initial force field to re-fit. If parameter SM
 
 The `generate_forcefield.py` script here is just a placeholder that should be replaced if the parameters are modified. It downloads a previous force field for re-fitting.
 
-```
-$ ./generate-forcefield.sh
+```bash
+./generate-forcefield.sh
 ```

@@ -2,13 +2,13 @@
 
 We use [ForceBalance](https://github.com/leeping/forcebalance) to fit our force fields. The script here generates all input files necessary for fitting.
 
-```
-$ ./create-fb-inputs.sh
+```bash
+./create-fb-inputs.sh
 ```
 
 Once all inputs are generated, you can run ForceBalance:
 
-```
+```bash
 conda activate fb-195-tk-014-py39
 cd fb-fit
 ForceBalance.py optimize.in

@@ -427,6 +427,7 @@ def download_td_data(
 ):
     """
     Download TorsionDrive data in stages.
+    \f
 
     1. Download the core datasets and filter out unsuitable entries.
     2. Download the auxiliary datasets and filter out unsuitable entries.
@@ -444,7 +445,6 @@ def download_td_data(
         - removing entries with unperceivable stereochemistry
         - removing entries with connectivity rearrangements
         - removing entries with iodine
-
 
     Parameters
     ----------
@@ -707,6 +707,7 @@ def download_opt_data(
 ):
     """Download and filter optimization datasets.
 
+    \f
     Parameters
     ----------
     core_opt_datasets

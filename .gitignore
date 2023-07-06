@@ -105,3 +105,4 @@ ENV/
 # mypy
 .mypy_cache/
 .DS_Store
+/02_curate-data/oe_license.txt

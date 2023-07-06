@@ -59,11 +59,11 @@ def check_torsion_is_in_ring(
     whether all bonds I-J, J-K, and K-L are in a ring.
 
     """
-    i, j, k, l = indices
+    i, j, k, m = indices
     return (
         molecule.get_bond_between(i, j).is_in_ring()
         and molecule.get_bond_between(j, k).is_in_ring()
-        and molecule.get_bond_between(k, l).is_in_ring()
+        and molecule.get_bond_between(k, m).is_in_ring()
     )
 
 
@@ -355,8 +355,8 @@ def cli():
     "--explicit-ring-torsions",
     type=click.Path(exists=True, dir_okay=False, file_okay=True),
     help=(
-        "The path to a file containing a list of parameter IDs that are ring torsions. "
-        "This should be a text file with one ID per line."
+        "The path to a file containing a list of parameter IDs that are "
+        "ring torsions. This should be a text file with one ID per line."
     ),
 )
 @click.option(
@@ -417,8 +417,8 @@ def cli():
     default=5,
     show_default=True,
     help=(
-        "The minimum number of records a parameter must have to be included in the "
-        "force field optimization."
+        "The minimum number of records a parameter must have to be included "
+        "in the force field optimization."
     ),
 )
 def download_td_data(
@@ -444,9 +444,10 @@ def download_td_data(
 
     1. Download the core datasets and filter out unsuitable entries.
     2. Download the auxiliary datasets and filter out unsuitable entries.
-    3. Cap the number of auxiliary torsions per parameter to a maximum of ``cap_size``.
-       This can be done by picking random torsions, or selecting those
-       with the least (``pick_light``) or most (``pick_heavy``) heavy atoms.
+    3. Cap the number of auxiliary torsions per parameter to a maximum
+       of ``cap_size``. This can be done by picking random torsions, or
+       selecting those with the least (``pick_light``) or most
+       (``pick_heavy``) heavy atoms.
     4. Add additional torsiondrive records from a file.
     5. Filter out duplicate torsiondrive records.
     6. Filter out molecules that fail AM1-BCC ELF10 charging. This step
@@ -538,8 +539,9 @@ def download_td_data(
     filtered_for_charge = new_dataset.filter(ChargeCheckFilter())
 
     if verbose:
+        n = filtered_for_charge.n_results
         print(
-            f"Number of entries after charge check: {filtered_for_charge.n_results}"
+            f"Number of entries after charge check: {n}"
         )
 
     with open(output_path, "w") as file:
@@ -701,8 +703,8 @@ def download_and_filter_opt_data(
     default=5,
     show_default=True,
     help=(
-        "The minimum number of records a parameter must have to be included in the "
-        "force field optimization."
+        "The minimum number of records a parameter must have to be included "
+        "in the force field optimization."
     ),
 )
 def download_opt_data(
@@ -768,8 +770,9 @@ def download_opt_data(
 
     filtered_for_charge = new_dataset.filter(ChargeCheckFilter())
     if verbose:
+        n = filtered_for_charge.n_results
         print(
-            f"Number of entries after charge check: {filtered_for_charge.n_results}"
+            f"Number of entries after charge check: {n}"
         )
 
     with open(output_path, "w") as file:

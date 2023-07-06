@@ -659,7 +659,6 @@ def download_and_filter_opt_data(
     "--iodine-opt-dataset",
     "iodine_opt_datasets",
     multiple=True,
-    required=True,
     type=str,
     help=(
         "The name of an optimization dataset to download. "
@@ -748,17 +747,24 @@ def download_opt_data(
     )
     if verbose:
         print(f"Number of filtered core entries: {core_dataset.n_results}")
-    iodine_dataset = download_and_filter_opt_data(
-        iodine_opt_datasets,
-        opt_records_to_remove,
-        include_iodine=True,
-        max_opt_conformers=max_opt_conformers,
-    )
-    if verbose:
-        print(f"Number of filtered aux entries: {iodine_dataset.n_results}")
 
     key = list(core_dataset.entries.keys())[0]
-    all_entries = core_dataset.entries[key] + iodine_dataset.entries[key]
+
+    if iodine_opt_datasets:
+        iodine_dataset = download_and_filter_opt_data(
+            iodine_opt_datasets,
+            opt_records_to_remove,
+            include_iodine=True,
+            max_opt_conformers=max_opt_conformers,
+        )
+        if verbose:
+            print(
+                f"Number of filtered aux entries: {iodine_dataset.n_results}"
+            )
+
+        all_entries = core_dataset.entries[key] + iodine_dataset.entries[key]
+    else:
+        all_entries = core_dataset.entries[key]
 
     # filter in case we have doubled up records
     unique_entries = {record.record_id: record for record in all_entries}

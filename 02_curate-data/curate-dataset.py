@@ -25,7 +25,9 @@ class ChargeCheckFilter(ResultRecordFilter):
     def _filter_function(self, result, record, molecule) -> bool:
         from tempfile import NamedTemporaryFile
         from openff.toolkit import Molecule
-        from openff.toolkit.utils.exceptions import UnassignedMoleculeChargeException
+        from openff.toolkit.utils.exceptions import (
+            UnassignedMoleculeChargeException,
+        )
 
         # Some of the molecules fail charging with am1bccelf10 either
         # because of no bccs or failed conformer generation, sometimes it
@@ -36,7 +38,9 @@ class ChargeCheckFilter(ResultRecordFilter):
             with NamedTemporaryFile(suffix=".sdf") as file:
                 molecule.to_file(file.name, "SDF")
                 molecule = Molecule.from_file(file.name)
-                molecule.assign_partial_charges(partial_charge_method="am1bccelf10")
+                molecule.assign_partial_charges(
+                    partial_charge_method="am1bccelf10"
+                )
 
         except (UnassignedMoleculeChargeException, ValueError):
             can_be_charged = False
@@ -104,7 +108,9 @@ def label_and_tag_ids(
                     if check_torsion_is_in_ring(molecule, indices):
                         continue
 
-            n_heavy_atoms = sum(1 for atom in molecule.atoms if atom.atomic_number != 1)
+            n_heavy_atoms = sum(
+                1 for atom in molecule.atoms if atom.atomic_number != 1
+            )
             parameter_ids.add((parameter.id, record.id, n_heavy_atoms))
     return parameter_ids
 
@@ -117,7 +123,9 @@ def get_parameter_distribution(
     force_field: "ForceField",
     explicit_ring_torsions: typing.Optional[str] = None,
     n_processes: int = 4,
-) -> typing.Tuple[Counter, typing.Dict[str, typing.List[typing.Tuple[int, str]]]]:
+) -> typing.Tuple[
+    Counter, typing.Dict[str, typing.List[typing.Tuple[int, str]]]
+]:
     coverage = Counter()
     parameter_records = defaultdict(list)
 
@@ -134,7 +142,9 @@ def get_parameter_distribution(
         ):
             for parameter_id, record_id, n_heavy_atoms in parameter_ids:
                 coverage[parameter_id] += 1
-                parameter_records[parameter_id].append((n_heavy_atoms, record_id))
+                parameter_records[parameter_id].append(
+                    (n_heavy_atoms, record_id)
+                )
 
     return coverage, dict(parameter_records)
 
@@ -144,7 +154,9 @@ def cap_torsions_per_parameter(
     dataset: "TorsionDriveResultCollection",
     cap_size: int = 5,
     explicit_ring_torsions: typing.Optional[str] = None,
-    method: typing.Literal["pick_random", "pick_heavy", "pick_light"] = "pick_random",
+    method: typing.Literal[
+        "pick_random", "pick_heavy", "pick_light"
+    ] = "pick_random",
     verbose: bool = True,
     n_processes: int = 4,
 ):
@@ -162,11 +174,15 @@ def cap_torsions_per_parameter(
         else:
             if method == "pick_heavy":
                 n_atom_records = sorted(
-                    parameter_records[parameter_id], key=lambda x: x[0], reverse=True
+                    parameter_records[parameter_id],
+                    key=lambda x: x[0],
+                    reverse=True,
                 )[:cap_size]
             elif method == "pick_light":
                 n_atom_records = sorted(
-                    parameter_records[parameter_id], key=lambda x: x[0], reverse=False
+                    parameter_records[parameter_id],
+                    key=lambda x: x[0],
+                    reverse=False,
                 )[:cap_size]
             elif method == "pick_random":
                 n_atom_records = random.sample(
@@ -185,14 +201,18 @@ def cap_torsions_per_parameter(
             )
 
     ids_to_keep = [
-        record_id for record_ids in records_to_keep.values() for record_id in record_ids
+        record_id
+        for record_ids in records_to_keep.values()
+        for record_id in record_ids
     ]
     print(f"Total records: {dataset.n_results}")
     print(f"Total records to keep: {len(ids_to_keep)}")
 
     key = list(dataset.entries.keys())[0]
     dataset.entries[key] = [
-        record for record in dataset.entries[key] if record.record_id in ids_to_keep
+        record
+        for record in dataset.entries[key]
+        if record.record_id in ids_to_keep
     ]
     return dataset
 
@@ -505,7 +525,9 @@ def download_td_data(
 
     key = list(core_dataset.entries.keys())[0]
     all_entries = (
-        core_dataset.entries[key] + aux_dataset.entries[key] + additional_records
+        core_dataset.entries[key]
+        + aux_dataset.entries[key]
+        + additional_records
     )
 
     # filter in case we have doubled up records
@@ -516,7 +538,9 @@ def download_td_data(
     filtered_for_charge = new_dataset.filter(ChargeCheckFilter())
 
     if verbose:
-        print(f"Number of entries after charge check: {filtered_for_charge.n_results}")
+        print(
+            f"Number of entries after charge check: {filtered_for_charge.n_results}"
+        )
 
     with open(output_path, "w") as file:
         file.write(filtered_for_charge.json(indent=2))
@@ -744,7 +768,9 @@ def download_opt_data(
 
     filtered_for_charge = new_dataset.filter(ChargeCheckFilter())
     if verbose:
-        print(f"Number of entries after charge check: {filtered_for_charge.n_results}")
+        print(
+            f"Number of entries after charge check: {filtered_for_charge.n_results}"
+        )
 
     with open(output_path, "w") as file:
         file.write(filtered_for_charge.json(indent=2))

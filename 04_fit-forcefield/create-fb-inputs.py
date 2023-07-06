@@ -258,7 +258,7 @@ def generate(
             BondSMIRKS(smirks=smirks, attributes={"k", "length"})
         )
 
-    ff = ForceField(forcefield)
+    ff = ForceField(forcefield, allow_cosmetic_attributes=True)
 
     torsion_handler = ff.get_parameter_handler("ProperTorsions")
     for smirks in torsion_smirks["ProperTorsions"]:
@@ -300,7 +300,10 @@ def generate(
     ForceBalanceInputFactory.generate(
         os.path.join(optimization_schema.id),
         optimization_schema.stages[0],
-        ForceField(optimization_schema.initial_force_field),
+        ForceField(
+            optimization_schema.initial_force_field,
+            allow_cosmetic_attributes=True,
+        ),
     )
 
 

@@ -1,10 +1,5 @@
 #!/bin/bash
 
-
-source ~/.bashrc
-micromamba activate fb-195-tk-014-py310
-
-
 python create-fb-inputs.py                                                                          \
     --tag                       "fb-fit"                                                            \
     --optimization-dataset      "../02_curate-data/output/optimization-training-set.json"           \

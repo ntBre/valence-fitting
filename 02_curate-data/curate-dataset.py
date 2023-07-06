@@ -338,7 +338,6 @@ def cli():
     "--aux-td-dataset",
     "aux_td_datasets",
     multiple=True,
-    required=True,
     type=str,
     help="The name of a torsiondrive dataset to download.",
 )
@@ -500,20 +499,27 @@ def download_td_data(
     )
     if verbose:
         print(f"Number of core entries: {core_dataset.n_results}")
-    aux_dataset = download_and_filter_td_data(
-        aux_td_datasets,
-        td_records_to_remove,
-        include_iodine=False,
-    )
-    aux_dataset = cap_torsions_per_parameter(
-        ff,
-        aux_dataset,
-        cap_size=cap_size,
-        method=cap_method,
-        explicit_ring_torsions=explicit_ring_torsions,
-        verbose=verbose,
-        n_processes=n_processes,
-    )
+
+    key = list(core_dataset.entries.keys())[0]
+
+    if aux_td_datasets:
+        aux_dataset = download_and_filter_td_data(
+            aux_td_datasets,
+            td_records_to_remove,
+            include_iodine=False,
+        )
+        aux_dataset = cap_torsions_per_parameter(
+            ff,
+            aux_dataset,
+            cap_size=cap_size,
+            method=cap_method,
+            explicit_ring_torsions=explicit_ring_torsions,
+            verbose=verbose,
+            n_processes=n_processes,
+        )
+        aux_records = aux_dataset.entries[key]
+    else:
+        aux_records = []
 
     if additional_td_records is not None:
         additional_records = list(
@@ -524,12 +530,7 @@ def download_td_data(
     else:
         additional_records = []
 
-    key = list(core_dataset.entries.keys())[0]
-    all_entries = (
-        core_dataset.entries[key]
-        + aux_dataset.entries[key]
-        + additional_records
-    )
+    all_entries = core_dataset.entries[key] + aux_records + additional_records
 
     # filter in case we have doubled up records
     unique_entries = {record.record_id: record for record in all_entries}

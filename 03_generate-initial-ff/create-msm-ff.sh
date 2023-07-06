@@ -1,9 +1,6 @@
 #!/bin/bash
 
-
-source ~/.bashrc
-micromamba activate fb-195-tk-014-py310
-
+set -e
 
 python create-msm-ff.py                                                                                     \
     --initial-force-field       "../01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml"  \

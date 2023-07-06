@@ -11,7 +11,7 @@ def load_training_data(
     torsion_dataset: str,
     smarts_to_exclude: typing.Optional[str] = None,
     smiles_to_exclude: typing.Optional[str] = None,
-    verbose: bool = False
+    verbose: bool = False,
 ):
     from openff.qcsubmit.results import (
         OptimizationResultCollection,
@@ -23,37 +23,48 @@ def load_training_data(
     )
 
     if smarts_to_exclude is not None:
-        exclude_smarts = pathlib.Path(smarts_to_exclude).read_text().splitlines()
+        exclude_smarts = (
+            pathlib.Path(smarts_to_exclude).read_text().splitlines()
+        )
     else:
         exclude_smarts = []
-    
+
     if smiles_to_exclude is not None:
-        exclude_smiles = pathlib.Path(smiles_to_exclude).read_text().splitlines()
+        exclude_smiles = (
+            pathlib.Path(smiles_to_exclude).read_text().splitlines()
+        )
     else:
         exclude_smiles = []
 
-    torsion_training_set = TorsionDriveResultCollection.parse_file(torsion_dataset)
+    torsion_training_set = TorsionDriveResultCollection.parse_file(
+        torsion_dataset
+    )
     if verbose:
-        print(f"Loaded torsion training set with {torsion_training_set.n_results} entries.")
-    
+        n = torsion_training_set.n_results
+        print(f"Loaded torsion training set with {n} entries.")
+
     torsion_training_set = torsion_training_set.filter(
         SMARTSFilter(smarts_to_exclude=exclude_smarts),
         SMILESFilter(smiles_to_exclude=exclude_smiles),
     )
-    
+
     if verbose:
-        print(f"Filtered torsion training set to {torsion_training_set.n_results} entries.")
-    
-    optimization_training_set = OptimizationResultCollection.parse_file(optimization_dataset)
+        n = torsion_training_set.n_results
+        print(f"Filtered torsion training set to {n} entries.")
+
+    optimization_training_set = OptimizationResultCollection.parse_file(
+        optimization_dataset
+    )
     if verbose:
-        print(f"Loaded optimization training set with {optimization_training_set.n_results} entries.")
+        n = optimization_training_set.n_results
+        print(f"Loaded optimization training set with {n} entries.")
     optimization_training_set = optimization_training_set.filter(
         SMARTSFilter(smarts_to_exclude=exclude_smarts),
         SMILESFilter(smiles_to_exclude=exclude_smiles),
     )
     if verbose:
-        print(f"Filtered optimization training set to {optimization_training_set.n_results} entries.")
-
+        n = optimization_training_set.n_results
+        print(f"Filtered optimization training set to {n} entries.")
 
     return torsion_training_set, optimization_training_set
 
@@ -154,11 +165,15 @@ def generate(
     verbose: bool = False,
     max_iterations: int = 50,
     port: int = 55387,
-
 ):
     from openff.toolkit import ForceField
-    from openff.bespokefit.optimizers.forcebalance import ForceBalanceInputFactory
-    from openff.bespokefit.schema.fitting import OptimizationSchema, OptimizationStageSchema
+    from openff.bespokefit.optimizers.forcebalance import (
+        ForceBalanceInputFactory,
+    )
+    from openff.bespokefit.schema.fitting import (
+        OptimizationSchema,
+        OptimizationStageSchema,
+    )
     from openff.bespokefit.schema.optimizers import ForceBalanceSchema
     from openff.bespokefit.schema.targets import (
         OptGeoTargetSchema,
@@ -179,7 +194,7 @@ def generate(
         torsion_dataset=torsion_dataset,
         smarts_to_exclude=smarts_to_exclude,
         smiles_to_exclude=smiles_to_exclude,
-        verbose=verbose
+        verbose=verbose,
     )
 
     optimizer = ForceBalanceSchema(
@@ -237,10 +252,12 @@ def generate(
         else:
             parameter = AngleSMIRKS(smirks=smirks, attributes={"k", "angle"})
         target_parameters.append(parameter)
-    
+
     for smirks in valence_smirks["Bonds"]:
-        target_parameters.append(BondSMIRKS(smirks=smirks, attributes={"k", "length"}))
-    
+        target_parameters.append(
+            BondSMIRKS(smirks=smirks, attributes={"k", "length"})
+        )
+
     ff = ForceField(forcefield)
 
     torsion_handler = ff.get_parameter_handler("ProperTorsions")
@@ -248,10 +265,7 @@ def generate(
         original_k = torsion_handler.parameters[smirks].k
         attributes = {f"k{i + 1}" for i in range(len(original_k))}
         target_parameters.append(
-            ProperTorsionSMIRKS(
-            smirks=smirks,
-            attributes=attributes
-            )
+            ProperTorsionSMIRKS(smirks=smirks, attributes=attributes)
         )
 
     optimization_schema = OptimizationSchema(
@@ -269,7 +283,7 @@ def generate(
                     ImproperTorsionHyperparameters(priors={"k": 5}),
                 ],
             )
-        ]
+        ],
     )
 
     output_directory = pathlib.Path(output_directory)
@@ -288,7 +302,6 @@ def generate(
         optimization_schema.stages[0],
         ForceField(optimization_schema.initial_force_field),
     )
-
 
 
 if __name__ == "__main__":

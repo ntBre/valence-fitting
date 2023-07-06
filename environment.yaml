@@ -13,7 +13,7 @@ dependencies:
   - openff-bespokefit
   - qcportal
   - tqdm
-  - openmm 
+  - openmm
   - openmmforcefields
   - conda-forge::libiconv
   - ambertools
@@ -26,5 +26,5 @@ dependencies:
   - jupyter
   - black
   - isort
-  - flake8 
+  - flake8
   - mamba

@@ -540,9 +540,7 @@ def download_td_data(
 
     if verbose:
         n = filtered_for_charge.n_results
-        print(
-            f"Number of entries after charge check: {n}"
-        )
+        print(f"Number of entries after charge check: {n}")
 
     with open(output_path, "w") as file:
         file.write(filtered_for_charge.json(indent=2))
@@ -771,9 +769,7 @@ def download_opt_data(
     filtered_for_charge = new_dataset.filter(ChargeCheckFilter())
     if verbose:
         n = filtered_for_charge.n_results
-        print(
-            f"Number of entries after charge check: {n}"
-        )
+        print(f"Number of entries after charge check: {n}")
 
     with open(output_path, "w") as file:
         file.write(filtered_for_charge.json(indent=2))

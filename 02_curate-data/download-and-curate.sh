@@ -4,7 +4,7 @@ set -e
 
 init_ff="../01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml"
 
-python curate-dataset.py download-opt                                                  \
+python curate_dataset.py download-opt                                                  \
     --core-opt-dataset          "OpenFF multiplicity correction optimization set v1.0" \
     --initial-forcefield        $init_ff                                               \
     --max-opt-conformers        12                                                     \
@@ -14,7 +14,7 @@ python curate-dataset.py download-opt                                           
     --output-parameter-smirks   "output/pavan-opt-smirks.json"                         \
     --verbose
 
-python curate-dataset.py download-td                                                     \
+python curate_dataset.py download-td                                                     \
     --core-td-dataset           "OpenFF multiplicity correction torsion drive data v1.1" \
     --initial-forcefield        $init_ff                                                 \
     --n-processes               8                                                        \

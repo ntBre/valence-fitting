@@ -106,3 +106,4 @@ ENV/
 .mypy_cache/
 .DS_Store
 **/oe_license.txt
+/04_fit-forcefield/fb-fit/targets/*

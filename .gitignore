@@ -107,3 +107,7 @@ ENV/
 .DS_Store
 **/oe_license.txt
 /04_fit-forcefield/fb-fit/targets/*
+03_generate-initial-ff/Modified_Seminario_Angles.txt
+03_generate-initial-ff/Modified_Seminario_Bonds.txt
+04_fit-forcefield/fb-fit/fb.out
+04_fit-forcefield/fb-fit/no17.out

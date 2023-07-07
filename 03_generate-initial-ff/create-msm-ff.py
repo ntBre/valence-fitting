@@ -10,11 +10,11 @@ import tqdm
 
 if typing.TYPE_CHECKING:
     from openff.toolkit import Molecule, ForceField
-    from qcportal.models import OptimizationRecord
+    from qcportal.models import ResultRecord
 
 
 def calculate_parameters(
-    qc_record: "OptimizationRecord",
+    qc_record: "ResultRecord",
     molecule: "Molecule",
     forcefield: "ForceField",
 ) -> typing.Dict[str, typing.Dict[str, typing.List[unit.Quantity]]]:
@@ -60,7 +60,7 @@ def calculate_parameters(
 @click.command()
 @click.option(
     "--initial-force-field",
-    type=click.Path(exists=True, dir_okay=False, file_okay=True),
+    type=click.Path(exists=False, dir_okay=False, file_okay=True),
     required=True,
     help="The path to the initial force field file (OFFXML).",
 )
@@ -99,7 +99,10 @@ def main(
     verbose: bool = False,
 ):
     from openff.toolkit import ForceField
-    from openff.qcsubmit.results import OptimizationResultCollection
+    from openff.qcsubmit.results import (
+        BasicResultCollection,
+        OptimizationResultCollection,
+    )
     from openff.qcsubmit.results.filters import LowestEnergyFilter
 
     dataset = OptimizationResultCollection.parse_file(optimization_dataset)
@@ -114,11 +117,12 @@ def main(
         hessian_file = os.path.join(working_directory, "hessian_set.json")
         with open(hessian_file, "w") as f:
             f.write(hessian_set.json(indent=2))
-        print(f"Hessian set written to: {hessian_file}")
+        if verbose:
+            print(f"Hessian set written to: {hessian_file}")
 
     if verbose:
-        print(f"Found {len(hessian_set.n_results)} hessian calculations")
-        print(f"Found {len(hessian_set.n_molecules)} hessian molecules")
+        print(f"Found {hessian_set.n_results} hessian calculations")
+        print(f"Found {hessian_set.n_molecules} hessian molecules")
 
     ff = ForceField(initial_force_field, allow_cosmetic_attributes=True)
 
@@ -139,7 +143,7 @@ def main(
     for record, molecule in records_and_molecules:
         try:
             parameters = calculate_parameters(record, molecule, ff)
-        except KeyError:
+        except BaseException:
             errored_records_and_molecules.append((record, molecule))
             continue
         else:
@@ -160,10 +164,16 @@ def main(
         )
     if working_directory is not None:
         if len(errored_records_and_molecules):
-            records, _ = zip(*errored_records_and_molecules)
             key = list(dataset.entries.keys())[0]
-            errored_dataset = OptimizationResultCollection(
-                entries={key: records}
+            opt_records_by_id = {
+                record.record_id: record for record in hessian_set.entries[key]
+            }
+            records, _ = zip(*errored_records_and_molecules)
+            errored_records = [
+                opt_records_by_id[record.id] for record in records
+            ]
+            errored_dataset = BasicResultCollection(
+                entries={key: errored_records}
             )
             error_file = os.path.join(
                 working_directory, "errored_dataset.json"

@@ -122,8 +122,8 @@ def main(
             print(f"Hessian set written to: {hessian_file}")
     
     if verbose:
-        print(f"Found {len(hessian_set.n_results)} hessian calculations")
-        print(f"Found {len(hessian_set.n_molecules)} hessian molecules")
+        print(f"Found {hessian_set.n_results} hessian calculations")
+        print(f"Found {hessian_set.n_molecules} hessian molecules")
 
     ff = ForceField(initial_force_field, allow_cosmetic_attributes=True)
 

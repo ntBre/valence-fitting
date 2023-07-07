@@ -1,5 +1,4 @@
 from collections import defaultdict
-import logging
 import os
 import json
 import typing
@@ -11,7 +10,7 @@ import tqdm
 
 if typing.TYPE_CHECKING:
     from openff.toolkit import Molecule, ForceField
-    from qcportal.models import OptimizationRecord, ResultRecord
+    from qcportal.models import ResultRecord
 
 
 def calculate_parameters(
@@ -35,7 +34,8 @@ def calculate_parameters(
     qube_mol = mod_sem.run(qube_mol)
     # label the openff molecule
     labels = forcefield.label_molecules(molecule.to_topology())[0]
-    # loop over all bonds and angles and collect the results in nm/ kj/mol / radians(openMM units)
+    # loop over all bonds and angles and collect the results in
+    # nm/ kj/mol / radians(openMM units)
     all_parameters = {
         "bond_eq": defaultdict(list),
         "bond_k": defaultdict(list),
@@ -43,18 +43,17 @@ def calculate_parameters(
         "angle_k": defaultdict(list),
     }
 
-
     for bond, parameter in labels["Bonds"].items():
         # bond is a tuple of the atom index the parameter is applied to
         qube_param = qube_mol.BondForce[bond]
         all_parameters["bond_eq"][parameter.smirks].append(qube_param.length)
         all_parameters["bond_k"][parameter.smirks].append(qube_param.k)
-        
+
     for angle, parameter in labels["Angles"].items():
         qube_param = qube_mol.AngleForce[angle]
         all_parameters["angle_eq"][parameter.smirks].append(qube_param.angle)
         all_parameters["angle_k"][parameter.smirks].append(qube_param.k)
-        
+
     return all_parameters
 
 
@@ -97,12 +96,12 @@ def main(
     output_force_field: str,
     optimization_dataset: str,
     working_directory: typing.Optional[str] = None,
-    verbose: bool = False
+    verbose: bool = False,
 ):
     from openff.toolkit import ForceField
     from openff.qcsubmit.results import (
         BasicResultCollection,
-        OptimizationResultCollection
+        OptimizationResultCollection,
     )
     from openff.qcsubmit.results.filters import LowestEnergyFilter
 
@@ -120,7 +119,7 @@ def main(
             f.write(hessian_set.json(indent=2))
         if verbose:
             print(f"Hessian set written to: {hessian_file}")
-    
+
     if verbose:
         print(f"Found {hessian_set.n_results} hessian calculations")
         print(f"Found {hessian_set.n_molecules} hessian molecules")
@@ -151,51 +150,54 @@ def main(
             for key, values in parameters.items():
                 for smirks, value in values.items():
                     all_parameters[key][smirks].extend(value)
-    
+
     if working_directory is not None:
-        seminario_file = os.path.join(working_directory, "seminario_parameters.json")
+        seminario_file = os.path.join(
+            working_directory, "seminario_parameters.json"
+        )
         with open(seminario_file, "w") as file:
             json.dump(all_parameters, file, indent=2)
 
     if verbose:
-        print(f"Found {len(errored_records_and_molecules)} errored calculations")
+        print(
+            f"Found {len(errored_records_and_molecules)} errored calculations"
+        )
     if working_directory is not None:
         if len(errored_records_and_molecules):
             key = list(dataset.entries.keys())[0]
             opt_records_by_id = {
-                record.record_id: record
-                for record in hessian_set.entries[key]
+                record.record_id: record for record in hessian_set.entries[key]
             }
             records, _ = zip(*errored_records_and_molecules)
             errored_records = [
-                opt_records_by_id[record.id]
-                for record in records
+                opt_records_by_id[record.id] for record in records
             ]
             errored_dataset = BasicResultCollection(
-                entries={
-                    key: errored_records
-                }
+                entries={key: errored_records}
             )
-            error_file = os.path.join(working_directory, "errored_dataset.json")
+            error_file = os.path.join(
+                working_directory, "errored_dataset.json"
+            )
             with open(error_file, "w") as f:
                 f.write(errored_dataset.json(indent=2))
             if verbose:
                 print(f"Errored dataset written to: {error_file}")
-    
 
     # now we need to update the FF parameters
-    kj_per_mol_per_nm2 = unit.kilojoule_per_mole / unit.nanometer ** 2
+    kj_per_mol_per_nm2 = unit.kilojoule_per_mole / unit.nanometer**2
     bond_handler = ff.get_parameter_handler("Bonds")
     for smirks in all_parameters["bond_eq"]:
         bond = bond_handler.parameters[smirks]
 
-        bond_length = np.mean(all_parameters["bond_eq"][smirks]) * unit.nanometer
+        bond_length = (
+            np.mean(all_parameters["bond_eq"][smirks]) * unit.nanometer
+        )
         bond.length = bond_length.to(unit.angstrom)
 
         bond_k = np.mean(all_parameters["bond_k"][smirks]) * kj_per_mol_per_nm2
-        bond.k = bond_k.to(unit.kilocalorie_per_mole / (unit.angstrom ** 2))
+        bond.k = bond_k.to(unit.kilocalorie_per_mole / (unit.angstrom**2))
 
-    kj_per_mol_per_rad2 = unit.kilojoule_per_mole / (unit.radian ** 2)
+    kj_per_mol_per_rad2 = unit.kilojoule_per_mole / (unit.radian**2)
     angle_handler = ff.get_parameter_handler("Angles")
     for smirks in all_parameters["angle_eq"]:
         angle = angle_handler.parameters[smirks]
@@ -203,11 +205,12 @@ def main(
         angle_eq = np.mean(all_parameters["angle_eq"][smirks]) * unit.radian
         angle.angle = angle_eq.to(unit.degree)
 
-        angle_k = np.mean(all_parameters["angle_k"][smirks]) * kj_per_mol_per_rad2
-        angle.k = angle_k.to(unit.kilocalorie_per_mole / unit.radian ** 2)
-    
-    ff.to_file(output_force_field)
+        angle_k = (
+            np.mean(all_parameters["angle_k"][smirks]) * kj_per_mol_per_rad2
+        )
+        angle.k = angle_k.to(unit.kilocalorie_per_mole / unit.radian**2)
 
+    ff.to_file(output_force_field)
 
 
 if __name__ == "__main__":

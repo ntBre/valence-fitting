@@ -53,11 +53,6 @@ def combine_td(ff):
         json.dump(selected_parameters, file, indent=2)
 
 
-ff = ForceField(
-    "../01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml"
-)
-
-
 def combine_opt(ff):
     base = "/home/brent/omsf/clone/sage-2.1.0/inputs-and-outputs/data-sets/"
     sage_td = TorsionDriveResultCollection.parse_file(
@@ -88,7 +83,8 @@ def combine_opt(ff):
 
 
 ff = ForceField(
-    "../01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml"
+    "../01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml",
+    allow_cosmetic_attributes=True,
 )
 
 combine_td(ff)

@@ -1,25 +1,33 @@
 # Combine the sage 2.1 dataset with Pavan's
 
-from openff.qcsubmit.results import TorsionDriveResultCollection
+from openff.qcsubmit.results import (
+    TorsionDriveResultCollection,
+    OptimizationResultCollection,
+)
 from openff.toolkit import ForceField
 from curate_dataset import select_parameters
 import numpy as np
 import json
+import typing
+
+Output: typing.TypeAlias = typing.Union[
+    "TorsionDriveResultCollection", "OptimizationResultCollection"
+]
 
 
-def combine_datasets(
-    d1: TorsionDriveResultCollection, d2: TorsionDriveResultCollection
-) -> TorsionDriveResultCollection:
+def combine_datasets(d1: Output, d2: Output) -> Output:
     "Combine `d1` and `d2` and filter the resulting collection for duplicates"
     key = list(d1.entries.keys())[0]
 
     all_entries = d1.entries[key] + d2.entries[key]
 
+    output_type = type(d1)
+
+    assert output_type == type(d2)
+
     # filter duplicates
     unique = {record.record_id: record for record in all_entries}
-    new_dataset = TorsionDriveResultCollection(
-        entries={key: list(unique.values())}
-    )
+    new_dataset = (output_type)(entries={key: list(unique.values())})
 
     return new_dataset
 
@@ -55,11 +63,11 @@ def combine_td(ff):
 
 def combine_opt(ff):
     base = "/home/brent/omsf/clone/sage-2.1.0/inputs-and-outputs/data-sets/"
-    sage_td = TorsionDriveResultCollection.parse_file(
+    sage_td = OptimizationResultCollection.parse_file(
         base + "opt-set-for-fitting-2.1.0.json"
     )
 
-    pavan_td = TorsionDriveResultCollection.parse_file(
+    pavan_td = OptimizationResultCollection.parse_file(
         "output/pavan-opt-training-set.json"
     )
 

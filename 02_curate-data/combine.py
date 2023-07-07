@@ -76,15 +76,10 @@ def combine_opt(ff):
     with open("output/combined-opt.json", "w") as out:
         out.write(combined_td.json(indent=2))
 
-    explicit_ring_torsions = np.loadtxt(
-        "explicit_ring_torsions.dat", dtype=str
-    )
-
     selected_parameters = select_parameters(
         combined_td,
-        ["ProperTorsions"],
+        ["Bonds", "Angles"],
         force_field=ff,
-        explicit_ring_torsions=explicit_ring_torsions,
     )
     with open("output/combined-opt-smirks.json", "w") as file:
         json.dump(selected_parameters, file, indent=2)

@@ -44,7 +44,8 @@ def check_coverage(
         print(f"{i:5}{id:>7}   {smirk}")
 
 
-if len(argv) > 1:
-    check_coverage(argv[1])
-else:
-    check_coverage()
+if __name__ == "__main__":
+    if len(argv) > 1:
+        check_coverage(argv[1])
+    else:
+        check_coverage()

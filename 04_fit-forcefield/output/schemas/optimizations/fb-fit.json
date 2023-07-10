@@ -60,6 +60,15 @@
         },
         {
           "type": "Angles",
+          "smirks": "[*:1]-[#8:2]-[*:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
           "smirks": "[#1:1]-[#6X4:2]-[#1:3]",
           "attributes": [
             "angle",
@@ -70,15 +79,6 @@
         {
           "type": "Angles",
           "smirks": "[*:1]~[#7X3$(*~[#6X3,#6X2,#7X2+0]):2]~[*:3]",
-          "attributes": [
-            "angle",
-            "k"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[*:1]-[#8:2]-[*:3]",
           "attributes": [
             "angle",
             "k"
@@ -114,15 +114,6 @@
         },
         {
           "type": "Angles",
-          "smirks": "[#6X3:1]-[#16X2:2]-[#6X3:3]",
-          "attributes": [
-            "angle",
-            "k"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
           "smirks": "[*:1]~[#16X4:2]~[*:3]",
           "attributes": [
             "angle",
@@ -142,6 +133,15 @@
         {
           "type": "Angles",
           "smirks": "[*:1]~;!@[*;X3;r5:2]~;@[*;r5:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[#6X3:1]-[#16X2:2]-[#6X3:3]",
           "attributes": [
             "angle",
             "k"
@@ -177,7 +177,7 @@
         },
         {
           "type": "Angles",
-          "smirks": "[*;r3:1]~;@[*;r3:2]~;!@[*:3]",
+          "smirks": "[*;r3:1]1~;@[*;r3:2]~;@[*;r3:3]1",
           "attributes": [
             "angle",
             "k"
@@ -186,7 +186,7 @@
         },
         {
           "type": "Angles",
-          "smirks": "[*;r3:1]1~;@[*;r3:2]~;@[*;r3:3]1",
+          "smirks": "[*;r3:1]~;@[*;r3:2]~;!@[*:3]",
           "attributes": [
             "angle",
             "k"
@@ -222,7 +222,7 @@
         },
         {
           "type": "Angles",
-          "smirks": "[#6r4:1]-;@[#6r4:2]-;@[#6r4:3]",
+          "smirks": "[!#1:1]-[#6r4:2]-;!@[!#1:3]",
           "attributes": [
             "angle",
             "k"
@@ -231,7 +231,7 @@
         },
         {
           "type": "Angles",
-          "smirks": "[!#1:1]-[#6r4:2]-;!@[!#1:3]",
+          "smirks": "[#6r4:1]-;@[#6r4:2]-;@[#6r4:3]",
           "attributes": [
             "angle",
             "k"
@@ -329,7 +329,7 @@
         },
         {
           "type": "Angles",
-          "smirks": "[*:1]~[#16X2,#16X3+1:2]~[*:3]",
+          "smirks": "[*:1]~[#7X2+0:2]~[#6X2:3](~[#16X1])",
           "attributes": [
             "angle",
             "k"
@@ -338,7 +338,7 @@
         },
         {
           "type": "Angles",
-          "smirks": "[*:1]~[#7X2+0:2]~[#6X2:3](~[#16X1])",
+          "smirks": "[*:1]~[#16X2,#16X3+1:2]~[*:3]",
           "attributes": [
             "angle",
             "k"
@@ -381,24 +381,6 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X4:1]-[#7X3:2]-[#6X3]=[#8X1+0]",
-          "attributes": [
-            "k",
-            "length"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
-          "smirks": "[#6X3:1]-[#6X3:2]",
-          "attributes": [
-            "k",
-            "length"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
           "smirks": "[#6X4:1]-[#8X2H0:2]",
           "attributes": [
             "k",
@@ -417,7 +399,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X3:1](=[#8X1+0])-[#7X3:2]",
+          "smirks": "[#6X3:1]-[#7X3:2]",
           "attributes": [
             "k",
             "length"
@@ -435,7 +417,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X4:1]-[#1:2]",
+          "smirks": "[#6X3:1](=[#8X1+0])-[#7X3:2]",
           "attributes": [
             "k",
             "length"
@@ -453,16 +435,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X3:1]:[#6X3:2]",
-          "attributes": [
-            "k",
-            "length"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
-          "smirks": "[#6X3:1]-[#7X3:2]",
+          "smirks": "[#6X3:1]-[#6X3:2]",
           "attributes": [
             "k",
             "length"
@@ -480,7 +453,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#7:1]-[#1:2]",
+          "smirks": "[#6X4:1]-[#1:2]",
           "attributes": [
             "k",
             "length"
@@ -489,7 +462,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6:1]-[#7:2]",
+          "smirks": "[#6X3:1]:[#6X3:2]",
           "attributes": [
             "k",
             "length"
@@ -498,7 +471,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X4:1]-[#6X3:2]",
+          "smirks": "[#6X4:1]-[#7X3:2]-[#6X3]=[#8X1+0]",
           "attributes": [
             "k",
             "length"
@@ -516,7 +489,25 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#16X4,#16X3!+1:1]-[#6:2]",
+          "smirks": "[#7:1]-[#1:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X4:1]-[#6X3:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6:1]-[#7:2]",
           "attributes": [
             "k",
             "length"
@@ -535,6 +526,15 @@
         {
           "type": "Bonds",
           "smirks": "[#16X4,#16X3:1]~[#8X1:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#16X4,#16X3!+1:1]-[#6:2]",
           "attributes": [
             "k",
             "length"
@@ -597,7 +597,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6:1]-[#8:2]",
+          "smirks": "[#8:1]-[#1:2]",
           "attributes": [
             "k",
             "length"
@@ -606,7 +606,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#8:1]-[#1:2]",
+          "smirks": "[#6:1]-[#8:2]",
           "attributes": [
             "k",
             "length"
@@ -678,7 +678,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#7X2:1]-[#7X2:2]",
+          "smirks": "[#7:1]=[#7:2]",
           "attributes": [
             "k",
             "length"
@@ -687,7 +687,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#7:1]=[#7:2]",
+          "smirks": "[#7X2:1]-[#7X2:2]",
           "attributes": [
             "k",
             "length"
@@ -822,7 +822,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#15:1]-[#7:2]",
+          "smirks": "[#16:1]=[#6:2]",
           "attributes": [
             "k",
             "length"
@@ -831,7 +831,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#16:1]=[#6:2]",
+          "smirks": "[#15:1]-[#7:2]",
           "attributes": [
             "k",
             "length"
@@ -858,16 +858,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#16:1]-[#16:2]",
-          "attributes": [
-            "k",
-            "length"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
-          "smirks": "[#6X2:1]=[#16:2]",
+          "smirks": "[#16X2,#16X1-1,#16X3+1:1]-[#6X4:2]",
           "attributes": [
             "k",
             "length"
@@ -885,7 +876,16 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#16X2,#16X1-1,#16X3+1:1]-[#6X4:2]",
+          "smirks": "[#16:1]-[#16:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X2:1]=[#16:2]",
           "attributes": [
             "k",
             "length"
@@ -984,7 +984,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#7+1:1]=[#7-1:2]",
+          "smirks": "[#6X2:1]-[#6X4:2]",
           "attributes": [
             "k",
             "length"
@@ -993,7 +993,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X2:1]-[#6X4:2]",
+          "smirks": "[#7+1:1]=[#7-1:2]",
           "attributes": [
             "k",
             "length"
@@ -1056,14 +1056,6 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#6X4:2]-[#6X4:3]-[#1:4]",
-          "attributes": [
-            "k1"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
           "smirks": "[*:1]-[#6X4:2]-[#6X4:3]-[*:4]",
           "attributes": [
             "k1"
@@ -1074,7 +1066,15 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#6X4:2]-[#6X4:3]-[#9:4]",
           "attributes": [
-            "k2",
+            "k1",
+            "k2"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[#1:1]-[#6X4:2]-[#6X4:3]-[#1:4]",
+          "attributes": [
             "k1"
           ],
           "cached": false
@@ -1083,9 +1083,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#6X4:2]-[#6X4:3]-[#6X4:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -1101,8 +1101,8 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#6X4:2]-[#6X4:3]-[#8X2:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1116,6 +1116,15 @@
         },
         {
           "type": "ProperTorsions",
+          "smirks": "[#1:1]-[#6X4:2]-[#6X3:3]=[#6X3:4]",
+          "attributes": [
+            "k1",
+            "k2"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
           "smirks": "[*:1]-[#6X4:2]-[#6X3:3]=[*:4]",
           "attributes": [
             "k1"
@@ -1124,20 +1133,11 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#6X4:2]-[#6X3:3]=[#6X3:4]",
-          "attributes": [
-            "k2",
-            "k1"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
           "smirks": "[#1:1]-[#6X4:2]-[#6X3:3]=[#8X1:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -1145,8 +1145,8 @@
           "type": "ProperTorsions",
           "smirks": "[#6X3:1]-[#6X4:2]-[#6X3:3]=[#6X3:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1154,8 +1154,8 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#6X4:2]-[#6X3:3]-[#7X3:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1163,8 +1163,8 @@
           "type": "ProperTorsions",
           "smirks": "[#16X2,#16X1-1,#16X3+1:1]-[#6X3:2]-[#6X4:3]-[#1:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1188,18 +1188,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3:3]=[#7X2:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
-          "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3;r6:3]:[#6X3;r6:4]",
-          "attributes": [
-            "k2",
-            "k1"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -1207,9 +1198,18 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#6X4;r3:2]-[#6X3:3]~[#6X3:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3;r6:3]:[#6X3;r6:4]",
+          "attributes": [
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1217,9 +1217,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3;r6:3]:[#7X2;r6:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -1227,8 +1227,8 @@
           "type": "ProperTorsions",
           "smirks": "[#7X3:1]-[#6X4;r3:2]-[#6X3:3]~[#6X3:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1236,8 +1236,8 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3:3]-[#8X2:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1269,8 +1269,8 @@
           "type": "ProperTorsions",
           "smirks": "[#6X3:1]=[#6X3:2]-[#6X3:3]=[#8X1:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1286,8 +1286,8 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#6X4:2]-[#7X4,#7X3:3]-[#6X4:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1303,8 +1303,8 @@
           "type": "ProperTorsions",
           "smirks": "[#6X3:1]-[#7X3:2]-[#6X4:3]-[#6X3:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1312,8 +1312,8 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]-[#6X4:2]-[#7X3$(*~[#6X3,#6X2]):3]~[*:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1321,9 +1321,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X3:1]-[#7X3:2]-[#6X4;r3:3]-[#6X4;r3:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -1331,19 +1331,10 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#6X4:2]-[#7X3:3]-[#6X3:4]=[#8,#16,#7]",
           "attributes": [
-            "k2",
+            "k4",
             "k1",
             "k3",
-            "k4"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
-          "smirks": "[*:1]-[#7X3:2]-[#6X3$(*=[#8,#16,#7]):3]~[*:4]",
-          "attributes": [
-            "k2",
-            "k1"
+            "k2"
           ],
           "cached": false
         },
@@ -1351,8 +1342,17 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#7X3:2]-[#6X3:3]=[#8,#16,#7:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[*:1]-[#7X3:2]-[#6X3$(*=[#8,#16,#7]):3]~[*:4]",
+          "attributes": [
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1376,8 +1376,8 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]-[#7X3:2]-!@[#6X3:3](=[#8,#16,#7:4])-[#6,#1]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1385,8 +1385,8 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#7X3:2]-!@[#6X3:3](=[#8,#16,#7:4])-[#6,#1]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1394,8 +1394,8 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]-[#7X3:2]-!@[#6X3:3](=[#8,#16,#7:4])-[#7X3]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1409,7 +1409,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#8X1:1]~[#7X3:2]~[#6X3:3]~[*:4]",
+          "smirks": "[*:1]=[#7X3+1:2]-[#6X3:3]=,:[*:4]",
           "attributes": [
             "k1"
           ],
@@ -1417,7 +1417,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]=[#7X3+1:2]-[#6X3:3]=,:[*:4]",
+          "smirks": "[#8X1:1]~[#7X3:2]~[#6X3:3]~[*:4]",
           "attributes": [
             "k1"
           ],
@@ -1441,18 +1441,18 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#6X4:1]-[#6X4:2]-[#8X2H1:3]-[#1:4]",
+          "smirks": "[*:1]-[#6X4:2]-[#8X2:3]-[#1:4]",
           "attributes": [
-            "k2",
             "k1"
           ],
           "cached": false
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]-[#6X4:2]-[#8X2:3]-[#1:4]",
+          "smirks": "[#6X4:1]-[#6X4:2]-[#8X2H1:3]-[#1:4]",
           "attributes": [
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1468,8 +1468,8 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#6X4:2]-[#8X2:3]-[#6X3:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1483,21 +1483,21 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#8X2:2]-[#6X4;r3:3]-[#6X4;r3:4]",
+          "smirks": "[#1:1]-[#8X2:2]-[#6X4;r3:3]-[#6X4:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#8X2:2]-[#6X4;r3:3]-[#6X4:4]",
+          "smirks": "[#1:1]-[#8X2:2]-[#6X4;r3:3]-[#6X4;r3:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -1519,18 +1519,18 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#8,#16,#7:1]=[#6X3:2]-[#8X2H0:3]-[#6X4:4]",
+          "smirks": "[*:1]~[#6X3:2](=[#8,#16,#7])-[#8X2H0:3]-[*:4]",
           "attributes": [
-            "k2",
             "k1"
           ],
           "cached": false
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]~[#6X3:2](=[#8,#16,#7])-[#8X2H0:3]-[*:4]",
+          "smirks": "[#8,#16,#7:1]=[#6X3:2]-[#8X2H0:3]-[#6X4:4]",
           "attributes": [
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1648,6 +1648,15 @@
         },
         {
           "type": "ProperTorsions",
+          "smirks": "[#8X1:1]~[#16X4,#16X3+0:2]-[#7X4,#7X3:3]-[#1:4]",
+          "attributes": [
+            "k1",
+            "k2"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#16X4,#16X3+0:2]-[#7X4,#7X3:3]-[#1:4]",
           "attributes": [
             "k1"
@@ -1656,29 +1665,10 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#8X1:1]~[#16X4,#16X3+0:2]-[#7X4,#7X3:3]-[#1:4]",
-          "attributes": [
-            "k2",
-            "k1"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#16X4,#16X3+0:2]-[#7X3:3]-[#6X3:4]",
           "attributes": [
-            "k2",
-            "k1"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
-          "smirks": "[#6X3:1]-[#16X4,#16X3+0:2]-[#7X4,#7X3:3]-[#6X4:4]",
-          "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k2"
           ],
           "cached": false
         },
@@ -1686,9 +1676,19 @@
           "type": "ProperTorsions",
           "smirks": "[#8X1:1]~[#16X4,#16X3+0:2]-[#7X4,#7X3:3]-[#6X4:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[#6X3:1]-[#16X4,#16X3+0:2]-[#7X4,#7X3:3]-[#6X4:4]",
+          "attributes": [
+            "k1",
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -1704,17 +1704,8 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#16X4,#16X3+0:2]-[#7X4,#7X3:3]-[#6X4:4]",
           "attributes": [
-            "k2",
-            "k1"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
-          "smirks": "[#9:1]-[#6X4:2]-[#6X4:3]-[#9:4]",
-          "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1722,8 +1713,17 @@
           "type": "ProperTorsions",
           "smirks": "[#35:1]-[#6X4:2]-[#6X4:3]-[#35:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[#9:1]-[#6X4:2]-[#6X4:3]-[#9:4]",
+          "attributes": [
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1731,8 +1731,8 @@
           "type": "ProperTorsions",
           "smirks": "[#17:1]-[#6X4:2]-[#6X4:3]-[#17:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1740,8 +1740,8 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#6X4:2]-[#6X4:3]-[#17:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1773,8 +1773,8 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4;r3:1]-[#6X4;r3:2]-[#6X4;r3:3]-[*:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1782,11 +1782,11 @@
           "type": "ProperTorsions",
           "smirks": "[#16X2,#16X1-1,#16X3+1:1]-[#6X3:2]-[#6X4:3]-[#7X3$(*-[#6X3,#6X2]):4]",
           "attributes": [
-            "k2",
             "k1",
             "k3",
-            "k4",
             "k6",
+            "k2",
+            "k4",
             "k5"
           ],
           "cached": false
@@ -1795,8 +1795,8 @@
           "type": "ProperTorsions",
           "smirks": "[#7X3:1]-[#6X4:2]-[#6X3:3]-[#7X3:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1804,9 +1804,9 @@
           "type": "ProperTorsions",
           "smirks": "[#16X2,#16X1-1,#16X3+1:1]-[#6X3:2]-[#6X4:3]-[#7X4,#7X3:4]",
           "attributes": [
-            "k2",
             "k1",
             "k3",
+            "k2",
             "k4",
             "k5"
           ],
@@ -1814,10 +1814,20 @@
         },
         {
           "type": "ProperTorsions",
+          "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3:3]~[#6X3:4]",
+          "attributes": [
+            "k1",
+            "k3",
+            "k2"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#6X4;r3:2]-[#6X3:3]~[#6X3:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -1831,21 +1841,11 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3:3]~[#6X3:4]",
-          "attributes": [
-            "k2",
-            "k1",
-            "k3"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
           "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3;r5:3]-;@[#6X3;r5:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -1861,9 +1861,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X3:1]-[#6X4;r3:2]-[#6X3:3]=[#8X1:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -1885,14 +1885,6 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#7X4,#7X3:2]-[#6X4;r3:3]-[*:4]",
-          "attributes": [
-            "k1"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
           "smirks": "[#1:1]-[#7X4,#7X3:2]-[#6X4;r3:3]-[#6X4;r3:4]",
           "attributes": [
             "k1"
@@ -1901,7 +1893,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[!#1:1]-[#7X4,#7X3:2]-[#6X4;r3:3]-[#6X4;r3:4]",
+          "smirks": "[#1:1]-[#7X4,#7X3:2]-[#6X4;r3:3]-[*:4]",
           "attributes": [
             "k1"
           ],
@@ -1910,6 +1902,14 @@
         {
           "type": "ProperTorsions",
           "smirks": "[!#1:1]-[#7X4,#7X3:2]-[#6X4;r3:3]-[*:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[!#1:1]-[#7X4,#7X3:2]-[#6X4;r3:3]-[#6X4;r3:4]",
           "attributes": [
             "k1"
           ],
@@ -1951,9 +1951,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#8X2:2]-[#6X4:3]-[#8X2:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -1961,17 +1961,9 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#8X2:2]-[#6X4;r3:3]-[#1:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
-          "smirks": "[*:1]~[#6X3:2](=[#8,#16,#7])-[#8:3]-[#1:4]",
-          "attributes": [
-            "k1"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -1979,7 +1971,15 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#8X2:2]-[#6X3:3]=[#8X1:4]",
           "attributes": [
-            "k2",
+            "k1",
+            "k2"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[*:1]~[#6X3:2](=[#8,#16,#7])-[#8:3]-[#1:4]",
+          "attributes": [
             "k1"
           ],
           "cached": false
@@ -1996,18 +1996,8 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]~[#15:2]-[#6X3:3]~[*:4]",
           "attributes": [
-            "k2",
-            "k1"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#7X4,#7X3:2]-[#7X4,#7X3:3]-[#1:4]",
-          "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k2"
           ],
           "cached": false
         },
@@ -2015,9 +2005,19 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#7X4,#7X3:2]-[#7X4,#7X3:3]-[#1:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[#1:1]-[#7X4,#7X3:2]-[#7X4,#7X3:3]-[#1:4]",
+          "attributes": [
+            "k1",
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -2049,9 +2049,9 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]~[#16X4,#16X3+0:2]-[#7:3]~[*:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -2067,9 +2067,9 @@
           "type": "ProperTorsions",
           "smirks": "[#8X2:1]-[#15:2]-[#8X2:3]-[#6X4:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -2077,9 +2077,9 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]-[#8X2:2]-[#15:3]~[*:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -2103,8 +2103,8 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]-[#7:2]-[#15:3]=[*:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -2112,8 +2112,8 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#6X4:2]-[#8X2H0:3]-[#6X4:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -2129,8 +2129,8 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]~[#7X2:2]-[#7X3:3]~[*:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -2138,8 +2138,8 @@
           "type": "ProperTorsions",
           "smirks": "[#8X2:1]-[#6X4:2]-[#6X4:3]-[#8X2:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -2147,8 +2147,8 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]-[#6X4:2]-[#7X3:3]-[#7X2:4]=[#6]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -2156,8 +2156,8 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#6X4:2]-[#7X3:3]-[#7X2:4]=[#6]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -2165,14 +2165,14 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#6X4:2]-[#7X3:3]-[#7X2:4]=[#7X2,#8X1]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]-[#6X4:2]-[#7X3$(*@1-[*]=,:[*][*]=,:[*]@1):3]-[*:4]",
+          "smirks": "[#1:1]-[#6X4:2]-[#7X3$(*@1-[*]=,:[*][*]=,:[*]@1):3]-[*:4]",
           "attributes": [
             "k1"
           ],
@@ -2180,7 +2180,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#6X4:2]-[#7X3$(*@1-[*]=,:[*][*]=,:[*]@1):3]-[*:4]",
+          "smirks": "[*:1]-[#6X4:2]-[#7X3$(*@1-[*]=,:[*][*]=,:[*]@1):3]-[*:4]",
           "attributes": [
             "k1"
           ],
@@ -2196,7 +2196,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#6X3:1]=[#7X2,#7X3+1:2]-[#6X4:3]-[#1:4]",
+          "smirks": "[#6X3:1]=[#7X2,#7X3+1:2]-[#6X4:3]-[#6X3,#6X4:4]",
           "attributes": [
             "k1"
           ],
@@ -2204,7 +2204,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#6X3:1]=[#7X2,#7X3+1:2]-[#6X4:3]-[#6X3,#6X4:4]",
+          "smirks": "[#6X3:1]=[#7X2,#7X3+1:2]-[#6X4:3]-[#1:4]",
           "attributes": [
             "k1"
           ],
@@ -2214,8 +2214,8 @@
           "type": "ProperTorsions",
           "smirks": "[#8X2H0:1]-[#6X4:2]-[#7X3:3]-[#6X3:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -2247,11 +2247,11 @@
           "type": "ProperTorsions",
           "smirks": "[#8X1:1]~[#16X4,#16X3+0:2]-[#7X2:3]~[#6X3:4]",
           "attributes": [
-            "k2",
             "k1",
             "k3",
-            "k4",
             "k6",
+            "k2",
+            "k4",
             "k5"
           ],
           "cached": false
@@ -2276,8 +2276,8 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#8X2:2]-[#6X4:3]-[#7X3:4]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -2285,8 +2285,8 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]-[#6X4:2]-[#7X3:3]-[#7X2:4]=[#7X2,#8X1]",
           "attributes": [
-            "k2",
-            "k1"
+            "k1",
+            "k2"
           ],
           "cached": false
         },
@@ -2326,9 +2326,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X3:1]-[#6X4;r3:2]-[#6X3:3](~[#8X1])~[#8X1:4]",
           "attributes": [
-            "k2",
             "k1",
-            "k3"
+            "k3",
+            "k2"
           ],
           "cached": false
         },
@@ -2360,11 +2360,11 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#16X4,#16X3+0:2]-[#7X2:3]~[#6X3:4]",
           "attributes": [
-            "k2",
             "k1",
             "k3",
-            "k4",
             "k6",
+            "k2",
+            "k4",
             "k5"
           ],
           "cached": false

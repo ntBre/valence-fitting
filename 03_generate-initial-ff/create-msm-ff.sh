@@ -1,9 +1,0 @@
-#!/bin/bash
-
-set -e
-
-python create-msm-ff.py                                                                                     \
-    --initial-force-field       "../01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml"  \
-    --optimization-dataset      "../02_curate-data/output/combined-opt.json"                   \
-    --working-directory         "working-directory"                                                         \
-    --output                    "output/initial-force-field-msm.offxml"

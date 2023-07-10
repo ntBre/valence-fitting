@@ -32,6 +32,7 @@ for id in tors_ids:
     print(f"{id:5}{results[id]:5}")
 
 missing_ids = [k for k in results.keys() if results[k] == 0]
+missing_smirks = [h.get_parameter(dict(id=p))[0].smirks for p in missing_ids]
 print("\nmissing ids:")
-for id in missing_ids:
-    print(id)
+for i, (id, smirk) in enumerate(zip(missing_ids, missing_smirks)):
+    print(f"{i:5}{id:>7}   {smirk}")

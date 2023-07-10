@@ -63,6 +63,8 @@ def combine_td(ff):
 
 def combine_opt(ff):
     base = "/home/brent/omsf/clone/sage-2.1.0/inputs-and-outputs/data-sets/"
+
+    # TODO filter these using curate_dataset filter
     sage_td = OptimizationResultCollection.parse_file(
         base + "opt-set-for-fitting-2.1.0.json"
     )

@@ -1,4 +1,5 @@
 import click
+import pprint
 from dataclasses import dataclass
 from openff.toolkit import ForceField
 from openff.toolkit.typing.engines.smirnoff.parameters import (
@@ -20,6 +21,10 @@ def get_smirks(params):
 
 def by_smirks(smirks):
     return dict(smirks=smirks)
+
+
+def by_id(_id):
+    return dict(id=_id)
 
 
 @click.command()
@@ -65,15 +70,44 @@ def download_force_field(
     # use 2.1 as the base for the output force field
     force_field = ForceField(force_field_name)
     h = force_field.get_parameter_handler(TORSIONS)
+    initial_parameters = [p.id for p in h.parameters]
 
     # add the new parameters
+    params_to_delete = []
     for p in new_params:
         # avoid duplicate parameter error
         if not h.get_parameter(by_smirks(p.param.smirks)):
             # ensure unique id
-            if p.param.id in [p.id for p in h.parameters]:
+            if p.param.id in initial_parameters:
+                params_to_delete.append(p.param.id)
                 p.param.id += "x"
             h.add_parameter(parameter=p.param, after=p.after)
+
+    # check if the right smirks were removed
+    removed_in_multiplicity = set20 - setpv
+
+    actually_removed = set(
+        [h.get_parameter(by_id(p))[0].smirks for p in params_to_delete]
+    )
+
+    print("smirks removed in multiplicity but not actually removed: ")
+    pprint.pprint(removed_in_multiplicity - actually_removed)
+
+    print()
+
+    print("smirks actually removed but shouldn't be:")
+    pprint.pprint(actually_removed - removed_in_multiplicity)
+
+    # remove the duplicate parameter ids from above
+    lh = len(h.parameters)
+    print("before=", lh)
+
+    # pop from the end to avoid moving out of the part we're iterating over
+    for i in reversed(range(lh)):
+        p = h.parameters[i]
+        if p.id in params_to_delete:
+            h.parameters.pop(i)
+    print("after=", len(h.parameters))
 
     force_field.to_file(output_path)
 

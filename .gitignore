@@ -114,3 +114,4 @@ ENV/
 04_fit-forcefield/fb-fit/new.out
 04_fit-forcefield/fb-fit/optimize.tmp/
 04_fit-forcefield/fb-fit/smirnoff_parameter_assignments.json
+/04_fit-forcefield/ready

@@ -38,6 +38,14 @@ def combine_td(ff):
         base + "td-set-for-fitting-2.1.0.json"
     )
 
+    records_to_remove = np.loadtxt("td_records_to_remove.dat", dtype=str)
+    key = list(sage_td.entries.keys())[0]
+    sage_td.entries[key] = [
+        entry
+        for entry in sage_td.entries[key]
+        if entry.record_id not in records_to_remove
+    ]
+
     pavan_td = TorsionDriveResultCollection.parse_file(
         "output/pavan-td-training-set.json"
     )
@@ -64,10 +72,17 @@ def combine_td(ff):
 def combine_opt(ff):
     base = "/home/brent/omsf/clone/sage-2.1.0/inputs-and-outputs/data-sets/"
 
-    # TODO filter these using curate_dataset filter
     sage_td = OptimizationResultCollection.parse_file(
         base + "opt-set-for-fitting-2.1.0.json"
     )
+
+    records_to_remove = np.loadtxt("opt_records_to_remove.dat", dtype=str)
+    key = list(sage_td.entries.keys())[0]
+    sage_td.entries[key] = [
+        entry
+        for entry in sage_td.entries[key]
+        if entry.record_id not in records_to_remove
+    ]
 
     pavan_td = OptimizationResultCollection.parse_file(
         "output/pavan-opt-training-set.json"

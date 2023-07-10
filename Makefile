@@ -30,7 +30,7 @@ $(OPT_SET) &: $(INITIAL_FF) $(CURATE)/curate_dataset.py
     --max-opt-conformers        12                                                     \
     --n-processes               8                                                      \
     --min-record-coverage       1                                                      \
-    --opt-records-to-remove     opt_records_to_remove.dat \
+    --opt-records-to-remove     opt_records_to_remove.dat                              \
     --output                    "output/pavan-opt-training-set.json"                   \
     --output-parameter-smirks   "output/pavan-opt-smirks.json"                         \
     --verbose
@@ -42,7 +42,7 @@ $(TD_SET) &: $(INITIAL_FF) $(CURATE)/curate_dataset.py
     --initial-forcefield        ../$(INITIAL_FF)                                         \
     --n-processes               8                                                        \
     --min-record-coverage       1                                                        \
-    --td-records-to-remove      td_records_to_remove.dat \
+    --td-records-to-remove      td_records_to_remove.dat                                 \
     --output                    "output/pavan-td-training-set.json"                      \
     --output-parameter-smirks   "output/pavan-td-smirks.json"                            \
     --verbose

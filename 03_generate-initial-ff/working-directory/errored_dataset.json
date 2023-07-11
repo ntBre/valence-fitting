@@ -333,12 +333,6 @@
       },
       {
         "type": "basic",
-        "record_id": "3545268",
-        "cmiles": "[H:9][C:1]1([C:2]([C:3]1([H:13])[N:6]([H:17])[S@@:8](=[N-:5])(=[O:7])[C:4]([H:14])([H:15])[H:16])([H:11])[H:12])[H:10]",
-        "inchi_key": "ABBYYETZVRHWJH-IYLNGKKTNA-N"
-      },
-      {
-        "type": "basic",
         "record_id": "3545285",
         "cmiles": "[H:15][C@:3]1([C:1]([N@@:6]([S:10](=[O:8])(=[O:9])[C:2]1([H:13])[H:14])[N:7]([H:22])[C:5]([H:19])([H:20])[H:21])([H:11])[H:12])[C:4]([H:16])([H:17])[H:18]",
         "inchi_key": "HKJINFMEDCNZKD-RXMQYKEDNA-N"

@@ -262,11 +262,12 @@ def generate(
 
     torsion_handler = ff.get_parameter_handler("ProperTorsions")
     for smirks in torsion_smirks["ProperTorsions"]:
-        original_k = torsion_handler.parameters[smirks].k
-        attributes = {f"k{i + 1}" for i in range(len(original_k))}
-        target_parameters.append(
-            ProperTorsionSMIRKS(smirks=smirks, attributes=attributes)
-        )
+        if smirks in torsion_handler.parameters:
+            original_k = torsion_handler.parameters[smirks].k
+            attributes = {f"k{i + 1}" for i in range(len(original_k))}
+            target_parameters.append(
+                ProperTorsionSMIRKS(smirks=smirks, attributes=attributes)
+            )
 
     optimization_schema = OptimizationSchema(
         id=tag,

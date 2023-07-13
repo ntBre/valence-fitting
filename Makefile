@@ -9,12 +9,13 @@ TD_SET := $(addprefix $(CURATE)/output/,pavan-td-training-set.json pavan-td-smir
 COMBINED := $(addprefix $(CURATE)/output/,combined-opt.json combined-opt-smirks.json combined-td.json combined-td-smirks.json)
 MSM_FF := $(MSM)/output/initial-force-field-msm.offxml
 
-.PHONY: step1 step2 step3
+.PHONY: step1 step2 step3 step4 sage
 
 step1: $(INITIAL_FF)
 step2: $(COMBINED)
 step3: $(MSM)/output/initial-force-field-msm.offxml
 step4: $(FIT)/ready
+sage: fit-sage/ready
 
 $(INITIAL_FF): $(GENERATE)/generate-forcefield.py
 	cd $(GENERATE) ; \
@@ -75,3 +76,20 @@ $(FIT)/ready: $(COMBINED) $(MSM_FF)
     --output-directory          "output"                                                          \
     --verbose ; \
 	date > ready
+
+fit-sage/ready: $(COMBINED) sage-2.1.0-msm.offxml
+	cd fit-sage ; \
+	python ../$(FIT)/create-fb-inputs.py                                                      \
+    --tag                       "fb-fit"                                                          \
+    --optimization-dataset      "../02_curate-data/output/combined-opt.json"                      \
+    --torsion-dataset           "../02_curate-data/output/combined-td.json"                       \
+    --valence-to-optimize       "../02_curate-data/output/combined-opt-smirks.json"               \
+    --torsions-to-optimize      "../02_curate-data/output/combined-td-smirks.json"                \
+    --forcefield                "../sage-2.1.0-msm.offxml"                                        \
+    --smiles-to-exclude         ../$(FIT)/smiles-to-exclude.dat                                   \
+    --smarts-to-exclude         ../$(FIT)/smarts-to-exclude.dat                                   \
+    --max-iterations            1                                                                 \
+    --port                      55387                                                             \
+    --output-directory          "output"                                                          \
+    --verbose
+	date > $@

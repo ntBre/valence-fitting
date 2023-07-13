@@ -105,6 +105,7 @@ ENV/
 # mypy
 .mypy_cache/
 .DS_Store
+
 **/oe_license.txt
 /04_fit-forcefield/fb-fit/targets/*
 03_generate-initial-ff/Modified_Seminario_Angles.txt
@@ -115,3 +116,6 @@ ENV/
 04_fit-forcefield/fb-fit/optimize.tmp/
 04_fit-forcefield/fb-fit/smirnoff_parameter_assignments.json
 /04_fit-forcefield/ready
+**.tar.gz
+**/ready
+/fit-sage/fb-fit/targets/

@@ -93,3 +93,13 @@ fit-sage/ready: $(COMBINED) sage-2.1.0-msm.offxml
     --output-directory          "output"                                                          \
     --verbose
 	date > $@
+
+DEPS :=$(addprefix fit-sage/, $(addprefix fb-fit/,forcefield/force-field.offxml	\
+       optimize.in targets.tar.gz) parameters-to-optimize scripts)
+
+fit-sage/fb-fit/targets.tar.gz: $(wildcard fit-sage/fb-fit/targets/*)
+	cd fit-sage/fb-fit ; \
+	tar cvfz targets.tar.gz targets
+
+sage.tar.gz: $(DEPS)
+	tar cvfz $@ $^

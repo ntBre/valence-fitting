@@ -2,13 +2,11 @@ from collections import defaultdict, Counter
 import functools
 import json
 import logging
-import multiprocessing
 import random
 import typing
 
 import numpy as np
 import click
-import tqdm
 
 from openff.qcsubmit.results.filters import ResultRecordFilter
 
@@ -135,16 +133,11 @@ def get_parameter_distribution(
         parameter_types=parameter_types,
         explicit_ring_torsions=explicit_ring_torsions,
     )
-    with multiprocessing.Pool(n_processes) as pool:
-        for parameter_ids in tqdm.tqdm(
-            pool.imap(func, dataset.to_records()),
-            total=dataset.n_results,
-        ):
-            for parameter_id, record_id, n_heavy_atoms in parameter_ids:
-                coverage[parameter_id] += 1
-                parameter_records[parameter_id].append(
-                    (n_heavy_atoms, record_id)
-                )
+    for record in dataset.to_records():
+        parameter_ids = func(record)
+        for parameter_id, record_id, n_heavy_atoms in parameter_ids:
+            coverage[parameter_id] += 1
+            parameter_records[parameter_id].append((n_heavy_atoms, record_id))
 
     return coverage, dict(parameter_records)
 

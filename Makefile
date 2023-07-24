@@ -103,3 +103,13 @@ fit-sage/fb-fit/targets.tar.gz: $(wildcard fit-sage/fb-fit/targets/*)
 
 sage.tar.gz: $(DEPS)
 	tar cvfz $@ $^
+
+$(FIT)/fb-fit/targets.tar.gz: $(wildcard $(FIT)/fb-fit/targets/*/*)
+	cd $(FIT)/fb-fit ; \
+	tar cvfz targets.tar.gz targets
+
+TORS_DEPS := $(addprefix $(FIT)/,$(addprefix fb-fit/,forcefield/force-field.offxml	\
+				        optimize.in targets.tar.gz))
+
+tors.tar.gz: $(TORS_DEPS)
+	tar cvfz $@ $^

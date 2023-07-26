@@ -119,3 +119,7 @@ ENV/
 **.tar.gz
 **/ready
 /fit-sage/fb-fit/targets/
+/01_generate-forcefield/generate.log
+*.prof
+**/debug
+/04_fit-forcefield/fb-fit/pdb/

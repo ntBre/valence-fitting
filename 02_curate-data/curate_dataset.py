@@ -558,6 +558,9 @@ def get_td_data(
         entries={key: list(unique_entries.values())}
     )
 
+    n = new_dataset.n_results
+    print(f"final number of entries: {n}")
+
     with open(output_path, "w") as file:
         file.write(new_dataset.json(indent=2))
     if verbose:

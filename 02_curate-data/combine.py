@@ -5,7 +5,7 @@ from openff.qcsubmit.results import (
     OptimizationResultCollection,
 )
 from openff.toolkit import ForceField
-from curate_dataset import select_parameters
+from curate_dataset import select_parameters, filter_td_data, filter_opt_data
 import numpy as np
 import json
 import typing
@@ -38,13 +38,12 @@ def combine_td(ff):
         base + "td-set-for-fitting-2.1.0.json"
     )
 
-    records_to_remove = np.loadtxt("td_records_to_remove.dat", dtype=str)
-    key = list(sage_td.entries.keys())[0]
-    sage_td.entries[key] = [
-        entry
-        for entry in sage_td.entries[key]
-        if entry.record_id not in records_to_remove
-    ]
+    sage_td = filter_td_data(
+        sage_td,
+        "td_records_to_remove.dat",
+        include_iodine=False,
+        cache="datasets/filtered-sage-td.json",
+    )
 
     pavan_td = TorsionDriveResultCollection.parse_file(
         "output/pavan-td-training-set.json"
@@ -76,13 +75,12 @@ def combine_opt(ff):
         base + "opt-set-for-fitting-2.1.0.json"
     )
 
-    records_to_remove = np.loadtxt("opt_records_to_remove.dat", dtype=str)
-    key = list(sage_td.entries.keys())[0]
-    sage_td.entries[key] = [
-        entry
-        for entry in sage_td.entries[key]
-        if entry.record_id not in records_to_remove
-    ]
+    sage_td = filter_opt_data(
+        sage_td,
+        "opt_records_to_remove.dat",
+        include_iodine=False,
+        cache="datasets/filtered-sage-opt.json",
+    )
 
     pavan_td = OptimizationResultCollection.parse_file(
         "output/pavan-opt-training-set.json"

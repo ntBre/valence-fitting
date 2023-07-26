@@ -114,5 +114,5 @@ $(FIT)/fb-fit/targets.tar.gz: $(wildcard $(FIT)/fb-fit/targets/*/*)
 TORS_DEPS := $(addprefix $(FIT)/,$(addprefix fb-fit/,forcefield/force-field.offxml	\
 				        optimize.in targets.tar.gz))
 
-tors.tar.gz: $(TORS_DEPS)
-	tar cvfz $@ $^
+tors.tar.gz: fit-sage/ready
+	tar cvfz $@ $(TORS_DEPS)

@@ -282,6 +282,7 @@ def filter_td_data(
         ConnectivityFilter(tolerance=1.2),
         UnperceivableStereoFilter(),
         ElementFilter(allowed_elements=elements),
+        ChargeCheckFilter(),
     )
     return dataset
 
@@ -556,19 +557,14 @@ def get_td_data(
     new_dataset = TorsionDriveResultCollection(
         entries={key: list(unique_entries.values())}
     )
-    filtered_for_charge = new_dataset.filter(ChargeCheckFilter())
-
-    if verbose:
-        n = filtered_for_charge.n_results
-        print(f"Number of entries after charge check: {n}")
 
     with open(output_path, "w") as file:
-        file.write(filtered_for_charge.json(indent=2))
+        file.write(new_dataset.json(indent=2))
     if verbose:
         print(f"Saved to {output_path}")
 
     selected_parameters = select_parameters(
-        filtered_for_charge,
+        new_dataset,
         ["ProperTorsions"],
         force_field=ff,
         explicit_ring_torsions=explicit_ring_torsions,
@@ -651,6 +647,7 @@ def filter_opt_data(
         UnperceivableStereoFilter(),
         ElementFilter(allowed_elements=elements),
         ConformerRMSDFilter(max_conformers=max_opt_conformers),
+        ChargeCheckFilter()
     )
     return dataset
 
@@ -815,18 +812,16 @@ def get_opt_data(
         entries={key: list(unique_entries.values())}
     )
 
-    filtered_for_charge = new_dataset.filter(ChargeCheckFilter())
-    if verbose:
-        n = filtered_for_charge.n_results
-        print(f"Number of entries after charge check: {n}")
+    n = new_dataset.n_results
+    print(f"final number of entries: {n}")
 
     with open(output_path, "w") as file:
-        file.write(filtered_for_charge.json(indent=2))
+        file.write(new_dataset.json(indent=2))
     if verbose:
         print(f"Saved to {output_path}")
 
     selected_parameters = select_parameters(
-        filtered_for_charge,
+        new_dataset,
         ["Bonds", "Angles"],
         force_field=ff,
         n_processes=n_processes,

@@ -1287,10 +1287,6 @@
       }
     ]
   },
-  "provenance": {
-    "applied-filters": {
-      "ChargeCheckFilter-0": {}
-    }
-  },
+  "provenance": {},
   "type": "OptimizationResultCollection"
 }

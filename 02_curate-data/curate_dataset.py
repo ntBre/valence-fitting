@@ -4,6 +4,7 @@ import json
 import logging
 import random
 import typing
+import os.path
 
 import numpy as np
 import click
@@ -210,16 +211,40 @@ def cap_torsions_per_parameter(
     return dataset
 
 
-def download_and_filter_td_data(
+def download_td_data(
     td_datasets: typing.List[str],
-    td_records_to_remove: typing.Optional[str] = None,
-    include_iodine: bool = False,
+    ds_cache,
+    invalidate_cache=False,
 ) -> "TorsionDriveResultCollection":
-    """Download and filter torsiondrive datasets."""
+    """Download TorsionDrive datasets."""
 
     from qcportal import FractalClient
-    from qcportal.models.records import RecordStatusEnum
     from openff.qcsubmit.results import TorsionDriveResultCollection
+
+    if os.path.isfile(ds_cache) and not invalidate_cache:
+        print("loading td from cache")
+        return TorsionDriveResultCollection.parse_file(ds_cache)
+
+    client = FractalClient()
+    dataset = TorsionDriveResultCollection.from_server(
+        client=client,
+        datasets=td_datasets,
+        spec_name="default",
+    )
+    with open(ds_cache, "w") as out:
+        out.write(dataset.json(indent=2))
+
+    return dataset
+
+
+def filter_td_data(
+    dataset: "TorsionDriveResultCollection",
+    td_records_to_remove: typing.Optional[str] = None,
+    include_iodine: bool = False,
+):
+    "Filter a TorsionDrive dataset"
+
+    from qcportal.models.records import RecordStatusEnum
     from openff.qcsubmit.results.filters import (
         ConnectivityFilter,
         RecordStatusFilter,
@@ -233,18 +258,12 @@ def download_and_filter_td_data(
     else:
         records_to_remove = []
 
-    client = FractalClient()
-    dataset = TorsionDriveResultCollection.from_server(
-        client=client,
-        datasets=td_datasets,
-        spec_name="default",
-    )
+    key = list(dataset.entries.keys())[0]
 
     # filter out entries to remove
-    # client.address is just the key to use to access entries
-    dataset.entries[client.address] = [
+    dataset.entries[key] = [
         entry
-        for entry in dataset.entries[client.address]
+        for entry in dataset.entries[key]
         if entry.record_id not in records_to_remove
     ]
 
@@ -413,7 +432,7 @@ def cli():
         "in the force field optimization."
     ),
 )
-def download_td_data(
+def get_td_data(
     output_path: str,
     output_parameter_smirks_path: str,
     core_td_datasets: typing.List[str],
@@ -487,8 +506,11 @@ def download_td_data(
 
     ff = ForceField(initial_forcefield, allow_cosmetic_attributes=True)
 
-    core_dataset = download_and_filter_td_data(
-        core_td_datasets, td_records_to_remove, include_iodine=False
+    core_dataset = download_td_data(
+        core_td_datasets, ds_cache="datasets/core-td.json"
+    )
+    core_dataset = filter_td_data(
+        core_dataset, td_records_to_remove, include_iodine=False
     )
     if verbose:
         print(f"Number of core entries: {core_dataset.n_results}")
@@ -496,8 +518,12 @@ def download_td_data(
     key = list(core_dataset.entries.keys())[0]
 
     if aux_td_datasets:
-        aux_dataset = download_and_filter_td_data(
+        aux_dataset = download_td_data(
             aux_td_datasets,
+            ds_cache="datasets/aux-td.json",
+        )
+        aux_dataset = filter_td_data(
+            aux_dataset,
             td_records_to_remove,
             include_iodine=False,
         )
@@ -553,18 +579,38 @@ def download_td_data(
         json.dump(selected_parameters, file, indent=2)
 
 
-def download_and_filter_opt_data(
-    opt_datasets: typing.List[str],
-    opt_records_to_remove: typing.Optional[str] = None,
-    include_iodine: bool = False,
-    max_opt_conformers: int = 12,
-    verbose: bool = False,
+def download_opt_data(
+    opt_datasets: typing.List[str], ds_cache, invalidate_cache=False
 ) -> "OptimizationResultCollection":
     """Download and filter optimization datasets."""
 
     from qcportal import FractalClient
-    from qcportal.models.records import RecordStatusEnum
     from openff.qcsubmit.results import OptimizationResultCollection
+
+    if os.path.isfile(ds_cache) and not invalidate_cache:
+        print("loading opt from cache")
+        return OptimizationResultCollection.parse_file(ds_cache)
+
+    client = FractalClient()
+    dataset = OptimizationResultCollection.from_server(
+        client=client,
+        datasets=opt_datasets,
+        spec_name="default",
+    )
+    with open(ds_cache, "w") as out:
+        out.write(dataset.json(indent=2))
+
+    return dataset
+
+
+def filter_opt_data(
+    dataset,
+    opt_records_to_remove: typing.Optional[str] = None,
+    include_iodine: bool = False,
+    max_opt_conformers: int = 12,
+    verbose: bool = False,
+):
+    from qcportal.models.records import RecordStatusEnum
     from openff.qcsubmit.results.filters import (
         ConnectivityFilter,
         RecordStatusFilter,
@@ -578,20 +624,15 @@ def download_and_filter_opt_data(
     else:
         records_to_remove = []
 
-    client = FractalClient()
-    dataset = OptimizationResultCollection.from_server(
-        client=client,
-        datasets=opt_datasets,
-        spec_name="default",
-    )
     if verbose:
         print(f"Number of entries before filtering: {dataset.n_results}")
 
+    key = list(dataset.entries.keys())[0]
+
     # filter out entries to remove
-    # client.address is just the key to use to access entries
-    dataset.entries[client.address] = [
+    dataset.entries[key] = [
         entry
-        for entry in dataset.entries[client.address]
+        for entry in dataset.entries[key]
         if entry.record_id not in records_to_remove
     ]
 
@@ -698,7 +739,7 @@ def download_and_filter_opt_data(
         "in the force field optimization."
     ),
 )
-def download_opt_data(
+def get_opt_data(
     output_path: str,
     output_parameter_smirks_path: str,
     initial_forcefield: str,
@@ -733,8 +774,12 @@ def download_opt_data(
 
     ff = ForceField(initial_forcefield, allow_cosmetic_attributes=True)
 
-    core_dataset = download_and_filter_opt_data(
+    core_dataset = download_opt_data(
         core_opt_datasets,
+        "datasets/core-opt.json",
+    )
+    core_dataset = filter_opt_data(
+        core_dataset,
         opt_records_to_remove,
         include_iodine=False,
         max_opt_conformers=max_opt_conformers,
@@ -745,8 +790,12 @@ def download_opt_data(
     key = list(core_dataset.entries.keys())[0]
 
     if iodine_opt_datasets:
-        iodine_dataset = download_and_filter_opt_data(
+        iodine_dataset = download_opt_data(
             iodine_opt_datasets,
+            "iodine-opt.json",
+        )
+        iodine_dataset = filter_opt_data(
+            iodine_dataset,
             opt_records_to_remove,
             include_iodine=True,
             max_opt_conformers=max_opt_conformers,

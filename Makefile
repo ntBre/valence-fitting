@@ -9,13 +9,16 @@ TD_SET := $(addprefix $(CURATE)/output/,pavan-td-training-set.json pavan-td-smir
 COMBINED := $(addprefix $(CURATE)/output/,combined-opt.json combined-opt-smirks.json combined-td.json combined-td-smirks.json)
 MSM_FF := $(MSM)/output/initial-force-field-msm.offxml
 
-.PHONY: step1 step2 step3 step4 sage
+.PHONY: step1 step2 step3 step4 sage td
 
 step1: $(INITIAL_FF)
 step2: $(COMBINED)
 step3: $(MSM)/output/initial-force-field-msm.offxml
 step4: $(FIT)/ready
 sage: fit-sage/ready
+
+td: $(TD_SET)
+opt: $(OPT_SET)
 
 $(INITIAL_FF): $(GENERATE)/generate-forcefield.py
 	cd $(GENERATE) ; \

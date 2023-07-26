@@ -235,8 +235,14 @@ def filter_td_data(
     dataset: "TorsionDriveResultCollection",
     td_records_to_remove: typing.Optional[str] = None,
     include_iodine: bool = False,
+    cache=None,
+    invalidate_cache=False,
 ):
     "Filter a TorsionDrive dataset"
+
+    if cache is not None and os.path.isfile(cache) and not invalidate_cache:
+        print(f"loading filtered td data set from {cache}")
+        return TorsionDriveResultCollection.parse_file(cache)
 
     from qcportal.models.records import RecordStatusEnum
     from openff.qcsubmit.results.filters import (
@@ -278,6 +284,11 @@ def filter_td_data(
         ElementFilter(allowed_elements=elements),
         ChargeCheckFilter(),
     )
+
+    if cache is not None:
+        with open(cache, "w") as out:
+            out.write(dataset.json(indent=2))
+
     return dataset
 
 
@@ -505,7 +516,10 @@ def get_td_data(
         core_td_datasets, ds_cache="datasets/core-td.json"
     )
     core_dataset = filter_td_data(
-        core_dataset, td_records_to_remove, include_iodine=False
+        core_dataset,
+        td_records_to_remove,
+        include_iodine=False,
+        cache="datasets/filtered-core-td.json",
     )
     if verbose:
         print(f"Number of core entries: {core_dataset.n_results}")
@@ -521,6 +535,7 @@ def get_td_data(
             aux_dataset,
             td_records_to_remove,
             include_iodine=False,
+            cache="datasets/filtered-aux-td.json",
         )
         aux_dataset = cap_torsions_per_parameter(
             ff,
@@ -602,7 +617,13 @@ def filter_opt_data(
     include_iodine: bool = False,
     max_opt_conformers: int = 12,
     verbose: bool = False,
+    cache=None,
+    invalidate_cache=False,
 ):
+    if cache is not None and os.path.isfile(cache) and not invalidate_cache:
+        print(f"loading filtered opt data set from {cache}")
+        return OptimizationResultCollection.parse_file(cache)
+
     from qcportal.models.records import RecordStatusEnum
     from openff.qcsubmit.results.filters import (
         ConnectivityFilter,
@@ -646,6 +667,11 @@ def filter_opt_data(
         ConformerRMSDFilter(max_conformers=max_opt_conformers),
         ChargeCheckFilter(),
     )
+
+    if cache is not None:
+        with open(cache, "w") as out:
+            out.write(dataset.json(indent=2))
+
     return dataset
 
 
@@ -777,6 +803,7 @@ def get_opt_data(
         opt_records_to_remove,
         include_iodine=False,
         max_opt_conformers=max_opt_conformers,
+        cache="datasets/filtered-core-opt.json",
     )
     if verbose:
         print(f"Number of filtered core entries: {core_dataset.n_results}")
@@ -793,6 +820,7 @@ def get_opt_data(
             opt_records_to_remove,
             include_iodine=True,
             max_opt_conformers=max_opt_conformers,
+            cache="datasets/filtered-iodine-opt.json",
         )
         if verbose:
             print(

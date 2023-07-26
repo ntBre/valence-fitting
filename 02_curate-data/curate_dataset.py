@@ -22,8 +22,6 @@ if typing.TYPE_CHECKING:
 
 class ChargeCheckFilter(ResultRecordFilter):
     def _filter_function(self, result, record, molecule) -> bool:
-        from tempfile import NamedTemporaryFile
-        from openff.toolkit import Molecule
         from openff.toolkit.utils.exceptions import (
             UnassignedMoleculeChargeException,
         )
@@ -34,13 +32,9 @@ class ChargeCheckFilter(ResultRecordFilter):
         # metadata, so reading from file and checking it
         can_be_charged = True
         try:
-            with NamedTemporaryFile(suffix=".sdf") as file:
-                molecule.to_file(file.name, "SDF")
-                molecule = Molecule.from_file(file.name)
-                molecule.assign_partial_charges(
-                    partial_charge_method="am1bccelf10"
-                )
-
+            molecule.assign_partial_charges(
+                partial_charge_method="am1bccelf10"
+            )
         except (UnassignedMoleculeChargeException, ValueError):
             can_be_charged = False
 

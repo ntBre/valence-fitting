@@ -650,7 +650,7 @@ def filter_opt_data(
         UnperceivableStereoFilter(),
         ElementFilter(allowed_elements=elements),
         ConformerRMSDFilter(max_conformers=max_opt_conformers),
-        ChargeCheckFilter()
+        ChargeCheckFilter(),
     )
     return dataset
 

@@ -216,7 +216,7 @@ def download_td_data(
     from openff.qcsubmit.results import TorsionDriveResultCollection
 
     if os.path.isfile(ds_cache) and not invalidate_cache:
-        print("loading td from cache")
+        print(f"loading td from {ds_cache}")
         return TorsionDriveResultCollection.parse_file(ds_cache)
 
     client = FractalClient()
@@ -596,7 +596,7 @@ def download_opt_data(
     from openff.qcsubmit.results import OptimizationResultCollection
 
     if os.path.isfile(ds_cache) and not invalidate_cache:
-        print("loading opt from cache")
+        print(f"loading opt from {ds_cache}")
         return OptimizationResultCollection.parse_file(ds_cache)
 
     client = FractalClient()

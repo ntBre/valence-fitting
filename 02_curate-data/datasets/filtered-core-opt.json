@@ -1311,6 +1311,41 @@
       }
     ]
   },
-  "provenance": {},
+  "provenance": {
+    "applied-filters": {
+      "RecordStatusFilter-0": {
+        "status": "COMPLETE"
+      },
+      "ConnectivityFilter-1": {
+        "tolerance": 1.2
+      },
+      "UnperceivableStereoFilter-2": {
+        "toolkits": [
+          "openeye",
+          "rdkit"
+        ]
+      },
+      "ElementFilter-3": {
+        "allowed_elements": [
+          "H",
+          "C",
+          "N",
+          "O",
+          "S",
+          "P",
+          "F",
+          "Cl",
+          "Br"
+        ]
+      },
+      "ConformerRMSDFilter-4": {
+        "max_conformers": 12,
+        "rmsd_tolerance": 0.5,
+        "heavy_atoms_only": true,
+        "check_automorphs": true
+      },
+      "ChargeCheckFilter-5": {}
+    }
+  },
   "type": "OptimizationResultCollection"
 }

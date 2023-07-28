@@ -252,6 +252,8 @@ def filter_td_data(
         ElementFilter,
     )
 
+    print("re-filtering td data")
+
     if td_records_to_remove is not None:
         records_to_remove = np.loadtxt(td_records_to_remove, dtype=str)
     else:
@@ -631,6 +633,8 @@ def filter_opt_data(
         ElementFilter,
         ConformerRMSDFilter,
     )
+
+    print("re-filtering opt data")
 
     if opt_records_to_remove is not None:
         records_to_remove = np.loadtxt(opt_records_to_remove, dtype=str)

@@ -49,6 +49,7 @@ def combine_td(ff):
         "output/pavan-td-training-set.json"
     )
 
+    print("combining td datasets")
     combined_td = combine_datasets(sage_td, pavan_td)
 
     with open("output/combined-td.json", "w") as out:
@@ -58,6 +59,7 @@ def combine_td(ff):
         "explicit_ring_torsions.dat", dtype=str
     )
 
+    print("selecting td parameters")
     selected_parameters = select_parameters(
         combined_td,
         ["ProperTorsions"],
@@ -86,11 +88,13 @@ def combine_opt(ff):
         "output/pavan-opt-training-set.json"
     )
 
+    print("combining opt datasets")
     combined_td = combine_datasets(sage_td, pavan_td)
 
     with open("output/combined-opt.json", "w") as out:
         out.write(combined_td.json(indent=2))
 
+    print("selecting opt parameters")
     selected_parameters = select_parameters(
         combined_td,
         ["Bonds", "Angles"],

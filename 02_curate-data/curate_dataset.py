@@ -11,13 +11,12 @@ import click
 
 from openff.qcsubmit.results.filters import ResultRecordFilter
 
-if typing.TYPE_CHECKING:
-    from qcportal.models import TorsionDriveRecord, OptimizationRecord
-    from openff.qcsubmit.results import (
-        TorsionDriveResultCollection,
-        OptimizationResultCollection,
-    )
-    from openff.toolkit import ForceField, Molecule
+from qcportal.models import TorsionDriveRecord, OptimizationRecord
+from openff.qcsubmit.results import (
+    TorsionDriveResultCollection,
+    OptimizationResultCollection,
+)
+from openff.toolkit import ForceField, Molecule
 
 
 class ChargeCheckFilter(ResultRecordFilter):

@@ -5,6 +5,7 @@ import logging
 import random
 import typing
 import os.path
+import sys
 
 import numpy as np
 import click
@@ -215,7 +216,7 @@ def download_td_data(
     from openff.qcsubmit.results import TorsionDriveResultCollection
 
     if os.path.isfile(ds_cache) and not invalidate_cache:
-        print(f"loading td from {ds_cache}")
+        print(f"loading td from {ds_cache}", file=sys.stderr)
         return TorsionDriveResultCollection.parse_file(ds_cache)
 
     client = FractalClient()
@@ -240,7 +241,7 @@ def filter_td_data(
     "Filter a TorsionDrive dataset"
 
     if cache is not None and os.path.isfile(cache) and not invalidate_cache:
-        print(f"loading filtered td data set from {cache}")
+        print(f"loading filtered td data set from {cache}", file=sys.stderr)
         return TorsionDriveResultCollection.parse_file(cache)
 
     from qcportal.models.records import RecordStatusEnum
@@ -252,7 +253,7 @@ def filter_td_data(
         ElementFilter,
     )
 
-    print("re-filtering td data")
+    print("re-filtering td data", file=sys.stderr)
 
     if td_records_to_remove is not None:
         records_to_remove = np.loadtxt(td_records_to_remove, dtype=str)
@@ -597,7 +598,7 @@ def download_opt_data(
     from openff.qcsubmit.results import OptimizationResultCollection
 
     if os.path.isfile(ds_cache) and not invalidate_cache:
-        print(f"loading opt from {ds_cache}")
+        print(f"loading opt from {ds_cache}", file=sys.stderr)
         return OptimizationResultCollection.parse_file(ds_cache)
 
     client = FractalClient()
@@ -622,7 +623,7 @@ def filter_opt_data(
     invalidate_cache=False,
 ):
     if cache is not None and os.path.isfile(cache) and not invalidate_cache:
-        print(f"loading filtered opt data set from {cache}")
+        print(f"loading filtered opt data set from {cache}", file=sys.stderr)
         return OptimizationResultCollection.parse_file(cache)
 
     from qcportal.models.records import RecordStatusEnum
@@ -634,7 +635,7 @@ def filter_opt_data(
         ConformerRMSDFilter,
     )
 
-    print("re-filtering opt data")
+    print("re-filtering opt data", file=sys.stderr)
 
     if opt_records_to_remove is not None:
         records_to_remove = np.loadtxt(opt_records_to_remove, dtype=str)

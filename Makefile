@@ -63,7 +63,7 @@ $(MSM_FF): $(INITIAL_FF) $(CURATE)/output/combined-opt.json $(MSM)/create-msm-ff
     --working-directory         "working-directory"                                                        \
     --output                    "output/initial-force-field-msm.offxml"
 
-$(FIT)/ready: $(COMBINED) $(MSM_FF)
+$(FIT)/ready: $(COMBINED) $(MSM_FF) $(FIT)/create-fb-inputs.py
 	cd $(FIT) ; \
 	python create-fb-inputs.py                                                                \
     --tag                       "fb-fit"                                                          \

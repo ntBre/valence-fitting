@@ -259,6 +259,7 @@ def generate(
         )
 
     ff = ForceField(forcefield, allow_cosmetic_attributes=True)
+    ff.deregister_parameter_handler("Constraints")
 
     torsion_handler = ff.get_parameter_handler("ProperTorsions")
     for smirks in torsion_smirks["ProperTorsions"]:
@@ -297,14 +298,16 @@ def generate(
     with optfile.open("w") as f:
         f.write(optimization_schema.json(indent=2))
 
+    ff = ForceField(
+        optimization_schema.initial_force_field,
+        allow_cosmetic_attributes=True,
+    )
+    ff.deregister_parameter_handler("Constraints")
     # Generate the ForceBalance inputs
     ForceBalanceInputFactory.generate(
         os.path.join(optimization_schema.id),
         optimization_schema.stages[0],
-        ForceField(
-            optimization_schema.initial_force_field,
-            allow_cosmetic_attributes=True,
-        ),
+        ff,
     )
 
 

@@ -52,7 +52,13 @@ $(TD_SET) &: $(INITIAL_FF) $(CURATE)/curate_dataset.py
     --output-parameter-smirks   "output/pavan-td-smirks.json"                            \
     --verbose
 
-$(COMBINED) &: $(OPT_SET) $(TD_SET) $(CURATE)/combine.py
+# run fast-filter to generate the cache read by combine.py
+SAGE_DATA_SETS := ../../clone/sage-2.1.0/inputs-and-outputs/data-sets
+datasets/filtered-sage-opt.json: $(SAGE_DATA_SETS)/opt-set-for-fitting-2.1.0.json $(CURATE)/filter-opt.py
+	cd $(CURATE) ; \
+	fast-filter ../$(SAGE_DATA_SETS)/opt-set-for-fitting-2.1.0.json -p filter-opt.py -o $@ -t 12 -b 32
+
+$(COMBINED) &: $(OPT_SET) $(TD_SET) $(CURATE)/combine.py datasets/filtered-sage-opt.json
 	cd $(CURATE) ; \
 	python combine.py
 

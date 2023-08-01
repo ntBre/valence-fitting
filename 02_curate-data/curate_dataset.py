@@ -22,9 +22,8 @@ from openff.toolkit import ForceField, Molecule
 
 class ChargeCheckFilter(ResultRecordFilter):
     def _filter_function(self, result, record, molecule) -> bool:
-        from openff.toolkit.utils.exceptions import (
-            UnassignedMoleculeChargeException,
-        )
+        from openff.toolkit.utils.exceptions import ChargeCalculationError
+        from openff.toolkit.utils.toolkits import OpenEyeToolkitWrapper
 
         # Some of the molecules fail charging with am1bccelf10 either
         # because of no bccs or failed conformer generation, sometimes it
@@ -32,10 +31,10 @@ class ChargeCheckFilter(ResultRecordFilter):
         # metadata, so reading from file and checking it
         can_be_charged = True
         try:
-            molecule.assign_partial_charges(
-                partial_charge_method="am1bccelf10"
+            OpenEyeToolkitWrapper().assign_partial_charges(
+                molecule, partial_charge_method="am1bccelf10"
             )
-        except (UnassignedMoleculeChargeException, ValueError):
+        except ChargeCalculationError:
             can_be_charged = False
 
         return can_be_charged

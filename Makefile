@@ -13,7 +13,7 @@ MSM_FF := $(MSM)/output/initial-force-field-msm.offxml
 
 step1: $(INITIAL_FF)
 step2: $(COMBINED)
-step3: $(MSM)/output/initial-force-field-msm.offxml
+step3: $(MSM_FF)
 step4: $(FIT)/ready
 sage: fit-sage/ready
 
@@ -54,11 +54,11 @@ $(TD_SET) &: $(INITIAL_FF) $(CURATE)/curate_dataset.py
 
 # run fast-filter to generate the cache read by combine.py
 SAGE_DATA_SETS := ../../clone/sage-2.1.0/inputs-and-outputs/data-sets
-datasets/filtered-sage-opt.json: $(SAGE_DATA_SETS)/opt-set-for-fitting-2.1.0.json $(CURATE)/filter-opt.py
+$(CURATE)/datasets/filtered-sage-opt.json: $(SAGE_DATA_SETS)/opt-set-for-fitting-2.1.0.json $(CURATE)/filter-opt.py
 	cd $(CURATE) ; \
-	fast-filter ../$(SAGE_DATA_SETS)/opt-set-for-fitting-2.1.0.json -p filter-opt.py -o $@ -t 12 -b 32
+	fast-filter ../$(SAGE_DATA_SETS)/opt-set-for-fitting-2.1.0.json -p filter-opt.py -o ../$@ -t 12 -b 32
 
-$(COMBINED) &: $(OPT_SET) $(TD_SET) $(CURATE)/combine.py datasets/filtered-sage-opt.json
+$(COMBINED) &: $(OPT_SET) $(TD_SET) $(CURATE)/combine.py $(CURATE)/datasets/filtered-sage-opt.json
 	cd $(CURATE) ; \
 	python combine.py
 

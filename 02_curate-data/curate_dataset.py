@@ -22,7 +22,10 @@ from openff.toolkit import ForceField, Molecule
 
 class ChargeCheckFilter(ResultRecordFilter):
     def _filter_function(self, result, record, molecule) -> bool:
-        from openff.toolkit.utils.exceptions import ChargeCalculationError
+        from openff.toolkit.utils.exceptions import (
+            ChargeCalculationError,
+            ConformerGenerationError,
+        )
         from openff.toolkit.utils.toolkits import OpenEyeToolkitWrapper
 
         # Some of the molecules fail charging with am1bccelf10 either
@@ -34,7 +37,7 @@ class ChargeCheckFilter(ResultRecordFilter):
             OpenEyeToolkitWrapper().assign_partial_charges(
                 molecule, partial_charge_method="am1bccelf10"
             )
-        except ChargeCalculationError:
+        except (ChargeCalculationError, ConformerGenerationError):
             can_be_charged = False
 
         return can_be_charged

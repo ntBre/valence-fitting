@@ -1,5 +1,5 @@
 import json
-from curate_dataset import filter_opt_data
+from filters import filter_opt_data
 from openff.qcsubmit.results import OptimizationResultCollection
 
 d = json.loads(r"""{json}""")

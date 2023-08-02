@@ -3,12 +3,10 @@ CURATE := 02_curate-data
 MSM := 03_generate-initial-ff
 FIT := 04_fit-forcefield
 
-COMBINED := $(addprefix $(CURATE)/output/,combined-opt.json combined-opt-smirks.json combined-td.json combined-td-smirks.json)
 MSM_FF := $(MSM)/output/initial-force-field-msm.offxml
 
 .PHONY: step1 step2 step3 step4 sage td opt
 
-step2: $(COMBINED)
 step3: $(MSM_FF)
 step4: $(FIT)/ready
 sage: fit-sage/ready
@@ -24,7 +22,7 @@ $(INITIAL_FF): $(STEP1_DEPS)
 	cd $(GENERATE); python generate-forcefield.py --output ../$@
 
 step1: $(INITIAL_FF) # alias for step1
-
+
 # step 2 - curate data sets for fitting the force field. In this case, we want
 # to combine the original data sets used for training Sage 2.1 with some
 # additional records selected by Pavan specifically for the additional torsions
@@ -88,10 +86,10 @@ $(CURATE)/datasets/filtered-core-td.json: $(DEPS)
 
 # step 2b.iii - last steps of curation
 TD_SET := $(addprefix $(CURATE)/output/,pavan-td-training-set.json	\
-pavan-td-smirks.json)
+	    pavan-td-smirks.json)
 
 DEPS := $(INITIAL_FF) $(CURATE)/curate_dataset.py	\
-$(CURATE)/datasets/filtered-core-td.json
+	$(CURATE)/datasets/filtered-core-td.json
 
 $(TD_SET) &: $(DEPS)
 	cd $(CURATE) ; \
@@ -105,23 +103,53 @@ $(TD_SET) &: $(DEPS)
 
 td: $(TD_SET)
 
-# run fast-filter to generate the cache read by combine.py
-SAGE_DATA_SETS := ../../clone/sage-2.1.0/inputs-and-outputs/data-sets
-$(CURATE)/datasets/filtered-sage-opt.json: $(SAGE_DATA_SETS)/opt-set-for-fitting-2.1.0.json $(CURATE)/filter-opt.py
-	cd $(CURATE) ; \
-	fast-filter ../$(SAGE_DATA_SETS)/opt-set-for-fitting-2.1.0.json -p filter-opt.py -o ../$@ -t 12 -b 32
+# step 2c curate the sage datasets using the same filters as above
 
-$(COMBINED) &: $(OPT_SET) $(TD_SET) $(CURATE)/combine.py $(CURATE)/datasets/filtered-sage-opt.json
+# step 2c.i filter the sage opt dataset
+DEPS := $(addprefix $(CURATE)/,sage/opt-set-for-fitting-2.1.0.json	\
+	filter-opt.py filters.py)
+
+$(CURATE)/datasets/filtered-sage-opt.json: $(DEPS)
 	cd $(CURATE) ; \
-	python combine.py
+	fast-filter sage/opt-set-for-fitting-2.1.0.json \
+		-p filter-opt.py -o ../$@ -t 12 -b 32
+
+# step 2c.ii filter the sage td dataset
+DEPS := $(addprefix $(CURATE)/,sage/td-set-for-fitting-2.1.0.json filter-td.py	\
+	filters.py)
+
+$(CURATE)/datasets/filtered-sage-td.json: $(DEPS)
+	cd $(CURATE) ; \
+	fast-filter sage/td-set-for-fitting-2.1.0.json \
+		-p filter-td.py -o ../$@ -t 12 -b 32
+
+DEPS := $(OPT_SET) $(TD_SET) $(CURATE)/combine.py	\
+	$(CURATE)/datasets/filtered-sage-opt.json	\
+	$(CURATE)/datasets/filtered-sage-td.json
+
+# step 2d combine the two pairs of filtered data sets together
+COMBINED := $(addprefix $(CURATE)/output/,combined-opt.json			\
+	    combined-opt-smirks.json combined-td.json combined-td-smirks.json)
+
+$(COMBINED) &: $(DEPS)
+	cd $(CURATE); python combine.py
+
+step2: $(COMBINED)
+
+
+
+# step 3 - update the initial force field parameters with the modified seminario
+# method
 
 $(MSM_FF): $(INITIAL_FF) $(CURATE)/output/combined-opt.json $(MSM)/create-msm-ff.py
 	cd $(MSM) ; \
-	python create-msm-ff.py                                                                            \
-    --initial-force-field       "../01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml" \
-    --optimization-dataset      "../02_curate-data/output/combined-opt.json"                               \
-    --working-directory         "working-directory"                                                        \
-    --output                    "output/initial-force-field-msm.offxml"
+	python create-msm-ff.py                                                \
+	--initial-force-field       ../$(INITIAL_FF)                           \
+	--optimization-dataset      ../02_curate-data/output/combined-opt.json \
+	--working-directory         working-directory                          \
+	--output                    ../$@
+
+# step 4 - generate ForceBalance inputs
 
 $(FIT)/ready: $(COMBINED) $(MSM_FF) $(FIT)/create-fb-inputs.py
 	cd $(FIT) ; \

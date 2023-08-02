@@ -3,42 +3,73 @@ CURATE := 02_curate-data
 MSM := 03_generate-initial-ff
 FIT := 04_fit-forcefield
 
-INITIAL_FF := $(GENERATE)/output/initial-force-field-openff-2.1.0.offxml
-OPT_SET := $(addprefix $(CURATE)/output/,pavan-opt-training-set.json pavan-opt-smirks.json)
 TD_SET := $(addprefix $(CURATE)/output/,pavan-td-training-set.json pavan-td-smirks.json)
 COMBINED := $(addprefix $(CURATE)/output/,combined-opt.json combined-opt-smirks.json combined-td.json combined-td-smirks.json)
 MSM_FF := $(MSM)/output/initial-force-field-msm.offxml
 
-.PHONY: step1 step2 step3 step4 sage td
+.PHONY: step1 step2 step3 step4 sage td opt
 
-step1: $(INITIAL_FF)
 step2: $(COMBINED)
 step3: $(MSM_FF)
 step4: $(FIT)/ready
 sage: fit-sage/ready
 
 td: $(TD_SET)
-opt: $(OPT_SET)
 
-$(INITIAL_FF): $(GENERATE)/generate-forcefield.py
-	echo $$OE_LICENSE
-	cd $(GENERATE) ; \
-	python generate-forcefield.py --force-field-name openff-2.1.0.offxml \
-                                      --output           output/initial-force-field-openff-2.1.0.offxml \
-                                      2>&1 | tee generate.log
+# step 1 - generate the initial force field from a combination of the
+# differences between Sage 2.0 and pavan's force field and Sage 2.1 (port the
+# changes Pavan made to Sage 2.1). Inputs are the script and Pavan's FF, output
+# is the initial force field
 
-$(OPT_SET) &: $(INITIAL_FF) $(CURATE)/curate_dataset.py
+INITIAL_FF := $(GENERATE)/output/initial-force-field-openff-2.1.0.offxml
+STEP1_DEPS := $(GENERATE)/generate-forcefield.py $(GENERATE)/force-field.offxml
+$(INITIAL_FF): $(STEP1_DEPS)
+	cd $(GENERATE); python generate-forcefield.py --output ../$@
+
+step1: $(INITIAL_FF) # alias for step1
+
+# step 2 - curate data sets for fitting the force field. In this case, we want
+# to combine the original data sets used for training Sage 2.1 with some
+# additional records selected by Pavan specifically for the additional torsions
+# added to the force field.
+
+# step 2a - download the torsion multiplicity optimization data set. Inputs are
+# 1) The initial force field from step 1
+# 2) The script itself
+# Primary outputs are
+# 1) pavan-opt-training-set.json (the final data set)
+# 2) pavan-opt-smirks.json
+# Intermediate outputs are
+# 1) datasets/core-opt.json (downloaded core dataset)
+# 2) datasets/filtered-core-opt.json (filtered core dataset)
+
+# these caches are actually potential inputs. In fact, the second cache needs to
+# be invalidated if there are any changes to the filter
+
+$(CURATE)/datasets/core-opt.json: $(CURATE)/download_opt.py
+	cd $(CURATE); python download_opt.py
+
+DEPS := $(addprefix $(CURATE)/,datasets/core-opt.json filters.py filter-opt.py)
+$(CURATE)/datasets/filtered-core-opt.json: $(DEPS)
+	cd $(CURATE); \
+	fast-filter datasets/core-opt.json -p filter-opt.py -o ../$@ -t 12
+
+OPT_SET := $(addprefix $(CURATE)/output/,pavan-opt-training-set.json	\
+pavan-opt-smirks.json)
+
+DEPS := $(INITIAL_FF) $(CURATE)/curate_dataset.py	\
+$(CURATE)/datasets/filtered-core-opt.json
+
+$(OPT_SET) &: $(DEPS)
 	cd $(CURATE) ; \
-	python curate_dataset.py download-opt                                          \
-    --core-opt-dataset          "OpenFF multiplicity correction optimization set v1.0" \
-    --initial-forcefield        ../$(INITIAL_FF)                                       \
-    --max-opt-conformers        12                                                     \
-    --n-processes               8                                                      \
-    --min-record-coverage       1                                                      \
-    --opt-records-to-remove     opt_records_to_remove.dat                              \
-    --output                    "output/pavan-opt-training-set.json"                   \
-    --output-parameter-smirks   "output/pavan-opt-smirks.json"                         \
-    --verbose
+	python curate_dataset.py download-opt                                \
+	    --initial-forcefield        ../$(INITIAL_FF)                     \
+	    --min-record-coverage       1                                    \
+	    --output                    "output/pavan-opt-training-set.json" \
+	    --output-parameter-smirks   "output/pavan-opt-smirks.json"       \
+	    --verbose
+
+opt: $(OPT_SET)
 
 $(TD_SET) &: $(INITIAL_FF) $(CURATE)/curate_dataset.py
 	cd $(CURATE) ; \

@@ -31785,13 +31785,13 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321085",
+        "record_id": "104321084",
         "cmiles": "[H:20][c:5]1[c:6]([c:7]([c:8]([c:9]([c:4]1[O:3][C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:23])[H:22])[S:10](=[O:11])(=[O:12])[N:13]([H:24])[N:14]([H:25])[H:26])[H:21]",
         "inchi_key": "YAFWZZVGGJCNRK-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321084",
+        "record_id": "104321085",
         "cmiles": "[H:20][c:5]1[c:6]([c:7]([c:8]([c:9]([c:4]1[O:3][C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:23])[H:22])[S:10](=[O:11])(=[O:12])[N:13]([H:24])[N:14]([H:25])[H:26])[H:21]",
         "inchi_key": "YAFWZZVGGJCNRK-UHFFFAOYNA-N"
       },
@@ -31851,25 +31851,25 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321097",
-        "cmiles": "[H:10][C:1]([H:11])([H:12])[C:2]([H:13])([H:14])[N:3]([H:15])[N:4]([H:16])[C:5]([H:17])([H:18])[S:6](=[O:7])(=[O:8])[C:9]([H:19])([H:20])[H:21]",
-        "inchi_key": "NKVGBGNZEHTJPP-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
         "record_id": "104321095",
         "cmiles": "[H:10][C:1]([H:11])([H:12])[C:2]([H:13])([H:14])[N:3]([H:15])[N:4]([H:16])[C:5]([H:17])([H:18])[S:6](=[O:7])(=[O:8])[C:9]([H:19])([H:20])[H:21]",
         "inchi_key": "NKVGBGNZEHTJPP-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321098",
+        "record_id": "104321097",
         "cmiles": "[H:10][C:1]([H:11])([H:12])[C:2]([H:13])([H:14])[N:3]([H:15])[N:4]([H:16])[C:5]([H:17])([H:18])[S:6](=[O:7])(=[O:8])[C:9]([H:19])([H:20])[H:21]",
         "inchi_key": "NKVGBGNZEHTJPP-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
         "record_id": "104321099",
+        "cmiles": "[H:10][C:1]([H:11])([H:12])[C:2]([H:13])([H:14])[N:3]([H:15])[N:4]([H:16])[C:5]([H:17])([H:18])[S:6](=[O:7])(=[O:8])[C:9]([H:19])([H:20])[H:21]",
+        "inchi_key": "NKVGBGNZEHTJPP-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321098",
         "cmiles": "[H:10][C:1]([H:11])([H:12])[C:2]([H:13])([H:14])[N:3]([H:15])[N:4]([H:16])[C:5]([H:17])([H:18])[S:6](=[O:7])(=[O:8])[C:9]([H:19])([H:20])[H:21]",
         "inchi_key": "NKVGBGNZEHTJPP-UHFFFAOYNA-N"
       },
@@ -31911,13 +31911,19 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321109",
+        "record_id": "104321107",
         "cmiles": "[H:12][c:1]1[c:2]([c:3]([c:4]([c:5]([c:6]1[H:16])[H:15])[C:7](=[O:8])[C:9]([H:17])([H:18])[N:10]([H:19])[N:11]([H:20])[H:21])[H:14])[H:13]",
         "inchi_key": "SDSMUVNMBKJPCD-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
         "record_id": "104321105",
+        "cmiles": "[H:12][c:1]1[c:2]([c:3]([c:4]([c:5]([c:6]1[H:16])[H:15])[C:7](=[O:8])[C:9]([H:17])([H:18])[N:10]([H:19])[N:11]([H:20])[H:21])[H:14])[H:13]",
+        "inchi_key": "SDSMUVNMBKJPCD-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321109",
         "cmiles": "[H:12][c:1]1[c:2]([c:3]([c:4]([c:5]([c:6]1[H:16])[H:15])[C:7](=[O:8])[C:9]([H:17])([H:18])[N:10]([H:19])[N:11]([H:20])[H:21])[H:14])[H:13]",
         "inchi_key": "SDSMUVNMBKJPCD-UHFFFAOYNA-N"
       },
@@ -31953,19 +31959,7 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321136",
-        "cmiles": "[H:19][C:5](=[C:4]([H:18])[N+:2]([C:1]([H:12])([H:13])[H:14])([C:3]([H:15])([H:16])[H:17])[N:6]([H:21])[C:7]([H:22])([H:23])[C:8]([H:24])([H:25])[C:9](=[O:10])[O-:11])[H:20]",
-        "inchi_key": "KDZPHTFWDPJPKE-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321134",
-        "cmiles": "[H:19][C:5](=[C:4]([H:18])[N+:2]([C:1]([H:12])([H:13])[H:14])([C:3]([H:15])([H:16])[H:17])[N:6]([H:21])[C:7]([H:22])([H:23])[C:8]([H:24])([H:25])[C:9](=[O:10])[O-:11])[H:20]",
-        "inchi_key": "KDZPHTFWDPJPKE-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321135",
+        "record_id": "104321132",
         "cmiles": "[H:19][C:5](=[C:4]([H:18])[N+:2]([C:1]([H:12])([H:13])[H:14])([C:3]([H:15])([H:16])[H:17])[N:6]([H:21])[C:7]([H:22])([H:23])[C:8]([H:24])([H:25])[C:9](=[O:10])[O-:11])[H:20]",
         "inchi_key": "KDZPHTFWDPJPKE-UHFFFAOYNA-N"
       },
@@ -31977,7 +31971,19 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321132",
+        "record_id": "104321135",
+        "cmiles": "[H:19][C:5](=[C:4]([H:18])[N+:2]([C:1]([H:12])([H:13])[H:14])([C:3]([H:15])([H:16])[H:17])[N:6]([H:21])[C:7]([H:22])([H:23])[C:8]([H:24])([H:25])[C:9](=[O:10])[O-:11])[H:20]",
+        "inchi_key": "KDZPHTFWDPJPKE-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321136",
+        "cmiles": "[H:19][C:5](=[C:4]([H:18])[N+:2]([C:1]([H:12])([H:13])[H:14])([C:3]([H:15])([H:16])[H:17])[N:6]([H:21])[C:7]([H:22])([H:23])[C:8]([H:24])([H:25])[C:9](=[O:10])[O-:11])[H:20]",
+        "inchi_key": "KDZPHTFWDPJPKE-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321134",
         "cmiles": "[H:19][C:5](=[C:4]([H:18])[N+:2]([C:1]([H:12])([H:13])[H:14])([C:3]([H:15])([H:16])[H:17])[N:6]([H:21])[C:7]([H:22])([H:23])[C:8]([H:24])([H:25])[C:9](=[O:10])[O-:11])[H:20]",
         "inchi_key": "KDZPHTFWDPJPKE-UHFFFAOYNA-N"
       },
@@ -32001,25 +32007,25 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321147",
-        "cmiles": "[H:10][C:1]([H:11])([H:12])[N:2]([H:13])[S:3][N:4]([C:6](=[O:7])[O:8][N:9]([H:17])[H:18])[C:5]([H:14])([H:15])[H:16]",
-        "inchi_key": "OKXRWBAAIMGACF-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
         "record_id": "104321143",
         "cmiles": "[H:10][C:1]([H:11])([H:12])[N:2]([H:13])[S:3][N:4]([C:6](=[O:7])[O:8][N:9]([H:17])[H:18])[C:5]([H:14])([H:15])[H:16]",
         "inchi_key": "OKXRWBAAIMGACF-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321141",
+        "record_id": "104321142",
         "cmiles": "[H:10][C:1]([H:11])([H:12])[N:2]([H:13])[S:3][N:4]([C:6](=[O:7])[O:8][N:9]([H:17])[H:18])[C:5]([H:14])([H:15])[H:16]",
         "inchi_key": "OKXRWBAAIMGACF-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321146",
+        "record_id": "104321144",
+        "cmiles": "[H:10][C:1]([H:11])([H:12])[N:2]([H:13])[S:3][N:4]([C:6](=[O:7])[O:8][N:9]([H:17])[H:18])[C:5]([H:14])([H:15])[H:16]",
+        "inchi_key": "OKXRWBAAIMGACF-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321140",
         "cmiles": "[H:10][C:1]([H:11])([H:12])[N:2]([H:13])[S:3][N:4]([C:6](=[O:7])[O:8][N:9]([H:17])[H:18])[C:5]([H:14])([H:15])[H:16]",
         "inchi_key": "OKXRWBAAIMGACF-UHFFFAOYNA-N"
       },
@@ -32031,7 +32037,13 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321142",
+        "record_id": "104321146",
+        "cmiles": "[H:10][C:1]([H:11])([H:12])[N:2]([H:13])[S:3][N:4]([C:6](=[O:7])[O:8][N:9]([H:17])[H:18])[C:5]([H:14])([H:15])[H:16]",
+        "inchi_key": "OKXRWBAAIMGACF-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321147",
         "cmiles": "[H:10][C:1]([H:11])([H:12])[N:2]([H:13])[S:3][N:4]([C:6](=[O:7])[O:8][N:9]([H:17])[H:18])[C:5]([H:14])([H:15])[H:16]",
         "inchi_key": "OKXRWBAAIMGACF-UHFFFAOYNA-N"
       },
@@ -32049,13 +32061,13 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321162",
+        "record_id": "104321155",
         "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
         "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321167",
+        "record_id": "104321156",
         "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
         "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
       },
@@ -32067,31 +32079,37 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321155",
+        "record_id": "104321151",
         "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
         "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321185",
+        "record_id": "104321153",
         "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
         "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321164",
+        "record_id": "104321152",
         "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
         "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321177",
+        "record_id": "104321154",
         "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
         "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321179",
+        "record_id": "104321157",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321162",
         "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
         "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
       },
@@ -32103,13 +32121,169 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321174",
+        "record_id": "104321167",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321161",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321160",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321159",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321165",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321163",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321164",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321168",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321166",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321169",
         "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
         "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
         "record_id": "104321178",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321179",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321177",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321171",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321174",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321172",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321176",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321170",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321175",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321173",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321180",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321181",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321182",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321184",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321187",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321186",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321183",
+        "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
+        "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321185",
         "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
         "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
       },
@@ -32127,43 +32301,7 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321193",
-        "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:21])[N:7]=[C:8]([S:9]2)[S:10][N:11]([H:22])[C:12]3([C:13]([C:14]([C:15]([C:16]([C:17]3([H:32])[H:33])([H:30])[H:31])([H:28])[H:29])([H:26])[H:27])([H:24])[H:25])[H:23])[H:20])[H:19]",
-        "inchi_key": "DEQZTKGFXNUBJL-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321199",
-        "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:21])[N:7]=[C:8]([S:9]2)[S:10][N:11]([H:22])[C:12]3([C:13]([C:14]([C:15]([C:16]([C:17]3([H:32])[H:33])([H:30])[H:31])([H:28])[H:29])([H:26])[H:27])([H:24])[H:25])[H:23])[H:20])[H:19]",
-        "inchi_key": "DEQZTKGFXNUBJL-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321198",
-        "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:21])[N:7]=[C:8]([S:9]2)[S:10][N:11]([H:22])[C:12]3([C:13]([C:14]([C:15]([C:16]([C:17]3([H:32])[H:33])([H:30])[H:31])([H:28])[H:29])([H:26])[H:27])([H:24])[H:25])[H:23])[H:20])[H:19]",
-        "inchi_key": "DEQZTKGFXNUBJL-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321197",
-        "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:21])[N:7]=[C:8]([S:9]2)[S:10][N:11]([H:22])[C:12]3([C:13]([C:14]([C:15]([C:16]([C:17]3([H:32])[H:33])([H:30])[H:31])([H:28])[H:29])([H:26])[H:27])([H:24])[H:25])[H:23])[H:20])[H:19]",
-        "inchi_key": "DEQZTKGFXNUBJL-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321196",
-        "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:21])[N:7]=[C:8]([S:9]2)[S:10][N:11]([H:22])[C:12]3([C:13]([C:14]([C:15]([C:16]([C:17]3([H:32])[H:33])([H:30])[H:31])([H:28])[H:29])([H:26])[H:27])([H:24])[H:25])[H:23])[H:20])[H:19]",
-        "inchi_key": "DEQZTKGFXNUBJL-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321195",
-        "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:21])[N:7]=[C:8]([S:9]2)[S:10][N:11]([H:22])[C:12]3([C:13]([C:14]([C:15]([C:16]([C:17]3([H:32])[H:33])([H:30])[H:31])([H:28])[H:29])([H:26])[H:27])([H:24])[H:25])[H:23])[H:20])[H:19]",
-        "inchi_key": "DEQZTKGFXNUBJL-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321191",
+        "record_id": "104321190",
         "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:21])[N:7]=[C:8]([S:9]2)[S:10][N:11]([H:22])[C:12]3([C:13]([C:14]([C:15]([C:16]([C:17]3([H:32])[H:33])([H:30])[H:31])([H:28])[H:29])([H:26])[H:27])([H:24])[H:25])[H:23])[H:20])[H:19]",
         "inchi_key": "DEQZTKGFXNUBJL-UHFFFAOYNA-N"
       },
@@ -32175,43 +32313,55 @@
       },
       {
         "type": "optimization",
+        "record_id": "104321191",
+        "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:21])[N:7]=[C:8]([S:9]2)[S:10][N:11]([H:22])[C:12]3([C:13]([C:14]([C:15]([C:16]([C:17]3([H:32])[H:33])([H:30])[H:31])([H:28])[H:29])([H:26])[H:27])([H:24])[H:25])[H:23])[H:20])[H:19]",
+        "inchi_key": "DEQZTKGFXNUBJL-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321193",
+        "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:21])[N:7]=[C:8]([S:9]2)[S:10][N:11]([H:22])[C:12]3([C:13]([C:14]([C:15]([C:16]([C:17]3([H:32])[H:33])([H:30])[H:31])([H:28])[H:29])([H:26])[H:27])([H:24])[H:25])[H:23])[H:20])[H:19]",
+        "inchi_key": "DEQZTKGFXNUBJL-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321196",
+        "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:21])[N:7]=[C:8]([S:9]2)[S:10][N:11]([H:22])[C:12]3([C:13]([C:14]([C:15]([C:16]([C:17]3([H:32])[H:33])([H:30])[H:31])([H:28])[H:29])([H:26])[H:27])([H:24])[H:25])[H:23])[H:20])[H:19]",
+        "inchi_key": "DEQZTKGFXNUBJL-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321198",
+        "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:21])[N:7]=[C:8]([S:9]2)[S:10][N:11]([H:22])[C:12]3([C:13]([C:14]([C:15]([C:16]([C:17]3([H:32])[H:33])([H:30])[H:31])([H:28])[H:29])([H:26])[H:27])([H:24])[H:25])[H:23])[H:20])[H:19]",
+        "inchi_key": "DEQZTKGFXNUBJL-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321199",
+        "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:21])[N:7]=[C:8]([S:9]2)[S:10][N:11]([H:22])[C:12]3([C:13]([C:14]([C:15]([C:16]([C:17]3([H:32])[H:33])([H:30])[H:31])([H:28])[H:29])([H:26])[H:27])([H:24])[H:25])[H:23])[H:20])[H:19]",
+        "inchi_key": "DEQZTKGFXNUBJL-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321197",
+        "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:21])[N:7]=[C:8]([S:9]2)[S:10][N:11]([H:22])[C:12]3([C:13]([C:14]([C:15]([C:16]([C:17]3([H:32])[H:33])([H:30])[H:31])([H:28])[H:29])([H:26])[H:27])([H:24])[H:25])[H:23])[H:20])[H:19]",
+        "inchi_key": "DEQZTKGFXNUBJL-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321195",
+        "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:21])[N:7]=[C:8]([S:9]2)[S:10][N:11]([H:22])[C:12]3([C:13]([C:14]([C:15]([C:16]([C:17]3([H:32])[H:33])([H:30])[H:31])([H:28])[H:29])([H:26])[H:27])([H:24])[H:25])[H:23])[H:20])[H:19]",
+        "inchi_key": "DEQZTKGFXNUBJL-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
         "record_id": "104321228",
         "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
         "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321234",
-        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
-        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321231",
-        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
-        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321243",
-        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
-        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321240",
-        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
-        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321248",
-        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
-        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321252",
+        "record_id": "104321229",
         "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
         "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
       },
@@ -32223,19 +32373,85 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321258",
+        "record_id": "104321240",
         "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
         "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321257",
+        "record_id": "104321238",
         "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
         "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321245",
+        "record_id": "104321235",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321231",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321237",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321239",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321234",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321236",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321230",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321241",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321243",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321244",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321252",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321246",
         "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
         "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
       },
@@ -32247,19 +32463,109 @@
       },
       {
         "type": "optimization",
+        "record_id": "104321245",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321249",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321242",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321248",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321251",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321247",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321253",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321261",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321254",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321258",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321256",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321259",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321255",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321260",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321257",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
+        "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "optimization",
         "record_id": "104321262",
         "cmiles": "[H:29][c:14]1[c:15]([c:16]([c:17]2[c:12]([c:13]1[H:28])[C:10](=[O:11])[N:9]([C:18]2=[O:19])[C:8]([H:26])([H:27])[S:7][P:3](=[S:4])([O:2][C:1]([H:20])([H:21])[H:22])[O:5][C:6]([H:23])([H:24])[H:25])[H:31])[H:30]",
         "inchi_key": "LMNZTLDVJIUSHT-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321269",
+        "record_id": "104321263",
         "cmiles": "[H:29][c:14]1[c:15]([c:16]([c:17]2[c:12]([c:13]1[H:28])[C:10](=[O:11])[N:9]([C:18]2=[O:19])[C:8]([H:26])([H:27])[S:7][P:3](=[S:4])([O:2][C:1]([H:20])([H:21])[H:22])[O:5][C:6]([H:23])([H:24])[H:25])[H:31])[H:30]",
         "inchi_key": "LMNZTLDVJIUSHT-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321267",
+        "record_id": "104321264",
         "cmiles": "[H:29][c:14]1[c:15]([c:16]([c:17]2[c:12]([c:13]1[H:28])[C:10](=[O:11])[N:9]([C:18]2=[O:19])[C:8]([H:26])([H:27])[S:7][P:3](=[S:4])([O:2][C:1]([H:20])([H:21])[H:22])[O:5][C:6]([H:23])([H:24])[H:25])[H:31])[H:30]",
         "inchi_key": "LMNZTLDVJIUSHT-UHFFFAOYNA-N"
       },
@@ -32271,19 +32577,25 @@
       },
       {
         "type": "optimization",
+        "record_id": "104321267",
+        "cmiles": "[H:29][c:14]1[c:15]([c:16]([c:17]2[c:12]([c:13]1[H:28])[C:10](=[O:11])[N:9]([C:18]2=[O:19])[C:8]([H:26])([H:27])[S:7][P:3](=[S:4])([O:2][C:1]([H:20])([H:21])[H:22])[O:5][C:6]([H:23])([H:24])[H:25])[H:31])[H:30]",
+        "inchi_key": "LMNZTLDVJIUSHT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321272",
+        "cmiles": "[H:29][c:14]1[c:15]([c:16]([c:17]2[c:12]([c:13]1[H:28])[C:10](=[O:11])[N:9]([C:18]2=[O:19])[C:8]([H:26])([H:27])[S:7][P:3](=[S:4])([O:2][C:1]([H:20])([H:21])[H:22])[O:5][C:6]([H:23])([H:24])[H:25])[H:31])[H:30]",
+        "inchi_key": "LMNZTLDVJIUSHT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
         "record_id": "104321268",
         "cmiles": "[H:29][c:14]1[c:15]([c:16]([c:17]2[c:12]([c:13]1[H:28])[C:10](=[O:11])[N:9]([C:18]2=[O:19])[C:8]([H:26])([H:27])[S:7][P:3](=[S:4])([O:2][C:1]([H:20])([H:21])[H:22])[O:5][C:6]([H:23])([H:24])[H:25])[H:31])[H:30]",
         "inchi_key": "LMNZTLDVJIUSHT-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321278",
-        "cmiles": "[H:29][c:14]1[c:15]([c:16]([c:17]2[c:12]([c:13]1[H:28])[C:10](=[O:11])[N:9]([C:18]2=[O:19])[C:8]([H:26])([H:27])[S:7][P:3](=[S:4])([O:2][C:1]([H:20])([H:21])[H:22])[O:5][C:6]([H:23])([H:24])[H:25])[H:31])[H:30]",
-        "inchi_key": "LMNZTLDVJIUSHT-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321273",
+        "record_id": "104321275",
         "cmiles": "[H:29][c:14]1[c:15]([c:16]([c:17]2[c:12]([c:13]1[H:28])[C:10](=[O:11])[N:9]([C:18]2=[O:19])[C:8]([H:26])([H:27])[S:7][P:3](=[S:4])([O:2][C:1]([H:20])([H:21])[H:22])[O:5][C:6]([H:23])([H:24])[H:25])[H:31])[H:30]",
         "inchi_key": "LMNZTLDVJIUSHT-UHFFFAOYNA-N"
       },
@@ -32301,19 +32613,31 @@
       },
       {
         "type": "optimization",
+        "record_id": "104321273",
+        "cmiles": "[H:29][c:14]1[c:15]([c:16]([c:17]2[c:12]([c:13]1[H:28])[C:10](=[O:11])[N:9]([C:18]2=[O:19])[C:8]([H:26])([H:27])[S:7][P:3](=[S:4])([O:2][C:1]([H:20])([H:21])[H:22])[O:5][C:6]([H:23])([H:24])[H:25])[H:31])[H:30]",
+        "inchi_key": "LMNZTLDVJIUSHT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321274",
+        "cmiles": "[H:29][c:14]1[c:15]([c:16]([c:17]2[c:12]([c:13]1[H:28])[C:10](=[O:11])[N:9]([C:18]2=[O:19])[C:8]([H:26])([H:27])[S:7][P:3](=[S:4])([O:2][C:1]([H:20])([H:21])[H:22])[O:5][C:6]([H:23])([H:24])[H:25])[H:31])[H:30]",
+        "inchi_key": "LMNZTLDVJIUSHT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321276",
+        "cmiles": "[H:29][c:14]1[c:15]([c:16]([c:17]2[c:12]([c:13]1[H:28])[C:10](=[O:11])[N:9]([C:18]2=[O:19])[C:8]([H:26])([H:27])[S:7][P:3](=[S:4])([O:2][C:1]([H:20])([H:21])[H:22])[O:5][C:6]([H:23])([H:24])[H:25])[H:31])[H:30]",
+        "inchi_key": "LMNZTLDVJIUSHT-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
         "record_id": "104321277",
         "cmiles": "[H:29][c:14]1[c:15]([c:16]([c:17]2[c:12]([c:13]1[H:28])[C:10](=[O:11])[N:9]([C:18]2=[O:19])[C:8]([H:26])([H:27])[S:7][P:3](=[S:4])([O:2][C:1]([H:20])([H:21])[H:22])[O:5][C:6]([H:23])([H:24])[H:25])[H:31])[H:30]",
         "inchi_key": "LMNZTLDVJIUSHT-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321263",
-        "cmiles": "[H:29][c:14]1[c:15]([c:16]([c:17]2[c:12]([c:13]1[H:28])[C:10](=[O:11])[N:9]([C:18]2=[O:19])[C:8]([H:26])([H:27])[S:7][P:3](=[S:4])([O:2][C:1]([H:20])([H:21])[H:22])[O:5][C:6]([H:23])([H:24])[H:25])[H:31])[H:30]",
-        "inchi_key": "LMNZTLDVJIUSHT-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321264",
+        "record_id": "104321278",
         "cmiles": "[H:29][c:14]1[c:15]([c:16]([c:17]2[c:12]([c:13]1[H:28])[C:10](=[O:11])[N:9]([C:18]2=[O:19])[C:8]([H:26])([H:27])[S:7][P:3](=[S:4])([O:2][C:1]([H:20])([H:21])[H:22])[O:5][C:6]([H:23])([H:24])[H:25])[H:31])[H:30]",
         "inchi_key": "LMNZTLDVJIUSHT-UHFFFAOYNA-N"
       },
@@ -32373,6 +32697,18 @@
       },
       {
         "type": "optimization",
+        "record_id": "104321288",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([H:18])[S:3][P:4](=[S:5])([O:6][C:7]([H:19])([C:8]([H:20])([H:21])[H:22])[C:9]([H:23])([H:24])[H:25])[O:10][C:11]([H:26])([C:12]([H:27])([H:28])[H:29])[C:13]([H:30])([H:31])[H:32]",
+        "inchi_key": "POTSYCDNIAZHNS-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321289",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([H:18])[S:3][P:4](=[S:5])([O:6][C:7]([H:19])([C:8]([H:20])([H:21])[H:22])[C:9]([H:23])([H:24])[H:25])[O:10][C:11]([H:26])([C:12]([H:27])([H:28])[H:29])[C:13]([H:30])([H:31])[H:32]",
+        "inchi_key": "POTSYCDNIAZHNS-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
         "record_id": "104321298",
         "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([H:18])[S:3][P:4](=[S:5])([O:6][C:7]([H:19])([C:8]([H:20])([H:21])[H:22])[C:9]([H:23])([H:24])[H:25])[O:10][C:11]([H:26])([C:12]([H:27])([H:28])[H:29])[C:13]([H:30])([H:31])[H:32]",
         "inchi_key": "POTSYCDNIAZHNS-UHFFFAOYNA-N"
@@ -32385,7 +32721,7 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321302",
+        "record_id": "104321293",
         "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([H:18])[S:3][P:4](=[S:5])([O:6][C:7]([H:19])([C:8]([H:20])([H:21])[H:22])[C:9]([H:23])([H:24])[H:25])[O:10][C:11]([H:26])([C:12]([H:27])([H:28])[H:29])[C:13]([H:30])([H:31])[H:32]",
         "inchi_key": "POTSYCDNIAZHNS-UHFFFAOYNA-N"
       },
@@ -32397,25 +32733,13 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321301",
+        "record_id": "104321300",
         "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([H:18])[S:3][P:4](=[S:5])([O:6][C:7]([H:19])([C:8]([H:20])([H:21])[H:22])[C:9]([H:23])([H:24])[H:25])[O:10][C:11]([H:26])([C:12]([H:27])([H:28])[H:29])[C:13]([H:30])([H:31])[H:32]",
         "inchi_key": "POTSYCDNIAZHNS-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321289",
-        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([H:18])[S:3][P:4](=[S:5])([O:6][C:7]([H:19])([C:8]([H:20])([H:21])[H:22])[C:9]([H:23])([H:24])[H:25])[O:10][C:11]([H:26])([C:12]([H:27])([H:28])[H:29])[C:13]([H:30])([H:31])[H:32]",
-        "inchi_key": "POTSYCDNIAZHNS-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321290",
-        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([H:18])[S:3][P:4](=[S:5])([O:6][C:7]([H:19])([C:8]([H:20])([H:21])[H:22])[C:9]([H:23])([H:24])[H:25])[O:10][C:11]([H:26])([C:12]([H:27])([H:28])[H:29])[C:13]([H:30])([H:31])[H:32]",
-        "inchi_key": "POTSYCDNIAZHNS-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321293",
+        "record_id": "104321295",
         "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([H:18])[S:3][P:4](=[S:5])([O:6][C:7]([H:19])([C:8]([H:20])([H:21])[H:22])[C:9]([H:23])([H:24])[H:25])[O:10][C:11]([H:26])([C:12]([H:27])([H:28])[H:29])[C:13]([H:30])([H:31])[H:32]",
         "inchi_key": "POTSYCDNIAZHNS-UHFFFAOYNA-N"
       },
@@ -32433,7 +32757,31 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321300",
+        "record_id": "104321290",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([H:18])[S:3][P:4](=[S:5])([O:6][C:7]([H:19])([C:8]([H:20])([H:21])[H:22])[C:9]([H:23])([H:24])[H:25])[O:10][C:11]([H:26])([C:12]([H:27])([H:28])[H:29])[C:13]([H:30])([H:31])[H:32]",
+        "inchi_key": "POTSYCDNIAZHNS-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321299",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([H:18])[S:3][P:4](=[S:5])([O:6][C:7]([H:19])([C:8]([H:20])([H:21])[H:22])[C:9]([H:23])([H:24])[H:25])[O:10][C:11]([H:26])([C:12]([H:27])([H:28])[H:29])[C:13]([H:30])([H:31])[H:32]",
+        "inchi_key": "POTSYCDNIAZHNS-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321294",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([H:18])[S:3][P:4](=[S:5])([O:6][C:7]([H:19])([C:8]([H:20])([H:21])[H:22])[C:9]([H:23])([H:24])[H:25])[O:10][C:11]([H:26])([C:12]([H:27])([H:28])[H:29])[C:13]([H:30])([H:31])[H:32]",
+        "inchi_key": "POTSYCDNIAZHNS-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321301",
+        "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([H:18])[S:3][P:4](=[S:5])([O:6][C:7]([H:19])([C:8]([H:20])([H:21])[H:22])[C:9]([H:23])([H:24])[H:25])[O:10][C:11]([H:26])([C:12]([H:27])([H:28])[H:29])[C:13]([H:30])([H:31])[H:32]",
+        "inchi_key": "POTSYCDNIAZHNS-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321302",
         "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([H:18])[S:3][P:4](=[S:5])([O:6][C:7]([H:19])([C:8]([H:20])([H:21])[H:22])[C:9]([H:23])([H:24])[H:25])[O:10][C:11]([H:26])([C:12]([H:27])([H:28])[H:29])[C:13]([H:30])([H:31])[H:32]",
         "inchi_key": "POTSYCDNIAZHNS-UHFFFAOYNA-N"
       },
@@ -32499,13 +32847,13 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321317",
+        "record_id": "104321313",
         "cmiles": "[H:12][C:1]([H:13])([H:14])[C:2]([H:15])([C:3](=[O:4])[C:5]1=[N:6][S:7](=[O:8])[O:9][N:10]1[H:16])[O:11][H:17]",
         "inchi_key": "QHNNIYWMAUECPA-LPAAPSMPNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321318",
+        "record_id": "104321320",
         "cmiles": "[H:12][C:1]([H:13])([H:14])[C:2]([H:15])([C:3](=[O:4])[C:5]1=[N:6][S:7](=[O:8])[O:9][N:10]1[H:16])[O:11][H:17]",
         "inchi_key": "QHNNIYWMAUECPA-LPAAPSMPNA-N"
       },
@@ -32517,13 +32865,13 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321313",
+        "record_id": "104321318",
         "cmiles": "[H:12][C:1]([H:13])([H:14])[C:2]([H:15])([C:3](=[O:4])[C:5]1=[N:6][S:7](=[O:8])[O:9][N:10]1[H:16])[O:11][H:17]",
         "inchi_key": "QHNNIYWMAUECPA-LPAAPSMPNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321320",
+        "record_id": "104321317",
         "cmiles": "[H:12][C:1]([H:13])([H:14])[C:2]([H:15])([C:3](=[O:4])[C:5]1=[N:6][S:7](=[O:8])[O:9][N:10]1[H:16])[O:11][H:17]",
         "inchi_key": "QHNNIYWMAUECPA-LPAAPSMPNA-N"
       },
@@ -32829,13 +33177,19 @@
       },
       {
         "type": "optimization",
+        "record_id": "104321397",
+        "cmiles": "[H:18][c:9]1[c:10]([c:11]([c:12]([c:13]([c:8]1[C:6](=[O:7])[N-:5][S:2](=[O:3])(=[O:4])[C:1]([H:15])([H:16])[H:17])[H:21])[H:20])[N:14]([H:22])[H:23])[H:19]",
+        "inchi_key": "SDSORTHJCKBMDB-YPAQHGPCNA-M"
+      },
+      {
+        "type": "optimization",
         "record_id": "104321400",
         "cmiles": "[H:18][c:9]1[c:10]([c:11]([c:12]([c:13]([c:8]1[C:6](=[O:7])[N-:5][S:2](=[O:3])(=[O:4])[C:1]([H:15])([H:16])[H:17])[H:21])[H:20])[N:14]([H:22])[H:23])[H:19]",
         "inchi_key": "SDSORTHJCKBMDB-YPAQHGPCNA-M"
       },
       {
         "type": "optimization",
-        "record_id": "104321397",
+        "record_id": "104321399",
         "cmiles": "[H:18][c:9]1[c:10]([c:11]([c:12]([c:13]([c:8]1[C:6](=[O:7])[N-:5][S:2](=[O:3])(=[O:4])[C:1]([H:15])([H:16])[H:17])[H:21])[H:20])[N:14]([H:22])[H:23])[H:19]",
         "inchi_key": "SDSORTHJCKBMDB-YPAQHGPCNA-M"
       },
@@ -32883,19 +33237,7 @@
       },
       {
         "type": "optimization",
-        "record_id": "104321445",
-        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
-        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321455",
-        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
-        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
-      },
-      {
-        "type": "optimization",
-        "record_id": "104321443",
+        "record_id": "104321416",
         "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
         "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
       },
@@ -32907,25 +33249,61 @@
       },
       {
         "type": "optimization",
+        "record_id": "104321415",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
         "record_id": "104321419",
         "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
         "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321441",
+        "record_id": "104321410",
         "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
         "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321446",
+        "record_id": "104321414",
         "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
         "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
       },
       {
         "type": "optimization",
-        "record_id": "104321426",
+        "record_id": "104321413",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321411",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321412",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321418",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321417",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321421",
         "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
         "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
       },
@@ -32943,7 +33321,211 @@
       },
       {
         "type": "optimization",
+        "record_id": "104321432",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321428",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321426",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321431",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321430",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321429",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321422",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321423",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321427",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321433",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321436",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321437",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321441",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321443",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321438",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321444",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321434",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321440",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321439",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321442",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321435",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321445",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321449",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321453",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321455",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321450",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321446",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321456",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321448",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321452",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321454",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321451",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321447",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
         "record_id": "104321457",
+        "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
+        "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
+      },
+      {
+        "type": "optimization",
+        "record_id": "104321458",
         "cmiles": "[H:15][C:1]([H:16])([H:17])[S:2](=[O:3])(=[O:4])[O:5][C:6]([H:18])([H:19])[C:7]([H:20])([H:21])[C:8]([H:22])([H:23])[C:9]([H:24])([H:25])[O:10][S:11](=[O:12])(=[O:13])[C:14]([H:26])([H:27])[H:28]",
         "inchi_key": "COVZYZSDYWQREU-UHFFFAOYNA-N"
       },

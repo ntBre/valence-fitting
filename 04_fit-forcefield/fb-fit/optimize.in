@@ -26909,3 +26909,43 @@ type OptGeoTarget_SMIRNOFF
 writelevel 1
 remote 1
 $end
+
+$target
+name opt-geo-batch-180
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-181
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-182
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-183
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end

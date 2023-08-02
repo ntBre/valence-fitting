@@ -7713,35 +7713,7 @@
           "Br"
         ]
       },
-      "HydrogenBondFilter-5": {
-        "method": "baker-hubbard"
-      },
-      "RecordStatusFilter-6": {
-        "status": "COMPLETE"
-      },
-      "ConnectivityFilter-7": {
-        "tolerance": 1.2
-      },
-      "UnperceivableStereoFilter-8": {
-        "toolkits": [
-          "openeye",
-          "rdkit"
-        ]
-      },
-      "ElementFilter-9": {
-        "allowed_elements": [
-          "H",
-          "C",
-          "N",
-          "O",
-          "S",
-          "P",
-          "F",
-          "Cl",
-          "Br"
-        ]
-      },
-      "ChargeCheckFilter-10": {}
+      "ChargeCheckFilter-5": {}
     }
   },
   "type": "TorsionDriveResultCollection"

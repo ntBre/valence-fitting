@@ -5,7 +5,8 @@ from openff.qcsubmit.results import (
     OptimizationResultCollection,
 )
 from openff.toolkit import ForceField
-from curate_dataset import select_parameters, filter_td_data, filter_opt_data
+from curate_dataset import select_parameters
+from filters import filter_td_data, filter_opt_data
 import numpy as np
 import json
 import typing

@@ -176,6 +176,7 @@ step4: $(FIT)/ready
 
 # step 5a - pack up the targets directory
 $(FIT)/fb-fit/targets.tar.gz: $(wildcard $(FIT)/fb-fit/targets/*/*)
+	rm $@
 	cd $(FIT)/fb-fit ; tar cfz targets.tar.gz targets
 
 # step 5b - zip everything up
@@ -184,4 +185,5 @@ TORS_DEPS := $(addprefix $(FIT)/,$(addprefix					\
 				        optimize.in targets.tar.gz))
 
 tors.tar.gz: $(FIT)/ready $(TORS_DEPS)
+	rm $@
 	tar cfz $@ $(TORS_DEPS)

@@ -150,7 +150,8 @@ $(MSM_FF): $(INITIAL_FF) $(CURATE)/output/combined-opt.json $(MSM)/create-msm-ff
 
 # step 4 - generate ForceBalance inputs
 
-$(FIT)/ready: $(COMBINED) $(MSM_FF) $(FIT)/create-fb-inputs.py
+DEPS := $(FIT)/smiles-to-exclude.dat $(FIT)/smarts-to-exclude.dat
+$(FIT)/ready: $(COMBINED) $(MSM_FF) $(FIT)/create-fb-inputs.py $(DEPS)
 	rm -r $(FIT)/fb-fit/targets
 	mkdir -p $(FIT)/fb-fit/targets
 	cd $(FIT) ; \

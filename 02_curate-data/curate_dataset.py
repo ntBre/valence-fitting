@@ -597,47 +597,11 @@ def get_td_data(
     ),
 )
 @click.option(
-    "--core-opt-dataset",
-    "core_opt_datasets",
-    multiple=True,
-    required=True,
-    type=str,
-    help=(
-        "The name of an optimization dataset to download. "
-        "These will have iodine molecules filtered out."
-    ),
-)
-@click.option(
-    "--iodine-opt-dataset",
-    "iodine_opt_datasets",
-    multiple=True,
-    type=str,
-    help=(
-        "The name of an optimization dataset to download. "
-        "These will have iodine molecules included."
-    ),
-)
-@click.option(
-    "--opt-records-to-remove",
-    type=click.Path(exists=True, dir_okay=False, file_okay=True),
-    help=(
-        "The path to a file containing a list of record IDs to remove. "
-        "This should be a text file with one record ID per line."
-    ),
-)
-@click.option(
     "--verbose",
     is_flag=True,
     default=False,
     show_default=True,
     help="Whether to print out additional information.",
-)
-@click.option(
-    "--max-opt-conformers",
-    default=12,
-    show_default=True,
-    type=int,
-    help="The maximum number of conformers to keep per molecule.",
 )
 @click.option(
     "--n-processes",
@@ -660,10 +624,6 @@ def get_opt_data(
     output_path: str,
     output_parameter_smirks_path: str,
     initial_forcefield: str,
-    core_opt_datasets: typing.List[str],
-    iodine_opt_datasets: typing.List[str],
-    opt_records_to_remove: typing.Optional[str] = None,
-    max_opt_conformers: int = 12,
     verbose: bool = True,
     n_processes: int = 4,
     min_record_coverage: int = 5,
@@ -675,8 +635,6 @@ def get_opt_data(
     ----------
     core_opt_datasets
         The core optimization datasets to download.
-    iodine_opt_datasets
-        The iodine optimization datasets to download.
     opt_records_to_remove
         A file containing a list of optimization record IDs to remove.
     max_opt_conformers
@@ -691,51 +649,22 @@ def get_opt_data(
 
     ff = ForceField(initial_forcefield, allow_cosmetic_attributes=True)
 
-    core_dataset = download_opt_data(
-        core_opt_datasets,
-        "datasets/core-opt.json",
+    core_dataset = OptimizationResultCollection.parse_file(
+        "datasets/filtered-core-opt.json",
     )
-    core_dataset = filter_opt_data(
-        core_dataset,
-        opt_records_to_remove,
-        include_iodine=False,
-        max_opt_conformers=max_opt_conformers,
-        cache="datasets/filtered-core-opt.json",
-    )
-    if verbose:
-        print(f"Number of filtered core entries: {core_dataset.n_results}")
 
     key = list(core_dataset.entries.keys())[0]
 
-    if iodine_opt_datasets:
-        iodine_dataset = download_opt_data(
-            iodine_opt_datasets,
-            "iodine-opt.json",
-        )
-        iodine_dataset = filter_opt_data(
-            iodine_dataset,
-            opt_records_to_remove,
-            include_iodine=True,
-            max_opt_conformers=max_opt_conformers,
-            cache="datasets/filtered-iodine-opt.json",
-        )
-        if verbose:
-            print(
-                f"Number of filtered aux entries: {iodine_dataset.n_results}"
-            )
-
-        all_entries = core_dataset.entries[key] + iodine_dataset.entries[key]
-    else:
-        all_entries = core_dataset.entries[key]
-
     # filter in case we have doubled up records
-    unique_entries = {record.record_id: record for record in all_entries}
+    unique_entries = {
+        record.record_id: record for record in core_dataset.entries[key]
+    }
     new_dataset = OptimizationResultCollection(
         entries={key: list(unique_entries.values())}
     )
 
     n = new_dataset.n_results
-    print(f"final number of entries: {n}")
+    print(f"final number of core opt entries: {n}")
 
     with open(output_path, "w") as file:
         file.write(new_dataset.json(indent=2))

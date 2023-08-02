@@ -168,33 +168,6 @@ $(FIT)/ready: $(COMBINED) $(MSM_FF) $(FIT)/create-fb-inputs.py
 	--verbose
 	date > $@
 
-fit-sage/ready: $(COMBINED) sage-2.1.0-msm.offxml
-	cd fit-sage ; \
-	python ../$(FIT)/create-fb-inputs.py                                                      \
-    --tag                       "fb-fit"                                                          \
-    --optimization-dataset      "../02_curate-data/output/combined-opt.json"                      \
-    --torsion-dataset           "../02_curate-data/output/combined-td.json"                       \
-    --valence-to-optimize       "../02_curate-data/output/combined-opt-smirks.json"               \
-    --torsions-to-optimize      "../02_curate-data/output/combined-td-smirks.json"                \
-    --forcefield                "../sage-2.1.0-msm.offxml"                                        \
-    --smiles-to-exclude         ../$(FIT)/smiles-to-exclude.dat                                   \
-    --smarts-to-exclude         ../$(FIT)/smarts-to-exclude.dat                                   \
-    --max-iterations            1                                                                 \
-    --port                      55387                                                             \
-    --output-directory          "output"                                                          \
-    --verbose
-	date > $@
-
-DEPS :=$(addprefix fit-sage/, $(addprefix fb-fit/,forcefield/force-field.offxml	\
-       optimize.in targets.tar.gz) parameters-to-optimize scripts)
-
-fit-sage/fb-fit/targets.tar.gz: $(wildcard fit-sage/fb-fit/targets/*)
-	cd fit-sage/fb-fit ; \
-	tar cvfz targets.tar.gz targets
-
-sage.tar.gz: $(DEPS)
-	tar cvfz $@ $^
-
 $(FIT)/fb-fit/targets.tar.gz: $(wildcard $(FIT)/fb-fit/targets/*/*)
 	cd $(FIT)/fb-fit ; \
 	tar cvfz targets.tar.gz targets

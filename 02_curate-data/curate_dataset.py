@@ -212,69 +212,6 @@ def download_td_data(
     return dataset
 
 
-def filter_td_data(
-    dataset: "TorsionDriveResultCollection",
-    td_records_to_remove: typing.Optional[str] = None,
-    include_iodine: bool = False,
-    cache=None,
-    invalidate_cache=False,
-):
-    "Filter a TorsionDrive dataset"
-
-    if cache is not None and os.path.isfile(cache) and not invalidate_cache:
-        print(f"loading filtered td data set from {cache}", file=sys.stderr)
-        return TorsionDriveResultCollection.parse_file(cache)
-
-    from qcportal.models.records import RecordStatusEnum
-    from openff.qcsubmit.results.filters import (
-        ConnectivityFilter,
-        RecordStatusFilter,
-        UnperceivableStereoFilter,
-        HydrogenBondFilter,
-        ElementFilter,
-    )
-
-    print("re-filtering td data", file=sys.stderr)
-
-    if td_records_to_remove is not None:
-        records_to_remove = np.loadtxt(td_records_to_remove, dtype=str)
-    else:
-        records_to_remove = []
-
-    key = list(dataset.entries.keys())[0]
-
-    # filter out entries to remove
-    dataset.entries[key] = [
-        entry
-        for entry in dataset.entries[key]
-        if entry.record_id not in records_to_remove
-    ]
-
-    # in a number of datasets the iodine-containing molecules
-    # were tainted due to an auxiliary basis set issue
-    # This has since been resolved and entries have been recomputed
-    # in new datasets, but we still need to filter the old ones
-    elements = ["H", "C", "N", "O", "S", "P", "F", "Cl", "Br"]
-    if include_iodine:
-        elements.append("I")
-
-    # filter out other unsuitable entries
-    dataset = dataset.filter(
-        HydrogenBondFilter(method="baker-hubbard"),
-        RecordStatusFilter(status=RecordStatusEnum.complete),
-        ConnectivityFilter(tolerance=1.2),
-        UnperceivableStereoFilter(),
-        ElementFilter(allowed_elements=elements),
-        ChargeCheckFilter(),
-    )
-
-    if cache is not None:
-        with open(cache, "w") as out:
-            out.write(dataset.json(indent=2))
-
-    return dataset
-
-
 def select_parameters(
     dataset: typing.Union[
         "TorsionDriveResultCollection", "OptimizationResultCollection"
@@ -328,21 +265,6 @@ def cli():
     help="The path to write the dataset to. Should be a JSON",
 )
 @click.option(
-    "--core-td-dataset",
-    "core_td_datasets",
-    multiple=True,
-    required=True,
-    type=str,
-    help="The name of a torsiondrive dataset to download.",
-)
-@click.option(
-    "--aux-td-dataset",
-    "aux_td_datasets",
-    multiple=True,
-    type=str,
-    help="The name of a torsiondrive dataset to download.",
-)
-@click.option(
     "--initial-forcefield",
     required=True,
     type=str,
@@ -357,23 +279,6 @@ def cli():
     help=(
         "The path to a file containing a list of parameter IDs that are "
         "ring torsions. This should be a text file with one ID per line."
-    ),
-)
-@click.option(
-    "--td-records-to-remove",
-    type=click.Path(exists=True, dir_okay=False, file_okay=True),
-    help=(
-        "The path to a file containing a list of record IDs to remove. "
-        "This should be a text file with one record ID per line."
-    ),
-)
-@click.option(
-    "--additional-td-records",
-    type=click.Path(exists=True, dir_okay=False, file_okay=True),
-    help=(
-        "The path to a file containing a TorsionDriveResultCollection "
-        "containing additional torsiondrive records to include. "
-        "This should be a JSON file."
     ),
 )
 @click.option(
@@ -424,12 +329,8 @@ def cli():
 def get_td_data(
     output_path: str,
     output_parameter_smirks_path: str,
-    core_td_datasets: typing.List[str],
-    aux_td_datasets: typing.List[str],
     initial_forcefield: str,
     explicit_ring_torsions: typing.Optional[str] = None,
-    td_records_to_remove: typing.Optional[str] = None,
-    additional_td_records: typing.Optional[str] = None,
     cap_size: int = 5,
     cap_method: typing.Literal[
         "pick_random", "pick_heavy", "pick_light"
@@ -495,54 +396,13 @@ def get_td_data(
 
     ff = ForceField(initial_forcefield, allow_cosmetic_attributes=True)
 
-    core_dataset = download_td_data(
-        core_td_datasets, ds_cache="datasets/core-td.json"
+    core_dataset = TorsionDriveResultCollection.parse_file(
+        "datasets/filtered-core-td.json"
     )
-    core_dataset = filter_td_data(
-        core_dataset,
-        td_records_to_remove,
-        include_iodine=False,
-        cache="datasets/filtered-core-td.json",
-    )
-    if verbose:
-        print(f"Number of core entries: {core_dataset.n_results}")
 
     key = list(core_dataset.entries.keys())[0]
 
-    if aux_td_datasets:
-        aux_dataset = download_td_data(
-            aux_td_datasets,
-            ds_cache="datasets/aux-td.json",
-        )
-        aux_dataset = filter_td_data(
-            aux_dataset,
-            td_records_to_remove,
-            include_iodine=False,
-            cache="datasets/filtered-aux-td.json",
-        )
-        aux_dataset = cap_torsions_per_parameter(
-            ff,
-            aux_dataset,
-            cap_size=cap_size,
-            method=cap_method,
-            explicit_ring_torsions=explicit_ring_torsions,
-            verbose=verbose,
-            n_processes=n_processes,
-        )
-        aux_records = aux_dataset.entries[key]
-    else:
-        aux_records = []
-
-    if additional_td_records is not None:
-        additional_records = list(
-            TorsionDriveResultCollection.parse_file(
-                additional_td_records
-            ).entries.values()
-        )[0]
-    else:
-        additional_records = []
-
-    all_entries = core_dataset.entries[key] + aux_records + additional_records
+    all_entries = core_dataset.entries[key]
 
     # filter in case we have doubled up records
     unique_entries = {record.record_id: record for record in all_entries}
@@ -551,7 +411,7 @@ def get_td_data(
     )
 
     n = new_dataset.n_results
-    print(f"final number of entries: {n}")
+    print(f"final number of core td entries: {n}")
 
     with open(output_path, "w") as file:
         file.write(new_dataset.json(indent=2))
@@ -568,8 +428,6 @@ def get_td_data(
     )
     with open(output_parameter_smirks_path, "w") as file:
         json.dump(selected_parameters, file, indent=2)
-
-
 
 
 @cli.command("download-opt")

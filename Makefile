@@ -3,7 +3,6 @@ CURATE := 02_curate-data
 MSM := 03_generate-initial-ff
 FIT := 04_fit-forcefield
 
-TD_SET := $(addprefix $(CURATE)/output/,pavan-td-training-set.json pavan-td-smirks.json)
 COMBINED := $(addprefix $(CURATE)/output/,combined-opt.json combined-opt-smirks.json combined-td.json combined-td-smirks.json)
 MSM_FF := $(MSM)/output/initial-force-field-msm.offxml
 
@@ -13,8 +12,6 @@ step2: $(COMBINED)
 step3: $(MSM_FF)
 step4: $(FIT)/ready
 sage: fit-sage/ready
-
-td: $(TD_SET)
 
 # step 1 - generate the initial force field from a combination of the
 # differences between Sage 2.0 and pavan's force field and Sage 2.1 (port the
@@ -33,27 +30,33 @@ step1: $(INITIAL_FF) # alias for step1
 # additional records selected by Pavan specifically for the additional torsions
 # added to the force field.
 
-# step 2a - download the torsion multiplicity optimization data set. Inputs are
+# step 2a - download, filter, and curate the torsion multiplicity optimization
+# data set. Inputs are
 # 1) The initial force field from step 1
-# 2) The script itself
-# Primary outputs are
+# 2) curate_dataset.py
+# 3) filtered-core-opt.json (pre-filtered opt dataset)
+# Outputs are
 # 1) pavan-opt-training-set.json (the final data set)
-# 2) pavan-opt-smirks.json
-# Intermediate outputs are
-# 1) datasets/core-opt.json (downloaded core dataset)
-# 2) datasets/filtered-core-opt.json (filtered core dataset)
+# 2) pavan-opt-smirks.json (final smirks)
 
-# these caches are actually potential inputs. In fact, the second cache needs to
-# be invalidated if there are any changes to the filter
-
+# step 2a.i - download the data set with qcportal. This only depends on the
+# script itself and outputs the dataset
 $(CURATE)/datasets/core-opt.json: $(CURATE)/download_opt.py
 	cd $(CURATE); python download_opt.py
 
+# step 2a.ii - filter the opt data set with fast-filter. This depends on the
+# filtering code in filters.py, the script passed to fast-filter (filter-opt.py)
+# and the downloaded data set from 2a.i. The output is the filtered dataset
 DEPS := $(addprefix $(CURATE)/,datasets/core-opt.json filters.py filter-opt.py)
 $(CURATE)/datasets/filtered-core-opt.json: $(DEPS)
 	cd $(CURATE); \
 	fast-filter datasets/core-opt.json -p filter-opt.py -o ../$@ -t 12
 
+# step 2a.iii - perform the last steps of curation - just filtering duplicate
+# records I guess, and then select_parameters for the smirks output. This simply
+# reads in the filtered data set, so it depends on that and curate_dataset.py.
+# It also uses the initial FF for select_parameters. Outputs are the training
+# set and smirks
 OPT_SET := $(addprefix $(CURATE)/output/,pavan-opt-training-set.json	\
 pavan-opt-smirks.json)
 
@@ -71,17 +74,36 @@ $(OPT_SET) &: $(DEPS)
 
 opt: $(OPT_SET)
 
-$(TD_SET) &: $(INITIAL_FF) $(CURATE)/curate_dataset.py
+# step 2b - the same as 2a but for the torsion data sets
+
+# step 2b.i - download the data set with qcportal
+$(CURATE)/datasets/core-td.json: $(CURATE)/download_td.py
+	cd $(CURATE); python download_td.py
+
+# step 2b.ii - filter the td data set with fast-filter
+DEPS := $(addprefix $(CURATE)/,datasets/core-td.json filters.py filter-td.py)
+$(CURATE)/datasets/filtered-core-td.json: $(DEPS)
+	cd $(CURATE); \
+	fast-filter datasets/core-td.json -p filter-td.py -o ../$@ -t 12
+
+# step 2b.iii - last steps of curation
+TD_SET := $(addprefix $(CURATE)/output/,pavan-td-training-set.json	\
+pavan-td-smirks.json)
+
+DEPS := $(INITIAL_FF) $(CURATE)/curate_dataset.py	\
+$(CURATE)/datasets/filtered-core-td.json
+
+$(TD_SET) &: $(DEPS)
 	cd $(CURATE) ; \
-	python curate_dataset.py download-td                                             \
-    --core-td-dataset           "OpenFF multiplicity correction torsion drive data v1.1" \
-    --initial-forcefield        ../$(INITIAL_FF)                                         \
-    --n-processes               8                                                        \
-    --min-record-coverage       1                                                        \
-    --td-records-to-remove      td_records_to_remove.dat                                 \
-    --output                    "output/pavan-td-training-set.json"                      \
-    --output-parameter-smirks   "output/pavan-td-smirks.json"                            \
-    --verbose
+	python curate_dataset.py download-td                                \
+	    --initial-forcefield        ../$(INITIAL_FF)                    \
+	    --output                    "output/pavan-td-training-set.json" \
+	    --output-parameter-smirks   "output/pavan-td-smirks.json"       \
+	    --n-processes               8                                   \
+	    --min-record-coverage       1                                   \
+	    --verbose
+
+td: $(TD_SET)
 
 # run fast-filter to generate the cache read by combine.py
 SAGE_DATA_SETS := ../../clone/sage-2.1.0/inputs-and-outputs/data-sets

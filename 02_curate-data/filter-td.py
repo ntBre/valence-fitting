@@ -1,5 +1,5 @@
 import json
-from curate_dataset import filter_td_data
+from filters import filter_td_data
 from openff.qcsubmit.results import TorsionDriveResultCollection
 
 d = json.loads(r"""{json}""")

@@ -19,28 +19,7 @@ from openff.qcsubmit.results import (
 )
 from openff.toolkit import ForceField, Molecule
 
-
-class ChargeCheckFilter(ResultRecordFilter):
-    def _filter_function(self, result, record, molecule) -> bool:
-        from openff.toolkit.utils.exceptions import (
-            ChargeCalculationError,
-            ConformerGenerationError,
-        )
-        from openff.toolkit.utils.toolkits import OpenEyeToolkitWrapper
-
-        # Some of the molecules fail charging with am1bccelf10 either
-        # because of no bccs or failed conformer generation, sometimes it
-        # cannot be captured with just the cmiles present in the record
-        # metadata, so reading from file and checking it
-        can_be_charged = True
-        try:
-            OpenEyeToolkitWrapper().assign_partial_charges(
-                molecule, partial_charge_method="am1bccelf10"
-            )
-        except (ChargeCalculationError, ConformerGenerationError):
-            can_be_charged = False
-
-        return can_be_charged
+from filters import ChargeCheckFilter
 
 
 def check_torsion_is_in_ring(
@@ -591,94 +570,6 @@ def get_td_data(
         json.dump(selected_parameters, file, indent=2)
 
 
-def download_opt_data(
-    opt_datasets: typing.List[str], ds_cache, invalidate_cache=False
-) -> "OptimizationResultCollection":
-    """Download and filter optimization datasets."""
-
-    from qcportal import FractalClient
-    from openff.qcsubmit.results import OptimizationResultCollection
-
-    if os.path.isfile(ds_cache) and not invalidate_cache:
-        print(f"loading opt from {ds_cache}", file=sys.stderr)
-        return OptimizationResultCollection.parse_file(ds_cache)
-
-    client = FractalClient()
-    dataset = OptimizationResultCollection.from_server(
-        client=client,
-        datasets=opt_datasets,
-        spec_name="default",
-    )
-    with open(ds_cache, "w") as out:
-        out.write(dataset.json(indent=2))
-
-    return dataset
-
-
-def filter_opt_data(
-    dataset,
-    opt_records_to_remove: typing.Optional[str] = None,
-    include_iodine: bool = False,
-    max_opt_conformers: int = 12,
-    verbose: bool = False,
-    cache=None,
-    invalidate_cache=False,
-):
-    if cache is not None and os.path.isfile(cache) and not invalidate_cache:
-        print(f"loading filtered opt data set from {cache}", file=sys.stderr)
-        return OptimizationResultCollection.parse_file(cache)
-
-    from qcportal.models.records import RecordStatusEnum
-    from openff.qcsubmit.results.filters import (
-        ConnectivityFilter,
-        RecordStatusFilter,
-        UnperceivableStereoFilter,
-        ElementFilter,
-        ConformerRMSDFilter,
-    )
-
-    print("re-filtering opt data", file=sys.stderr)
-
-    if opt_records_to_remove is not None:
-        records_to_remove = np.loadtxt(opt_records_to_remove, dtype=str)
-    else:
-        records_to_remove = []
-
-    if verbose:
-        print(f"Number of entries before filtering: {dataset.n_results}")
-
-    key = list(dataset.entries.keys())[0]
-
-    # filter out entries to remove
-    dataset.entries[key] = [
-        entry
-        for entry in dataset.entries[key]
-        if entry.record_id not in records_to_remove
-    ]
-
-    # in a number of datasets the iodine-containing molecules
-    # were tainted due to an auxiliary basis set issue
-    # This has since been resolved and entries have been recomputed
-    # in new datasets, but we still need to filter the old ones
-    elements = ["H", "C", "N", "O", "S", "P", "F", "Cl", "Br"]
-    if include_iodine:
-        elements.append("I")
-
-    # filter out other unsuitable entries
-    dataset = dataset.filter(
-        RecordStatusFilter(status=RecordStatusEnum.complete),
-        ConnectivityFilter(tolerance=1.2),
-        UnperceivableStereoFilter(),
-        ElementFilter(allowed_elements=elements),
-        ConformerRMSDFilter(max_conformers=max_opt_conformers),
-        ChargeCheckFilter(),
-    )
-
-    if cache is not None:
-        with open(cache, "w") as out:
-            out.write(dataset.json(indent=2))
-
-    return dataset
 
 
 @cli.command("download-opt")

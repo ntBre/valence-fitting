@@ -8,7 +8,6 @@ MSM_FF := $(MSM)/output/initial-force-field-msm.offxml
 .PHONY: step1 step2 step3 step4 sage td opt
 
 step3: $(MSM_FF)
-step4: $(FIT)/ready
 sage: fit-sage/ready
 
 # step 1 - generate the initial force field from a combination of the
@@ -152,6 +151,8 @@ $(MSM_FF): $(INITIAL_FF) $(CURATE)/output/combined-opt.json $(MSM)/create-msm-ff
 # step 4 - generate ForceBalance inputs
 
 $(FIT)/ready: $(COMBINED) $(MSM_FF) $(FIT)/create-fb-inputs.py
+	rm -r $(FIT)/fb-fit/targets
+	mkdir -p $(FIT)/fb-fit/targets
 	cd $(FIT) ; \
 	python create-fb-inputs.py                                                      \
 	--tag                       "fb-fit"                                            \
@@ -167,6 +168,8 @@ $(FIT)/ready: $(COMBINED) $(MSM_FF) $(FIT)/create-fb-inputs.py
 	--output-directory          "output"                                            \
 	--verbose
 	date > $@
+
+step4: $(FIT)/ready
 
 # step 5 - pack up generated files for running on HPC3
 

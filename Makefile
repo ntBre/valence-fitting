@@ -168,12 +168,16 @@ $(FIT)/ready: $(COMBINED) $(MSM_FF) $(FIT)/create-fb-inputs.py
 	--verbose
 	date > $@
 
-$(FIT)/fb-fit/targets.tar.gz: $(wildcard $(FIT)/fb-fit/targets/*/*)
-	cd $(FIT)/fb-fit ; \
-	tar cvfz targets.tar.gz targets
+# step 5 - pack up generated files for running on HPC3
 
-TORS_DEPS := $(addprefix $(FIT)/,$(addprefix fb-fit/,forcefield/force-field.offxml	\
+# step 5a - pack up the targets directory
+$(FIT)/fb-fit/targets.tar.gz: $(wildcard $(FIT)/fb-fit/targets/*/*)
+	cd $(FIT)/fb-fit ; tar cfz targets.tar.gz targets
+
+# step 5b - zip everything up
+TORS_DEPS := $(addprefix $(FIT)/,$(addprefix					\
+				        fb-fit/,forcefield/force-field.offxml	\
 				        optimize.in targets.tar.gz))
 
-tors.tar.gz: $(FIT)/ready $(FIT)/fb-fit/targets.tar.gz
-	tar cvfz $@ $(TORS_DEPS)
+tors.tar.gz: $(FIT)/ready $(TORS_DEPS)
+	tar cfz $@ $(TORS_DEPS)

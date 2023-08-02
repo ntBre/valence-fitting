@@ -213,5 +213,8 @@ def main(
     ff.to_file(output_force_field)
 
 
+import faulthandler
 if __name__ == "__main__":
-    main()
+    with open("fault_handler.log", "w") as fobj:
+        faulthandler.enable(fobj)
+        main()

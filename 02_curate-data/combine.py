@@ -33,16 +33,8 @@ def combine_datasets(d1: Output, d2: Output) -> Output:
 
 
 def combine_td(ff):
-    base = "/home/brent/omsf/clone/sage-2.1.0/inputs-and-outputs/data-sets/"
     sage_td = TorsionDriveResultCollection.parse_file(
-        base + "td-set-for-fitting-2.1.0.json"
-    )
-
-    sage_td = filter_td_data(
-        sage_td,
-        "td_records_to_remove.dat",
-        include_iodine=False,
-        cache="datasets/filtered-sage-td.json",
+        "datasets/filtered-sage-td.json"
     )
 
     pavan_td = TorsionDriveResultCollection.parse_file(
@@ -74,14 +66,7 @@ def combine_opt(ff):
     base = "/home/brent/omsf/clone/sage-2.1.0/inputs-and-outputs/data-sets/"
 
     sage_td = OptimizationResultCollection.parse_file(
-        base + "opt-set-for-fitting-2.1.0.json"
-    )
-
-    sage_td = filter_opt_data(
-        sage_td,
-        "opt_records_to_remove.dat",
-        include_iodine=False,
-        cache="datasets/filtered-sage-opt.json",
+        "datasets/filtered-sage-opt.json"
     )
 
     pavan_td = OptimizationResultCollection.parse_file(

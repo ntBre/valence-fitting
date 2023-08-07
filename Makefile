@@ -77,21 +77,21 @@ $(CURATE)/datasets/filtered-td.json: $(DEPS)
 DEPS := $(CURATE)/datasets/filtered-td.json $(CURATE)/select_parameters.py $(INITIAL_FF)
 
 $(CURATE)/output/td-smirks.json: $(DEPS)
-	cd $(CURATE) ;					\
-	python select_parameters.py
-	--dataset $(CURATE)/datasets/filtered-td.json	\
-	--forcefield ../$(INITIAL_FF)			\
-	--output-smirks output/td-smirks.json		\
+	cd $(CURATE) ;				\
+	python select_parameters.py select-td	\
+	--dataset datasets/filtered-td.json	\
+	--forcefield ../$(INITIAL_FF)		\
+	--output-smirks output/td-smirks.json	\
 	--ring-torsions explicit_ring_torsions.dat
 
 ### step 2d.ii select opt
 DEPS := $(CURATE)/datasets/filtered-opt.json $(CURATE)/select_parameters.py $(INITIAL_FF)
 
 $(CURATE)/output/opt-smirks.json: $(DEPS)
-	cd $(CURATE) ;					\
-	python select_parameters.py
-	--dataset $(CURATE)/datasets/filtered-opt.json	\
-	--forcefield ../$(INITIAL_FF)			\
+	cd $(CURATE) ;				\
+	python select_parameters.py select-opt	\
+	--dataset datasets/filtered-opt.json	\
+	--forcefield ../$(INITIAL_FF)		\
 	--output-smirks output/opt-smirks.json
 
 

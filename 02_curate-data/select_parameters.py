@@ -1,6 +1,10 @@
 import click
 import numpy as np
 from openff.toolkit.typing.engines.smirnoff.forcefield import ForceField
+from openff.qcsubmit.results import (
+    TorsionDriveResultCollection,
+    OptimizationResultCollection,
+)
 from curate_dataset import select_parameters
 import json
 
@@ -16,6 +20,8 @@ def cli():
 @click.option("--output-smirks", required=True)
 @click.option("--ring-torsions", required=True)
 def select_td(dataset, forcefield, output_smirks, ring_torsions):
+    dataset = TorsionDriveResultCollection.parse_file(dataset)
+
     ff = ForceField(
         forcefield,
         allow_cosmetic_attributes=True,
@@ -40,6 +46,8 @@ def select_td(dataset, forcefield, output_smirks, ring_torsions):
 @click.option("--forcefield", required=True)
 @click.option("--output-smirks", required=True)
 def select_opt(dataset, forcefield, output_smirks):
+    dataset = OptimizationResultCollection.parse_file(dataset)
+
     ff = ForceField(
         forcefield,
         allow_cosmetic_attributes=True,

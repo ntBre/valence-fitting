@@ -10,6 +10,7 @@ def cli():
     pass
 
 
+@cli.command("select-td")
 @click.option("--dataset", required=True)
 @click.option("--forcefield", required=True)
 @click.option("--output-smirks", required=True)
@@ -34,11 +35,11 @@ def select_td(dataset, forcefield, output_smirks, ring_torsions):
         json.dump(selected_parameters, f, indent=2)
 
 
+@cli.command("select-opt")
 @click.option("--dataset", required=True)
 @click.option("--forcefield", required=True)
 @click.option("--output-smirks", required=True)
-@click.option("--ring-torsions", required=True)
-def select_opt(dataset, forcefield, output_smirks, ring_torsions):
+def select_opt(dataset, forcefield, output_smirks):
     ff = ForceField(
         forcefield,
         allow_cosmetic_attributes=True,
@@ -52,3 +53,7 @@ def select_opt(dataset, forcefield, output_smirks, ring_torsions):
     )
     with open(output_smirks, "w") as file:
         json.dump(selected_parameters, file, indent=2)
+
+
+if __name__ == "__main__":
+    cli()

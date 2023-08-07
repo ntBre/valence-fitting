@@ -3,6 +3,7 @@ digraph {
 
     // programs have diamond nodes
     "initial.py" [shape=record]
+    msm [label="create-msm-ff.py", shape=record]
     download_opt [label="download_opt.py", shape=record]
     download_td [label="download_td.py", shape=record]
     filters [label="filters.py", shape=record]
@@ -10,39 +11,47 @@ digraph {
     filter_td [label="filter-td.py"  , shape=record]
     ff_opt [label="fast-filter", shape=record]
     ff_td [label="fast-filter", shape=record]
-    ff_opt_sage [label="fast-filter", shape=record]
-    ff_td_sage [label="fast-filter", shape=record]
     combine_opt [label="combine.py", shape=record]
     combine_td [label="combine.py", shape=record]
+    initial_ff [label="initial.offxml"]
+    msm_ff [label="msm.offxml"]
+    create_fb [label="create-fb-inputs.py",shape=record]
 
-    "initial.py" -> "initial.offxml"
+    // step 1 - generate
+
+    "initial.py" -> initial_ff
+
+    // step 2 - curate data
 
     filters -> { filter_opt, filter_td }
 
+    /// download
+
     download_opt -> "core-opt.json"
-    { "core-opt.json", filter_opt } -> ff_opt
-    ff_opt -> "filtered-core-opt.json"
-
     download_td -> "core-td.json"
-    { "core-td.json", filter_td } -> ff_td
-    ff_td -> "filtered-core-td.json"
 
-    { "sage-opt.json", filter_opt } -> ff_opt_sage
-    ff_opt_sage -> "filtered-sage-opt.json"
+    /// combine
 
-    { "sage-td.json", filter_td } -> ff_td_sage
-    ff_td_sage -> "filtered-sage-td.json"
+    { "core-opt.json", "sage-opt.json", filter_opt } -> combine_opt -> "combined-opt.json"
+    { "core-td.json", "sage-td.json", filter_td } -> combine_td -> "combined-td.json"
 
-    { rank=same "filtered-sage-opt.json", "filtered-sage-td.json",
-    "filtered-core-opt.json" }
-    // COMBINED DEPS
+    /// filter
 
-    { "filtered-core-opt.json", "filtered-sage-opt.json" } -> combine_opt
+    "combined-opt.json" -> ff_opt -> "filtered-opt.json"
+    "combined-td.json" -> ff_td -> "filtered-td.json"
 
-    { "filtered-core-td.json", "filtered-sage-td.json" } -> combine_td
+    /// select
 
-    combine_opt -> { "combined-opt.json", "combined-opt-smirks.json" }
+    { "filtered-opt.json", initial_ff }  -> select_opt -> "opt-smirks.json"
+    { "filtered-td.json", initial_ff }  -> select_td -> "td-smirks.json"
 
-    combine_td -> { "combined-td.json", "combined-td-smirks.json" }
+    // step 3 - initialize
+
+    { initial_ff, "filtered-opt.json" } -> msm -> msm_ff
+
+    // step 4 - forcebalance
+
+    { "smiles-to-exclude.dat", "smarts-to-exclude.dat", "filtered-opt.json",
+    "filtered-td.json", msm_ff } -> create_fb -> { "forcebalance inputs" }
 
 }

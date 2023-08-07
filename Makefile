@@ -27,115 +27,108 @@ step1: $(INITIAL_FF) # alias for step1
 # additional records selected by Pavan specifically for the additional torsions
 # added to the force field.
 
-# step 2a - download, filter, and curate the torsion multiplicity optimization
-# data set. Inputs are
-# 1) The initial force field from step 1
-# 2) curate_dataset.py
-# 3) filtered-core-opt.json (pre-filtered opt dataset)
-# Outputs are
-# 1) pavan-opt-training-set.json (the final data set)
-# 2) pavan-opt-smirks.json (final smirks)
-
-# step 2a.i - download the data set with qcportal. This only depends on the
-# script itself and outputs the dataset
+## step 2a download the core-opt and core-td datasets
 $(CURATE)/datasets/core-opt.json: $(CURATE)/download_opt.py
 	cd $(CURATE); python download_opt.py
 
-# step 2a.ii - filter the opt data set with fast-filter. This depends on the
-# filtering code in filters.py, the script passed to fast-filter (filter-opt.py)
-# and the downloaded data set from 2a.i. The output is the filtered dataset
-DEPS := $(addprefix $(CURATE)/,datasets/core-opt.json filters.py filter-opt.py)
-$(CURATE)/datasets/filtered-core-opt.json: $(DEPS)
-	cd $(CURATE); \
-	fast-filter datasets/core-opt.json -p filter-opt.py -o ../$@ -t 12
-
-# step 2a.iii - perform the last steps of curation - just filtering duplicate
-# records I guess, and then select_parameters for the smirks output. This simply
-# reads in the filtered data set, so it depends on that and curate_dataset.py.
-# It also uses the initial FF for select_parameters. Outputs are the training
-# set and smirks
-OPT_SET := $(CURATE)/datasets/filtered-core-opt.json
-
-# step 2b - the same as 2a but for the torsion data sets
-
-# step 2b.i - download the data set with qcportal
 $(CURATE)/datasets/core-td.json: $(CURATE)/download_td.py
 	cd $(CURATE); python download_td.py
 
-# step 2b.ii - filter the td data set with fast-filter
-DEPS := $(addprefix $(CURATE)/,datasets/core-td.json filters.py filter-td.py)
-$(CURATE)/datasets/filtered-core-td.json: $(DEPS)
-	cd $(CURATE); \
-	fast-filter datasets/core-td.json -p filter-td.py -o ../$@ -t 12
+OPT_SETS := $(CURATE)/datasets/core-opt.json $(CURATE)/sage/opt.json
+TD_SETS := $(CURATE)/datasets/core-td.json $(CURATE)/sage/td.json
 
-# step 2b.iii - last steps of curation
-TD_SET := $(CURATE)/datasets/filtered-core-td.json
+## step 2b combine the core and sage datasets
+$(CURATE)/datasets/combined-opt.json: $(OPT_SETS) $(CURATE)/combine.py
+	cd $(CURATE) ;					\
+	python combine.py combine-opt			\
+	--input-datasets $(addprefix ../,$(OPT_SETS))	\
+	--output-dataset ../$@
 
-# step 2c curate the sage datasets using the same filters as above
+$(CURATE)/datasets/combined-td.json: $(TD_SETS) $(CURATE)/combine.py
+	cd $(CURATE) ;					\
+	python combine.py combine-td			\
+	--input-datasets $(addprefix ../,$(TD_SETS))	\
+	--output-dataset ../$@
 
-# step 2c.i filter the sage opt dataset
-DEPS := $(addprefix $(CURATE)/,sage/opt-set-for-fitting-2.1.0.json	\
-	filter-opt.py filters.py)
+## step 2c filter the combined datasets
 
-$(CURATE)/datasets/filtered-sage-opt.json: $(DEPS)
-	cd $(CURATE) ; \
-	fast-filter sage/opt-set-for-fitting-2.1.0.json \
+### step 2c.i filter opt
+DEPS := $(CURATE)/datasets/combined-opt.json $(CURATE)/filters.py	\
+	$(CURATE)/filter-opt.py
+
+$(CURATE)/datasets/filtered-opt.json: $(DEPS)
+	cd $(CURATE) ;						\
+	fast-filter ../$(CURATE)/datasets/combined-opt.json	\
 		-p filter-opt.py -o ../$@ -t 12 -b 32
 
-# step 2c.ii filter the sage td dataset
-DEPS := $(addprefix $(CURATE)/,sage/td-set-for-fitting-2.1.0.json filter-td.py	\
-	filters.py)
+### step 2c.ii filter TD
+DEPS := $(CURATE)/datasets/combined-td.json $(CURATE)/filters.py	\
+	$(CURATE)/filter-td.py
 
-$(CURATE)/datasets/filtered-sage-td.json: $(DEPS)
-	cd $(CURATE) ; \
-	fast-filter sage/td-set-for-fitting-2.1.0.json \
+$(CURATE)/datasets/filtered-td.json: $(DEPS)
+	cd $(CURATE) ;						\
+	fast-filter ../$(CURATE)/datasets/combined-td.json	\
 		-p filter-td.py -o ../$@ -t 12 -b 32
 
-DEPS := $(OPT_SET) $(TD_SET) $(CURATE)/combine.py	\
-	$(CURATE)/datasets/filtered-sage-opt.json	\
-	$(CURATE)/datasets/filtered-sage-td.json
+## step 2d select parameters from the filtered, combined datasets
 
-# step 2d combine the two pairs of filtered data sets together
-COMBINED := $(addprefix $(CURATE)/output/,combined-opt.json			\
-	    combined-opt-smirks.json combined-td.json combined-td-smirks.json)
+### step 2d.i select torsions
 
-$(COMBINED) &: $(DEPS)
-	cd $(CURATE); python combine.py
+DEPS := $(CURATE)/datasets/filtered-td.json $(CURATE)/select.py $(INITIAL_FF)
 
-step2: $(COMBINED)
+$(CURATE)/output/td-smirks.json: $(DEPS)
+	cd $(CURATE) ;					\
+	python select.py
+	--dataset $(CURATE)/datasets/filtered-td.json	\
+	--forcefield ../$(INITIAL_FF)			\
+	--output-smirks output/td-smirks.json		\
+	--ring-torsions explicit_ring_torsions.dat
+
+### step 2d.ii select opt
+DEPS := $(CURATE)/datasets/filtered-opt.json $(CURATE)/select.py $(INITIAL_FF)
+
+$(CURATE)/output/opt-smirks.json: $(DEPS)
+	cd $(CURATE) ;					\
+	python select.py
+	--dataset $(CURATE)/datasets/filtered-opt.json	\
+	--forcefield ../$(INITIAL_FF)			\
+	--output-smirks output/opt-smirks.json
 
 
 
 # step 3 - update the initial force field parameters with the modified seminario
 # method
 
-$(MSM_FF): $(INITIAL_FF) $(CURATE)/output/combined-opt.json $(MSM)/create-msm-ff.py
+$(MSM_FF): $(INITIAL_FF) $(CURATE)/output/filtered-opt.json $(MSM)/create-msm-ff.py
 	cd $(MSM) ; \
 	python create-msm-ff.py                                                \
 	--initial-force-field       ../$(INITIAL_FF)                           \
-	--optimization-dataset      ../02_curate-data/output/combined-opt.json \
+	--optimization-dataset      ../$(CURATE)/output/filtered-opt.json \
 	--working-directory         working-directory                          \
 	--output                    ../$@
 
 # step 4 - generate ForceBalance inputs
 
-DEPS := $(FIT)/smiles-to-exclude.dat $(FIT)/smarts-to-exclude.dat
-$(FIT)/ready: $(COMBINED) $(MSM_FF) $(FIT)/create-fb-inputs.py $(DEPS)
+DEPS := $(FIT)/smiles-to-exclude.dat $(FIT)/smarts-to-exclude.dat		\
+	$(CURATE)/output/filtered-opt.json $(CURATE)/output/filtered-td.json	\
+	$(MSM_FF) $(FIT)/create-fb-inputs.py
+
+$(FIT)/ready: $(DEPS)
 	rm -r $(FIT)/fb-fit/targets
 	mkdir -p $(FIT)/fb-fit/targets
-	cd $(FIT) ; \
-	python create-fb-inputs.py                                                      \
-	--tag                       "fb-fit"                                            \
-	--optimization-dataset      "../02_curate-data/output/combined-opt.json"        \
-	--torsion-dataset           "../02_curate-data/output/combined-td.json"         \
-	--forcefield                ../$(MSM_FF)                                        \
-	--valence-to-optimize       "../02_curate-data/output/combined-opt-smirks.json" \
-	--torsions-to-optimize      "../02_curate-data/output/combined-td-smirks.json"  \
-	--smiles-to-exclude         "smiles-to-exclude.dat"                             \
-	--smarts-to-exclude         "smarts-to-exclude.dat"                             \
-	--max-iterations            1                                                   \
-	--port                      55387                                               \
-	--output-directory          "output"                                            \
+	cd $(FIT) ;								\
+	python create-fb-inputs.py                                              \
+	--tag                       "fb-fit"                                    \
+	--optimization-dataset      ../$(CURATE)/output/filtered-opt.json       \
+	--torsion-dataset           ../$(CURATE)/output/filtered-td.json        \
+	--valence-to-optimize       ../$(CURATE)/output/opt-smirks.json		\
+	--torsions-to-optimize      ../$(CURATE)/output/td-smirks.json		\
+	--forcefield                ../$(MSM_FF)                                \
+	--smiles-to-exclude         smiles-to-exclude.dat                       \
+	--smarts-to-exclude         smarts-to-exclude.dat                       \
+	--max-iterations            1                                           \
+	--port                      55387                                       \
+	--output-directory          "output"                                    \
 	--verbose
 	date > $@
 

@@ -4,12 +4,8 @@ from openff.qcsubmit.results import (
     TorsionDriveResultCollection,
     OptimizationResultCollection,
 )
-from openff.toolkit import ForceField
-from curate_dataset import select_parameters
-from filters import filter_td_data, filter_opt_data
-import numpy as np
-import json
 import typing
+import click
 
 Output: typing.TypeAlias = typing.Union[
     "TorsionDriveResultCollection", "OptimizationResultCollection"
@@ -33,67 +29,41 @@ def combine_datasets(d1: Output, d2: Output) -> Output:
     return new_dataset
 
 
-def combine_td(ff):
-    sage_td = TorsionDriveResultCollection.parse_file(
-        "datasets/filtered-sage-td.json"
-    )
+@click.group()
+def cli():
+    pass
 
-    pavan_td = TorsionDriveResultCollection.parse_file(
-        "output/pavan-td-training-set.json"
-    )
+
+@cli.command("combine-td")
+@click.option("--input-datasets", nargs=2, required=True)
+@click.option("--output-dataset", required=True)
+def combine_td(input_datasets, output_dataset):
+    ds1, ds2 = input_datasets
+    sage_td = TorsionDriveResultCollection.parse_file(ds1)
+    pavan_td = TorsionDriveResultCollection.parse_file(ds2)
 
     print("combining td datasets")
     combined_td = combine_datasets(sage_td, pavan_td)
 
-    with open("output/combined-td.json", "w") as out:
+    with open(output_dataset, "w") as out:
         out.write(combined_td.json(indent=2))
 
-    explicit_ring_torsions = np.loadtxt(
-        "explicit_ring_torsions.dat", dtype=str
-    )
 
-    print("selecting td parameters")
-    selected_parameters = select_parameters(
-        combined_td,
-        ["ProperTorsions"],
-        force_field=ff,
-        explicit_ring_torsions=explicit_ring_torsions,
-    )
-    with open("output/combined-td-smirks.json", "w") as file:
-        json.dump(selected_parameters, file, indent=2)
+@cli.command("combine-opt")
+@click.option("--input-datasets", nargs=2, required=True)
+@click.option("--output-dataset", required=True)
+def combine_opt(input_datasets, output_dataset):
+    ds1, ds2 = input_datasets
+    sage_td = OptimizationResultCollection.parse_file(ds1)
 
-
-def combine_opt(ff):
-    base = "/home/brent/omsf/clone/sage-2.1.0/inputs-and-outputs/data-sets/"
-
-    sage_td = OptimizationResultCollection.parse_file(
-        "datasets/filtered-sage-opt.json"
-    )
-
-    pavan_td = OptimizationResultCollection.parse_file(
-        "output/pavan-opt-training-set.json"
-    )
+    pavan_td = OptimizationResultCollection.parse_file(ds2)
 
     print("combining opt datasets")
     combined_td = combine_datasets(sage_td, pavan_td)
 
-    with open("output/combined-opt.json", "w") as out:
+    with open(output_dataset, "w") as out:
         out.write(combined_td.json(indent=2))
 
-    print("selecting opt parameters")
-    selected_parameters = select_parameters(
-        combined_td,
-        ["Bonds", "Angles"],
-        force_field=ff,
-    )
-    with open("output/combined-opt-smirks.json", "w") as file:
-        json.dump(selected_parameters, file, indent=2)
 
-
-ff = ForceField(
-    "../01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml",
-    allow_cosmetic_attributes=True,
-)
-
-combine_td(ff)
-combine_opt(ff)
+if __name__ == "__main__":
+    cli()

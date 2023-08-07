@@ -10,16 +10,12 @@ import sys
 import numpy as np
 import click
 
-from openff.qcsubmit.results.filters import ResultRecordFilter
-
 from qcportal.models import TorsionDriveRecord, OptimizationRecord
 from openff.qcsubmit.results import (
     TorsionDriveResultCollection,
     OptimizationResultCollection,
 )
 from openff.toolkit import ForceField, Molecule
-
-from filters import ChargeCheckFilter
 
 
 def check_torsion_is_in_ring(

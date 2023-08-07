@@ -4,6 +4,7 @@ from openff.toolkit.utils.exceptions import (
 )
 from openff.toolkit.utils.toolkits import OpenEyeToolkitWrapper
 from qcportal.models.records import RecordStatusEnum
+from openff.qcsubmit.results import TorsionDriveResultCollection
 from openff.qcsubmit.results.filters import (
     ConformerRMSDFilter,
     ConnectivityFilter,
@@ -15,7 +16,6 @@ from openff.qcsubmit.results.filters import (
 )
 import typing
 import numpy as np
-import json
 
 
 class ChargeCheckFilter(ResultRecordFilter):

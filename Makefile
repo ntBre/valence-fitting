@@ -99,7 +99,7 @@ $(CURATE)/output/opt-smirks.json: $(DEPS)
 # step 3 - update the initial force field parameters with the modified seminario
 # method
 
-$(MSM_FF): $(INITIAL_FF) $(CURATE)/output/filtered-opt.json $(MSM)/create-msm-ff.py
+$(MSM_FF): $(INITIAL_FF) $(CURATE)/datasets/filtered-opt.json $(MSM)/create-msm-ff.py
 	cd $(MSM) ; \
 	python create-msm-ff.py                                                \
 	--initial-force-field       ../$(INITIAL_FF)                           \
@@ -109,10 +109,10 @@ $(MSM_FF): $(INITIAL_FF) $(CURATE)/output/filtered-opt.json $(MSM)/create-msm-ff
 
 # step 4 - generate ForceBalance inputs
 
-DEPS := $(FIT)/smiles-to-exclude.dat $(FIT)/smarts-to-exclude.dat	\
-	$(CURATE)/datasets/filtered-opt.json				\
-	$(CURATE)/datasets/filtered-td.json $(MSM_FF)			\
-	$(FIT)/create-fb-inputs.py
+DEPS := $(FIT)/smiles-to-exclude.dat $(FIT)/smarts-to-exclude.dat		\
+	$(CURATE)/datasets/filtered-opt.json					\
+	$(CURATE)/datasets/filtered-td.json $(CURATE)/output/opt-smirks.json	\
+	$(CURATE)/output/td-smirks.json $(MSM_FF) $(FIT)/create-fb-inputs.py
 
 $(FIT)/ready: $(DEPS)
 	rm -r $(FIT)/fb-fit/targets

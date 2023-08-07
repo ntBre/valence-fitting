@@ -54,19 +54,16 @@ $(CURATE)/datasets/filtered-core-opt.json: $(DEPS)
 # reads in the filtered data set, so it depends on that and curate_dataset.py.
 # It also uses the initial FF for select_parameters. Outputs are the training
 # set and smirks
-OPT_SET := $(addprefix $(CURATE)/output/,pavan-opt-training-set.json	\
-pavan-opt-smirks.json)
+OPT_SET := $(CURATE)/output/pavan-opt-training-set.json
 
-DEPS := $(INITIAL_FF) $(CURATE)/curate_dataset.py	\
-$(CURATE)/datasets/filtered-core-opt.json
+DEPS := $(CURATE)/curate_dataset.py $(CURATE)/datasets/filtered-core-opt.json
 
 $(OPT_SET) &: $(DEPS)
-	cd $(CURATE) ; \
-	python curate_dataset.py download-opt                                \
-	    --initial-forcefield        ../$(INITIAL_FF)                     \
-	    --min-record-coverage       1                                    \
-	    --output                    "output/pavan-opt-training-set.json" \
-	    --output-parameter-smirks   "output/pavan-opt-smirks.json"       \
+	cd $(CURATE) ;									\
+	python curate_dataset.py download-opt						\
+	    --input-dataset             ../$(CURATE)/datasets/filtered-core-opt.json	\
+	    --min-record-coverage       1						\
+	    --output                    "output/pavan-opt-training-set.json"		\
 	    --verbose
 
 opt: $(OPT_SET)
@@ -84,18 +81,14 @@ $(CURATE)/datasets/filtered-core-td.json: $(DEPS)
 	fast-filter datasets/core-td.json -p filter-td.py -o ../$@ -t 12
 
 # step 2b.iii - last steps of curation
-TD_SET := $(addprefix $(CURATE)/output/,pavan-td-training-set.json	\
-	    pavan-td-smirks.json)
+TD_SET := $(CURATE)/output/pavan-td-training-set.json
 
-DEPS := $(INITIAL_FF) $(CURATE)/curate_dataset.py	\
-	$(CURATE)/datasets/filtered-core-td.json
+DEPS := $(CURATE)/curate_dataset.py $(CURATE)/datasets/filtered-core-td.json
 
-$(TD_SET) &: $(DEPS)
+$(TD_SET): $(DEPS)
 	cd $(CURATE) ; \
 	python curate_dataset.py download-td                                \
-	    --initial-forcefield        ../$(INITIAL_FF)                    \
 	    --output                    "output/pavan-td-training-set.json" \
-	    --output-parameter-smirks   "output/pavan-td-smirks.json"       \
 	    --n-processes               8                                   \
 	    --min-record-coverage       1                                   \
 	    --verbose

@@ -1,6 +1,5 @@
 from collections import defaultdict, Counter
 import functools
-import json
 import logging
 import random
 import typing
@@ -247,27 +246,17 @@ def cli():
 
 @cli.command("download-td")
 @click.option(
+    "--input-dataset",
+    "input_dataset",
+    required=True,
+    type=click.Path(exists=False, dir_okay=False, file_okay=True),
+)
+@click.option(
     "--output",
     "output_path",
     required=True,
     type=click.Path(exists=False, dir_okay=False, file_okay=True),
     help="The path to write the dataset to. Should be a JSON",
-)
-@click.option(
-    "--output-parameter-smirks",
-    "output_parameter_smirks_path",
-    required=True,
-    type=click.Path(exists=False, dir_okay=False, file_okay=True),
-    help="The path to write the dataset to. Should be a JSON",
-)
-@click.option(
-    "--initial-forcefield",
-    required=True,
-    type=str,
-    help=(
-        "The name of the initial force field to use. "
-        "Alternatively, the path to a force field"
-    ),
 )
 @click.option(
     "--explicit-ring-torsions",
@@ -324,8 +313,7 @@ def cli():
 )
 def get_td_data(
     output_path: str,
-    output_parameter_smirks_path: str,
-    initial_forcefield: str,
+    input_dataset: str,
     explicit_ring_torsions: typing.Optional[str] = None,
     cap_size: int = 5,
     cap_method: typing.Literal[
@@ -384,17 +372,12 @@ def get_td_data(
     n_processes
         The number of processes to use for multiprocessing.
     """
-    from openff.toolkit import ForceField
     from openff.qcsubmit.results import TorsionDriveResultCollection
 
     # suppress stereochemistry warnings
     logging.getLogger("openff").setLevel(logging.ERROR)
 
-    ff = ForceField(initial_forcefield, allow_cosmetic_attributes=True)
-
-    core_dataset = TorsionDriveResultCollection.parse_file(
-        "datasets/filtered-core-td.json"
-    )
+    core_dataset = TorsionDriveResultCollection.parse_file(input_dataset)
 
     key = list(core_dataset.entries.keys())[0]
 
@@ -414,17 +397,6 @@ def get_td_data(
     if verbose:
         print(f"Saved to {output_path}")
 
-    selected_parameters = select_parameters(
-        new_dataset,
-        ["ProperTorsions"],
-        force_field=ff,
-        explicit_ring_torsions=explicit_ring_torsions,
-        n_processes=n_processes,
-        min_coverage=min_record_coverage,
-    )
-    with open(output_parameter_smirks_path, "w") as file:
-        json.dump(selected_parameters, file, indent=2)
-
 
 @cli.command("download-opt")
 @click.option(
@@ -439,22 +411,6 @@ def get_td_data(
     required=True,
     type=click.Path(exists=False, dir_okay=False, file_okay=True),
     help="The path to write the dataset to. Should be a JSON",
-)
-@click.option(
-    "--output-parameter-smirks",
-    "output_parameter_smirks_path",
-    required=True,
-    type=click.Path(exists=False, dir_okay=False, file_okay=True),
-    help="The path to write the dataset to. Should be a JSON",
-)
-@click.option(
-    "--initial-forcefield",
-    required=True,
-    type=str,
-    help=(
-        "The name of the initial force field to use. "
-        "Alternatively, the path to a force field"
-    ),
 )
 @click.option(
     "--verbose",
@@ -483,8 +439,6 @@ def get_td_data(
 def get_opt_data(
     output_path: str,
     input_dataset: str,
-    output_parameter_smirks_path: str,
-    initial_forcefield: str,
     verbose: bool = True,
     n_processes: int = 4,
     min_record_coverage: int = 5,
@@ -503,12 +457,9 @@ def get_opt_data(
         Conformers are filled using a greedy RMSD filter
     """
     from openff.qcsubmit.results import OptimizationResultCollection
-    from openff.toolkit import ForceField
 
     # suppress stereochemistry warnings
     logging.getLogger("openff").setLevel(logging.ERROR)
-
-    ff = ForceField(initial_forcefield, allow_cosmetic_attributes=True)
 
     core_dataset = OptimizationResultCollection.parse_file(input_dataset)
 
@@ -529,16 +480,6 @@ def get_opt_data(
         file.write(new_dataset.json(indent=2))
     if verbose:
         print(f"Saved to {output_path}")
-
-    selected_parameters = select_parameters(
-        new_dataset,
-        ["Bonds", "Angles"],
-        force_field=ff,
-        n_processes=n_processes,
-        min_coverage=min_record_coverage,
-    )
-    with open(output_parameter_smirks_path, "w") as file:
-        json.dump(selected_parameters, file, indent=2)
 
 
 if __name__ == "__main__":

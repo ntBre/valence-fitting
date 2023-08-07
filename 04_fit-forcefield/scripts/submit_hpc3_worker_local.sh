@@ -1,39 +1,40 @@
 #!/bin/bash
 
-host=$1
-port=$2
-shift
-shift
+host=$(sed 1q host)
+port=$(awk '/port/ {print $NF}' optimize.in)
 
-CONDA_ENVIRONMENT_NAME="fb-195-tk-014-py310"
 USERNAME=$(whoami)
-COMPRESSED_CONDA_ENVIRONMENT="/dfs4/.../${CONDA_ENVIRONMENT_NAME}.tar.gz"
 export SLURM_TMPDIR=/tmp
 export MYTMPDIR="/tmp/${USERNAME}"
 export TMPDIR=$SLURM_TMPDIR/$SLURM_JOB_NAME
 
+worker_num=$(squeue -u $USER | grep wq -c)
+ncpus=10
+
+echo host = $host
+echo port = $port
+echo $ncpus cpus requested
+echo submitting worker $worker_num
+
+#export OE_LICENSE=
 
 cmd=$(mktemp)
 cat << EOF > $cmd
 #!/usr/bin/env bash
 #SBATCH -J wq-$port
 #SBATCH -p free
-#SBATCH -t 48:00:00
+#SBATCH -t 24:00:00
 #SBATCH --nodes=1
-#SBATCH --ntasks=10
+#SBATCH --ntasks=${ncpus}
 #SBATCH --cpus-per-task=1
 #SBATCH --mem-per-cpu=1G
 # SBATCH --array=1-100
 #SBATCH --account dmobley_lab
 # SBATCH --export ALL
-#SBATCH -o /dev/null
+#SBATCH -o worker${worker_num}.log
 
 #export OMP_NUM_THREADS=1
 #export MKL_NUM_THREADS=1
-if ! diff -q ${MYTMPDIR}/${CONDA_ENVIRONMENT_NAME}.tar.gz $COMPRESSED_CONDA_ENVIRONMENT > /dev/null 2>&1;
-then 
-   rm -rf ${MYTMPDIR}/${CONDA_ENVIRONMENT_NAME}*
-fi
 
 mkdir ${MYTMPDIR} -p
 for i in \$(seq  \$SLURM_NTASKS ); do
@@ -43,5 +44,5 @@ done
 wait
 EOF
 
-sbatch $@ $cmd 
+sbatch $@ $cmd
 rm $cmd

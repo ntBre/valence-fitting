@@ -100,7 +100,7 @@ $(CURATE)/output/opt-smirks.json: $(DEPS)
 # method
 
 $(MSM_FF): $(INITIAL_FF) $(CURATE)/datasets/filtered-opt.json $(MSM)/create-msm-ff.py
-	cd $(MSM) ; ulimit -s 16384 \
+	cd $(MSM) ; ulimit -s 16384 ; \
 	python create-msm-ff.py                                                \
 	--initial-force-field       ../$(INITIAL_FF)                           \
 	--optimization-dataset      ../$(CURATE)/datasets/filtered-opt.json    \

@@ -7,6 +7,8 @@ import click
 import numpy as np
 from openff.units import unit
 import tqdm
+import faulthandler
+
 
 if typing.TYPE_CHECKING:
     from openff.toolkit import Molecule, ForceField
@@ -213,7 +215,6 @@ def main(
     ff.to_file(output_force_field)
 
 
-import faulthandler
 if __name__ == "__main__":
     with open("fault_handler.log", "w") as fobj:
         faulthandler.enable(fobj)

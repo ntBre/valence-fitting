@@ -7,12 +7,12 @@
 #SBATCH --mem=10000mb
 #SBATCH --account dmobley_lab
 #SBATCH --export ALL
-#SBATCH --mail-user=MY_USERNAME@uci.edu
+#SBATCH --mail-user=bwestbr1@uci.edu
 #SBATCH --constraint=fastscratch
 #SBATCH -o master.out
 #SBATCH -e master.err
 
-TMPDIR=$SLURM_TMPDIR/$SLURM_JOB_ID
+TMPDIR=/tmp/$USER/$SLURM_JOB_ID
 
 rm -rf $TMPDIR
 mkdir -p $TMPDIR
@@ -23,7 +23,7 @@ mamba activate valence-fitting
 
 scp -C  $SLURM_SUBMIT_DIR/optimize.in     $TMPDIR
 scp -C  $SLURM_SUBMIT_DIR/targets.tar.gz  $TMPDIR
-scp -C  $SLURM_SUBMIT_DIR/forcefield      $TMPDIR
+scp -Cr $SLURM_SUBMIT_DIR/forcefield      $TMPDIR
 
 tar -xzf targets.tar.gz
 

@@ -54,19 +54,7 @@ $(CURATE)/datasets/filtered-core-opt.json: $(DEPS)
 # reads in the filtered data set, so it depends on that and curate_dataset.py.
 # It also uses the initial FF for select_parameters. Outputs are the training
 # set and smirks
-OPT_SET := $(CURATE)/output/pavan-opt-training-set.json
-
-DEPS := $(CURATE)/curate_dataset.py $(CURATE)/datasets/filtered-core-opt.json
-
-$(OPT_SET) &: $(DEPS)
-	cd $(CURATE) ;									\
-	python curate_dataset.py download-opt						\
-	    --input-dataset             ../$(CURATE)/datasets/filtered-core-opt.json	\
-	    --min-record-coverage       1						\
-	    --output                    "output/pavan-opt-training-set.json"		\
-	    --verbose
-
-opt: $(OPT_SET)
+OPT_SET := $(CURATE)/datasets/filtered-core-opt.json
 
 # step 2b - the same as 2a but for the torsion data sets
 
@@ -81,19 +69,7 @@ $(CURATE)/datasets/filtered-core-td.json: $(DEPS)
 	fast-filter datasets/core-td.json -p filter-td.py -o ../$@ -t 12
 
 # step 2b.iii - last steps of curation
-TD_SET := $(CURATE)/output/pavan-td-training-set.json
-
-DEPS := $(CURATE)/curate_dataset.py $(CURATE)/datasets/filtered-core-td.json
-
-$(TD_SET): $(DEPS)
-	cd $(CURATE) ; \
-	python curate_dataset.py download-td                                \
-	    --output                    "output/pavan-td-training-set.json" \
-	    --n-processes               8                                   \
-	    --min-record-coverage       1                                   \
-	    --verbose
-
-td: $(TD_SET)
+TD_SET := $(CURATE)/datasets/filtered-core-td.json
 
 # step 2c curate the sage datasets using the same filters as above
 

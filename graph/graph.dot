@@ -1,0 +1,42 @@
+digraph {
+    compound=true
+
+    // programs have diamond nodes
+    "initial.py" [shape=record]
+    download_opt [label="download_opt.py", shape=record]
+    download_td [label="download_td.py", shape=record]
+    filters [label="filters.py", shape=record]
+    filter_opt [label="filter-opt.py" , shape=record]
+    filter_td [label="filter-td.py"  , shape=record]
+    ff_opt [label="fast-filter", shape=record]
+    ff_td [label="fast-filter", shape=record]
+    ff_opt_sage [label="fast-filter", shape=record]
+    ff_td_sage [label="fast-filter", shape=record]
+    combine_opt [label="combine.py", shape=record]
+    combine_td [label="combine.py", shape=record]
+
+    "initial.py" -> "initial.offxml"
+
+    filters -> { filter_opt, filter_td }
+
+    download_opt -> "core-opt.json"
+    { "core-opt.json", filter_opt } -> ff_opt
+    ff_opt -> "filtered-core-opt.json"
+
+    download_td -> "core-td.json"
+    { "core-td.json", filter_td } -> ff_td
+    ff_td -> "filtered-core-td.json"
+
+    { "sage-opt.json", filter_opt } -> ff_opt_sage
+    ff_opt_sage -> "filtered-sage-opt.json"
+
+    { "sage-td.json", filter_td } -> ff_td_sage
+    ff_td_sage -> "filtered-sage-td.json"
+
+    { "filtered-core-opt.json", "filtered-sage-opt.json" } -> combine_opt ->
+    "combined-opt.json"
+
+    { "filtered-core-td.json", "filtered-sage-td.json" } -> combine_td ->
+    "combined-td.json"
+
+}

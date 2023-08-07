@@ -60,3 +60,7 @@ step 1, `02_curate-data/output/combined-opt.json` from step 2, and the script
 `03_generate-initial-ff/create-msm-ff.py` from step 3. These files from steps 1
 and 2 in turn depend on other input files and scripts, which will be rerun if
 their own dependencies change.
+
+## Dependency graph
+
+![Makefile dependency graph](graph/graph.png)

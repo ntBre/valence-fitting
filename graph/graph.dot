@@ -14,8 +14,6 @@ digraph {
     ff_td_sage [label="fast-filter", shape=record]
     combine_opt [label="combine.py", shape=record]
     combine_td [label="combine.py", shape=record]
-    curate_opt [label="curate_dataset.py", shape=record]
-    curate_td [label="curate_dataset.py", shape=record]
 
     "initial.py" -> "initial.offxml"
 
@@ -35,20 +33,13 @@ digraph {
     { "sage-td.json", filter_td } -> ff_td_sage
     ff_td_sage -> "filtered-sage-td.json"
 
-    // OPT_SET
-
-    { "filtered-core-opt.json" } -> curate_opt -> {
-    "pavan-opt-training-set.json" }
-
-    // TD_SET
-
-    { "filtered-core-td.json" } -> curate_td -> { "pavan-td-training-set.json" }
-
+    { rank=same "filtered-sage-opt.json", "filtered-sage-td.json",
+    "filtered-core-opt.json" }
     // COMBINED DEPS
 
-    { "pavan-opt-training-set.json", "filtered-sage-opt.json" } -> combine_opt
+    { "filtered-core-opt.json", "filtered-sage-opt.json" } -> combine_opt
 
-    { "pavan-td-training-set.json", "filtered-sage-td.json" } -> combine_td
+    { "filtered-core-td.json", "filtered-sage-td.json" } -> combine_td
 
     combine_opt -> { "combined-opt.json", "combined-opt-smirks.json" }
 

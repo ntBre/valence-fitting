@@ -428,6 +428,12 @@ def get_td_data(
 
 @cli.command("download-opt")
 @click.option(
+    "--input-dataset",
+    "input_dataset",
+    required=True,
+    type=click.Path(exists=False, dir_okay=False, file_okay=True),
+)
+@click.option(
     "--output",
     "output_path",
     required=True,
@@ -476,6 +482,7 @@ def get_td_data(
 )
 def get_opt_data(
     output_path: str,
+    input_dataset: str,
     output_parameter_smirks_path: str,
     initial_forcefield: str,
     verbose: bool = True,
@@ -503,9 +510,7 @@ def get_opt_data(
 
     ff = ForceField(initial_forcefield, allow_cosmetic_attributes=True)
 
-    core_dataset = OptimizationResultCollection.parse_file(
-        "datasets/filtered-core-opt.json",
-    )
+    core_dataset = OptimizationResultCollection.parse_file(input_dataset)
 
     key = list(core_dataset.entries.keys())[0]
 

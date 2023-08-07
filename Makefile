@@ -138,7 +138,7 @@ step4: $(FIT)/ready
 # step 5 - pack up generated files for running on HPC3
 
 # step 5a - pack up the targets directory
-$(FIT)/fb-fit/targets.tar.gz: $(wildcard $(FIT)/fb-fit/targets/*/*)
+$(FIT)/fb-fit/targets.tar.gz: $(FIT)/ready
 	rm $@
 	cd $(FIT)/fb-fit ; tar cfz targets.tar.gz targets
 

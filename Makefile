@@ -74,22 +74,22 @@ $(CURATE)/datasets/filtered-td.json: $(DEPS)
 
 ### step 2d.i select torsions
 
-DEPS := $(CURATE)/datasets/filtered-td.json $(CURATE)/select.py $(INITIAL_FF)
+DEPS := $(CURATE)/datasets/filtered-td.json $(CURATE)/select_parameters.py $(INITIAL_FF)
 
 $(CURATE)/output/td-smirks.json: $(DEPS)
 	cd $(CURATE) ;					\
-	python select.py
+	python select_parameters.py
 	--dataset $(CURATE)/datasets/filtered-td.json	\
 	--forcefield ../$(INITIAL_FF)			\
 	--output-smirks output/td-smirks.json		\
 	--ring-torsions explicit_ring_torsions.dat
 
 ### step 2d.ii select opt
-DEPS := $(CURATE)/datasets/filtered-opt.json $(CURATE)/select.py $(INITIAL_FF)
+DEPS := $(CURATE)/datasets/filtered-opt.json $(CURATE)/select_parameters.py $(INITIAL_FF)
 
 $(CURATE)/output/opt-smirks.json: $(DEPS)
 	cd $(CURATE) ;					\
-	python select.py
+	python select_parameters.py
 	--dataset $(CURATE)/datasets/filtered-opt.json	\
 	--forcefield ../$(INITIAL_FF)			\
 	--output-smirks output/opt-smirks.json
@@ -109,9 +109,10 @@ $(MSM_FF): $(INITIAL_FF) $(CURATE)/output/filtered-opt.json $(MSM)/create-msm-ff
 
 # step 4 - generate ForceBalance inputs
 
-DEPS := $(FIT)/smiles-to-exclude.dat $(FIT)/smarts-to-exclude.dat		\
-	$(CURATE)/output/filtered-opt.json $(CURATE)/output/filtered-td.json	\
-	$(MSM_FF) $(FIT)/create-fb-inputs.py
+DEPS := $(FIT)/smiles-to-exclude.dat $(FIT)/smarts-to-exclude.dat	\
+	$(CURATE)/datasets/filtered-opt.json				\
+	$(CURATE)/datasets/filtered-td.json $(MSM_FF)			\
+	$(FIT)/create-fb-inputs.py
 
 $(FIT)/ready: $(DEPS)
 	rm -r $(FIT)/fb-fit/targets
@@ -119,8 +120,8 @@ $(FIT)/ready: $(DEPS)
 	cd $(FIT) ;								\
 	python create-fb-inputs.py                                              \
 	--tag                       "fb-fit"                                    \
-	--optimization-dataset      ../$(CURATE)/output/filtered-opt.json       \
-	--torsion-dataset           ../$(CURATE)/output/filtered-td.json        \
+	--optimization-dataset      ../$(CURATE)/datasets/filtered-opt.json     \
+	--torsion-dataset           ../$(CURATE)/datasets/filtered-td.json      \
 	--valence-to-optimize       ../$(CURATE)/output/opt-smirks.json		\
 	--torsions-to-optimize      ../$(CURATE)/output/td-smirks.json		\
 	--forcefield                ../$(MSM_FF)                                \
@@ -148,4 +149,4 @@ TORS_DEPS := $(addprefix $(FIT)/,$(addprefix					\
 
 tors.tar.gz: $(FIT)/ready $(TORS_DEPS)
 	rm $@
-	tar cfz $@ $(TORS_DEPS)
+	tar cfz $@ $(TORS_DEPS) scripts

@@ -1,6 +1,6 @@
 import click
 import numpy as np
-from openff.toolkit import ForceField
+from openff.toolkit.typing.engines.smirnoff.forcefield import ForceField
 from curate_dataset import select_parameters
 import json
 

@@ -5,6 +5,8 @@ CURATE := 02_curate-data
 MSM := 03_generate-initial-ff
 FIT := 04_fit-forcefield
 
+.PHONY: step3
+
 
 # step 1 - generate force field - is nearly done, simply load the force field
 # and dump it back out
@@ -58,6 +60,46 @@ $(MSM_FF): $(INITIAL_FF) ../$(CURATE)/datasets/filtered-opt.json ../$(MSM)/creat
 	--working-directory         working-directory				\
 	--output                    $@
 
+step3: $(MSM_FF)
+
+
+# step 4 - generate ForceBalance inputs
+
+DEPS := ../$(FIT)/smiles-to-exclude.dat ../$(FIT)/smarts-to-exclude.dat		\
+	../$(CURATE)/datasets/filtered-opt.json					\
+	../$(CURATE)/datasets/filtered-td.json opt-smirks.json td-smirks.json	\
+	$(MSM_FF) ../$(FIT)/create-fb-inputs.py
+
+step4: $(DEPS)
+	rm -r fb-fit/targets
+	mkdir -p fb-fit/targets
+	python ../$(FIT)/create-fb-inputs.py                                    \
+	--tag                       "fb-fit"                                    \
+	--optimization-dataset      ../$(CURATE)/datasets/filtered-opt.json     \
+	--torsion-dataset           ../$(CURATE)/datasets/filtered-td.json      \
+	--valence-to-optimize       opt-smirks.json				\
+	--torsions-to-optimize      td-smirks.json				\
+	--forcefield                $(MSM_FF)					\
+	--smiles-to-exclude         ../$(FIT)/smiles-to-exclude.dat             \
+	--smarts-to-exclude         ../$(FIT)/smarts-to-exclude.dat             \
+	--max-iterations            1                                           \
+	--port                      55387                                       \
+	--output-directory          "output"                                    \
+	--verbose
+	date > $@
+
+fb-fit/targets.tar.gz: $(wildcard fb-fit/targets/*/*)
+	rm $@
+	cd fb-fit ; tar cfz targets.tar.gz targets
+
+DEPS := $(addprefix fb-fit/,forcefield/force-field.offxml optimize.in	\
+				        targets.tar.gz)
+
+sage.tar.gz: step4 $(DEPS)
+	rm $@
+	cp -r ../scripts .
+	tar cfz $@ $(DEPS) scripts
+	rm -r scripts
 
 # step 4 - generate ForceBalance inputs
 

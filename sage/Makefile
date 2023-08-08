@@ -54,7 +54,7 @@ MSM_FF := msm.offxml
 $(MSM_FF): $(INITIAL_FF) ../$(CURATE)/datasets/filtered-opt.json ../$(MSM)/create-msm-ff.py
 	python ../$(MSM)/create-msm-ff.py                                       \
 	--initial-force-field       $(INITIAL_FF)				\
-	--optimization-dataset      ../$(CURATE)/output/filtered-opt.json	\
+	--optimization-dataset      ../$(CURATE)/datasets/filtered-opt.json	\
 	--working-directory         working-directory				\
 	--output                    $@
 

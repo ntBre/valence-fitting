@@ -30,7 +30,7 @@ DEPS := ../$(CURATE)/datasets/filtered-td.json		\
 	../$(CURATE)/select_parameters.py $(INITIAL_FF)
 
 td-smirks.json: $(DEPS)
-	python ../$(CURATE)/select_parameters.py
+	python ../$(CURATE)/select_parameters.py select-td	\
 	--dataset ../$(CURATE)/datasets/filtered-td.json	\
 	--forcefield $(INITIAL_FF)				\
 	--output-smirks $@					\
@@ -41,7 +41,7 @@ DEPS := ../$(CURATE)/datasets/filtered-opt.json		\
 	../$(CURATE)/select_parameters.py $(INITIAL_FF)
 
 opt-smirks.json: $(DEPS)
-	python ../$(CURATE)/select_parameters.py
+	python ../$(CURATE)/select_parameters.py select-opt	\
 	--dataset ../$(CURATE)/datasets/filtered-opt.json	\
 	--forcefield $(INITIAL_FF)				\
 	--output-smirks $@

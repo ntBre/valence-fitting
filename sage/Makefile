@@ -71,7 +71,7 @@ DEPS := ../$(FIT)/smiles-to-exclude.dat ../$(FIT)/smarts-to-exclude.dat		\
 	$(MSM_FF) ../$(FIT)/create-fb-inputs.py
 
 step4: $(DEPS)
-	rm -r fb-fit/targets
+	rm -rf fb-fit/targets
 	mkdir -p fb-fit/targets
 	python ../$(FIT)/create-fb-inputs.py                                    \
 	--tag                       "fb-fit"                                    \

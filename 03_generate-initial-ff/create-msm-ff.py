@@ -9,9 +9,16 @@ from openff.units import unit
 import tqdm
 import faulthandler
 
+from openff.toolkit import ForceField
+from openff.qcsubmit.results import (
+    BasicResultCollection,
+    OptimizationResultCollection,
+)
+from openff.qcsubmit.results.filters import LowestEnergyFilter
+
 
 if typing.TYPE_CHECKING:
-    from openff.toolkit import Molecule, ForceField
+    from openff.toolkit import Molecule
     from qcportal.models import ResultRecord
 
 
@@ -100,13 +107,6 @@ def main(
     working_directory: typing.Optional[str] = None,
     verbose: bool = False,
 ):
-    from openff.toolkit import ForceField
-    from openff.qcsubmit.results import (
-        BasicResultCollection,
-        OptimizationResultCollection,
-    )
-    from openff.qcsubmit.results.filters import LowestEnergyFilter
-
     dataset = OptimizationResultCollection.parse_file(optimization_dataset)
 
     # filter for lowest energy results

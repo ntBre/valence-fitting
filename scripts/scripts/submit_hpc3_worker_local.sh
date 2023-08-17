@@ -39,7 +39,7 @@ cat << EOF > $cmd
 mkdir ${MYTMPDIR} -p
 for i in \$(seq  \$SLURM_NTASKS ); do
         echo $i
-        ./wq_worker_local.sh --cores 1 -s ${MYTMPDIR} --disk-threshold=0.002 --disk=3000 --memory-threshold=1000 -t 3600  -b 20 --memory=1000 $host:$port &
+        scripts/wq_worker_local.sh --cores 1 -s ${MYTMPDIR} --disk-threshold=0.002 --disk=3000 --memory-threshold=1000 -t 3600  -b 20 --memory=1000 $host:$port &
 done
 wait
 EOF

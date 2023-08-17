@@ -1,21 +1,26 @@
-from collections import defaultdict
 import os
+
+# trying everything mentioned in https://stackoverflow.com/q/17053671
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
+os.environ["NUMEXPR_NUM_THREADS"] = "1"
+os.environ["OMP_NUM_THREADS"] = "1"
+
+import faulthandler
 import json
 import typing
+from collections import defaultdict
 
 import click
 import numpy as np
-from openff.units import unit
 import tqdm
-import faulthandler
-
-from openff.toolkit import ForceField
 from openff.qcsubmit.results import (
     BasicResultCollection,
     OptimizationResultCollection,
 )
 from openff.qcsubmit.results.filters import LowestEnergyFilter
-
+from openff.toolkit import ForceField
+from openff.units import unit
 
 if typing.TYPE_CHECKING:
     from openff.toolkit import Molecule
@@ -31,8 +36,8 @@ def calculate_parameters(
     Calculate the modified seminario parameters for the given input molecule
     and store them by OFF SMIRKS.
     """
-    from qubekit.molecules import Ligand
     from qubekit.bonded.mod_seminario import ModSeminario
+    from qubekit.molecules import Ligand
 
     mod_sem = ModSeminario()
 

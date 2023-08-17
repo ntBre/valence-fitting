@@ -90,11 +90,12 @@ $(fb_inputs): $(DEPS)
 	--verbose
 
 fb-fit/targets.tar.gz: $(wildcard fb-fit/targets/*/*)
-	rm $@
+	rm -f $@
 	cd fb-fit ; tar cfz targets.tar.gz targets
 
-sage.tar.gz: $(fb_inputs) $(DEPS)
-	rm $@
+fb_inputs := $(addprefix fb-fit/,forcefield/force-field.offxml optimize.in targets.tar.gz)
+sage.tar.gz: $(fb_inputs)
+	rm -f $@
 	cp -r ../scripts .
-	tar cfz $@ $(DEPS) scripts
+	tar cfz $@ $^ scripts
 	rm -r scripts

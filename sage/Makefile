@@ -70,7 +70,9 @@ DEPS := ../$(FIT)/smiles-to-exclude.dat ../$(FIT)/smarts-to-exclude.dat		\
 	../$(CURATE)/datasets/filtered-td.json opt-smirks.json td-smirks.json	\
 	$(MSM_FF) ../$(FIT)/create-fb-inputs.py
 
-step4: $(DEPS)
+fb_inputs := $(addprefix fb-fit/,forcefield/force-field.offxml optimize.in targets)
+
+$(fb_inputs): $(DEPS)
 	rm -rf fb-fit/targets
 	mkdir -p fb-fit/targets
 	python ../$(FIT)/create-fb-inputs.py                                    \
@@ -86,16 +88,12 @@ step4: $(DEPS)
 	--port                      55387                                       \
 	--output-directory          "output"                                    \
 	--verbose
-	date > $@
 
 fb-fit/targets.tar.gz: $(wildcard fb-fit/targets/*/*)
 	rm $@
 	cd fb-fit ; tar cfz targets.tar.gz targets
 
-DEPS := $(addprefix fb-fit/,forcefield/force-field.offxml optimize.in	\
-				        targets.tar.gz)
-
-sage.tar.gz: step4 $(DEPS)
+sage.tar.gz: $(fb_inputs) $(DEPS)
 	rm $@
 	cp -r ../scripts .
 	tar cfz $@ $(DEPS) scripts

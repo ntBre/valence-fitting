@@ -1,13 +1,7 @@
-import os
-
-# trying everything mentioned in https://stackoverflow.com/q/17053671
-os.environ["OPENBLAS_NUM_THREADS"] = "1"
-os.environ["MKL_NUM_THREADS"] = "1"
-os.environ["NUMEXPR_NUM_THREADS"] = "1"
-os.environ["OMP_NUM_THREADS"] = "1"
-
 import faulthandler
 import json
+import logging
+import os
 import typing
 from collections import defaultdict
 
@@ -21,10 +15,31 @@ from openff.qcsubmit.results import (
 from openff.qcsubmit.results.filters import LowestEnergyFilter
 from openff.toolkit import ForceField
 from openff.units import unit
+from qubekit.bonded.mod_seminario import ModSeminario, ModSemMaths
+from qubekit.molecules import Ligand
 
 if typing.TYPE_CHECKING:
     from openff.toolkit import Molecule
     from qcportal.models import ResultRecord
+
+logging.getLogger("openff").setLevel(logging.ERROR)
+
+
+# it's time for monkey patching
+def force_constant_bond(bond, eigenvals, eigenvecs, coords):
+    atom_a, atom_b = bond
+    eigenvals_ab = eigenvals[atom_a, atom_b, :]
+    eigenvecs_ab = eigenvecs[:, :, atom_a, atom_b]
+
+    unit_vectors_ab = ModSemMaths.unit_vector_along_bond(coords, bond)
+
+    return -0.5 * sum(
+        eigenvals_ab[i] * abs(np.dot(unit_vectors_ab, eigenvecs_ab[:, i]))
+        for i in range(3)
+    )
+
+
+ModSemMaths.force_constant_bond = force_constant_bond
 
 
 def calculate_parameters(
@@ -36,9 +51,6 @@ def calculate_parameters(
     Calculate the modified seminario parameters for the given input molecule
     and store them by OFF SMIRKS.
     """
-    from qubekit.bonded.mod_seminario import ModSeminario
-    from qubekit.molecules import Ligand
-
     mod_sem = ModSeminario()
 
     # create the qube molecule, this should be in the same order as the off_mol

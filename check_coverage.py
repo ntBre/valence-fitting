@@ -1,40 +1,104 @@
-from openff.toolkit import ForceField
-from openff.qcsubmit.results import TorsionDriveResultCollection
-from collections import defaultdict
-from sys import argv
+import json
+import logging
 import time
+from collections import defaultdict
+from typing import Union
+
+import click
+from openff.qcsubmit.results import (
+    OptimizationResultCollection,
+    TorsionDriveResultCollection,
+)
+from openff.toolkit import ForceField, Molecule
+from tqdm import tqdm
+
+logging.getLogger("openff").setLevel(logging.ERROR)
 
 
+# copy pasta from known-issues
+class Timer:
+    def __init__(self):
+        self._start = time.time()
+
+    def say(self, s: str):
+        now = time.time()
+        print(f"{s} after {now - self._start:.1f} s")
+
+
+# also copy pasta from known-issues
+def load_dataset(
+    dataset: str,
+) -> Union[OptimizationResultCollection, TorsionDriveResultCollection]:
+    """Peeks at the first entry of `dataset` to determine its type and
+    then loads it appropriately.
+
+    Raises a `TypeError` if the first entry is neither a `torsion`
+    record nor an `optimization` record.
+    """
+    with open(dataset, "r") as f:
+        j = json.load(f)
+    entries = j["entries"]
+    keys = entries.keys()
+    assert len(keys) == 1  # only handling this case for now
+    key = list(keys)[0]
+    match j["entries"][key][0]["type"]:
+        case "torsion":
+            return TorsionDriveResultCollection.parse_file(dataset)
+        case "optimization":
+            return OptimizationResultCollection.parse_file(dataset)
+        case t:
+            raise TypeError(f"Unknown result collection type: {t}")
+
+
+# this is also copy pasta from known-issues. maybe I need a little utils
+# library?
+def to_molecules(dataset):
+    data = [v for value in dataset.entries.values() for v in value]
+    return [
+        Molecule.from_mapped_smiles(r.cmiles, allow_undefined_stereo=True)
+        for r in tqdm(data, desc="Converting to molecules")
+    ]
+
+
+# monkey patch for cute calls
+TorsionDriveResultCollection.to_molecules = to_molecules
+
+
+@click.command()
+@click.option("--forcefield")
+@click.option("--dataset")
 def check_coverage(
-    ff="03_generate-initial-ff/output/initial-force-field-msm.offxml",
+    forcefield,
+    dataset,
 ):
-    start = time.time()
+    "Check proper torsion parameter coverage in `forcefield` using `dataset`"
 
-    ff = ForceField(
-        ff,
-        allow_cosmetic_attributes=True,
-    )
-    td_data = TorsionDriveResultCollection.parse_file(
-        "02_curate-data/output/combined-td.json"
-    )
+    print("checking coverage with")
+    print(f"forcefield = {forcefield}")
+    print(f"dataset = {dataset}")
 
-    print(f"finished loading collection after {time.time() - start:.1f} sec")
+    timer = Timer()
+
+    ff = ForceField(forcefield, allow_cosmetic_attributes=True)
+    td_data = load_dataset(dataset)
+
+    timer.say("finished loading collection")
 
     h = ff.get_parameter_handler("ProperTorsions")
     tors_ids = [p.id for p in h.parameters]
 
-    records_and_molecules = td_data.to_records()
+    records_and_molecules = td_data.to_molecules()
 
-    print(f"finished to_records after {time.time() - start:.1f} sec")
+    timer.say("finished to_records")
 
     results = defaultdict(int)
-    for _, molecule in records_and_molecules:
+    for molecule in tqdm(records_and_molecules, desc="Counting results"):
         all_labels = ff.label_molecules(molecule.to_topology())[0]
         torsions = all_labels["ProperTorsions"]
         for torsion in torsions.values():
             results[torsion.id] += 1
 
-    print(f"finished counting results after {time.time() - start:.1f} sec")
+    timer.say("finished counting results")
 
     got = len(results)
     want = len(tors_ids)
@@ -53,11 +117,8 @@ def check_coverage(
     for i, (id, smirk) in enumerate(zip(missing_ids, missing_smirks)):
         print(f"{i:5}{id:>7}   {smirk}")
 
-    print(f"finished after {time.time() - start:.1f} sec")
+    timer.say("finished")
 
 
 if __name__ == "__main__":
-    if len(argv) > 1:
-        check_coverage(argv[1])
-    else:
-        check_coverage()
+    check_coverage()

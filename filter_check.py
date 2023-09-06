@@ -50,44 +50,17 @@ def filter_td_data(dataset: "TorsionDriveResultCollection"):
     return dataset
 
 
-import typing
-
-import numpy as np
-
-
-def filter_opt_data(
-    dataset,
-    opt_records_to_remove: typing.Optional[str] = None,
-    max_opt_conformers: int = 12,
-):
-    if opt_records_to_remove is not None:
-        records_to_remove = np.loadtxt(opt_records_to_remove, dtype=str)
-    else:
-        records_to_remove = []
-
+def filter_opt_data(dataset):
     key = list(dataset.entries.keys())[0]
-
     last = len(dataset.entries[key])
     print(f"initial len: {last}")
-
-    # filter out entries to remove
-    dataset.entries[key] = [
-        entry
-        for entry in dataset.entries[key]
-        if entry.record_id not in records_to_remove
-    ]
-
-    last = len(dataset.entries[key])
-    print(f"after to remove: {last}")
-
     elements = ["H", "C", "N", "O", "S", "P", "F", "Cl", "Br"]
-
     for filt in [
         RecordStatusFilter(status=RecordStatusEnum.complete),
         ConnectivityFilter(tolerance=1.2),
         UnperceivableStereoFilter(),
         ElementFilter(allowed_elements=elements),
-        ConformerRMSDFilter(max_conformers=max_opt_conformers),
+        ConformerRMSDFilter(max_conformers=12),
         filters.ChargeCheckFilter(),
     ]:
         dataset = dataset.filter(filt)

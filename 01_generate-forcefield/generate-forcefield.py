@@ -1,10 +1,10 @@
-import click
 import pprint
 from dataclasses import dataclass
+
+import click
+import numpy as np
 from openff.toolkit import ForceField
-from openff.toolkit.typing.engines.smirnoff.parameters import (
-    ParameterType,
-)
+from openff.toolkit.typing.engines.smirnoff.parameters import ParameterType
 
 TORSIONS = "ProperTorsions"
 
@@ -63,9 +63,18 @@ def download_force_field(
 
     # gather the parameters only found in pavan's set
     new_params = []
+    new_smirks = []
     for i, param in enumerate(torspv.parameters):
         if param.smirks in only_pavan:
+            new_smirks.append(param.smirks)
             new_params.append(Param(param, torspv.parameters[i - 1].smirks))
+
+    np.savetxt(
+        "new_smirks.dat",
+        new_smirks,
+        fmt="%s",
+        header="patterns added for torsion multiplicity",
+    )
 
     # use 2.1 as the base for the output force field
     force_field = ForceField(force_field_name)

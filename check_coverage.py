@@ -50,27 +50,35 @@ def load_dataset(
             raise TypeError(f"Unknown result collection type: {t}")
 
 
-# this is also copy pasta from known-issues. maybe I need a little utils
-# library?
-def to_molecules(dataset):
-    data = [v for value in dataset.entries.values() for v in value]
-    return [
-        Molecule.from_mapped_smiles(r.cmiles, allow_undefined_stereo=True)
-        for r in tqdm(data, desc="Converting to molecules")
-    ]
+# helper class for returning a sized iterator
+class Molecules:
+    def __init__(self, dataset):
+        self.data = [v for value in dataset.entries.values() for v in value]
+        self.length = len(self.data)
+
+    def __len__(self):
+        return self.length
+
+    def __iter__(self):
+        for r in self.data:
+            yield Molecule.from_mapped_smiles(
+                r.cmiles, allow_undefined_stereo=True
+            )
+
+
+def to_molecules(dataset) -> Molecules:
+    return Molecules(dataset)
 
 
 # monkey patch for cute calls
 TorsionDriveResultCollection.to_molecules = to_molecules
+OptimizationResultCollection.to_molecules = to_molecules
 
 
 @click.command()
 @click.option("--forcefield")
 @click.option("--dataset")
-def check_coverage(
-    forcefield,
-    dataset,
-):
+def check_coverage(forcefield, dataset):
     "Check proper torsion parameter coverage in `forcefield` using `dataset`"
 
     print("checking coverage with")

@@ -1,8 +1,8 @@
-import pprint
+import copy
+import re
 from dataclasses import dataclass
 
 import click
-import numpy as np
 from openff.toolkit import ForceField
 from openff.toolkit.typing.engines.smirnoff.parameters import ParameterType
 
@@ -19,12 +19,25 @@ def get_smirks(params):
     return [p.smirks for p in params]
 
 
+def get_ids(params):
+    return [p.id for p in params]
+
+
 def by_smirks(smirks):
     return dict(smirks=smirks)
 
 
 def by_id(_id):
     return dict(id=_id)
+
+
+def numeric(param):
+    "Sort key function for parameter ids, numerically then by suffix"
+    m = re.match(r"t(\d+)([a-z]+)?", param.id)
+    num, let = m.groups()
+    if not let:
+        let = "A"
+    return int(num), let
 
 
 @click.command()
@@ -52,73 +65,52 @@ def download_force_field(
     pavan = ForceField("force-field.offxml", allow_cosmetic_attributes=True)
     torspv = pavan.get_parameter_handler(TORSIONS)
 
-    ids20 = get_smirks(tors20.parameters)
-    idspv = get_smirks(torspv.parameters)
+    sids = set(get_ids(tors20))
+    pids = set(get_ids(torspv))
 
-    set20 = set(ids20)
-    setpv = set(idspv)
+    # these are the torsion parameter ids removed in the torsion multiplicity
+    # work, presumably to be replaced by more specific variants
+    removed_by_pavan: set[str] = sids - pids
 
-    # - only in pavan's set
-    only_pavan = setpv.difference(set20)
+    # Sage 2.1.0 force field to work on
+    ret = ForceField(force_field_name)
+    h = ret.get_parameter_handler(TORSIONS)
 
-    # gather the parameters only found in pavan's set
-    new_params = []
-    new_smirks = []
-    for i, param in enumerate(torspv.parameters):
-        if param.smirks in only_pavan:
-            new_smirks.append(param.smirks)
-            new_params.append(Param(param, torspv.parameters[i - 1].smirks))
+    print(f"initial torsions: {len(h.parameters)}")
 
-    np.savetxt(
-        "new_smirks.dat",
-        new_smirks,
-        fmt="%s",
-        header="patterns added for torsion multiplicity",
-    )
+    # parameter handlers are so annoying to work with. convert these ids to
+    # indices, sort them in descending order, and pop them off the parameter
+    # list
+    indices = [
+        i for i, p in enumerate(h.parameters) if p.id in removed_by_pavan
+    ]
+    for i in sorted(indices, reverse=True):
+        h.parameters.pop(i)
 
-    # use 2.1 as the base for the output force field
-    force_field = ForceField(force_field_name)
-    h = force_field.get_parameter_handler(TORSIONS)
-    initial_parameters = [p.id for p in h.parameters]
+    print(f"removed by pavan: {len(h.parameters)}")
 
-    # add the new parameters
-    params_to_delete = []
-    for p in new_params:
-        # avoid duplicate parameter error
-        if not h.get_parameter(by_smirks(p.param.smirks)):
-            # ensure unique id
-            if p.param.id in initial_parameters:
-                params_to_delete.append(p.param.id)
-                p.param.id += "x"
-            h.add_parameter(parameter=p.param, after=p.after)
+    # at this point we've deleted the parameters pavan deleted from sage 2.0
+    # and can begin adding the parameters he added
+    added_by_pavan: set[str] = pids - sids
+    for pid in added_by_pavan:
+        param = torspv.get_parameter(by_id(pid))[0]
+        # add an x to our parameters so they sort after the existing one
+        if h.get_parameter(by_id(pid)):
+            param.id += "x"
+        h.add_parameter(parameter=param)
 
-    # check if the right smirks were removed
-    removed_in_multiplicity = set20 - setpv
+    print(f"added by pavan: {len(h.parameters)}")
 
-    actually_removed = set(
-        [h.get_parameter(by_id(p))[0].smirks for p in params_to_delete]
-    )
+    params = copy.deepcopy(h.parameters)
+    h.parameters.clear()
 
-    print("smirks removed in multiplicity but not actually removed: ")
-    pprint.pprint(removed_in_multiplicity - actually_removed)
+    params = sorted(params, key=numeric)
+    for p in params:
+        h.add_parameter(parameter=p)
 
-    print()
+    print(f"final: {len(h.parameters)}")
 
-    print("smirks actually removed but shouldn't be:")
-    pprint.pprint(actually_removed - removed_in_multiplicity)
-
-    # remove the duplicate parameter ids from above
-    lh = len(h.parameters)
-    print("before=", lh)
-
-    # pop from the end to avoid moving out of the part we're iterating over
-    for i in reversed(range(lh)):
-        p = h.parameters[i]
-        if p.id in params_to_delete:
-            h.parameters.pop(i)
-    print("after=", len(h.parameters))
-
-    force_field.to_file(output_path)
+    ret.to_file(output_path)
 
 
 if __name__ == "__main__":

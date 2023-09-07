@@ -5,8 +5,8 @@ from filters import filter_opt_data
 
 
 @click.command()
-@click.option("-i/--input")
-@click.option("-o/--output")
+@click.option("--input")
+@click.option("--output")
 def main(input, output):
     dataset = OptimizationResultCollection.parse_file(input)
     dataset = filter_opt_data(

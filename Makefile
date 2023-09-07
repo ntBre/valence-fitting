@@ -58,8 +58,9 @@ DEPS := $(CURATE)/datasets/combined-opt.json $(CURATE)/filters.py	\
 
 $(CURATE)/datasets/filtered-opt.json: $(DEPS)
 	cd $(CURATE) ;						\
-	fast-filter ../$(CURATE)/datasets/combined-opt.json	\
-		-p filter-opt.py -o ../$@ -t 12 -b 32
+	python filter-opt.py					\
+		--input ../$(CURATE)/datasets/combined-opt.json	\
+		 --output ../$@
 
 ### step 2c.ii filter TD
 DEPS := $(CURATE)/datasets/combined-td.json $(CURATE)/filters.py	\
@@ -67,8 +68,9 @@ DEPS := $(CURATE)/datasets/combined-td.json $(CURATE)/filters.py	\
 
 $(CURATE)/datasets/filtered-td.json: $(DEPS)
 	cd $(CURATE) ;						\
-	fast-filter ../$(CURATE)/datasets/combined-td.json	\
-		-p filter-td.py -o ../$@ -t 12 -b 32
+	python filter-td.py					\
+		--input ../$(CURATE)/datasets/combined-td.json	\
+		--output ../$@
 
 ## step 2d select parameters from the filtered, combined datasets
 

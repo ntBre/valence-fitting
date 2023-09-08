@@ -129,7 +129,7 @@ $(FIT)/ready: $(DEPS)
 	--forcefield                ../$(MSM_FF)                                \
 	--smiles-to-exclude         smiles-to-exclude.dat                       \
 	--smarts-to-exclude         smarts-to-exclude.dat                       \
-	--max-iterations            1                                           \
+	--max-iterations            100                                         \
 	--port                      55387                                       \
 	--output-directory          "output"                                    \
 	--verbose

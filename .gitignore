@@ -24,5 +24,4 @@ make.err
 make.out
 msm.log
 fault_handler.log
-/sage/fb-fit/targets/
-/sage_sage/fb-fit/targets/
+targets/

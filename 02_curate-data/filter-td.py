@@ -7,11 +7,12 @@ from filters import filter_td_data
 @click.command()
 @click.option("--input")
 @click.option("--output")
-def main(input, output):
+@click.option("--records-to-remove", default="td_records_to_remove.dat")
+def main(input, output, records_to_remove):
     dataset = TorsionDriveResultCollection.parse_file(input)
     dataset = filter_td_data(
         dataset,
-        "td_records_to_remove.dat",
+        records_to_remove,
         include_iodine=False,
     )
 

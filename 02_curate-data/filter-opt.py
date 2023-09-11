@@ -7,11 +7,12 @@ from filters import filter_opt_data
 @click.command()
 @click.option("--input")
 @click.option("--output")
-def main(input, output):
+@click.option("--records-to-remove", default="opt_records_to_remove.dat")
+def main(input, output, records_to_remove):
     dataset = OptimizationResultCollection.parse_file(input)
     dataset = filter_opt_data(
         dataset,
-        "opt_records_to_remove.dat",
+        records_to_remove,
         include_iodine=False,
     )
 

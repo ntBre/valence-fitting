@@ -133,6 +133,8 @@ def main(
     hessian_set = filtered.to_basic_result_collection(driver="hessian")
 
     if working_directory is not None:
+        if not os.path.exists(working_directory):
+            os.mkdir(working_directory)
         hessian_file = os.path.join(working_directory, "hessian_set.json")
         with open(hessian_file, "w") as f:
             f.write(hessian_set.json(indent=2))

@@ -87,35 +87,6 @@ def check_opt():
 
 
 if __name__ == "__main__":
-    # check_td()
-    # check_opt()
-
-    # I'm getting a mismatch between the number from check_opt and when I ran
-    # the filter initially. the check is giving me 25 from connectivity + 119
-    # from conformers + 38 from the charge check = 182 filtered out = 218
-    # remaining. in contrast, all of the ways I'm checking how many should be
-    # left (grep record_id in filtered-opt.json, composition.py, fast-filter
-    # output) all give 257 remaining or 143 filtered out. this gives 218 too.
-    # is there something wrong with fast-filter??
-
-    # there is indeed something wrong with fast-filter. passing a batch size of
-    # 400 (to get everything in one python file) gives the expected pure python
-    # result of 218. clearly something is going wrong with the batching
-
-    # let's see if batching causes the same issue in Python proper
-
-    # doing the batching in Python gives the same result!
-
-    # what about using the filter_opt_data function in this file?
-
-    # same result using batching here!
-
-    # next question is whether a batch size of 400 restores 218 like it did for
-    # fast-filter. that will rule out an issue in fast-filter completely. I'm
-    # basically trying to assemble a minimal example to report
-
-    # batch size 400 goes back to 218, time for a bug report
-
     collection = OptimizationResultCollection.parse_file(
         "02_curate-data/datasets/core-opt.json"
     )

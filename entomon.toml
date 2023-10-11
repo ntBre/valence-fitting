@@ -1,0 +1,8 @@
+records = [
+    "/home/brent/omsf/projects/benchmarking/output/industry/tm/dde.csv",
+    "/home/brent/omsf/projects/benchmarking/output/industry/sage-tm/dde.csv",
+    "/home/brent/omsf/projects/benchmarking/output/industry/sage-sage/dde.csv",
+    "/home/brent/omsf/projects/benchmarking/output/industry/sage-2.1.0/dde.csv",
+]
+names = ["TM-TM", "Sage-TM", "Sage-Sage", "Sage"]
+dataset = "/home/brent/omsf/projects/benchmarking/datasets/industry.json"

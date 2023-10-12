@@ -1,9 +1,7 @@
-from openff.toolkit.utils.exceptions import (
-    ChargeCalculationError,
-    ConformerGenerationError,
-)
-from openff.toolkit.utils.toolkits import OpenEyeToolkitWrapper
-from qcportal.models.records import RecordStatusEnum
+import logging
+import typing
+
+import numpy as np
 from openff.qcsubmit.results import TorsionDriveResultCollection
 from openff.qcsubmit.results.filters import (
     ConformerRMSDFilter,
@@ -14,8 +12,14 @@ from openff.qcsubmit.results.filters import (
     ResultRecordFilter,
     UnperceivableStereoFilter,
 )
-import typing
-import numpy as np
+from openff.toolkit.utils.exceptions import (
+    ChargeCalculationError,
+    ConformerGenerationError,
+)
+from openff.toolkit.utils.toolkits import OpenEyeToolkitWrapper
+from qcportal.models.records import RecordStatusEnum
+
+logging.getLogger("openff").setLevel(logging.ERROR)
 
 
 class ChargeCheckFilter(ResultRecordFilter):

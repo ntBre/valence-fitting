@@ -19,7 +19,6 @@ from openff.qcsubmit.results.filters import (
     UnperceivableStereoFilter,
 )
 from qcportal.models.records import RecordStatusEnum
-from tqdm import tqdm
 
 sys.path.append("02_curate-data")
 filters = importlib.import_module("filters")
@@ -87,25 +86,10 @@ def check_opt():
 
 
 if __name__ == "__main__":
-    collection = OptimizationResultCollection.parse_file(
-        "02_curate-data/datasets/core-opt.json"
-    )
+    core = "02_curate-data/datasets/core-opt.json"
+    main = "02_curate-data/sage/opt.json"
+    collection = OptimizationResultCollection.parse_file(main)
+    final = filter_opt_data(collection)
 
-    batch_size = 400
-
-    key = list(collection.entries.keys())[0]
-    entries = [v for vals in collection.entries.values() for v in vals]
-
-    batches = [
-        OptimizationResultCollection(
-            entries={key: entries[i : min(i + batch_size, len(entries))]}
-        )
-        for i in range(0, len(entries), batch_size)
-    ]
-
-    final = []
-    for batch in tqdm(batches):
-        batch = filter_opt_data(batch)
-        final.extend(v for vals in batch.entries.values() for v in vals)
-
-    print(len(final))
+    key = list(final.entries.keys())[0]
+    print(len(final.entries[key]))

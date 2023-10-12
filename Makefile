@@ -36,22 +36,22 @@ $(CURATE)/datasets/core-td.json: $(CURATE)/download_td.py
 
 ## step 2b filter sage data sets for charge issues
 $(CURATE)/sage/filtered-opt.json: $(CURATE)/sage/opt.json $(CURATE)/charge-filter.py
-	python $(CURATE)/charge-filter.py --input $^ --output $@
+	python $(CURATE)/charge-filter.py --input $< --output $@
 $(CURATE)/sage/filtered-td.json: $(CURATE)/sage/td.json $(CURATE)/charge-filter.py
-	python $(CURATE)/charge-filter.py --input $^ --output $@
+	python $(CURATE)/charge-filter.py --input $< --output $@
 
 ## step 2c fully filter the new datasets
 DEPS := $(CURATE)/datasets/core-opt.json $(CURATE)/filters.py	\
 	$(CURATE)/filter-opt.py
 
 $(CURATE)/datasets/filtered-opt.json: $(DEPS)
-	cd $(CURATE) ; python filter-opt.py --input $< --output ../$@
+	cd $(CURATE) ; python filter-opt.py --input ../$< --output ../$@
 
 DEPS := $(CURATE)/datasets/core-td.json $(CURATE)/filters.py	\
 	$(CURATE)/filter-td.py
 
 $(CURATE)/datasets/filtered-td.json: $(DEPS)
-	cd $(CURATE) ; python filter-td.py --input $< --output ../$@
+	cd $(CURATE) ; python filter-td.py --input ../$< --output ../$@
 
 ## step 2d combine the core and sage datasets
 OPT_SETS := $(CURATE)/datasets/filtered-opt.json $(CURATE)/sage/filtered-opt.json

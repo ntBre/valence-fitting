@@ -34,10 +34,29 @@ $(CURATE)/datasets/core-opt.json: $(CURATE)/download_opt.py
 $(CURATE)/datasets/core-td.json: $(CURATE)/download_td.py
 	cd $(CURATE); python download_td.py
 
-OPT_SETS := $(CURATE)/datasets/core-opt.json $(CURATE)/sage/opt.json
-TD_SETS := $(CURATE)/datasets/core-td.json $(CURATE)/sage/td.json
+## step 2b filter sage data sets for charge issues
+$(CURATE)/sage/filtered-opt.json: $(CURATE)/sage/opt.json $(CURATE)/charge-filter.py
+	python $(CURATE)/charge-filter.py --input $^ --output $@
+$(CURATE)/sage/filtered-td.json: $(CURATE)/sage/td.json $(CURATE)/charge-filter.py
+	python $(CURATE)/charge-filter.py --input $^ --output $@
 
-## step 2b combine the core and sage datasets
+## step 2c fully filter the new datasets
+DEPS := $(CURATE)/datasets/core-opt.json $(CURATE)/filters.py	\
+	$(CURATE)/filter-opt.py
+
+$(CURATE)/datasets/filtered-opt.json: $(DEPS)
+	cd $(CURATE) ; python filter-opt.py --input $< --output ../$@
+
+DEPS := $(CURATE)/datasets/core-td.json $(CURATE)/filters.py	\
+	$(CURATE)/filter-td.py
+
+$(CURATE)/datasets/filtered-td.json: $(DEPS)
+	cd $(CURATE) ; python filter-td.py --input $< --output ../$@
+
+## step 2d combine the core and sage datasets
+OPT_SETS := $(CURATE)/datasets/filtered-opt.json $(CURATE)/sage/filtered-opt.json
+TD_SETS := $(CURATE)/datasets/filtered-td.json $(CURATE)/sage/filtered-td.json
+
 $(CURATE)/datasets/combined-opt.json: $(OPT_SETS) $(CURATE)/combine.py
 	cd $(CURATE) ;					\
 	python combine.py combine-opt			\
@@ -50,49 +69,27 @@ $(CURATE)/datasets/combined-td.json: $(TD_SETS) $(CURATE)/combine.py
 	--input-datasets $(addprefix ../,$(TD_SETS))	\
 	--output-dataset ../$@
 
-## step 2c filter the combined datasets
+## step 2e select parameters from the filtered, combined datasets
 
-### step 2c.i filter opt
-DEPS := $(CURATE)/datasets/combined-opt.json $(CURATE)/filters.py	\
-	$(CURATE)/filter-opt.py
+### step 2e.i select torsions
 
-$(CURATE)/datasets/filtered-opt.json: $(DEPS)
-	cd $(CURATE) ;						\
-	python filter-opt.py					\
-		--input ../$(CURATE)/datasets/combined-opt.json	\
-		 --output ../$@
-
-### step 2c.ii filter TD
-DEPS := $(CURATE)/datasets/combined-td.json $(CURATE)/filters.py	\
-	$(CURATE)/filter-td.py
-
-$(CURATE)/datasets/filtered-td.json: $(DEPS)
-	cd $(CURATE) ;						\
-	python filter-td.py					\
-		--input ../$(CURATE)/datasets/combined-td.json	\
-		--output ../$@
-
-## step 2d select parameters from the filtered, combined datasets
-
-### step 2d.i select torsions
-
-DEPS := $(CURATE)/datasets/filtered-td.json $(CURATE)/select_parameters.py $(INITIAL_FF)
+DEPS := $(CURATE)/datasets/combined-td.json $(CURATE)/select_parameters.py $(INITIAL_FF)
 
 $(CURATE)/output/td-smirks.json: $(DEPS)
 	cd $(CURATE) ;				\
 	python select_parameters.py select-td	\
-	--dataset datasets/filtered-td.json	\
+	--dataset datasets/combined-td.json	\
 	--forcefield ../$(INITIAL_FF)		\
 	--output-smirks output/td-smirks.json	\
 	--ring-torsions explicit_ring_torsions.dat
 
-### step 2d.ii select opt
-DEPS := $(CURATE)/datasets/filtered-opt.json $(CURATE)/select_parameters.py $(INITIAL_FF)
+### step 2e.ii select opt
+DEPS := $(CURATE)/datasets/combined-opt.json $(CURATE)/select_parameters.py $(INITIAL_FF)
 
 $(CURATE)/output/opt-smirks.json: $(DEPS)
 	cd $(CURATE) ;				\
 	python select_parameters.py select-opt	\
-	--dataset datasets/filtered-opt.json	\
+	--dataset datasets/combined-opt.json	\
 	--forcefield ../$(INITIAL_FF)		\
 	--output-smirks output/opt-smirks.json
 
@@ -101,19 +98,19 @@ $(CURATE)/output/opt-smirks.json: $(DEPS)
 # step 3 - update the initial force field parameters with the modified seminario
 # method
 
-$(MSM_FF): $(INITIAL_FF) $(CURATE)/datasets/filtered-opt.json $(MSM)/create-msm-ff.py
+$(MSM_FF): $(INITIAL_FF) $(CURATE)/datasets/combined-opt.json $(MSM)/create-msm-ff.py
 	cd $(MSM) ; \
 	python create-msm-ff.py                                                \
 	--initial-force-field       ../$(INITIAL_FF)                           \
-	--optimization-dataset      ../$(CURATE)/datasets/filtered-opt.json    \
+	--optimization-dataset      ../$(CURATE)/datasets/combined-opt.json    \
 	--working-directory         working-directory                          \
 	--output                    ../$@
 
 # step 4 - generate ForceBalance inputs
 
 DEPS := $(FIT)/smiles-to-exclude.dat $(FIT)/smarts-to-exclude.dat		\
-	$(CURATE)/datasets/filtered-opt.json					\
-	$(CURATE)/datasets/filtered-td.json $(CURATE)/output/opt-smirks.json	\
+	$(CURATE)/datasets/combined-opt.json					\
+	$(CURATE)/datasets/combined-td.json $(CURATE)/output/opt-smirks.json	\
 	$(CURATE)/output/td-smirks.json $(MSM_FF) $(FIT)/create-fb-inputs.py
 
 $(FIT)/ready: $(DEPS)
@@ -122,8 +119,8 @@ $(FIT)/ready: $(DEPS)
 	cd $(FIT) ;								\
 	python create-fb-inputs.py                                              \
 	--tag                       "fb-fit"                                    \
-	--optimization-dataset      ../$(CURATE)/datasets/filtered-opt.json     \
-	--torsion-dataset           ../$(CURATE)/datasets/filtered-td.json      \
+	--optimization-dataset      ../$(CURATE)/datasets/combined-opt.json     \
+	--torsion-dataset           ../$(CURATE)/datasets/combined-td.json      \
 	--valence-to-optimize       ../$(CURATE)/output/opt-smirks.json		\
 	--torsions-to-optimize      ../$(CURATE)/output/td-smirks.json		\
 	--forcefield                ../$(MSM_FF)                                \

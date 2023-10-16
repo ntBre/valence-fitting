@@ -23819,6 +23819,25 @@ remote 1
 $end
 
 $target
+name torsion-2703402
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
 name opt-geo-batch-0
 weight 0.01
 
@@ -25400,6 +25419,226 @@ $end
 
 $target
 name opt-geo-batch-158
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-159
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-160
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-161
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-162
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-163
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-164
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-165
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-166
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-167
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-168
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-169
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-170
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-171
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-172
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-173
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-174
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-175
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-176
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-177
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-178
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-179
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-180
 weight 0.01
 
 type OptGeoTarget_SMIRNOFF

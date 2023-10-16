@@ -7680,6 +7680,12 @@
         "record_id": "35045068",
         "cmiles": "[H:8][C:2]([H:9])([H:10])[N+:6](=[C:1]([N:5]([H:16])[N:4]([H:14])[H:15])[O:7][H:17])[C:3]([H:11])([H:12])[H:13]",
         "inchi_key": "PGLFGNJUOPLFLV-CWKFSGEHNA-O"
+      },
+      {
+        "type": "torsion",
+        "record_id": "2703402",
+        "cmiles": "[H:6][C:2]([H:7])([H:8])[C:1](=[O:3])[O:5][O:4][H:9]",
+        "inchi_key": "KFSLWBXXFJQRDL-UHFFFAOYNA-N"
       }
     ]
   },
@@ -7713,35 +7719,7 @@
           "Br"
         ]
       },
-      "HydrogenBondFilter-5": {
-        "method": "baker-hubbard"
-      },
-      "RecordStatusFilter-6": {
-        "status": "COMPLETE"
-      },
-      "ConnectivityFilter-7": {
-        "tolerance": 1.2
-      },
-      "UnperceivableStereoFilter-8": {
-        "toolkits": [
-          "openeye",
-          "rdkit"
-        ]
-      },
-      "ElementFilter-9": {
-        "allowed_elements": [
-          "H",
-          "C",
-          "N",
-          "O",
-          "S",
-          "P",
-          "F",
-          "Cl",
-          "Br"
-        ]
-      },
-      "ChargeCheckFilter-10": {}
+      "ChargeCheckFilter-5": {}
     }
   },
   "type": "TorsionDriveResultCollection"

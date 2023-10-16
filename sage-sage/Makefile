@@ -19,20 +19,21 @@ INITIAL_FF := initial.offxml
 # step 2 - curate data set - the datasets are already made, so simply call
 # select_parameters with them and the initial FF
 
-DEPS := $(addprefix ../$(CURATE)/,sage/opt.json filters.py filter-opt.py)
-filtered-sage-opt.json: $(DEPS)
-	python ../$(CURATE)/filter-opt.py --input $< --output $@ \
-	    --records-to-remove ../$(CURATE)/opt_records_to_remove.dat
+../$(CURATE)/sage/filtered-opt.json:
+	make -C .. $(subst ../,./,$@)
+../$(CURATE)/sage/filtered-td.json:
+	make -C .. $(subst ../,./,$@)
 
-deps := $(addprefix ../$(CURATE)/,sage/td.json filters.py filter-td.py)
-filtered-sage-td.json: $(deps)
-	python ../$(CURATE)/filter-td.py --input $< --output $@ \
-	    --records-to-remove ../$(CURATE)/td_records_to_remove.dat
+## filter sage data sets for charge issues
+filtered-sage-opt.json: ../$(CURATE)/sage/filtered-opt.json
+	cp $< $@
+filtered-sage-td.json: ../$(CURATE)/sage/filtered-td.json
+	cp $< $@
 
 DEPS := filtered-sage-td.json ../$(CURATE)/select_parameters.py $(INITIAL_FF)
 td-smirks.json: $(DEPS)
 	python ../$(CURATE)/select_parameters.py select-td	\
-	--dataset filtered-sage-td.json	\
+	--dataset filtered-sage-td.json				\
 	--forcefield $(INITIAL_FF)				\
 	--output-smirks $@					\
 	--ring-torsions ../$(CURATE)/explicit_ring_torsions.dat
@@ -42,7 +43,7 @@ DEPS := filtered-sage-opt.json ../$(CURATE)/select_parameters.py $(INITIAL_FF)
 
 opt-smirks.json: $(DEPS)
 	python ../$(CURATE)/select_parameters.py select-opt	\
-	--dataset filtered-sage-opt.json	\
+	--dataset filtered-sage-opt.json			\
 	--forcefield $(INITIAL_FF)				\
 	--output-smirks $@
 
@@ -52,10 +53,10 @@ opt-smirks.json: $(DEPS)
 MSM_FF := msm.offxml
 
 $(MSM_FF): $(INITIAL_FF) filtered-sage-opt.json ../$(MSM)/create-msm-ff.py
-	python ../$(MSM)/create-msm-ff.py						\
-	--initial-force-field       $(INITIAL_FF)					\
+	python ../$(MSM)/create-msm-ff.py			\
+	--initial-force-field       $(INITIAL_FF)		\
 	--optimization-dataset      filtered-sage-opt.json	\
-	--working-directory         working-directory					\
+	--working-directory         working-directory		\
 	--output                    $@
 
 step3: $(MSM_FF)
@@ -63,9 +64,9 @@ step3: $(MSM_FF)
 
 # step 4 - generate ForceBalance inputs
 
-DEPS := ../$(FIT)/smiles-to-exclude.dat ../$(FIT)/smarts-to-exclude.dat		\
-	filtered-sage-opt.json					\
-	filtered-sage-td.json opt-smirks.json td-smirks.json	\
+DEPS := ../$(FIT)/smiles-to-exclude.dat ../$(FIT)/smarts-to-exclude.dat	\
+	filtered-sage-opt.json						\
+	filtered-sage-td.json opt-smirks.json td-smirks.json		\
 	$(MSM_FF) ../$(FIT)/create-fb-inputs.py
 
 fb_inputs := $(addprefix fb-fit/,forcefield/force-field.offxml optimize.in targets)
@@ -73,18 +74,18 @@ fb_inputs := $(addprefix fb-fit/,forcefield/force-field.offxml optimize.in targe
 $(fb_inputs): $(DEPS)
 	rm -rf fb-fit/targets
 	mkdir -p fb-fit/targets
-	python ../$(FIT)/create-fb-inputs.py						\
-	--tag                       "fb-fit"						\
-	--optimization-dataset      filtered-sage-opt.json	\
+	python ../$(FIT)/create-fb-inputs.py				\
+	--tag                       "fb-fit"				\
+	--optimization-dataset      filtered-sage-opt.json		\
 	--torsion-dataset           filtered-sage-td.json		\
-	--valence-to-optimize       opt-smirks.json					\
-	--torsions-to-optimize      td-smirks.json					\
-	--forcefield                $(MSM_FF)						\
-	--smiles-to-exclude         ../$(FIT)/smiles-to-exclude.dat			\
-	--smarts-to-exclude         ../$(FIT)/smarts-to-exclude.dat			\
-	--max-iterations            100							\
-	--port                      55387						\
-	--output-directory          "output"						\
+	--valence-to-optimize       opt-smirks.json			\
+	--torsions-to-optimize      td-smirks.json			\
+	--forcefield                $(MSM_FF)				\
+	--smiles-to-exclude         ../$(FIT)/smiles-to-exclude.dat	\
+	--smarts-to-exclude         ../$(FIT)/smarts-to-exclude.dat	\
+	--max-iterations            100					\
+	--port                      55387				\
+	--output-directory          "output"				\
 	--verbose
 
 fb-fit/targets.tar.gz: $(wildcard fb-fit/targets/*/*)

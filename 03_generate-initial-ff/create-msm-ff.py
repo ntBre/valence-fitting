@@ -42,6 +42,124 @@ def force_constant_bond(bond, eigenvals, eigenvecs, coords):
 ModSemMaths.force_constant_bond = force_constant_bond
 
 
+def cross(u_ab, u_bc):
+    "Return the square norm of the cross product of the arguments"
+    c = np.cross(u_ab, u_bc)
+    d = np.linalg.norm(c)
+    return d * d
+
+
+def calculate_torsions(eigenvals, eigenvecs, molecule, bond_lens):
+    coords = molecule.coordinates
+    ret = dict()
+    # molecule.dihedrals is, for some unholy reason, a dict of central_atoms:
+    # list_of_dihedrals_involving_them. so you have to call .values to get the
+    # list and then iterate over the list to get actual dihedrals
+    for dihedral in (
+        dihedral
+        for dihedrals in molecule.dihedrals.values()
+        for dihedral in dihedrals
+    ):
+        atom_a, atom_b, atom_c, atom_d = dihedral
+        u_ab = ModSemMaths.unit_vector_along_bond(coords, (atom_a, atom_b))
+        u_cb = ModSemMaths.unit_vector_along_bond(coords, (atom_c, atom_b))
+        u_bc = -u_cb
+        u_dc = ModSemMaths.unit_vector_along_bond(coords, (atom_d, atom_b))
+        u_cd = -u_dc
+
+        u_n_abc = ModSemMaths.unit_vector_normal_to_bond(u_cb, u_ab)
+        u_n_bcd = ModSemMaths.unit_vector_normal_to_bond(u_dc, u_bc)
+        r_ba = bond_lens[atom_b, atom_a]
+        eigenvals_ab = eigenvals[atom_a, atom_b, :]
+        eigenvecs_ab = eigenvecs[:3, :3, atom_a, atom_b]
+
+        r_cd = bond_lens[atom_c, atom_d]
+        eigenvals_dc = eigenvals[atom_d, atom_c, :]
+        eigenvecs_dc = eigenvecs[:3, :3, atom_d, atom_c]
+
+        sum_first = sum(
+            eigenvals_ab[i]
+            * abs(ModSemMaths.dot_product(u_n_abc, eigenvecs_ab[:, i]))
+            for i in range(3)
+        )
+        sum_second = sum(
+            eigenvals_dc[i]
+            * abs(ModSemMaths.dot_product(u_n_bcd, eigenvecs_dc[:, i]))
+            for i in range(3)
+        )
+        k = 1.0 / (r_ba * r_ba * cross(u_ab, u_bc) * sum_first) + 1.0 / (
+            r_cd * r_cd * cross(u_bc, u_cd) * sum_second
+        )
+        ret[dihedral] = np.real(1.0 / k)
+
+    return ret
+
+
+def _modified_seminario_method(
+    self, molecule: Ligand, hessian: np.ndarray
+) -> Ligand:
+    """Calculate the new bond and angle terms after being passed the symmetric
+    Hessian and optimised molecule coordinates.
+
+    """
+    size_mol = molecule.n_atoms
+    eigenvecs = np.empty((3, 3, size_mol, size_mol), dtype=complex)
+    eigenvals = np.empty((size_mol, size_mol, 3), dtype=complex)
+    bond_lens = np.zeros((size_mol, size_mol))
+
+    for i in range(size_mol):
+        for j in range(size_mol):
+            diff_i_j = molecule.coordinates[i, :] - molecule.coordinates[j, :]
+            bond_lens[i, j] = np.linalg.norm(diff_i_j)
+
+            partial_hessian = hessian[
+                (i * 3) : ((i + 1) * 3), (j * 3) : ((j + 1) * 3)
+            ]
+
+            eigenvals[i, j, :], eigenvecs[:, :, i, j] = np.linalg.eig(
+                partial_hessian
+            )
+
+    # The bond and angle values are calculated and written to file.
+    self.calculate_bonds(eigenvals, eigenvecs, molecule, bond_lens)
+    if molecule.n_angles > 0:
+        # handle linear molecules with no angles
+        self.calculate_angles(eigenvals, eigenvecs, molecule, bond_lens)
+    torsions = []
+    if molecule.n_dihedrals > 0:
+        torsions = calculate_torsions(
+            eigenvals, eigenvecs, molecule, bond_lens
+        )
+    return molecule, torsions
+
+
+def run(self, molecule: Ligand, **kwargs) -> Ligand:
+    import copy
+
+    from qubekit.utils import constants
+
+    # reset the bond and angle parameter groups
+    molecule.BondForce.clear_parameters()
+    molecule.AngleForce.clear_parameters()
+    # convert the hessian from atomic units
+    conversion = constants.HA_TO_KCAL_P_MOL / (constants.BOHR_TO_ANGS**2)
+    # make sure we do not change the molecule hessian
+    hessian = copy.deepcopy(molecule.hessian)
+    hessian *= conversion
+    # they don't even capture this return??
+    _, torsions = self._modified_seminario_method(
+        molecule=molecule, hessian=hessian
+    )
+    # apply symmetry to the bond and angle parameters
+    molecule.symmetrise_bonded_parameters()
+
+    return molecule, torsions
+
+
+ModSeminario._modified_seminario_method = _modified_seminario_method
+ModSeminario.run = run
+
+
 def calculate_parameters(
     qc_record: "ResultRecord",
     molecule: "Molecule",
@@ -57,7 +175,8 @@ def calculate_parameters(
     qube_mol = Ligand.from_rdkit(molecule.to_rdkit(), name="offmol")
     qube_mol.hessian = qc_record.return_result
     # calculate the modified seminario parameters and store in the molecule
-    qube_mol = mod_sem.run(qube_mol)
+    # no idea what this is
+    qube_mol, torsions = mod_sem.run(qube_mol)
     # label the openff molecule
     labels = forcefield.label_molecules(molecule.to_topology())[0]
     # loop over all bonds and angles and collect the results in
@@ -67,6 +186,7 @@ def calculate_parameters(
         "bond_k": defaultdict(list),
         "angle_eq": defaultdict(list),
         "angle_k": defaultdict(list),
+        "torsions": defaultdict(list),
     }
 
     for bond, parameter in labels["Bonds"].items():
@@ -79,6 +199,11 @@ def calculate_parameters(
         qube_param = qube_mol.AngleForce[angle]
         all_parameters["angle_eq"][parameter.smirks].append(qube_param.angle)
         all_parameters["angle_k"][parameter.smirks].append(qube_param.k)
+
+    for torsion, parameter in labels["ProperTorsions"].items():
+        qube_param = torsions.get(torsion, None)
+        if qube_param is not None:
+            all_parameters["torsions"][parameter.smirks].append(qube_param)
 
     return all_parameters
 
@@ -161,6 +286,7 @@ def main(
         "bond_k": defaultdict(list),
         "angle_eq": defaultdict(list),
         "angle_k": defaultdict(list),
+        "torsions": defaultdict(list),
     }
     errored_records_and_molecules = []
     for record, molecule in records_and_molecules:
@@ -232,6 +358,14 @@ def main(
             np.mean(all_parameters["angle_k"][smirks]) * kj_per_mol_per_rad2
         )
         angle.k = angle_k.to(unit.kilocalorie_per_mole / unit.radian**2)
+
+    torsion_handler = ff.get_parameter_handler("ProperTorsions")
+    for smirks, vals in all_parameters["torsions"].items():
+        # TODO figure out these units. I'm assuming kJ like the others and the
+        # denominator has four distance terms in it, which should give nm^4,
+        # but our force constants don't have distance units
+        val = np.mean(vals) * unit.kilojoule_per_mole  # / unit.nanometer**4
+        print(torsion_handler[smirks].k1, val.to(unit.kilocalorie_per_mole))
 
     ff.to_file(output_force_field)
 

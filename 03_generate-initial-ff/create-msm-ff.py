@@ -127,9 +127,11 @@ def main(
     dataset = OptimizationResultCollection.parse_file(optimization_dataset)
 
     # filter for lowest energy results
+    print("filtering")
     filtered = dataset.filter(LowestEnergyFilter())
 
     # filter to only keep entries with hessians calculated
+    print("converting to results")
     hessian_set = filtered.to_basic_result_collection(driver="hessian")
 
     if working_directory is not None:

@@ -24,19 +24,14 @@ logging.getLogger("openff").setLevel(logging.ERROR)
 
 class ChargeCheckFilter(ResultRecordFilter):
     def _filter_function(self, result, record, molecule) -> bool:
-        # Some of the molecules fail charging with am1bccelf10 either
-        # because of no bccs or failed conformer generation, sometimes it
-        # cannot be captured with just the cmiles present in the record
-        # metadata, so reading from file and checking it
-        can_be_charged = True
         try:
             OpenEyeToolkitWrapper().assign_partial_charges(
                 molecule, partial_charge_method="am1bccelf10"
             )
         except (ChargeCalculationError, ConformerGenerationError):
-            can_be_charged = False
-
-        return can_be_charged
+            return False
+        else:
+            return True
 
 
 def filter_opt_data(

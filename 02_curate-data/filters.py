@@ -65,10 +65,10 @@ def filter_opt_data(
     # filter out other unsuitable entries
     dataset = dataset.filter(
         RecordStatusFilter(status=RecordStatusEnum.complete),
-        ConnectivityFilter(tolerance=1.2),
-        UnperceivableStereoFilter(),
-        ElementFilter(allowed_elements=elements),
-        ConformerRMSDFilter(max_conformers=max_opt_conformers),
+        # ConnectivityFilter(tolerance=1.2),
+        # UnperceivableStereoFilter(),
+        # ElementFilter(allowed_elements=elements),
+        # ConformerRMSDFilter(max_conformers=max_opt_conformers),
         ChargeCheckFilter(),
     )
 
@@ -106,11 +106,11 @@ def filter_td_data(
 
     # filter out other unsuitable entries
     dataset = dataset.filter(
-        HydrogenBondFilter(method="baker-hubbard"),
         RecordStatusFilter(status=RecordStatusEnum.complete),
-        ConnectivityFilter(tolerance=1.2),
-        UnperceivableStereoFilter(),
-        ElementFilter(allowed_elements=elements),
+        # HydrogenBondFilter(method="baker-hubbard"),
+        # ConnectivityFilter(tolerance=1.2),
+        # UnperceivableStereoFilter(),
+        # ElementFilter(allowed_elements=elements),
         ChargeCheckFilter(),
     )
 

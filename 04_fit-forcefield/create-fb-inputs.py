@@ -1,9 +1,12 @@
-import os
 import json
+import logging
+import os
 import pathlib
 import typing
 
 import click
+
+logging.getLogger("openff").setLevel(logging.ERROR)
 
 
 def load_training_data(
@@ -17,10 +20,7 @@ def load_training_data(
         OptimizationResultCollection,
         TorsionDriveResultCollection,
     )
-    from openff.qcsubmit.results.filters import (
-        SMARTSFilter,
-        SMILESFilter,
-    )
+    from openff.qcsubmit.results.filters import SMARTSFilter, SMILESFilter
 
     if smarts_to_exclude is not None:
         exclude_smarts = (
@@ -166,7 +166,6 @@ def generate(
     max_iterations: int = 50,
     port: int = 55387,
 ):
-    from openff.toolkit import ForceField
     from openff.bespokefit.optimizers.forcebalance import (
         ForceBalanceInputFactory,
     )
@@ -175,19 +174,20 @@ def generate(
         OptimizationStageSchema,
     )
     from openff.bespokefit.schema.optimizers import ForceBalanceSchema
-    from openff.bespokefit.schema.targets import (
-        OptGeoTargetSchema,
-        TorsionProfileTargetSchema,
-    )
     from openff.bespokefit.schema.smirnoff import (
         AngleHyperparameters,
         AngleSMIRKS,
         BondHyperparameters,
+        BondSMIRKS,
         ImproperTorsionHyperparameters,
         ProperTorsionHyperparameters,
-        BondSMIRKS,
         ProperTorsionSMIRKS,
     )
+    from openff.bespokefit.schema.targets import (
+        OptGeoTargetSchema,
+        TorsionProfileTargetSchema,
+    )
+    from openff.toolkit import ForceField
 
     torsion_training_set, optimization_training_set = load_training_data(
         optimization_dataset=optimization_dataset,

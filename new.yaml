@@ -6,6 +6,7 @@ dependencies:
   - forcebalance=1.9.6
   - openeye-toolkits=2022.1.1
   - openff-interchange=0.3.18
+  - qcportal=0.15.8 # not ready for new version
 
   - click
   - geometric
@@ -17,6 +18,5 @@ dependencies:
   - openmm
   - openmmforcefields
   - python
-  - qcportal
   - qubekit
   - tqdm

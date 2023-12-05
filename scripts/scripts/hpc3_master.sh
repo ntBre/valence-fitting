@@ -12,6 +12,10 @@
 #SBATCH -o master.out
 #SBATCH -e master.err
 
+conda_env=fb-196
+
+compressed_env=/dfs4/dmobley-lab/$USER/envs/$conda_env.tar.gz
+
 TMPDIR=/tmp/$USER/$SLURM_JOB_ID
 
 rm -rf $TMPDIR
@@ -19,7 +23,13 @@ mkdir -p $TMPDIR
 cd $TMPDIR
 
 source $HOME/.bashrc
-mamba activate valence-fitting
+
+cp $compressed_env .
+mkdir -p $conda_env
+tar xzf $compressed_env -C $conda_env
+mamba activate $conda_env
+
+echo $CONDA_PREFIX > $SLURM_SUBMIT_DIR/env.path
 
 scp -C  $SLURM_SUBMIT_DIR/optimize.in     $TMPDIR
 scp -C  $SLURM_SUBMIT_DIR/targets.tar.gz  $TMPDIR
@@ -35,7 +45,9 @@ export MKL_NUM_THREADS=1
 
 if ForceBalance.py optimize.in ; then
    tar -czvf optimize.tmp.tar.gz optimize.tmp
-   rsync  -avzIi --exclude="optimize.tmp" --exclude="optimize.bak" --exclude="fb_193*" --exclude="targets*" $TMPDIR/* $SLURM_SUBMIT_DIR > copy.log
+   rsync  -avzIi --exclude="optimize.tmp" --exclude="optimize.bak" \
+	  --exclude="fb_193*" \
+	  --exclude="targets*" $TMPDIR/* $SLURM_SUBMIT_DIR > copy.log
    rm -rf $TMPDIR
 fi
 

@@ -3,20 +3,14 @@
 host=$(sed 1q host)
 port=$(awk '/port/ {print $NF}' optimize.in)
 
-USERNAME=$(whoami)
 export SLURM_TMPDIR=/tmp
-export MYTMPDIR="/tmp/${USERNAME}"
+export MYTMPDIR=/tmp/$USER
 export TMPDIR=$SLURM_TMPDIR/$SLURM_JOB_NAME
 
 worker_num=$(squeue -u $USER | grep wq -c)
 ncpus=10
 
-echo host = $host
-echo port = $port
-echo $ncpus cpus requested
-echo submitting worker $worker_num
-
-#export OE_LICENSE=
+echo submitting worker $worker_num with $ncpus cpus on $host:$port
 
 cmd=$(mktemp)
 cat << EOF > $cmd
@@ -33,13 +27,30 @@ cat << EOF > $cmd
 # SBATCH --export ALL
 #SBATCH -o worker${worker_num}.log
 
-#export OMP_NUM_THREADS=1
-#export MKL_NUM_THREADS=1
+export OMP_NUM_THREADS=1
+export MKL_NUM_THREADS=1
+
+source $HOME/.bashrc
+conda_env=$(sed 1q env.path)
 
 mkdir ${MYTMPDIR} -p
+cd $MYTMPDIR
+
+if [[ ! -d $conda_env ]]; then
+    compressed_env=/dfs4/dmobley-lab/$USER/envs/$conda_env.tar.gz
+    cp $compressed_env .
+    mkdir -p $conda_env
+    tar xzf $compressed_env -C $conda_env
+fi
+
+mamba activate $conda_env
+
 for i in \$(seq  \$SLURM_NTASKS ); do
         echo $i
-        ./wq_worker_local.sh --cores 1 -s ${MYTMPDIR} --disk-threshold=0.002 --disk=3000 --memory-threshold=1000 -t 3600  -b 20 --memory=1000 $host:$port &
+        work_queue_worker --cores 1 -s ${MYTMPDIR} \
+                          --disk-threshold=0.002 --disk=3000 \
+                          --memory-threshold=1000 -t 3600 -b 20 \
+                          --memory=1000 $host:$port &
 done
 wait
 EOF

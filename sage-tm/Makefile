@@ -61,24 +61,25 @@ DEPS := ../$(FIT)/smiles-to-exclude.dat ../$(FIT)/smarts-to-exclude.dat $(opt)	\
 
 fb_inputs := $(addprefix fb-fit/,forcefield/force-field.offxml optimize.in targets)
 
-$(fb_inputs): $(DEPS)
+fb-ready $(fb_inputs): $(DEPS)
 	rm -rf fb-fit/targets
 	mkdir -p fb-fit/targets
-	python ../$(FIT)/create-fb-inputs.py                                    \
-	--tag                       "fb-fit"                                    \
-	--optimization-dataset      $(opt)     \
-	--torsion-dataset           $(td)      \
-	--valence-to-optimize       opt-smirks.json				\
-	--torsions-to-optimize      td-smirks.json				\
-	--forcefield                $(MSM_FF)					\
-	--smiles-to-exclude         ../$(FIT)/smiles-to-exclude.dat             \
-	--smarts-to-exclude         ../$(FIT)/smarts-to-exclude.dat             \
-	--max-iterations            100                                         \
-	--port                      55387                                       \
-	--output-directory          "output"                                    \
+	python ../$(FIT)/create-fb-inputs.py                        \
+	--tag                       "fb-fit"                        \
+	--optimization-dataset      $(opt)							\
+	--torsion-dataset           $(td)							\
+	--valence-to-optimize       opt-smirks.json					\
+	--torsions-to-optimize      td-smirks.json					\
+	--forcefield                $(MSM_FF)						\
+	--smiles-to-exclude         ../$(FIT)/smiles-to-exclude.dat \
+	--smarts-to-exclude         ../$(FIT)/smarts-to-exclude.dat \
+	--max-iterations            100                             \
+	--port                      55387                           \
+	--output-directory          "output"                        \
 	--verbose
+	touch fb-ready
 
-fb-fit/targets.tar.gz: $(wildcard fb-fit/targets/*/*)
+fb-fit/targets.tar.gz: fb-ready
 	rm -f $@
 	cd fb-fit ; tar cfz targets.tar.gz targets
 

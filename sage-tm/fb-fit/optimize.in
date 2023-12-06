@@ -18,7 +18,7 @@ jobtype optimize
 forcefield force-field.offxml
 
 # (int) Maximum number of steps in an optimization
-maxstep 1
+maxstep 100
 
 # (float) Convergence criterion of step size (just needs to fall below this threshold)
 convergence_step 0.01
@@ -70,6 +70,25 @@ $end
 
 $target
 name torsion-107276605
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-107276624
 weight 1.0
 
 type TorsionProfile_SMIRNOFF
@@ -164,7 +183,45 @@ remote 1
 $end
 
 $target
+name torsion-107276644
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
 name torsion-107276663
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-107276664
 weight 1.0
 
 type TorsionProfile_SMIRNOFF
@@ -202,7 +259,64 @@ remote 1
 $end
 
 $target
+name torsion-104321536
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-107276773
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
 name torsion-104321538
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-104321539
 weight 1.0
 
 type TorsionProfile_SMIRNOFF
@@ -563,6 +677,25 @@ remote 1
 $end
 
 $target
+name torsion-107277246
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
 name torsion-104321569
 weight 1.0
 
@@ -773,6 +906,25 @@ $end
 
 $target
 name torsion-107277433
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-107277434
 weight 1.0
 
 type TorsionProfile_SMIRNOFF
@@ -1171,6 +1323,25 @@ remote 1
 $end
 
 $target
+name torsion-107278185
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
 name torsion-107278186
 weight 1.0
 
@@ -1247,6 +1418,25 @@ remote 1
 $end
 
 $target
+name torsion-107278225
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
 name torsion-107278226
 weight 1.0
 
@@ -1286,6 +1476,25 @@ $end
 
 $target
 name torsion-104321615
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-107278228
 weight 1.0
 
 type TorsionProfile_SMIRNOFF
@@ -5522,6 +5731,25 @@ remote 1
 $end
 
 $target
+name torsion-18536176
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
 name torsion-18536179
 weight 1.0
 
@@ -6055,6 +6283,25 @@ $end
 
 $target
 name torsion-18536216
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-18536217
 weight 1.0
 
 type TorsionProfile_SMIRNOFF
@@ -7632,6 +7879,25 @@ $end
 
 $target
 name torsion-18536985
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-18536986
 weight 1.0
 
 type TorsionProfile_SMIRNOFF
@@ -25111,6 +25377,25 @@ remote 1
 $end
 
 $target
+name torsion-2703402
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
 name opt-geo-batch-0
 weight 0.01
 
@@ -26762,6 +27047,286 @@ $end
 
 $target
 name opt-geo-batch-165
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-166
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-167
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-168
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-169
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-170
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-171
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-172
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-173
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-174
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-175
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-176
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-177
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-178
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-179
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-180
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-181
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-182
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-183
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-184
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-185
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-186
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-187
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-188
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-189
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-190
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-191
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-192
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-193
 weight 0.01
 
 type OptGeoTarget_SMIRNOFF

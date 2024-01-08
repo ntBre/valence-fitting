@@ -76,8 +76,10 @@ OptimizationResultCollection.to_molecules = to_molecules
 
 
 @click.command()
-@click.option("--forcefield")
-@click.option("--dataset")
+@click.option("--forcefield", "-f", default="openff-2.1.0.offxml")
+@click.option(
+    "--dataset", "-d", default="02_curate-data/datasets/combined-td.json"
+)
 def check_coverage(forcefield, dataset):
     "Check proper torsion parameter coverage in `forcefield` using `dataset`"
 

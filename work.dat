@@ -20,14 +20,10 @@ t121 [*:1]~[#16X4,#16X3+0:2]-[#6X3:3]~[*:4]
 t157 [*:1]~[#16X4,#16X3+0:2]-[#8X2:3]-[*:4]
 
 # these were split multiple times based on new base smirks
-## atom 3 became X3 or X4 -> 4 splits
-t116 [*:1]-[#16X2,#16X3+1:2]-[#6:3]-[#1:4]
-## atom 1 became [#6X2,#6X3,#6X4:1] -> 6 splits
-t122 [#6:1]-[#16X4,#16X3+0:2]-[#6X3:3]~[*:4]
-## atom 3 became X2, X3, or X4 -> 6 splits
-t142 [*:1]-[#16X2,#16X3+1:2]-[!#6:3]~[*:4]
-## atom 3 became X2, X3, or X4 -> 6 splits
-t143 [*:1]~[#16X4,#16X3+0:2]-[#7:3]~[*:4]
+t116 [*:1]-[#16X2,#16X3+1:2]-[#6X3,#6X4:3]-[#1:4]
+t122 [#6X2,#6X3,#6X4:1]-[#16X4,#16X3+0:2]-[#6X3:3]~[*:4]
+t142 [*:1]-[#16X2,#16X3+1:2]-[!#6;X2,X3,X4:3]~[*:4]
+t143 [*:1]~[#16X4,#16X3+0:2]-[#7X2,#7X3,#7X4:3]~[*:4]
 
 # these were split multiple times based on their existing smirks
 t130 [*:1]~[#7X4,#7X3:2]-[#7X4,#7X3:3]~[*:4]

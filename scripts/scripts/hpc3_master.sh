@@ -29,7 +29,7 @@ mkdir -p $conda_env
 tar xzf $compressed_env -C $conda_env
 mamba activate $conda_env
 
-echo $CONDA_PREFIX > $SLURM_SUBMIT_DIR/env.path
+echo $conda_env > $SLURM_SUBMIT_DIR/env.path
 
 scp -C  $SLURM_SUBMIT_DIR/optimize.in     $TMPDIR
 scp -C  $SLURM_SUBMIT_DIR/targets.tar.gz  $TMPDIR

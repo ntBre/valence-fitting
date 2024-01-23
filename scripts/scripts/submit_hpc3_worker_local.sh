@@ -11,6 +11,7 @@ worker_num=$(squeue -u $USER | grep wq -c)
 ncpus=10
 
 echo submitting worker $worker_num with $ncpus cpus on $host:$port
+conda_env=$(sed 1q env.path)
 
 cmd=$(mktemp)
 cat << EOF > $cmd
@@ -31,7 +32,6 @@ export OMP_NUM_THREADS=1
 export MKL_NUM_THREADS=1
 
 source $HOME/.bashrc
-conda_env=$(sed 1q env.path)
 
 mkdir ${MYTMPDIR} -p
 cd $MYTMPDIR

@@ -17,6 +17,8 @@ for line in to_add:
     [pid, smirks] = line.split()
     new_params[pid].append(smirks)
 
+to_remove = ["t123"]
+
 torsions = base.get_parameter_handler("ProperTorsions")
 
 old = deepcopy(torsions.parameters)
@@ -29,7 +31,7 @@ for t in old:
             tmp.id = t.id + "ghijkl"[i]
             tmp.smirks = p
             torsions.parameters.append(tmp)
-    else:
+    elif t.id not in to_remove:
         torsions.parameters.append(t)
 
 base.to_file("output/initial-force-field-openff-2.1.0.offxml")

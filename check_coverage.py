@@ -121,7 +121,7 @@ def check_coverage(forcefield, dataset):
 
     for id in tors_ids:
         smirk = h.get_parameter(dict(id=id))[0].smirks
-        print(f"{id:5}{results[id]:5}{mol_results[id]:5}   {smirk}")
+        print(f"{id:5} {results[id]:5} {mol_results[id]:5}   {smirk}")
 
     missing_ids = [k for k in results.keys() if results[k] == 0]
     missing_smirks = [

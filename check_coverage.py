@@ -102,11 +102,15 @@ def check_coverage(forcefield, dataset):
     timer.say("finished to_records")
 
     results = defaultdict(int)
+    # max of 1 per molecule
+    mol_results = defaultdict(int)
     for molecule in tqdm(records_and_molecules, desc="Counting results"):
         all_labels = ff.label_molecules(molecule.to_topology())[0]
         torsions = all_labels["ProperTorsions"]
         for torsion in torsions.values():
             results[torsion.id] += 1
+        for tid in {t.id for t in torsions.values()}:
+            mol_results[tid] += 1
 
     timer.say("finished counting results")
 
@@ -117,7 +121,7 @@ def check_coverage(forcefield, dataset):
 
     for id in tors_ids:
         smirk = h.get_parameter(dict(id=id))[0].smirks
-        print(f"{id:5}{results[id]:5}   {smirk}")
+        print(f"{id:5}{results[id]:5}{mol_results[id]:5}   {smirk}")
 
     missing_ids = [k for k in results.keys() if results[k] == 0]
     missing_smirks = [

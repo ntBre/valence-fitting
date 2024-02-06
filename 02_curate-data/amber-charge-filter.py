@@ -4,8 +4,7 @@ from openff.toolkit.utils.exceptions import (
     ChargeCalculationError,
     ConformerGenerationError,
 )
-from openff.toolkit.utils.toolkits import RDKitToolkitWrapper
-from openff.units import unit
+from openff.toolkit.utils.toolkits import AmberToolsToolkitWrapper
 from vflib import Molecules, load_dataset
 
 counter = 0
@@ -14,17 +13,20 @@ counter = 0
 class ChargeCheckFilter(ResultRecordFilter):
     def _filter_function(self, result, record, molecule) -> bool:
         global counter
-        print(counter)
+        if counter % 100 == 0:
+            print(counter)
         counter += 1
         try:
-            # AmberToolsToolkitWrapper().assign_partial_charges(
-            #     molecule, partial_charge_method="am1bcc"
-            # )
-            molecule.generate_conformers(
-                n_conformers=1,
-                rms_cutoff=0.25 * unit.angstrom,
-                toolkit_registry=RDKitToolkitWrapper(),
+            AmberToolsToolkitWrapper().assign_partial_charges(
+                molecule, partial_charge_method="am1bcc"
             )
+            # from openff.toolkit.utils.toolkits import RDKitToolkitWrapper
+            # from openff.units import unit
+            # molecule.generate_conformers(
+            #     n_conformers=1,
+            #     rms_cutoff=0.25 * unit.angstrom,
+            #     toolkit_registry=RDKitToolkitWrapper(),
+            # )
         except (ChargeCalculationError, ConformerGenerationError):
             return False
         else:

@@ -7,6 +7,7 @@ def main():
     if len(argv) < 3:
         print("Usage: diff ff1 ff2")
         exit(1)
+
     ff1 = ForceField(argv[1], allow_cosmetic_attributes=True)
     ff2 = ForceField(argv[2], allow_cosmetic_attributes=True)
 
@@ -39,6 +40,7 @@ def main():
     for i in range(6):
         print(f"{f'k{i+1}-1':>8} {f'k{i+1}-2':>8}", end=" ")
     print()
+
     for t1 in h1.parameters:
         t2 = h2[t1.smirks]
         print(f"{t1.id:5}", end=" ")

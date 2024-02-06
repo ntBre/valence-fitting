@@ -149,3 +149,9 @@ TORS_DEPS := $(addprefix $(FIT)/,$(addprefix					\
 tors.tar.gz: $(FIT)/ready $(TORS_DEPS)
 	rm $@
 	tar cfz $@ $(TORS_DEPS) scripts
+
+$(CURATE)/sage/amber-filtered-opt.json: $(CURATE)/amber-charge-filter.py $(CURATE)/sage/opt.json
+	python $< --input $(word 2, $^) --output $@
+
+$(CURATE)/sage/amber-filtered-td.json: $(CURATE)/amber-charge-filter.py $(CURATE)/sage/td.json
+	python $< --input $(word 2, $^) --output $@

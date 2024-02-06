@@ -1,18 +1,6 @@
-# prints the difference in torsion parameters between the TM force field and
-# the original Sage 2.1.0 force field
-
-import re
 from sys import argv
 
 from openff.toolkit import ForceField
-
-# pasted from benchmarking/parse_hist.py
-LABEL = re.compile(r"([bati])(\d+)([a-z]*)")
-
-
-def sort_label(key):
-    t, n, tail = LABEL.match(key).groups()
-    return (t, int(n), tail)
 
 
 def main():

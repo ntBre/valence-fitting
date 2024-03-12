@@ -9,7 +9,7 @@ from openff.qcsubmit.results.filters import (
     ElementFilter,
     HydrogenBondFilter,
     RecordStatusFilter,
-    ResultRecordFilter,
+    SinglepointRecordFilter,
     UnperceivableStereoFilter,
 )
 from openff.toolkit.utils.exceptions import (
@@ -17,12 +17,12 @@ from openff.toolkit.utils.exceptions import (
     ConformerGenerationError,
 )
 from openff.toolkit.utils.toolkits import OpenEyeToolkitWrapper
-from qcportal.models.records import RecordStatusEnum
+from qcportal.record_models import RecordStatusEnum
 
 logging.getLogger("openff").setLevel(logging.ERROR)
 
 
-class ChargeCheckFilter(ResultRecordFilter):
+class ChargeCheckFilter(SinglepointRecordFilter):
     def _filter_function(self, result, record, molecule) -> bool:
         try:
             OpenEyeToolkitWrapper().assign_partial_charges(

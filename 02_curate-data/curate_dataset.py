@@ -1,18 +1,20 @@
-from collections import defaultdict, Counter
 import functools
-import random
-import typing
 import os.path
+import random
 import sys
+import typing
+from collections import Counter, defaultdict
 
 import numpy as np
-
-from qcportal.models import TorsionDriveRecord, OptimizationRecord
 from openff.qcsubmit.results import (
-    TorsionDriveResultCollection,
     OptimizationResultCollection,
+    TorsionDriveResultCollection,
 )
 from openff.toolkit import ForceField, Molecule
+from qcportal.torsiondrive.record_models import (
+    OptimizationRecord,
+    TorsiondriveRecord,
+)
 
 
 def check_torsion_is_in_ring(
@@ -36,14 +38,12 @@ def check_torsion_is_in_ring(
 
 def label_and_tag_ids(
     record_and_molecule: typing.Tuple[
-        typing.Union["TorsionDriveRecord", "OptimizationRecord"], "Molecule"
+        typing.Union["TorsiondriveRecord", "OptimizationRecord"], "Molecule"
     ],
     force_field: "ForceField",
     parameter_types: typing.List[str],
     explicit_ring_torsions: typing.Optional[str] = None,
 ) -> typing.Set[typing.Tuple[str, str, int]]:
-    from qcportal.models import TorsionDriveRecord
-
     if explicit_ring_torsions is not None:
         ring_torsions = np.loadtxt(explicit_ring_torsions, dtype=str)
     else:
@@ -58,9 +58,9 @@ def label_and_tag_ids(
 
         for indices, parameter in parameter_labels.items():
             # remove mismatching torsiondrives
-            if isinstance(record, TorsionDriveRecord):
+            if isinstance(record, TorsiondriveRecord):
                 # check central bond, i.e. middle 2 atoms
-                record_atoms = record.keywords.dihedrals[0]
+                record_atoms = record.specification.keywords.dihedrals[0]
                 if set(indices[1:3]) != set(record_atoms[1:3]):
                     continue
 
@@ -186,8 +186,8 @@ def download_td_data(
 ) -> "TorsionDriveResultCollection":
     """Download TorsionDrive datasets."""
 
-    from qcportal import FractalClient
     from openff.qcsubmit.results import TorsionDriveResultCollection
+    from qcportal import FractalClient
 
     if os.path.isfile(ds_cache) and not invalidate_cache:
         print(f"loading td from {ds_cache}", file=sys.stderr)

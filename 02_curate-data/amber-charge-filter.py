@@ -13,8 +13,7 @@ counter = 0
 class ChargeCheckFilter(ResultRecordFilter):
     def _filter_function(self, result, record, molecule) -> bool:
         global counter
-        if counter % 100 == 0:
-            print(counter)
+        print(counter)
         counter += 1
         try:
             AmberToolsToolkitWrapper().assign_partial_charges(

@@ -68,7 +68,7 @@ TD_SETS := $(CURATE)/datasets/filtered-td.json $(CURATE)/sage/filtered-td.json $
 $(CURATE)/datasets/combined-opt.json: $(OPT_SETS) $(CURATE)/combine.py
 	cd $(CURATE) ;					\
 	python combine.py combine-opt			\
-	--input-datasets $(addprefix ../,$(OPT_SETS))	\
+	 $(addprefix --input-datasets ../,$(OPT_SETS))	\
 	--output-dataset ../$@
 
 $(CURATE)/datasets/combined-td.json: $(TD_SETS) $(CURATE)/combine.py

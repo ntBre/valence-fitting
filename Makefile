@@ -122,7 +122,7 @@ DEPS := $(FIT)/smiles-to-exclude.dat $(FIT)/smarts-to-exclude.dat		\
 	$(CURATE)/output/td-smirks.json $(MSM_FF) $(FIT)/create-fb-inputs.py
 
 $(FIT)/ready: $(DEPS)
-	rm -r $(FIT)/fb-fit/targets
+	-rm -r $(FIT)/fb-fit/targets
 	mkdir -p $(FIT)/fb-fit/targets
 	cd $(FIT) ;								\
 	python create-fb-inputs.py                                              \
@@ -146,7 +146,7 @@ step4: $(FIT)/ready
 
 # step 5a - pack up the targets directory
 $(FIT)/fb-fit/targets.tar.gz: $(FIT)/ready
-	rm $@
+	-rm $@
 	cd $(FIT)/fb-fit ; tar cfz targets.tar.gz targets
 
 # step 5b - zip everything up
@@ -155,7 +155,7 @@ TORS_DEPS := $(addprefix $(FIT)/,$(addprefix					\
 				        optimize.in targets.tar.gz))
 
 tors.tar.gz: $(FIT)/ready $(TORS_DEPS)
-	rm $@
+	-rm $@
 	tar cfz $@ $(TORS_DEPS) scripts
 
 $(CURATE)/sage/amber-filtered-opt.json: $(CURATE)/amber-charge-filter.py $(CURATE)/sage/opt.json

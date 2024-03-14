@@ -39,35 +39,25 @@ def cli():
     pass
 
 
+def common(cls, input_datasets, output_dataset):
+    datasets = [cls.parse_file(ds) for ds in input_datasets]
+    combined_td = combine_datasets(datasets)
+    with open(output_dataset, "w") as out:
+        out.write(combined_td.json(indent=2))
+
+
 @cli.command("combine-td")
 @click.option("--input-datasets", multiple=True, required=True)
 @click.option("--output-dataset", required=True)
 def combine_td(input_datasets, output_dataset):
-    datasets = [
-        TorsionDriveResultCollection.parse_file(ds) for ds in input_datasets
-    ]
-
-    print("combining td datasets")
-    combined_td = combine_datasets(datasets)
-
-    with open(output_dataset, "w") as out:
-        out.write(combined_td.json(indent=2))
+    common(TorsionDriveResultCollection, input_datasets, output_dataset)
 
 
 @cli.command("combine-opt")
-@click.option("--input-datasets", nargs=2, required=True)
+@click.option("--input-datasets", multiple=True, required=True)
 @click.option("--output-dataset", required=True)
 def combine_opt(input_datasets, output_dataset):
-    ds1, ds2 = input_datasets
-    sage_td = OptimizationResultCollection.parse_file(ds1)
-
-    pavan_td = OptimizationResultCollection.parse_file(ds2)
-
-    print("combining opt datasets")
-    combined_td = combine_datasets(sage_td, pavan_td)
-
-    with open(output_dataset, "w") as out:
-        out.write(combined_td.json(indent=2))
+    common(OptimizationResultCollection, input_datasets, output_dataset)
 
 
 if __name__ == "__main__":

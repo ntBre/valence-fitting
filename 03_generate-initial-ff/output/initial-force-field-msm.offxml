@@ -9,21 +9,21 @@
     </Constraints>
     <Bonds version="0.4" potential="harmonic" fractional_bondorder_method="AM1-Wiberg" fractional_bondorder_interpolation="linear">
         <Bond smirks="[#6X4:1]-[#6X4:2]" id="b1" length="1.5336242392871462 * angstrom ** 1" k="431.33633226737817 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X4:1]-[#6X3:2]" id="b2" length="1.510051686588335 * angstrom ** 1" k="478.60642278182024 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X4:1]-[#6X3:2]=[#8X1+0]" id="b3" length="1.5272617580545527 * angstrom ** 1" k="413.3981408770041 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X3:1]-[#6X3:2]" id="b4" length="1.4669458152448067 * angstrom ** 1" k="540.1255627524681 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X3:1]:[#6X3:2]" id="b5" length="1.4006473561193646 * angstrom ** 1" k="756.772678084759 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X4:1]-[#6X3:2]" id="b2" length="1.5100516865883353 * angstrom ** 1" k="478.60642278182024 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X4:1]-[#6X3:2]=[#8X1+0]" id="b3" length="1.527261758054553 * angstrom ** 1" k="413.3981408770041 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X3:1]-[#6X3:2]" id="b4" length="1.4669458152448065 * angstrom ** 1" k="540.1255627524682 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X3:1]:[#6X3:2]" id="b5" length="1.4006473561193646 * angstrom ** 1" k="756.7726780847589 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X3:1]=[#6X3:2]" id="b6" length="1.3727349182032946 * angstrom ** 1" k="913.2623114771812 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6:1]-[#7:2]" id="b7" length="1.476311176490951 * angstrom ** 1" k="455.82468760279505 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X3:1]-[#7X3:2]" id="b8" length="1.3889380358238679 * angstrom ** 1" k="661.3192018254935 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X4:1]-[#7X3:2]-[#6X3]=[#8X1+0]" id="b9" length="1.4613608980105548 * angstrom ** 1" k="491.28082378310125 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X3:1](=[#8X1+0])-[#7X3:2]" id="b10" length="1.3832520662153538 * angstrom ** 1" k="660.7417672512832 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X3:1](=[#8X1+0])-[#7X3:2]" id="b10" length="1.3832520662153538 * angstrom ** 1" k="660.7417672512831 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X3:1]-[#7X2:2]" id="b11" length="1.3850750171547224 * angstrom ** 1" k="597.8400815287866 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X3:1]:[#7X2,#7X3+1:2]" id="b12" length="1.339091354200679 * angstrom ** 1" k="772.0182612392242 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X3:1]=[#7X2,#7X3+1:2]" id="b13" length="1.311263805419748 * angstrom ** 1" k="991.5252170120159 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X3:1]=[#7X2,#7X3+1:2]" id="b13" length="1.3112638054197485 * angstrom ** 1" k="991.5252170120159 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X3:1](~!@[#7X3])(~!@[#7X3])~!@[#7X3:2]" id="b13a" length="1.304468222569 * angstrom ** 1" k="1171.510786135 * angstrom ** -2 * mole ** -1 * kilocalorie ** 1"></Bond>
         <Bond smirks="[#6:1]-[#8:2]" id="b14" length="1.4266135447508244 * angstrom ** 1" k="518.0144794755115 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X3:1]-[#8X1-1:2]" id="b15" length="1.2777056576090362 * angstrom ** 1" k="1088.6339099228715 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X3:1]-[#8X1-1:2]" id="b15" length="1.2777056576090362 * angstrom ** 1" k="1088.633909922871 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X4:1]-[#8X2H0:2]" id="b16" length="1.4356634880533647 * angstrom ** 1" k="457.56744744185863 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X3:1]-[#8X2:2]" id="b17" length="1.3647384320226572 * angstrom ** 1" k="585.7657900483958 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X3:1]-[#8X2H1:2]" id="b18" length="1.3618780157069543 * angstrom ** 1" k="692.7007268253925 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
@@ -33,22 +33,22 @@
         <Bond smirks="[#6X3:1](~[#8X1])~[#8X1:2]" id="b22" length="1.2599432783258195 * angstrom ** 1" k="1181.516095827422 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X3:1]~[#8X2+1:2]~[#6X3]" id="b23" length="1.3571371997053752 * angstrom ** 1" k="610.1658880901889 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X2:1]-[#6:2]" id="b24" length="1.4309205984843674 * angstrom ** 1" k="660.0279210338613 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X2:1]-[#6X4:2]" id="b25" length="1.4610853599440903 * angstrom ** 1" k="600.2173907266753 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X2:1]-[#6X4:2]" id="b25" length="1.4610853599440903 * angstrom ** 1" k="600.2173907266751 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X2:1]=[#6X3:2]" id="b26" length="1.3137604126492448 * angstrom ** 1" k="1338.4699851952348 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6:1]#[#7:2]" id="b27" length="1.1662814956706895 * angstrom ** 1" k="2661.2614974672024 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X2:1]#[#6X2:2]" id="b28" length="1.2142890270844737 * angstrom ** 1" k="2324.665241683953 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X2:1]-[#8X2:2]" id="b29" length="1.3249753746973463 * angstrom ** 1" k="922.9469338550106 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X2:1]-[#8X2:2]" id="b29" length="1.3249753746973463 * angstrom ** 1" k="922.9469338550109 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X2:1]-[#7:2]" id="b30" length="1.336289786164052 * angstrom ** 1" k="935.3797648660918 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X2:1]=[#7:2]" id="b31" length="1.2095708260666531 * angstrom ** 1" k="1902.6846080225844 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#16:1]=[#6:2]" id="b32" length="1.6720037869117537 * angstrom ** 1" k="568.8171474003661 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X2:1]=[#16:2]" id="b33" length="1.5887483299672849 * angstrom ** 1" k="864.7765497184553 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X2:1]=[#7:2]" id="b31" length="1.2095708260666531 * angstrom ** 1" k="1902.6846080225848 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#16:1]=[#6:2]" id="b32" length="1.6720037869117537 * angstrom ** 1" k="568.8171474003663 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X2:1]=[#16:2]" id="b33" length="1.5887483299672849 * angstrom ** 1" k="864.7765497184552 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#7:1]-[#7:2]" id="b34" length="1.4138338820594776 * angstrom ** 1" k="572.639810618207 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#7X3:1]-[#7X2:2]" id="b35" length="1.3647454936007821 * angstrom ** 1" k="583.7938427738683 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#7X2:1]-[#7X2:2]" id="b36" length="1.368376593535157 * angstrom ** 1" k="516.5250793987188 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#7X3:1]-[#7X2:2]" id="b35" length="1.3647454936007826 * angstrom ** 1" k="583.7938427738683 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#7X2:1]-[#7X2:2]" id="b36" length="1.368376593535157 * angstrom ** 1" k="516.5250793987187 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#7:1]:[#7:2]" id="b37" length="1.3368979133813184 * angstrom ** 1" k="659.4019806614513 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#7:1]=[#7:2]" id="b38" length="1.2821915481020094 * angstrom ** 1" k="1019.2480003439854 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#7+1:1]=[#7-1:2]" id="b39" length="1.144263172413103 * angstrom ** 1" k="2474.0199526993392 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#7:1]#[#7:2]" id="b40" length="1.111280906022472 * angstrom ** 1" k="3236.6245610441915 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#7+1:1]=[#7-1:2]" id="b39" length="1.144263172413103 * angstrom ** 1" k="2474.0199526993383 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#7:1]#[#7:2]" id="b40" length="1.111280906022472 * angstrom ** 1" k="3236.624561044191 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#7:1]-[#8X2:2]" id="b41" length="1.4120654801995258 * angstrom ** 1" k="441.6160254254048 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#7:1]~[#8X1:2]" id="b42" length="1.2377492188991308 * angstrom ** 1" k="1180.2869823015621 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#8X2:1]-[#8X2,#8X1-1:2]" id="b43" length="1.454854181115004 * angstrom ** 1" k="428.0050630558894 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
@@ -56,36 +56,36 @@
         <Bond smirks="[#16:1]-[#1:2]" id="b45" length="1.3490365212377033 * angstrom ** 1" k="589.5477410946892 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#16:1]-[#16:2]" id="b46" length="2.098254257218634 * angstrom ** 1" k="274.17197114607296 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#16:1]-[#9:2]" id="b47" length="1.6 * angstrom ** 1" k="750.0 * angstrom ** -2 * mole ** -1 * kilocalorie ** 1"></Bond>
-        <Bond smirks="[#16:1]-[#17:2]" id="b48" length="2.141076199528375 * angstrom ** 1" k="175.81141016193493 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#16:1]-[#17:2]" id="b48" length="2.141076199528375 * angstrom ** 1" k="175.81141016193482 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#16:1]-[#35:2]" id="b49" length="2.329705099659015 * angstrom ** 1" k="162.46802408479041 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#16:1]-[#53:2]" id="b50" length="2.6 * angstrom ** 1" k="150.0 * angstrom ** -2 * mole ** -1 * kilocalorie ** 1"></Bond>
-        <Bond smirks="[#16X2,#16X1-1,#16X3+1:1]-[#6X4:2]" id="b51" length="1.8369678797935407 * angstrom ** 1" k="286.8654869134987 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#16X2,#16X1-1,#16X3+1:1]-[#6X3:2]" id="b52" length="1.7554907153043047 * angstrom ** 1" k="354.3204419204751 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#16X2,#16X1-1,#16X3+1:1]-[#6X4:2]" id="b51" length="1.836967879793541 * angstrom ** 1" k="286.86548691349884 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#16X2,#16X1-1,#16X3+1:1]-[#6X3:2]" id="b52" length="1.7554907153043051 * angstrom ** 1" k="354.3204419204751 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#16X2,#16X1-1:1]-[#7:2]" id="b53" length="1.7198546087305109 * angstrom ** 1" k="186.0642502442395 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#16X2:1]-[#8X2:2]" id="b54" length="1.6844920468309554 * angstrom ** 1" k="386.61981363702495 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#16X2:1]=[#8X1,#7X2:2]" id="b55" length="1.5213244747939498 * angstrom ** 1" k="992.7231089215794 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#16X4,#16X3!+1:1]-[#6:2]" id="b56" length="1.8118837768327847 * angstrom ** 1" k="314.5841186041326 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#16X4,#16X3:1]~[#7:2]" id="b57" length="1.7145560836542908 * angstrom ** 1" k="354.6317165807523 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#16X4,#16X3:1]~[#7X2:2]" id="b57a" length="1.6338008942199103 * angstrom ** 1" k="510.3835650857284 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#16X4,#16X3:1]~[#7:2]" id="b57" length="1.7145560836542906 * angstrom ** 1" k="354.6317165807523 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#16X4,#16X3:1]~[#7X2:2]" id="b57a" length="1.6338008942199103 * angstrom ** 1" k="510.3835650857283 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#16X4,#16X3:1]-[#8X2:2]" id="b58" length="1.6591493578106629 * angstrom ** 1" k="397.93178313606313 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#16X4,#16X3:1]~[#8X1:2]" id="b59" length="1.469337383117359 * angstrom ** 1" k="1218.3606239252808 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#15:1]-[#1:2]" id="b60" length="1.4089320994682575 * angstrom ** 1" k="499.55189102755895 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#15:1]~[#6:2]" id="b61" length="1.8269302181226483 * angstrom ** 1" k="347.2418084919305 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#15:1]-[#7:2]" id="b62" length="1.6615956125619016 * angstrom ** 1" k="543.2032317304447 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#15:1]=[#7:2]" id="b63" length="1.592078903617865 * angstrom ** 1" k="733.5576288960067 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#15:1]~[#6:2]" id="b61" length="1.8269302181226483 * angstrom ** 1" k="347.2418084919304 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#15:1]-[#7:2]" id="b62" length="1.6615956125619016 * angstrom ** 1" k="543.2032317304449 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#15:1]=[#7:2]" id="b63" length="1.592078903617865 * angstrom ** 1" k="733.5576288960065 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#15:1]~[#8X2:2]" id="b64" length="1.6274749820442802 * angstrom ** 1" k="528.1110187474206 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#15:1]~[#8X1:2]" id="b65" length="1.4854952436776179 * angstrom ** 1" k="1310.2150772380696 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#16:1]-[#15:2]" id="b66" length="2.147548930225626 * angstrom ** 1" k="231.67740534534852 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#15:1]~[#8X1:2]" id="b65" length="1.4854952436776179 * angstrom ** 1" k="1310.21507723807 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#16:1]-[#15:2]" id="b66" length="2.147548930225626 * angstrom ** 1" k="231.67740534534846 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#15:1]=[#16X1:2]" id="b67" length="1.954856408044 * angstrom ** 1" k="447.2504231689 * angstrom ** -2 * mole ** -1 * kilocalorie ** 1"></Bond>
-        <Bond smirks="[#6:1]-[#9:2]" id="b68" length="1.3542961748187214 * angstrom ** 1" k="707.7394714616039 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X4:1]-[#9:2]" id="b69" length="1.3596388052696007 * angstrom ** 1" k="574.3782271293048 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6:1]-[#9:2]" id="b68" length="1.3542961748187214 * angstrom ** 1" k="707.7394714616041 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X4:1]-[#9:2]" id="b69" length="1.3596388052696007 * angstrom ** 1" k="574.378227129305 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6:1]-[#17:2]" id="b70" length="1.7493522842216278 * angstrom ** 1" k="366.41308500461884 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6X4:1]-[#17:2]" id="b71" length="1.8020323676957695 * angstrom ** 1" k="243.38959561377405 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6:1]-[#35:2]" id="b72" length="1.9116208665916554 * angstrom ** 1" k="301.14843342903265 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X4:1]-[#35:2]" id="b73" length="1.9753300656426158 * angstrom ** 1" k="206.87134630459119 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X4:1]-[#35:2]" id="b73" length="1.9753300656426158 * angstrom ** 1" k="206.87134630459124 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#6:1]-[#53:2]" id="b74" length="2.198076696503 * angstrom ** 1" k="72.93341107584 * angstrom ** -2 * mole ** -1 * kilocalorie ** 1"></Bond>
         <Bond smirks="[#6X4:1]-[#53:2]" id="b75" length="2.166 * angstrom ** 1" k="296.0 * angstrom ** -2 * mole ** -1 * kilocalorie ** 1"></Bond>
-        <Bond smirks="[#7:1]-[#9:2]" id="b76" length="1.458240216224038 * angstrom ** 1" k="454.21316813271466 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#7:1]-[#9:2]" id="b76" length="1.458240216224038 * angstrom ** 1" k="454.2131681327147 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#7:1]-[#17:2]" id="b77" length="1.788980256837101 * angstrom ** 1" k="294.5006529255279 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#7:1]-[#35:2]" id="b78" length="1.8753894713826016 * angstrom ** 1" k="322.51897014080373 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#7:1]-[#53:2]" id="b79" length="2.1 * angstrom ** 1" k="160.0 * angstrom ** -2 * mole ** -1 * kilocalorie ** 1"></Bond>
@@ -94,54 +94,54 @@
         <Bond smirks="[#15:1]-[#35:2]" id="b82" length="2.2727694770502263 * angstrom ** 1" k="232.77388221562418 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#15:1]-[#53:2]" id="b83" length="2.6 * angstrom ** 1" k="140.0 * angstrom ** -2 * mole ** -1 * kilocalorie ** 1"></Bond>
         <Bond smirks="[#6X4:1]-[#1:2]" id="b84" length="1.0941382315715888 * angstrom ** 1" k="714.970874955878 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X3:1]-[#1:2]" id="b85" length="1.0859763431871705 * angstrom ** 1" k="772.9456694515561 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#6X2:1]-[#1:2]" id="b86" length="1.0709717200691797 * angstrom ** 1" k="932.0565353253696 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X3:1]-[#1:2]" id="b85" length="1.0859763431871705 * angstrom ** 1" k="772.9456694515562 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#6X2:1]-[#1:2]" id="b86" length="1.0709717200691797 * angstrom ** 1" k="932.0565353253697 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
         <Bond smirks="[#7:1]-[#1:2]" id="b87" length="1.0177310227394571 * angstrom ** 1" k="968.4879769127738 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
-        <Bond smirks="[#8:1]-[#1:2]" id="b88" length="0.9750470339943279 * angstrom ** 1" k="1078.2871047318167 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
+        <Bond smirks="[#8:1]-[#1:2]" id="b88" length="0.9750470339943279 * angstrom ** 1" k="1078.287104731817 * kilocalorie_per_mole ** 1 * angstrom ** -2"></Bond>
     </Bonds>
     <Angles version="0.3" potential="harmonic">
         <Angle smirks="[*:1]~[#6X4:2]-[*:3]" angle="109.76419057710677 * degree ** 1" k="134.9907580134305 * kilocalorie_per_mole ** 1 * radian ** -2" id="a1"></Angle>
-        <Angle smirks="[#1:1]-[#6X4:2]-[#1:3]" angle="108.35109664986608 * degree ** 1" k="73.6048539942103 * kilocalorie_per_mole ** 1 * radian ** -2" id="a2"></Angle>
+        <Angle smirks="[#1:1]-[#6X4:2]-[#1:3]" angle="108.35109664986608 * degree ** 1" k="73.60485399421029 * kilocalorie_per_mole ** 1 * radian ** -2" id="a2"></Angle>
         <Angle smirks="[*;r3:1]1~;@[*;r3:2]~;@[*;r3:3]1" angle="59.99186535609137 * degree ** 1" k="111.51683389392896 * kilocalorie_per_mole ** 1 * radian ** -2" id="a3"></Angle>
-        <Angle smirks="[*;r3:1]~;@[*;r3:2]~;!@[*:3]" angle="117.4820789905906 * degree ** 1" k="116.05271059673335 * kilocalorie_per_mole ** 1 * radian ** -2" id="a4"></Angle>
-        <Angle smirks="[*:1]~;!@[*;r3:2]~;!@[*:3]" angle="115.02685205300689 * degree ** 1" k="147.13296245760543 * kilocalorie_per_mole ** 1 * radian ** -2" id="a5"></Angle>
-        <Angle smirks="[#1:1]-[*;r3:2]~;!@[*:3]" angle="115.12429362827216 * degree ** 1" k="55.477315778125636 * kilocalorie_per_mole ** 1 * radian ** -2" id="a6"></Angle>
-        <Angle smirks="[#6r4:1]-;@[#6r4:2]-;@[#6r4:3]" angle="87.31503119321796 * degree ** 1" k="140.3453604667231 * kilocalorie_per_mole ** 1 * radian ** -2" id="a7"></Angle>
-        <Angle smirks="[!#1:1]-[#6r4:2]-;!@[!#1:3]" angle="115.301885863841 * degree ** 1" k="212.91760676998916 * kilocalorie_per_mole ** 1 * radian ** -2" id="a8"></Angle>
-        <Angle smirks="[!#1:1]-[#6r4:2]-;!@[#1:3]" angle="113.7424047117101 * degree ** 1" k="115.29584997207779 * kilocalorie_per_mole ** 1 * radian ** -2" id="a9"></Angle>
+        <Angle smirks="[*;r3:1]~;@[*;r3:2]~;!@[*:3]" angle="117.4820789905906 * degree ** 1" k="116.05271059673338 * kilocalorie_per_mole ** 1 * radian ** -2" id="a4"></Angle>
+        <Angle smirks="[*:1]~;!@[*;r3:2]~;!@[*:3]" angle="115.02685205300686 * degree ** 1" k="147.13296245760546 * kilocalorie_per_mole ** 1 * radian ** -2" id="a5"></Angle>
+        <Angle smirks="[#1:1]-[*;r3:2]~;!@[*:3]" angle="115.12429362827216 * degree ** 1" k="55.47731577812565 * kilocalorie_per_mole ** 1 * radian ** -2" id="a6"></Angle>
+        <Angle smirks="[#6r4:1]-;@[#6r4:2]-;@[#6r4:3]" angle="87.31503119321793 * degree ** 1" k="140.3453604667231 * kilocalorie_per_mole ** 1 * radian ** -2" id="a7"></Angle>
+        <Angle smirks="[!#1:1]-[#6r4:2]-;!@[!#1:3]" angle="115.30188586384097 * degree ** 1" k="212.91760676998916 * kilocalorie_per_mole ** 1 * radian ** -2" id="a8"></Angle>
+        <Angle smirks="[!#1:1]-[#6r4:2]-;!@[#1:3]" angle="113.7424047117101 * degree ** 1" k="115.29584997207778 * kilocalorie_per_mole ** 1 * radian ** -2" id="a9"></Angle>
         <Angle smirks="[*:1]~[#6X3:2]~[*:3]" angle="119.13832883801366 * degree ** 1" k="167.28514858431993 * kilocalorie_per_mole ** 1 * radian ** -2" id="a10"></Angle>
         <Angle smirks="[#1:1]-[#6X3:2]~[*:3]" angle="119.83831359381078 * degree ** 1" k="65.94881364194381 * kilocalorie_per_mole ** 1 * radian ** -2" id="a11"></Angle>
-        <Angle smirks="[#1:1]-[#6X3:2]-[#1:3]" angle="117.69344679125335 * degree ** 1" k="43.387890948879175 * kilocalorie_per_mole ** 1 * radian ** -2" id="a12"></Angle>
-        <Angle smirks="[*;r6:1]~;@[*;r5:2]~;@[*;r5;x2:3]" angle="126.84162344235193 * degree ** 1" k="164.89118250331367 * kilocalorie_per_mole ** 1 * radian ** -2" id="a13"></Angle>
+        <Angle smirks="[#1:1]-[#6X3:2]-[#1:3]" angle="117.69344679125335 * degree ** 1" k="43.38789094887917 * kilocalorie_per_mole ** 1 * radian ** -2" id="a12"></Angle>
+        <Angle smirks="[*;r6:1]~;@[*;r5:2]~;@[*;r5;x2:3]" angle="126.8416234423519 * degree ** 1" k="164.89118250331362 * kilocalorie_per_mole ** 1 * radian ** -2" id="a13"></Angle>
         <Angle smirks="[*:1]~;!@[*;X3;r5:2]~;@[*;r5:3]" angle="124.9954852242826 * degree ** 1" k="96.63170209656614 * kilocalorie_per_mole ** 1 * radian ** -2" id="a14"></Angle>
         <Angle smirks="[#8X1:1]~[#6X3:2]~[#8:3]" angle="123.55531411991612 * degree ** 1" k="126.88715017271412 * kilocalorie_per_mole ** 1 * radian ** -2" id="a15"></Angle>
-        <Angle smirks="[*:1]~[#6X2:2]~[*:3]" angle="178.06588502726711 * degree ** 1" k="99.90710876119736 * kilocalorie_per_mole ** 1 * radian ** -2" id="a16"></Angle>
-        <Angle smirks="[*:1]~[#7X2:2]~[*:3]" angle="176.02345454674762 * degree ** 1" k="89.9604117556478 * kilocalorie_per_mole ** 1 * radian ** -2" id="a17"></Angle>
-        <Angle smirks="[*:1]~[#7X4,#7X3,#7X2-1:2]~[*:3]" angle="113.30969678934203 * degree ** 1" k="247.23332598026434 * kilocalorie_per_mole ** 1 * radian ** -2" id="a18"></Angle>
+        <Angle smirks="[*:1]~[#6X2:2]~[*:3]" angle="178.06588502726711 * degree ** 1" k="99.90710876119735 * kilocalorie_per_mole ** 1 * radian ** -2" id="a16"></Angle>
+        <Angle smirks="[*:1]~[#7X2:2]~[*:3]" angle="176.0234545467476 * degree ** 1" k="89.96041175564783 * kilocalorie_per_mole ** 1 * radian ** -2" id="a17"></Angle>
+        <Angle smirks="[*:1]~[#7X4,#7X3,#7X2-1:2]~[*:3]" angle="113.30969678934201 * degree ** 1" k="247.2333259802644 * kilocalorie_per_mole ** 1 * radian ** -2" id="a18"></Angle>
         <Angle smirks="[*:1]@-[r!r6;#7X4,#7X3,#7X2-1:2]@-[*:3]" angle="99.04393454235019 * degree ** 1" k="217.26282429155535 * kilocalorie_per_mole ** 1 * radian ** -2" id="a18a"></Angle>
-        <Angle smirks="[#1:1]-[#7X4,#7X3,#7X2-1:2]-[*:3]" angle="109.22781742247017 * degree ** 1" k="107.44118247984481 * kilocalorie_per_mole ** 1 * radian ** -2" id="a19"></Angle>
-        <Angle smirks="[*:1]~[#7X3$(*~[#6X3,#6X2,#7X2+0]):2]~[*:3]" angle="119.37676916688251 * degree ** 1" k="158.38780050298794 * kilocalorie_per_mole ** 1 * radian ** -2" id="a20"></Angle>
+        <Angle smirks="[#1:1]-[#7X4,#7X3,#7X2-1:2]-[*:3]" angle="109.22781742247017 * degree ** 1" k="107.4411824798448 * kilocalorie_per_mole ** 1 * radian ** -2" id="a19"></Angle>
+        <Angle smirks="[*:1]~[#7X3$(*~[#6X3,#6X2,#7X2+0]):2]~[*:3]" angle="119.37676916688251 * degree ** 1" k="158.38780050298791 * kilocalorie_per_mole ** 1 * radian ** -2" id="a20"></Angle>
         <Angle smirks="[#1:1]-[#7X3$(*~[#6X3,#6X2,#7X2+0]):2]-[*:3]" angle="118.06662875805827 * degree ** 1" k="72.86542560554359 * kilocalorie_per_mole ** 1 * radian ** -2" id="a21"></Angle>
         <Angle smirks="[*:1]~[#7X2+0:2]~[*:3]" angle="117.87679802624818 * degree ** 1" k="290.1267607668996 * kilocalorie_per_mole ** 1 * radian ** -2" id="a22"></Angle>
         <Angle smirks="[*:1]~[#7X2+0r5:2]~[*:3]" angle="106.20228118190394 * degree ** 1" k="272.9137398555216 * kilocalorie_per_mole ** 1 * radian ** -2" id="a22a"></Angle>
         <Angle smirks="[*:1]~[#7X2+0:2]~[#6X2:3](~[#16X1])" angle="144.2646209422596 * degree ** 1" k="150.492977396403 * kilocalorie_per_mole ** 1 * radian ** -2" id="a23"></Angle>
-        <Angle smirks="[#1:1]-[#7X2+0:2]~[*:3]" angle="111.23046797654094 * degree ** 1" k="99.79303194428081 * kilocalorie_per_mole ** 1 * radian ** -2" id="a24"></Angle>
-        <Angle smirks="[#6,#7,#8:1]-[#7X3:2](~[#8X1])~[#8X1:3]" angle="117.56973608432911 * degree ** 1" k="145.03189317662233 * kilocalorie_per_mole ** 1 * radian ** -2" id="a25"></Angle>
-        <Angle smirks="[#8X1:1]~[#7X3:2]~[#8X1:3]" angle="124.45512289998524 * degree ** 1" k="140.35006169568325 * kilocalorie_per_mole ** 1 * radian ** -2" id="a26"></Angle>
-        <Angle smirks="[*:1]~[#7X2:2]~[#7X1:3]" angle="175.2204655094496 * degree ** 1" k="117.562291770754 * kilocalorie_per_mole ** 1 * radian ** -2" id="a27"></Angle>
-        <Angle smirks="[*:1]-[#8:2]-[*:3]" angle="112.08290424440779 * degree ** 1" k="251.57080697746392 * kilocalorie_per_mole ** 1 * radian ** -2" id="a28"></Angle>
+        <Angle smirks="[#1:1]-[#7X2+0:2]~[*:3]" angle="111.23046797654092 * degree ** 1" k="99.79303194428077 * kilocalorie_per_mole ** 1 * radian ** -2" id="a24"></Angle>
+        <Angle smirks="[#6,#7,#8:1]-[#7X3:2](~[#8X1])~[#8X1:3]" angle="117.56973608432911 * degree ** 1" k="145.03189317662236 * kilocalorie_per_mole ** 1 * radian ** -2" id="a25"></Angle>
+        <Angle smirks="[#8X1:1]~[#7X3:2]~[#8X1:3]" angle="124.45512289998524 * degree ** 1" k="140.35006169568322 * kilocalorie_per_mole ** 1 * radian ** -2" id="a26"></Angle>
+        <Angle smirks="[*:1]~[#7X2:2]~[#7X1:3]" angle="175.22046550944955 * degree ** 1" k="117.56229177075384 * kilocalorie_per_mole ** 1 * radian ** -2" id="a27"></Angle>
+        <Angle smirks="[*:1]-[#8:2]-[*:3]" angle="112.08290424440777 * degree ** 1" k="251.57080697746392 * kilocalorie_per_mole ** 1 * radian ** -2" id="a28"></Angle>
         <Angle smirks="[#6X3,#7:1]~;@[#8;r:2]~;@[#6X3,#7:3]" angle="108.79776273771955 * degree ** 1" k="330.33194196120354 * kilocalorie_per_mole ** 1 * radian ** -2" id="a29"></Angle>
-        <Angle smirks="[*:1]-[#8X2+1:2]=[*:3]" angle="122.99067282760342 * degree ** 1" k="324.48394466290887 * kilocalorie_per_mole ** 1 * radian ** -2" id="a30"></Angle>
-        <Angle smirks="[*:1]~[#16X4:2]~[*:3]" angle="120.54960613096618 * degree ** 1" k="190.32897547241288 * kilocalorie_per_mole ** 1 * radian ** -2" id="a31"></Angle>
-        <Angle smirks="[*:1]-[#16X4,#16X3+0:2]~[*:3]" angle="106.92865520063984 * degree ** 1" k="241.27857070590363 * kilocalorie_per_mole ** 1 * radian ** -2" id="a32"></Angle>
-        <Angle smirks="[*:1]~[#16X3$(*~[#8X1,#7X2]):2]~[*:3]" angle="101.20327474584026 * degree ** 1" k="261.02613079272226 * kilocalorie_per_mole ** 1 * radian ** -2" id="a33"></Angle>
-        <Angle smirks="[*:1]~[#16X2,#16X3+1:2]~[*:3]" angle="96.62015768424324 * degree ** 1" k="274.8300943151066 * kilocalorie_per_mole ** 1 * radian ** -2" id="a34"></Angle>
+        <Angle smirks="[*:1]-[#8X2+1:2]=[*:3]" angle="122.99067282760342 * degree ** 1" k="324.48394466290847 * kilocalorie_per_mole ** 1 * radian ** -2" id="a30"></Angle>
+        <Angle smirks="[*:1]~[#16X4:2]~[*:3]" angle="120.54960613096618 * degree ** 1" k="190.32897547241276 * kilocalorie_per_mole ** 1 * radian ** -2" id="a31"></Angle>
+        <Angle smirks="[*:1]-[#16X4,#16X3+0:2]~[*:3]" angle="106.92865520063981 * degree ** 1" k="241.27857070590355 * kilocalorie_per_mole ** 1 * radian ** -2" id="a32"></Angle>
+        <Angle smirks="[*:1]~[#16X3$(*~[#8X1,#7X2]):2]~[*:3]" angle="101.20327474584026 * degree ** 1" k="261.0261307927223 * kilocalorie_per_mole ** 1 * radian ** -2" id="a33"></Angle>
+        <Angle smirks="[*:1]~[#16X2,#16X3+1:2]~[*:3]" angle="96.62015768424322 * degree ** 1" k="274.8300943151066 * kilocalorie_per_mole ** 1 * radian ** -2" id="a34"></Angle>
         <Angle smirks="[*:1]=[#16X2:2]=[*:3]" angle="180.0 * degree ** 1" k="140.0 * mole ** -1 * radian ** -2 * kilocalorie ** 1" id="a35"></Angle>
-        <Angle smirks="[*:1]=[#16X2:2]=[#8:3]" angle="112.61656791037066 * degree ** 1" k="259.87697303478734 * kilocalorie_per_mole ** 1 * radian ** -2" id="a36"></Angle>
-        <Angle smirks="[#6X3:1]-[#16X2:2]-[#6X3:3]" angle="90.63593739144848 * degree ** 1" k="227.78496933759135 * kilocalorie_per_mole ** 1 * radian ** -2" id="a37"></Angle>
+        <Angle smirks="[*:1]=[#16X2:2]=[#8:3]" angle="112.61656791037066 * degree ** 1" k="259.87697303478745 * kilocalorie_per_mole ** 1 * radian ** -2" id="a36"></Angle>
+        <Angle smirks="[#6X3:1]-[#16X2:2]-[#6X3:3]" angle="90.63593739144848 * degree ** 1" k="227.78496933759143 * kilocalorie_per_mole ** 1 * radian ** -2" id="a37"></Angle>
         <Angle smirks="[#6X3:1]-[#16X2:2]-[#6X4:3]" angle="96.63287087141742 * degree ** 1" k="332.20379848175304 * kilocalorie_per_mole ** 1 * radian ** -2" id="a38"></Angle>
-        <Angle smirks="[#6X3:1]-[#16X2:2]-[#1:3]" angle="94.63961395797209 * degree ** 1" k="170.9474074545943 * kilocalorie_per_mole ** 1 * radian ** -2" id="a39"></Angle>
-        <Angle smirks="[*:1]~[#15:2]~[*:3]" angle="108.89445674669393 * degree ** 1" k="181.08613298496527 * kilocalorie_per_mole ** 1 * radian ** -2" id="a40"></Angle>
+        <Angle smirks="[#6X3:1]-[#16X2:2]-[#1:3]" angle="94.63961395797209 * degree ** 1" k="170.94740745459424 * kilocalorie_per_mole ** 1 * radian ** -2" id="a39"></Angle>
+        <Angle smirks="[*:1]~[#15:2]~[*:3]" angle="108.89445674669393 * degree ** 1" k="181.08613298496525 * kilocalorie_per_mole ** 1 * radian ** -2" id="a40"></Angle>
     </Angles>
     <ProperTorsions version="0.4" potential="k*(1+cos(periodicity*theta-phase))" default_idivf="auto" fractional_bondorder_method="AM1-Wiberg" fractional_bondorder_interpolation="linear">
         <Proper smirks="[*:1]-[#6X4:2]-[#6X4:3]-[*:4]" periodicity1="3" phase1="0.0 * degree ** 1" id="t1" k1="0.1526959283148 * mole ** -1 * kilocalorie ** 1" idivf1="1.0"></Proper>

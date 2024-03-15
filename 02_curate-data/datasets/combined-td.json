@@ -3,6 +3,30 @@
     "https://api.qcarchive.molssi.org:443/": [
       {
         "type": "torsion",
+        "record_id": 107278229,
+        "cmiles": "[H:7][N:2]=[C:1]([N:3]([H:8])[H:9])[S:4](=[O:5])[O:6][H:10]",
+        "inchi_key": "FYOWZTWVYZOZSI-PJCFTGKFNA-N"
+      },
+      {
+        "type": "torsion",
+        "record_id": 107278246,
+        "cmiles": "[H:9][C:1]([H:10])([H:11])[C:2]([H:12])([H:13])[O:3][S:4](=[O:5])[O:6][C:7]([H:14])([H:15])[C:8]([H:16])([H:17])[H:18]",
+        "inchi_key": "NVJBFARDFTXOTO-UHFFFAOYNA-N"
+      },
+      {
+        "type": "torsion",
+        "record_id": 104321619,
+        "cmiles": "[H:7][C:1]1([C:2]([O:3][S:4](=[O:5])[O:6]1)([H:9])[H:10])[H:8]",
+        "inchi_key": "WDXYVJKNSMILOQ-UHFFFAOYNA-N"
+      },
+      {
+        "type": "torsion",
+        "record_id": 104321610,
+        "cmiles": "[H:6][N:1]([H:7])[S:2](=[O:3])(=[O:4])[O:5][H:8]",
+        "inchi_key": "IIACRCGMVDHOTQ-WPBZOEIFNA-N"
+      },
+      {
+        "type": "torsion",
         "record_id": 107276605,
         "cmiles": "[H:12][c:1]1[c:2]([c:3]([c:4]([c:5]([c:6]1[H:16])[H:15])[S:7](=[O:8])(=[O:9])[N:10]([H:17])[N:11]([H:18])[H:19])[H:14])[H:13]",
         "inchi_key": "VJRITMATACIYAF-UHFFFAOYNA-N"
@@ -24,6 +48,12 @@
         "record_id": 104321524,
         "cmiles": "[H:26][c:6]1[c:7]([c:8]2[c:9]([c:10]([c:11]([c:12]([c:13]2[S:14](=[O:15])(=[O:16])[N:17]([H:31])[N:18]([H:32])[H:33])[H:30])[H:29])[H:28])[c:4]([c:5]1[H:25])[N:2]([C:1]([H:19])([H:20])[H:21])[C:3]([H:22])([H:23])[H:24])[H:27]",
         "inchi_key": "KPQYDVAFRDWIBW-UHFFFAOYNA-N"
+      },
+      {
+        "type": "torsion",
+        "record_id": 104321541,
+        "cmiles": "[H:11][C:5]1=[C:6]([S:7][N:2]([C:3]1=[O:4])[C:1]([H:8])([H:9])[H:10])[H:12]",
+        "inchi_key": "BEGLCMHJXHIJLR-UHFFFAOYNA-N"
       },
       {
         "type": "torsion",
@@ -117,12 +147,6 @@
       },
       {
         "type": "torsion",
-        "record_id": 104321541,
-        "cmiles": "[H:11][C:5]1=[C:6]([S:7][N:2]([C:3]1=[O:4])[C:1]([H:8])([H:9])[H:10])[H:12]",
-        "inchi_key": "BEGLCMHJXHIJLR-UHFFFAOYNA-N"
-      },
-      {
-        "type": "torsion",
         "record_id": 107276907,
         "cmiles": "[H:32][C:12]1=[C:13]([S:14][N:9]([C:10]1=[O:11])[C:8]([H:30])([H:31])[C:7]([H:28])([H:29])[C:6]([H:26])([H:27])[C:5]([H:24])([H:25])[C:4]([H:22])([H:23])[C:3]([H:20])([H:21])[C:2]([H:18])([H:19])[C:1]([H:15])([H:16])[H:17])[H:33]",
         "inchi_key": "JPMIIZHYYWMHDT-UHFFFAOYNA-N"
@@ -144,6 +168,12 @@
         "record_id": 107277170,
         "cmiles": "[H:14][C:1]([H:15])([H:16])[C:2]([H:17])([C:3](=[O:4])[O:5][C:6]([H:18])([H:19])[H:20])[S:7][P:8](=[S:9])([O:10][C:11]([H:21])([H:22])[H:23])[O:12][C:13]([H:24])([H:25])[H:26]",
         "inchi_key": "IYQNWZLCAKANAC-RXMQYKEDNA-N"
+      },
+      {
+        "type": "torsion",
+        "record_id": 107277308,
+        "cmiles": "[H:8][C:1]([H:9])([H:10])[C:2]([H:11])([H:12])[O:3][S:4](=[O:5])[N:6]([H:13])[C:7]([H:14])([H:15])[H:16]",
+        "inchi_key": "OSNOGYWLGNDHSN-SSDOTTSWNA-N"
       },
       {
         "type": "torsion",
@@ -213,12 +243,6 @@
       },
       {
         "type": "torsion",
-        "record_id": 107277308,
-        "cmiles": "[H:8][C:1]([H:9])([H:10])[C:2]([H:11])([H:12])[O:3][S:4](=[O:5])[N:6]([H:13])[C:7]([H:14])([H:15])[H:16]",
-        "inchi_key": "OSNOGYWLGNDHSN-SSDOTTSWNA-N"
-      },
-      {
-        "type": "torsion",
         "record_id": 107277309,
         "cmiles": "[H:21][c:10]1[c:9]([c:8]([c:7]([c:12]([c:11]1[H:22])[H:23])[N:6]([H:18])[S:4](=[O:5])[O:3][C:2]([H:16])([H:17])[C:1]([H:13])([H:14])[H:15])[H:19])[H:20]",
         "inchi_key": "SZMTZGBFLLXMAI-LBPRGKRZNA-N"
@@ -264,6 +288,12 @@
         "record_id": 107277377,
         "cmiles": "[H:12][C:1]#[C:2][S:3](=[O:4])[c:5]1[c:6]([c:7]([c:8]([c:9]([c:10]1[H:16])[H:15])[Cl:11])[H:14])[H:13]",
         "inchi_key": "MJYYGNWNLFLVRM-LLVKDONJNA-N"
+      },
+      {
+        "type": "torsion",
+        "record_id": 107278040,
+        "cmiles": "[H:7][C:1]([H:8])([H:9])[C:2]([H:10])([H:11])[C:3](=[O:4])[N-:5][C:6]([H:12])([H:13])[H:14]",
+        "inchi_key": "QJQAMHYHNCADNR-UXXPIUEMNA-M"
       },
       {
         "type": "torsion",
@@ -357,12 +387,6 @@
       },
       {
         "type": "torsion",
-        "record_id": 107278040,
-        "cmiles": "[H:7][C:1]([H:8])([H:9])[C:2]([H:10])([H:11])[C:3](=[O:4])[N-:5][C:6]([H:12])([H:13])[H:14]",
-        "inchi_key": "QJQAMHYHNCADNR-UXXPIUEMNA-M"
-      },
-      {
-        "type": "torsion",
         "record_id": 107278041,
         "cmiles": "[H:18][c:9]1[c:10]([c:11]([c:12]([c:13]([c:8]1[C:6](=[O:7])[N-:5][S:2](=[O:3])(=[O:4])[C:1]([H:15])([H:16])[H:17])[H:21])[H:20])[N:14]([H:22])[H:23])[H:19]",
         "inchi_key": "SDSORTHJCKBMDB-YPAQHGPCNA-M"
@@ -396,12 +420,6 @@
         "record_id": 107278184,
         "cmiles": "[H:17][C:9]1([C:10]([C:8]1([H:16])[C:7]([H:14])([H:15])[O:6][S:3](=[O:4])(=[O:5])[O:2][C:1]([H:11])([H:12])[H:13])([H:19])[H:20])[H:18]",
         "inchi_key": "ZHKJOFPGNRPJHG-UHFFFAOYNA-N"
-      },
-      {
-        "type": "torsion",
-        "record_id": 104321610,
-        "cmiles": "[H:6][N:1]([H:7])[S:2](=[O:3])(=[O:4])[O:5][H:8]",
-        "inchi_key": "IIACRCGMVDHOTQ-WPBZOEIFNA-N"
       },
       {
         "type": "torsion",
@@ -462,24 +480,6 @@
         "record_id": 107278228,
         "cmiles": "[H:7][C:1]([H:8])([C:2]([H:9])([H:10])[S:3](=[O:4])[O:5][H:11])[N:6]([H:12])[H:13]",
         "inchi_key": "VVIUBCNYACGLLV-JLSKMEETNA-N"
-      },
-      {
-        "type": "torsion",
-        "record_id": 107278229,
-        "cmiles": "[H:7][N:2]=[C:1]([N:3]([H:8])[H:9])[S:4](=[O:5])[O:6][H:10]",
-        "inchi_key": "FYOWZTWVYZOZSI-PJCFTGKFNA-N"
-      },
-      {
-        "type": "torsion",
-        "record_id": 107278246,
-        "cmiles": "[H:9][C:1]([H:10])([H:11])[C:2]([H:12])([H:13])[O:3][S:4](=[O:5])[O:6][C:7]([H:14])([H:15])[C:8]([H:16])([H:17])[H:18]",
-        "inchi_key": "NVJBFARDFTXOTO-UHFFFAOYNA-N"
-      },
-      {
-        "type": "torsion",
-        "record_id": 104321619,
-        "cmiles": "[H:7][C:1]1([C:2]([O:3][S:4](=[O:5])[O:6]1)([H:9])[H:10])[H:8]",
-        "inchi_key": "WDXYVJKNSMILOQ-UHFFFAOYNA-N"
       },
       {
         "type": "torsion",

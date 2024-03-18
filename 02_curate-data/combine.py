@@ -47,15 +47,15 @@ def common(cls, input_datasets, output_dataset):
 
 
 @cli.command("combine-td")
-@click.option("--input-datasets", multiple=True, required=True)
-@click.option("--output-dataset", required=True)
+@click.option("--input-datasets", "-i", multiple=True, required=True)
+@click.option("--output-dataset", "-o", required=True)
 def combine_td(input_datasets, output_dataset):
     common(TorsionDriveResultCollection, input_datasets, output_dataset)
 
 
 @cli.command("combine-opt")
-@click.option("--input-datasets", multiple=True, required=True)
-@click.option("--output-dataset", required=True)
+@click.option("--input-datasets", "-i", multiple=True, required=True)
+@click.option("--output-dataset", "-o", required=True)
 def combine_opt(input_datasets, output_dataset):
     common(OptimizationResultCollection, input_datasets, output_dataset)
 

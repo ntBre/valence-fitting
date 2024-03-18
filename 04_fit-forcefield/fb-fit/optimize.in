@@ -48,7 +48,7 @@ adaptive_factor 0.2
 adaptive_damping 1.0
 normalize_weights False
 # any extras are added here like print hessian
-wq_port  55387
+wq_port  55391
 asynchronous  True
 search_tolerance  0.1
 backup  0

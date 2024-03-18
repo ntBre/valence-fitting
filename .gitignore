@@ -27,3 +27,11 @@ fault_handler.log
 targets/
 fb-ready
 .ipynb_checkpoints/
+env.path
+fb-196-qcnew/
+fb-196/
+host
+hpc3_master.sh
+master.err
+master.out
+submit_hpc3_worker_local.sh

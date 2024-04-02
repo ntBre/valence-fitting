@@ -45,24 +45,6 @@
       },
       {
         "type": "torsion",
-        "record_id": 119466801,
-        "cmiles": "[H:1][N:2]([H:3])[c:4]1[n:5][c:6]([N+:7]([N:8]([H:9])[H:10])([C:11]([H:12])([H:13])[H:14])[C:15]([H:16])([H:17])[H:18])[c:19]([C:20]#[N:21])[c:22]([C:23]#[N:24])[c:25]1[C:26]#[N:27]",
-        "inchi_key": "AOEXUJPLSVTCIP-YGPBECBDNA-N"
-      },
-      {
-        "type": "torsion",
-        "record_id": 119466802,
-        "cmiles": "[H:1][N:2]=[S:3]([C:4]([H:5])([H:6])[H:7])[C:8]([H:9])([C:10]([H:11])([H:12])[H:13])[C:14]([H:15])([H:16])[H:17]",
-        "inchi_key": "VLPZJIFOZUWPCK-LURJTMIENA-N"
-      },
-      {
-        "type": "torsion",
-        "record_id": 119466803,
-        "cmiles": "[H:1][c:2]1[c:3]([H:4])[c:5]([S:6](=[O:7])(=[O:8])[N:9]=[S:10]([C:11]([H:12])([H:13])[H:14])[C:15]([H:16])([C:17]([H:18])([H:19])[H:20])[C:21]([H:22])([H:23])[H:24])[c:25]([H:26])[c:27]([H:28])[c:29]1[C:30]([H:31])([H:32])[H:33]",
-        "inchi_key": "ODYZSYFJJAAVEF-OAHLLOKONA-N"
-      },
-      {
-        "type": "torsion",
         "record_id": 119466804,
         "cmiles": "[H:1][N:2]=[S:3]([C:4]([H:5])([H:6])[H:7])[C:8]([H:9])([H:10])[H:11]",
         "inchi_key": "MPNFTLVUPHPSOV-UHFFFAOYNA-N"
@@ -93,18 +75,6 @@
       },
       {
         "type": "torsion",
-        "record_id": 119466809,
-        "cmiles": "[H:1][N:2]([C:3]([H:4])([H:5])[C:6]([H:7])([H:8])[C:9](=[O:10])[O-:11])[N+:12]([C:13]([H:14])([H:15])[H:16])([C:17]([H:18])([H:19])[H:20])[C:21]([H:22])([H:23])[C:24]([H:25])([H:26])[H:27]",
-        "inchi_key": "VFMQJOHSAQMQEH-UHFFFAOYNA-N"
-      },
-      {
-        "type": "torsion",
-        "record_id": 119466810,
-        "cmiles": "[H:1][O:2][C:3]([H:4])([H:5])[C:6]([H:7])([H:8])[N+:9]([N:10]([H:11])[H:12])([C:13]([H:14])([H:15])[H:16])[C:17]([H:18])([H:19])[H:20]",
-        "inchi_key": "AJDKDFHZEYMLII-UHFFFAOYNA-N"
-      },
-      {
-        "type": "torsion",
         "record_id": 119466811,
         "cmiles": "[H:1][C:2]1=[N:3][O:4][C:5]([C:6]([H:7])([H:8])[N+:9]([N:10]([H:11])[H:12])([C:13]([H:14])([H:15])[H:16])[C:17]([H:18])([H:19])[H:20])=[N:21]1",
         "inchi_key": "HGKFWTIEEFHULG-UHFFFAOYNA-N"
@@ -123,27 +93,9 @@
       },
       {
         "type": "torsion",
-        "record_id": 119466821,
-        "cmiles": "[H:1][C:2]1=[C:3]([C:4]([F:5])([F:6])[F:7])[N:8]=[C:9]([C:10]2([H:11])[C:12]3([H:13])[O:14][c:15]4[c:16]([H:17])[c:18]([H:19])[c:20]([H:21])[c:22]([H:23])[c:24]4[C:25]23[H:26])[N:27]1[H:28]",
-        "inchi_key": "IIIJGXKHKOZIBZ-SOWHLNMQNA-N"
-      },
-      {
-        "type": "torsion",
         "record_id": 119466822,
         "cmiles": "[H:1][C:2]#[C:3][C@:4]1([c:5]2[c:6]([H:7])[c:8]([N:9]([H:10])[H:11])[c:12]([H:13])[c:14]([H:15])[c:16]2[F:17])[N:18]=[C:19]([N:20]([H:21])[H:22])[O:23][C@:24]2([H:25])[C:26]([H:27])([H:28])[C@:29]12[H:30]",
         "inchi_key": "HXCFOLZSOCXFJA-KPRJMEDKNA-N"
-      },
-      {
-        "type": "torsion",
-        "record_id": 119466823,
-        "cmiles": "[H:1][C:2]([H:3])([H:4])[C:5]1=[N:6][N:7]([C:8]([H:9])([H:10])[H:11])[C:12]([C:13]([H:14])([H:15])[H:16])=[C:17]1/[N+:18]([O-:19])=[N:20]/[C:21]#[N:22]",
-        "inchi_key": "XSUYKIBWCDGVCC-XFXZXTDPNA-N"
-      },
-      {
-        "type": "torsion",
-        "record_id": 119466824,
-        "cmiles": "[H:1][O:2][C:3](=[O:4])[C:5]([H:6])([C:7]([H:8])([H:9])[H:10])[C:11]([H:12])([H:13])[C:14]([H:15])([H:16])[n+:17]1[n:18][c:19]([H:20])[c:21]([H:22])[c:23]([C:24]([H:25])([H:26])[H:27])[c:28]1[N:29]([H:30])[H:31]",
-        "inchi_key": "PKHBHEXJYVEVIQ-KOYJTGDFNA-O"
       },
       {
         "type": "torsion",
@@ -156,12 +108,6 @@
         "record_id": 119466826,
         "cmiles": "[O:1]=[C:2]([O-:3])[C:4]([Cl:5])([Cl:6])[C:7](=[O:8])[O-:9]",
         "inchi_key": "DUKLUIAXHKCMQI-HIBZHRBRNA-L"
-      },
-      {
-        "type": "torsion",
-        "record_id": 119466827,
-        "cmiles": "[H:1][O:2][C@@:3]1([H:4])[C@@:5]([H:6])([O:7][H:8])[C@@:9]([H:10])([C:11](=[O:12])[O-:13])[N:14]2[C:15](=[N:16][C:17]([H:18])=[C:19]2[H:20])[C@:21]1([H:22])[O:23][H:24]",
-        "inchi_key": "YLDYISMFCJKSRS-SXYTWJAWNA-M"
       },
       {
         "type": "torsion",
@@ -182,10 +128,32 @@
       "RecordStatusFilter-0": {
         "status": "complete"
       },
-      "ConnectivityFilter-1": {
+      "HydrogenBondFilter-1": {
+        "method": "baker-hubbard"
+      },
+      "ConnectivityFilter-2": {
         "tolerance": 1.2
       },
-      "ChargeCheckFilter-2": {}
+      "UnperceivableStereoFilter-3": {
+        "toolkits": [
+          "openeye",
+          "rdkit"
+        ]
+      },
+      "ElementFilter-4": {
+        "allowed_elements": [
+          "H",
+          "C",
+          "N",
+          "O",
+          "S",
+          "P",
+          "F",
+          "Cl",
+          "Br"
+        ]
+      },
+      "ChargeCheckFilter-5": {}
     }
   },
   "type": "TorsionDriveResultCollection"

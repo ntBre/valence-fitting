@@ -12,7 +12,7 @@ Modified_Seminario_Bonds.txt
 04_fit-forcefield/fb-fit/new.out
 04_fit-forcefield/fb-fit/no17.out
 04_fit-forcefield/fb-fit/optimize.tmp/
-04_fit-forcefield/fb-fit/smirnoff_parameter_assignments.json
+smirnoff_parameter_assignments.json
 04_fit-forcefield/fb-fit/targets/*
 hess_records.json
 all_params.dat
@@ -35,3 +35,4 @@ hpc3_master.sh
 master.err
 master.out
 submit_hpc3_worker_local.sh
+worker*.log

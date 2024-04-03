@@ -3,7 +3,7 @@ from copy import deepcopy
 
 from openff.toolkit import ForceField
 
-base = ForceField("openff-2.1.0.offxml")
+base = ForceField("openff-2.2.0-rc1.offxml")
 
 with open("to_add.dat") as inp:
     to_add = [

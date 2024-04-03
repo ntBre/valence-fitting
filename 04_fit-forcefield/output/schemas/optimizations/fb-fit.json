@@ -96,7 +96,7 @@
         },
         {
           "type": "Angles",
-          "smirks": "[*:1]~[#16X3$(*~[#8X1,#7X2]):2]~[*:3]",
+          "smirks": "[#1:1]-[#7X3$(*~[#6X3,#6X2,#7X2+0]):2]-[*:3]",
           "attributes": [
             "angle",
             "k"
@@ -114,7 +114,7 @@
         },
         {
           "type": "Angles",
-          "smirks": "[#1:1]-[#7X3$(*~[#6X3,#6X2,#7X2+0]):2]-[*:3]",
+          "smirks": "[*:1]~[#16X3$(*~[#8X1,#7X2]):2]~[*:3]",
           "attributes": [
             "angle",
             "k"
@@ -132,7 +132,34 @@
         },
         {
           "type": "Angles",
+          "smirks": "[*;r5:1]1@[*;r5:2]@[*;r5:3]@[*;r5]@[*;r5]1",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*;r5:1]1@[#16;r5:2]@[*;r5:3]@[*;r5]@[*;r5]1",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
           "smirks": "[#1:1]-[#6X3:2]~[*:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*:1]~[#16X2,#16X3+1:2]~[*:3]",
           "attributes": [
             "angle",
             "k"
@@ -151,15 +178,6 @@
         {
           "type": "Angles",
           "smirks": "[*:1]~[#15:2]~[*:3]",
-          "attributes": [
-            "angle",
-            "k"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[*:1]~[#16X2,#16X3+1:2]~[*:3]",
           "attributes": [
             "angle",
             "k"
@@ -195,24 +213,6 @@
         {
           "type": "Angles",
           "smirks": "[*:1]~;!@[*;X3;r5:2]~;@[*;r5:3]",
-          "attributes": [
-            "angle",
-            "k"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[*:1]~[#7X2+0r5:2]~[*:3]",
-          "attributes": [
-            "angle",
-            "k"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[*:1]@-[r!r6;#7X4,#7X3,#7X2-1:2]@-[*:3]",
           "attributes": [
             "angle",
             "k"
@@ -257,7 +257,7 @@
         },
         {
           "type": "Angles",
-          "smirks": "[*;r3:1]~;@[*;r3:2]~;!@[*:3]",
+          "smirks": "[#1:1]-[*;r3:2]~;!@[*:3]",
           "attributes": [
             "angle",
             "k"
@@ -266,7 +266,7 @@
         },
         {
           "type": "Angles",
-          "smirks": "[#1:1]-[*;r3:2]~;!@[*:3]",
+          "smirks": "[*;r3:1]~;@[*;r3:2]~;!@[*:3]",
           "attributes": [
             "angle",
             "k"
@@ -320,7 +320,7 @@
         },
         {
           "type": "Angles",
-          "smirks": "[#6,#7,#8:1]-[#7X3:2](~[#8X1])~[#8X1:3]",
+          "smirks": "[*:1]@-[r!r6;#7X4,#7X3,#7X2-1:2]@-[*:3]",
           "attributes": [
             "angle",
             "k"
@@ -330,6 +330,15 @@
         {
           "type": "Angles",
           "smirks": "[#8X1:1]~[#7X3:2]~[#8X1:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[#6,#7,#8:1]-[#7X3:2](~[#8X1])~[#8X1:3]",
           "attributes": [
             "angle",
             "k"
@@ -373,6 +382,15 @@
         },
         {
           "type": "Angles",
+          "smirks": "[*;r6:1]~;@[*;r5;x4,*;r5;X4:2]~;@[*;r5;x2:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
           "smirks": "[*:1]~[#7X2:2]~[#7X1:3]",
           "attributes": [
             "k"
@@ -381,25 +399,16 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X4:1]-[#6X4:2]",
-          "attributes": [
-            "length",
-            "k"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
-          "smirks": "[#7:1]-[#7:2]",
-          "attributes": [
-            "length",
-            "k"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
           "smirks": "[#6X4:1]-[#1:2]",
+          "attributes": [
+            "length",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X4:1]-[#6X4:2]",
           "attributes": [
             "length",
             "k"
@@ -417,7 +426,25 @@
         },
         {
           "type": "Bonds",
+          "smirks": "[#7:1]-[#7:2]",
+          "attributes": [
+            "length",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
           "smirks": "[#7:1]-[#1:2]",
+          "attributes": [
+            "length",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#16X4,#16X3!+1:1]-[#6:2]",
           "attributes": [
             "length",
             "k"
@@ -436,15 +463,6 @@
         {
           "type": "Bonds",
           "smirks": "[#8:1]-[#1:2]",
-          "attributes": [
-            "length",
-            "k"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
-          "smirks": "[#16X4,#16X3!+1:1]-[#6:2]",
           "attributes": [
             "length",
             "k"
@@ -498,15 +516,6 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X3:1]:[#6X3:2]",
-          "attributes": [
-            "length",
-            "k"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
           "smirks": "[#6X4:1]-[#6X3:2]",
           "attributes": [
             "length",
@@ -516,7 +525,16 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X3:1]-[#6X3:2]",
+          "smirks": "[#6X3:1]:[#6X3:2]",
+          "attributes": [
+            "length",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6:1]=[#8X1+0,#8X2+1:2]",
           "attributes": [
             "length",
             "k"
@@ -534,7 +552,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6:1]=[#8X1+0,#8X2+1:2]",
+          "smirks": "[#6X3:1]-[#6X3:2]",
           "attributes": [
             "length",
             "k"
@@ -561,7 +579,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#15:1]~[#8X2:2]",
+          "smirks": "[#16:1]-[#15:2]",
           "attributes": [
             "length",
             "k"
@@ -570,7 +588,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#16:1]-[#15:2]",
+          "smirks": "[#15:1]~[#8X2:2]",
           "attributes": [
             "length",
             "k"
@@ -588,7 +606,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#15:1]=[#16X1:2]",
+          "smirks": "[#6X3:1](=[#8X1])-[#8X2H0:2]",
           "attributes": [
             "length",
             "k"
@@ -597,7 +615,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X3:1](=[#8X1])-[#8X2H0:2]",
+          "smirks": "[#15:1]=[#16X1:2]",
           "attributes": [
             "length",
             "k"
@@ -660,7 +678,16 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X4:1]-[#7X3:2]-[#6X3]=[#8X1+0]",
+          "smirks": "[#7:1]-[#8X2:2]",
+          "attributes": [
+            "length",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#16X2,#16X1-1:1]-[#7:2]",
           "attributes": [
             "length",
             "k"
@@ -678,16 +705,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#7:1]-[#8X2:2]",
-          "attributes": [
-            "length",
-            "k"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
-          "smirks": "[#16X2,#16X1-1:1]-[#7:2]",
+          "smirks": "[#6X4:1]-[#7X3:2]-[#6X3]=[#8X1+0]",
           "attributes": [
             "length",
             "k"
@@ -939,7 +957,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#16:1]-[#16:2]",
+          "smirks": "[#6X2:1]=[#16:2]",
           "attributes": [
             "length",
             "k"
@@ -957,7 +975,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X2:1]=[#16:2]",
+          "smirks": "[#16:1]-[#16:2]",
           "attributes": [
             "length",
             "k"
@@ -1074,6 +1092,16 @@
         },
         {
           "type": "ProperTorsions",
+          "smirks": "[#1:1]-[#7X4,#7X3:2]-[#7X4,#7X3:3]-[#1:4]",
+          "attributes": [
+            "k3",
+            "k2",
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
           "smirks": "[*:1]~[#7X3:2]-[#7X3:3]~[*:4]",
           "attributes": [
             "k1"
@@ -1082,21 +1110,11 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#7X4,#7X3:2]-[#7X4,#7X3:3]-[#1:4]",
-          "attributes": [
-            "k2",
-            "k1",
-            "k3"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#7X3:2]-[#7X3:3]-[#1:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1112,9 +1130,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#7X3:2]-[#7X3:3]-[#6X4:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1122,9 +1140,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#7X3:2]-[#7X4:3]-[#6X4:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1132,9 +1150,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#7X4:2]-[#7X3:3]-[#1:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1148,21 +1166,21 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#8X1:1]~[#16X4,#16X3+0:2]-[#7X4,#7X3:3]-[#6X4:4]",
+          "smirks": "[*:1]~[#16X3+0:2]-[#7X3:3]~[*:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]~[#16X3+0:2]-[#7X3:3]~[*:4]",
+          "smirks": "[#8X1:1]~[#16X4,#16X3+0:2]-[#7X4,#7X3:3]-[#6X4:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1179,12 +1197,12 @@
           "type": "ProperTorsions",
           "smirks": "[#8X1:1]~[#16X4,#16X3+0:2]-[#7X2:3]~[#6X3:4]",
           "attributes": [
-            "k4",
             "k5",
-            "k6",
+            "k4",
             "k2",
-            "k1",
-            "k3"
+            "k6",
+            "k3",
+            "k1"
           ],
           "cached": false
         },
@@ -1238,6 +1256,14 @@
         },
         {
           "type": "ProperTorsions",
+          "smirks": "[*:1]-[#6X4:2]-[#6X4:3]-[*:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
           "smirks": "[#1:1]-[#6X4:2]-[#6X4:3]-[#1:4]",
           "attributes": [
             "k1"
@@ -1255,8 +1281,10 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]-[#6X4:2]-[#6X4:3]-[*:4]",
+          "smirks": "[#6X4:1]-[#6X4:2]-[#6X4:3]-[#6X4:4]",
           "attributes": [
+            "k3",
+            "k2",
             "k1"
           ],
           "cached": false
@@ -1266,16 +1294,6 @@
           "smirks": "[#1:1]-[#6X4:2]-[#6X4:3]-[#6X4:4]",
           "attributes": [
             "k1"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
-          "smirks": "[#6X4:1]-[#6X4:2]-[#6X4:3]-[#6X4:4]",
-          "attributes": [
-            "k2",
-            "k1",
-            "k3"
           ],
           "cached": false
         },
@@ -1317,9 +1335,9 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#6X4:2]-[#6X3:3]=[#8X1:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1370,19 +1388,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3:3]=[#7X2:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#6X4;r3:2]-[#6X3:3]~[#6X3:4]",
-          "attributes": [
-            "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1397,11 +1405,21 @@
         },
         {
           "type": "ProperTorsions",
+          "smirks": "[#1:1]-[#6X4;r3:2]-[#6X3:3]~[#6X3:4]",
+          "attributes": [
+            "k3",
+            "k2",
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
           "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3;r6:3]:[#7X2;r6:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1503,9 +1521,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X3:1]-[#7X3:2]-[#6X4;r3:3]-[#6X4;r3:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1513,10 +1531,10 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#6X4:2]-[#7X3:3]-[#6X3:4]=[#8,#16,#7]",
           "attributes": [
+            "k3",
             "k4",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1556,7 +1574,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]-[#7X3:2]-!@[#6X3:3](=[#8,#16,#7:4])-[#6,#1]",
+          "smirks": "[#1:1]-[#7X3:2]-!@[#6X3:3](=[#8,#16,#7:4])-[#6,#1]",
           "attributes": [
             "k2",
             "k1"
@@ -1565,7 +1583,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#7X3:2]-!@[#6X3:3](=[#8,#16,#7:4])-[#6,#1]",
+          "smirks": "[*:1]-[#7X3:2]-!@[#6X3:3](=[#8,#16,#7:4])-[#6,#1]",
           "attributes": [
             "k2",
             "k1"
@@ -1659,9 +1677,9 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#8X2:2]-[#6X4;r3:3]-[#6X4:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1669,9 +1687,9 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#8X2:2]-[#6X4;r3:3]-[#6X4;r3:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1693,17 +1711,17 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#8,#16,#7:1]=[#6X3:2]-[#8X2H0:3]-[#6X4:4]",
+          "smirks": "[*:1]~[#6X3:2](=[#8,#16,#7])-[#8X2H0:3]-[*:4]",
           "attributes": [
-            "k2",
             "k1"
           ],
           "cached": false
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]~[#6X3:2](=[#8,#16,#7])-[#8X2H0:3]-[*:4]",
+          "smirks": "[#8,#16,#7:1]=[#6X3:2]-[#8X2H0:3]-[#6X4:4]",
           "attributes": [
+            "k2",
             "k1"
           ],
           "cached": false
@@ -1798,6 +1816,15 @@
         },
         {
           "type": "ProperTorsions",
+          "smirks": "[#6X4:1]-[#16X4,#16X3+0:2]-[#7X3:3]-[#6X3:4]",
+          "attributes": [
+            "k2",
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#16X4,#16X3+0:2]-[#7X4,#7X3:3]-[#1:4]",
           "attributes": [
             "k1"
@@ -1806,8 +1833,9 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#6X4:1]-[#16X4,#16X3+0:2]-[#7X3:3]-[#6X3:4]",
+          "smirks": "[#6X3:1]-[#16X4,#16X3+0:2]-[#7X4,#7X3:3]-[#6X4:4]",
           "attributes": [
+            "k3",
             "k2",
             "k1"
           ],
@@ -1818,16 +1846,6 @@
           "smirks": "[#6X3:1]-[#16X4,#16X3+0:2]-[#7X4,#7X3:3]-[#1:4]",
           "attributes": [
             "k1"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
-          "smirks": "[#6X3:1]-[#16X4,#16X3+0:2]-[#7X4,#7X3:3]-[#6X4:4]",
-          "attributes": [
-            "k2",
-            "k1",
-            "k3"
           ],
           "cached": false
         },
@@ -1905,12 +1923,12 @@
           "type": "ProperTorsions",
           "smirks": "[#16X2,#16X1-1,#16X3+1:1]-[#6X3:2]-[#6X4:3]-[#7X3$(*-[#6X3,#6X2]):4]",
           "attributes": [
-            "k4",
             "k5",
-            "k6",
+            "k4",
             "k2",
-            "k1",
-            "k3"
+            "k6",
+            "k3",
+            "k1"
           ],
           "cached": false
         },
@@ -1927,11 +1945,20 @@
           "type": "ProperTorsions",
           "smirks": "[#16X2,#16X1-1,#16X3+1:1]-[#6X3:2]-[#6X4:3]-[#7X4,#7X3:4]",
           "attributes": [
-            "k4",
             "k5",
+            "k4",
             "k2",
-            "k1",
-            "k3"
+            "k3",
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[#6X4:1]-[#6X4;r3:2]-[#6X3:3]~[#6X3:4]",
+          "attributes": [
+            "k2",
+            "k1"
           ],
           "cached": false
         },
@@ -1947,16 +1974,7 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3:3]~[#6X3:4]",
           "attributes": [
-            "k2",
-            "k1",
-            "k3"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
-          "smirks": "[#6X4:1]-[#6X4;r3:2]-[#6X3:3]~[#6X3:4]",
-          "attributes": [
+            "k3",
             "k2",
             "k1"
           ],
@@ -1974,9 +1992,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3;r5:3]-;@[#6X3;r5:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1984,9 +2002,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X3:1]-[#6X4;r3:2]-[#6X3:3]=[#8X1:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -2024,7 +2042,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[!#1:1]-[#7X3:2]-[#6X4;r3:3]-[*:4]",
+          "smirks": "[!#1:1]-[#7X3:2]-[#6X4;r3:3]-[#6X4;r3:4]",
           "attributes": [
             "k1"
           ],
@@ -2032,7 +2050,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[!#1:1]-[#7X3:2]-[#6X4;r3:3]-[#6X4;r3:4]",
+          "smirks": "[!#1:1]-[#7X3:2]-[#6X4;r3:3]-[*:4]",
           "attributes": [
             "k1"
           ],
@@ -2074,9 +2092,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#8X2:2]-[#6X4:3]-[#8X2:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -2084,9 +2102,9 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#8X2:2]-[#6X4;r3:3]-[#1:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -2144,9 +2162,9 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]~[#16X4:2]-[#7X3:3]~[*:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -2160,21 +2178,21 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]-[#8X2:2]-[#15:3]~[*:4]",
+          "smirks": "[#8X2:1]-[#15:2]-[#8X2:3]-[#6X4:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#8X2:1]-[#15:2]-[#8X2:3]-[#6X4:4]",
+          "smirks": "[*:1]-[#8X2:2]-[#15:3]~[*:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -2267,14 +2285,6 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]-[#6X4:2]-[#7X3$(*@1-[*]=,:[*][*]=,:[*]@1):3]-[*:4]",
-          "attributes": [
-            "k1"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
           "smirks": "[#1:1]-[#6X4:2]-[#7X3$(*@1-[*]=,:[*][*]=,:[*]@1):3]-[*:4]",
           "attributes": [
             "k1"
@@ -2283,7 +2293,15 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]-[#6X4:2]-[#7X3$(*~[#8X1]):3]~[#8X1:4]",
+          "smirks": "[*:1]-[#6X4:2]-[#7X3$(*@1-[*]=,:[*][*]=,:[*]@1):3]-[*:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[*:1]-[#6X4:2]-[#7X3:3](~[#8X1])~[#8X1:4]",
           "attributes": [
             "k1"
           ],
@@ -2342,9 +2360,9 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]~[#16X4:2]-[#7X2:3]~[*:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -2416,18 +2434,18 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#6X3:1]-[#6X4;r3:2]-[#6X3:3](~[#8X1])~[#8X1:4]",
+          "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3:3](~[#8X1])~[#8X1:4]",
           "attributes": [
-            "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3:3](~[#8X1])~[#8X1:4]",
+          "smirks": "[#6X3:1]-[#6X4;r3:2]-[#6X3:3](~[#8X1])~[#8X1:4]",
           "attributes": [
+            "k3",
+            "k2",
             "k1"
           ],
           "cached": false
@@ -2444,12 +2462,12 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#16X4,#16X3+0:2]-[#7X2:3]~[#6X3:4]",
           "attributes": [
-            "k4",
             "k5",
-            "k6",
+            "k4",
             "k2",
-            "k1",
-            "k3"
+            "k6",
+            "k3",
+            "k1"
           ],
           "cached": false
         },

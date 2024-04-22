@@ -114,7 +114,7 @@ def msm_torsion(hess, mol, indices):
         * sum(lam_dc[i] * mag(np.dot(u_n_bcd, nu_dc[i])) for i in range(3))
     )
 
-    return 1.0 / inv_k
+    return -1.0 / inv_k
 
 
 def msm_angle(hess, mol, indices):

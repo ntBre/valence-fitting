@@ -77,10 +77,10 @@ def msm_torsion(hess, mol, indices):
 
     # these are quantities in angstroms
     a, b, c, d = (
-        geom[0].magnitude,
-        geom[1].magnitude,
-        geom[4].magnitude,
-        geom[3].magnitude,
+        geom[ai].magnitude,
+        geom[bi].magnitude,
+        geom[ci].magnitude,
+        geom[di].magnitude,
     )
 
     u_ab = unit(b - a)
@@ -126,4 +126,5 @@ mol = load_mol("test.mol")
 
 for env, p in label_molecule(ff, mol).items():
     k = msm_torsion(hess, mol, env)
-    print(env, p.id, [k.magnitude for k in p.k], k)
+    pks = np.array([k.magnitude for k in p.k])
+    print(env, p.id, pks, k, k / pks)

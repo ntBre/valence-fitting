@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 import numpy as np
 from openff.qcsubmit.results import (
     BasicResultCollection,
@@ -167,19 +169,43 @@ def msm_angle(hess, mol, indices):
     return 1.0 / inv_k
 
 
+def check_angles(ff, mol, hess):
+    # sanity check the angles with factor of 2 roughly from msm
+    for env, p in label_molecule(ff, mol, kind="Angles").items():
+        k = msm_angle(hess, mol, env) / 2.0
+        print(env, p.id, p.k.magnitude, k, k / p.k.magnitude)
+
+
+def check_torsions():
+    ff = ForceField("openff-2.1.0.offxml")
+    hess = np.loadtxt("test.hess")
+    mol = load_mol("test.mol")
+
+    sage = dict()
+    results = defaultdict(list)
+    for env, p in label_molecule(ff, mol).items():
+        k = msm_torsion(hess, mol, env)
+        pks = np.array([k.magnitude for k in p.k])
+        results[p.id].append(k)
+        sage[p.id] = pks
+        # print(env, p.id, pks, k, k / pks)
+
+    for k, v in results.items():
+        print(k, np.mean(v), sage[k])
+
+
 ff = ForceField("openff-2.1.0.offxml")
+ds = BasicResultCollection.parse_file("hess.json")
 
+sage = dict()
+results = defaultdict(list)
+for rec, mol in tqdm(ds.to_records(), desc="Processing records"):
+    for env, p in label_molecule(ff, mol).items():
+        hess = rec.return_result
+        k = msm_torsion(hess, mol, env)
+        pks = np.array([k.magnitude for k in p.k])
+        results[p.id].append(k)
+        sage[p.id] = pks
 
-# first torsion is (0, 1, 4, 3) and assigned t44 with k1 = 3.26 kcal/mol
-hess = np.loadtxt("test.hess")
-mol = load_mol("test.mol")
-
-# for env, p in label_molecule(ff, mol).items():
-#     k = msm_torsion(hess, mol, env)
-#     pks = np.array([k.magnitude for k in p.k])
-#     print(env, p.id, pks, k, k / pks)
-
-# sanity check the angles with factor of 2 roughly from msm
-for env, p in label_molecule(ff, mol, kind="Angles").items():
-    k = msm_angle(hess, mol, env) / 2.0
-    print(env, p.id, p.k.magnitude, k, k / p.k.magnitude)
+for k, v in results.items():
+    print(k, np.mean(v), sage[k])

@@ -1,0 +1,605 @@
+{
+  "name": "",
+  "atoms": [
+    {
+      "atomic_number": 6,
+      "formal_charge": 0,
+      "is_aromatic": true,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 6,
+      "formal_charge": 0,
+      "is_aromatic": true,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 6,
+      "formal_charge": 0,
+      "is_aromatic": true,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 6,
+      "formal_charge": 0,
+      "is_aromatic": true,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 6,
+      "formal_charge": 0,
+      "is_aromatic": true,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 6,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 6,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 6,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 6,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 6,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 6,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": "S",
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 7,
+      "formal_charge": 0,
+      "is_aromatic": true,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 7,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 7,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 8,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 8,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    },
+    {
+      "atomic_number": 1,
+      "formal_charge": 0,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "name": "",
+      "metadata": {}
+    }
+  ],
+  "bonds": [
+    {
+      "atom1": 0,
+      "atom2": 1,
+      "bond_order": 1,
+      "is_aromatic": true,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 0,
+      "atom2": 2,
+      "bond_order": 2,
+      "is_aromatic": true,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 0,
+      "atom2": 16,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 1,
+      "atom2": 4,
+      "bond_order": 2,
+      "is_aromatic": true,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 1,
+      "atom2": 17,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 2,
+      "atom2": 11,
+      "bond_order": 1,
+      "is_aromatic": true,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 2,
+      "atom2": 18,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 3,
+      "atom2": 4,
+      "bond_order": 1,
+      "is_aromatic": true,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 3,
+      "atom2": 11,
+      "bond_order": 2,
+      "is_aromatic": true,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 3,
+      "atom2": 19,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 4,
+      "atom2": 10,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 5,
+      "atom2": 7,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 5,
+      "atom2": 13,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 5,
+      "atom2": 14,
+      "bond_order": 2,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 6,
+      "atom2": 10,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 6,
+      "atom2": 12,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 6,
+      "atom2": 15,
+      "bond_order": 2,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 7,
+      "atom2": 20,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 7,
+      "atom2": 21,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 7,
+      "atom2": 22,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 8,
+      "atom2": 12,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 8,
+      "atom2": 23,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 8,
+      "atom2": 24,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 8,
+      "atom2": 25,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 9,
+      "atom2": 13,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 9,
+      "atom2": 26,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 9,
+      "atom2": 27,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 9,
+      "atom2": 28,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 10,
+      "atom2": 13,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 10,
+      "atom2": 29,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    },
+    {
+      "atom1": 12,
+      "atom2": 30,
+      "bond_order": 1,
+      "is_aromatic": false,
+      "stereochemistry": null,
+      "fractional_bond_order": null
+    }
+  ],
+  "properties": {},
+  "conformers_unit": "angstrom",
+  "conformers": [
+    [
+      1.7028818524156926,
+      -2.026054510104592,
+      -1.5014361025536371,
+      1.6122384145745379,
+      -0.9605045568917995,
+      -0.6018012021160896,
+      2.3830929218949786,
+      -1.841536525388006,
+      -2.7064954121359226,
+      2.85218937512587,
+      0.33474112349248314,
+      -2.1915639794318538,
+      2.2012004388867257,
+      0.26042592009788285,
+      -0.9486401597626581,
+      4.011868813299731,
+      2.9931833748653442,
+      0.6301578185507053,
+      1.1688223070876331,
+      1.6025611791617298,
+      1.037061478814744,
+      5.4036677538704625,
+      3.207028556676337,
+      1.1980722212709891,
+      -0.11480533183263798,
+      3.1965561580445727,
+      2.38561859824487,
+      4.187860238810239,
+      0.5434459702965642,
+      1.1464649029301106,
+      2.2194437705938657,
+      1.5085115633524173,
+      -0.08636903759903679,
+      2.9547399612677046,
+      -0.6789102597741785,
+      -3.0575647743776186,
+      0.7206257922756881,
+      2.870917423077492,
+      1.2366349967765733,
+      3.547864982432504,
+      1.708788960013728,
+      0.5362422658893355,
+      3.327605051377879,
+      3.959231680145843,
+      0.25790440592856495,
+      0.8149487326215705,
+      0.6396851996319775,
+      1.7242269718644676,
+      1.2542131208208642,
+      -2.9881989230156276,
+      -1.2699612621262766,
+      1.0988610656071376,
+      -1.0633267183109831,
+      0.34685633807737093,
+      2.4735150660316036,
+      -2.656470989838297,
+      -3.423280808750125,
+      3.318820888808572,
+      1.2717938622539484,
+      -2.498125827265747,
+      6.139468114078039,
+      2.5205916759785545,
+      0.7707539173814998,
+      5.692712371661182,
+      4.234986542388009,
+      0.9798827487610952,
+      5.40402151485206,
+      3.0718808102527326,
+      2.2850516954323052,
+      -0.5775369677836409,
+      4.172219515967588,
+      2.2224308625685154,
+      0.46432541676012357,
+      3.22309630019873,
+      3.316988861017382,
+      -0.8940586509380313,
+      2.44008609300916,
+      2.4902595925423414,
+      3.4339054575297245,
+      -0.03927321049839903,
+      1.6820339030252849,
+      4.943430476510922,
+      0.8563262036788623,
+      1.8645991366571237,
+      4.655193326570372,
+      -0.09629755416273374,
+      0.3907712706058037,
+      2.082874094459035,
+      2.3658806137175157,
+      -0.7459700407292866,
+      1.266359692400146,
+      3.612478741295668,
+      0.8028510356946249
+    ]
+  ],
+  "partial_charges": null,
+  "partial_charge_unit": null,
+  "hierarchy_schemes": {}
+}

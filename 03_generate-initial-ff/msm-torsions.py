@@ -117,6 +117,56 @@ def msm_torsion(hess, mol, indices):
     return 1.0 / inv_k
 
 
+def msm_angle(hess, mol, indices):
+    # based on the qubekit code, the hessian is in atomic units, convert to
+    # kcal/mol/A^2
+    conversion = constants.HA_TO_KCAL_P_MOL / (constants.BOHR_TO_ANGS**2)
+    _hess = hess * conversion
+
+    ai, bi, ci = indices
+
+    assert len(mol.conformers) == 1
+
+    geom = mol.conformers[0]
+
+    # these are quantities in angstroms
+    a, b, c = (
+        geom[ai].magnitude,
+        geom[bi].magnitude,
+        geom[ci].magnitude,
+    )
+
+    u_ab = unit(b - a)
+    u_bc = unit(c - b)
+    u_cb = -u_bc
+
+    r_ab = mag(b - a)
+    r_cb = mag(b - c)
+
+    u_n = unit(np.cross(u_cb, u_ab))
+    u_pa = np.cross(u_n, u_ab)
+    u_pc = np.cross(u_cb, u_n)
+
+    lam_ab, nu_ab = partial_hess(_hess, ai, bi)
+    lam_cb, nu_cb = partial_hess(_hess, ci, bi)
+
+    # seminario paper mentions "including the minus sign" so this is probably
+    # off by a sign at least. qubekit also multiplies bonds by -1/2, which
+    # aligns (kinda) with the msm paper saying angles are overcounted by a
+    # factor of 2
+    inv_k = 1.0 / (
+        r_ab
+        * r_ab
+        * sum(lam_ab[i] * mag(np.dot(u_pa, nu_ab[i])) for i in range(3))
+    ) + 1.0 / (
+        r_cb
+        * r_cb
+        * sum(lam_cb[i] * mag(np.dot(u_pc, nu_cb[i])) for i in range(3))
+    )
+
+    return 1.0 / inv_k
+
+
 ff = ForceField("openff-2.1.0.offxml")
 
 
@@ -124,7 +174,12 @@ ff = ForceField("openff-2.1.0.offxml")
 hess = np.loadtxt("test.hess")
 mol = load_mol("test.mol")
 
-for env, p in label_molecule(ff, mol).items():
-    k = msm_torsion(hess, mol, env)
-    pks = np.array([k.magnitude for k in p.k])
-    print(env, p.id, pks, k, k / pks)
+# for env, p in label_molecule(ff, mol).items():
+#     k = msm_torsion(hess, mol, env)
+#     pks = np.array([k.magnitude for k in p.k])
+#     print(env, p.id, pks, k, k / pks)
+
+# sanity check the angles with factor of 2 roughly from msm
+for env, p in label_molecule(ff, mol, kind="Angles").items():
+    k = msm_angle(hess, mol, env) / 2.0
+    print(env, p.id, p.k.magnitude, k, k / p.k.magnitude)

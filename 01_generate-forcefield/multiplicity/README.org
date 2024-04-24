@@ -1,0 +1,80 @@
+* optimization coverage
+  opt.dat - coverage of 01/output/init.offxml by 02/ds/combined-opt.json
+
+  #+begin_src shell
+	python 01_generate-forcefield/multiplicity/ffcover.py \
+		   -f 01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml \
+		   -d 02_curate-data/datasets/combined-opt.json | tee opt.dat
+  #+end_src
+
+  select uncovered parameters
+
+  #+begin_src awk :in-file opt.dat
+	NR == 1 || $NF == 0
+  #+end_src
+
+  #+RESULTS:
+  | pid    | env | rec | smi |
+  | t18b   |   0 |   0 |   0 |
+  | t65    |   0 |   0 |   0 |
+  | t81    |   0 |   0 |   0 |
+  | t84h   |   0 |   0 |   0 |
+  | t87a   |   0 |   0 |   0 |
+  | t112   |   0 |   0 |   0 |
+  | t113h  |   0 |   0 |   0 |
+  | t115i  |   0 |   0 |   0 |
+  | t116i  |   0 |   0 |   0 |
+  | t116j  |   0 |   0 |   0 |
+  | t117h  |   0 |   0 |   0 |
+  | t117i  |   0 |   0 |   0 |
+  | t117j  |   0 |   0 |   0 |
+  | t117k  |   0 |   0 |   0 |
+  | t117l  |   0 |   0 |   0 |
+  | t123ah |   0 |   0 |   0 |
+  | t124g  |   0 |   0 |   0 |
+  | t130g  |   0 |   0 |   0 |
+  | t131g  |   0 |   0 |   0 |
+  | t131h  |   0 |   0 |   0 |
+  | t133g  |   0 |   0 |   0 |
+  | t133h  |   0 |   0 |   0 |
+  | t138a  |   0 |   0 |   0 |
+  | t141ci |   0 |   0 |   0 |
+  | t142j  |   0 |   0 |   0 |
+  | t142k  |   0 |   0 |   0 |
+  | t144g  |   0 |   0 |   0 |
+  | t144i  |   0 |   0 |   0 |
+  | t144j  |   0 |   0 |   0 |
+  | t145g  |   0 |   0 |   0 |
+  | t145i  |   0 |   0 |   0 |
+  | t145j  |   0 |   0 |   0 |
+  | t146g  |   0 |   0 |   0 |
+  | t146i  |   0 |   0 |   0 |
+  | t146j  |   0 |   0 |   0 |
+  | t147g  |   0 |   0 |   0 |
+  | t147i  |   0 |   0 |   0 |
+  | t147j  |   0 |   0 |   0 |
+  | t148g  |   0 |   0 |   0 |
+  | t148i  |   0 |   0 |   0 |
+  | t149g  |   0 |   0 |   0 |
+  | t150h  |   0 |   0 |   0 |
+  | t151h  |   0 |   0 |   0 |
+  | t153h  |   0 |   0 |   0 |
+  | t154h  |   0 |   0 |   0 |
+  | t155h  |   0 |   0 |   0 |
+  | t158h  |   0 |   0 |   0 |
+  | t158i  |   0 |   0 |   0 |
+  | t158j  |   0 |   0 |   0 |
+  | t159g  |   0 |   0 |   0 |
+  | t163g  |   0 |   0 |   0 |
+
+* torsion drive coverage
+  #+begin_src shell
+	python ffcover.py \
+		   -f ../output/initial-force-field-openff-2.1.0.offxml \
+		   -d ../../02_curate-data/datasets/combined-td.json \
+		   -t \
+		| tee opt.dat
+  #+end_src
+
+  #+RESULTS:
+  : td

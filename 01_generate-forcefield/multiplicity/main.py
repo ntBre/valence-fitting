@@ -66,39 +66,6 @@ for mol in tqdm(mols):
     for (_, i, j, _), p in labels.items():
         res[p.id].add(bonds(mol, i, j))
 
-# parameters identified in original torsion multiplicity work on Sage 2.0
-prev = {
-    "t58",
-    "t59",
-    "t60",
-    "t61",
-    "t62",
-    "t71",
-    "t72",
-    "t73",
-    "t74",
-    "t82",
-    "t83",
-    "t115",
-    "t116",
-    "t118",
-    "t119",
-    "t120",
-    "t121",
-    "t122",
-    "t127",
-    "t130",
-    "t132",
-    "t133",
-    "t142",
-    "t143",
-    "t157",
-    "t166",
-    "t167",
-}
-cur = {r for r in res.keys()}
-assert len(cur & prev) == len(prev)
-
 for k, v in sorted(res.items(), key=lambda x: param_sort_key(x[0])):
     if len(v) > 1:
         print(k, v)

@@ -47,7 +47,7 @@ def param_sort_key(pid: str):
     return int(m[1]), m[2]
 
 
-ff = ForceField("openff-2.0.0.offxml")
+ff = ForceField("../output/initial-force-field-openff-2.1.0.offxml")
 opt = load_dataset(
     OptimizationResultCollection.parse_file(
         "../../02_curate-data/datasets/combined-opt.json"

@@ -47,34 +47,43 @@ def param_sort_key(pid: str):
     return int(m[1]), m[2]
 
 
-ff = ForceField(
-    "01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml"
-)
-opt = load_dataset(
-    OptimizationResultCollection.parse_file(
-        "02_curate-data/datasets/combined-opt.json"
+def main():
+    ff = ForceField(
+        "01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml"
     )
-)
-td = load_dataset(
-    TorsionDriveResultCollection.parse_file(
-        "02_curate-data/datasets/combined-td.json"
+    opt = load_dataset(
+        OptimizationResultCollection.parse_file(
+            "02_curate-data/datasets/combined-opt.json"
+        )
     )
-)
-bench = load_dataset(
-    OptimizationResultCollection.parse_file(
-        "../benchmarking/datasets/industry.json"
+    td = load_dataset(
+        TorsionDriveResultCollection.parse_file(
+            "02_curate-data/datasets/combined-td.json"
+        )
     )
-)
-mols = chain(opt, td, bench)
+    bench = load_dataset(
+        OptimizationResultCollection.parse_file(
+            "../benchmarking/datasets/industry.json"
+        )
+    )
+    mols = chain(opt, td, bench)
 
-res = defaultdict(set)
-for mol in tqdm(mols, total=12475):
-    labels = ff.label_molecules(mol.to_topology())[0]["ProperTorsions"]
-    for (_, i, j, _), p in labels.items():
-        res[p.id].add(bonds(mol, i, j))
+    res = defaultdict(set)
+    for mol in tqdm(mols, total=12475):
+        labels = ff.label_molecules(mol.to_topology())[0]["ProperTorsions"]
+        for (_, i, j, _), p in labels.items():
+            res[p.id].add(bonds(mol, i, j))
 
-h = ff.get_parameter_handler("ProperTorsions")
-for k, v in sorted(res.items(), key=lambda x: param_sort_key(x[0])):
-    if len(v) > 1 and k not in ["t165", "t166", "t167"]:  # skip k=0 torsions
-        p = h.get_parameter(dict(id=k))[0]
-        print(k, v, p.smirks)
+    h = ff.get_parameter_handler("ProperTorsions")
+    for k, v in sorted(res.items(), key=lambda x: param_sort_key(x[0])):
+        if len(v) > 1 and k not in [
+            "t165",
+            "t166",
+            "t167",
+        ]:  # skip k=0 torsions
+            p = h.get_parameter(dict(id=k))[0]
+            print(k, v, p.smirks)
+
+
+if __name__ == "__main__":
+    main()

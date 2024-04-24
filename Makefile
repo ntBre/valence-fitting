@@ -16,7 +16,7 @@ sage: fit-sage/ready
 # is the initial force field
 
 INITIAL_FF := $(GENERATE)/output/initial-force-field-openff-2.1.0.offxml
-STEP1_DEPS := $(GENERATE)/generate-forcefield.py
+STEP1_DEPS := $(GENERATE)/generate-forcefield.py $(GENERATE)/to_add.dat
 $(INITIAL_FF): $(STEP1_DEPS)
 	cd $(GENERATE); python generate-forcefield.py --output ../$@
 

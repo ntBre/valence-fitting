@@ -58,7 +58,12 @@ td = load_dataset(
         "../../02_curate-data/datasets/combined-td.json"
     )
 )
-mols = chain(opt, td)
+bench = load_dataset(
+    OptimizationResultCollection.parse_file(
+        "../../../benchmarking/datasets/industry.json"
+    )
+)
+mols = chain(opt, td, bench)
 
 res = defaultdict(set)
 for mol in tqdm(mols):

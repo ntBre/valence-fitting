@@ -66,13 +66,13 @@ bench = load_dataset(
 mols = chain(opt, td, bench)
 
 res = defaultdict(set)
-for mol in tqdm(mols):
+for mol in tqdm(mols, total=12475):
     labels = ff.label_molecules(mol.to_topology())[0]["ProperTorsions"]
     for (_, i, j, _), p in labels.items():
         res[p.id].add(bonds(mol, i, j))
 
 h = ff.get_parameter_handler("ProperTorsions")
 for k, v in sorted(res.items(), key=lambda x: param_sort_key(x[0])):
-    if len(v) > 1:
+    if len(v) > 1 and k not in ["t165", "t166", "t167"]:  # skip k=0 torsions
         p = h.get_parameter(dict(id=k))[0]
         print(k, v, p.smirks)

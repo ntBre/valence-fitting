@@ -66,6 +66,8 @@ for mol in tqdm(mols):
     for (_, i, j, _), p in labels.items():
         res[p.id].add(bonds(mol, i, j))
 
+h = ff.get_parameter_handler("ProperTorsions")
 for k, v in sorted(res.items(), key=lambda x: param_sort_key(x[0])):
     if len(v) > 1:
-        print(k, v)
+        p = h.get_parameter(dict(id=k))[0]
+        print(k, v, p.smirks)

@@ -7,6 +7,7 @@ from openff.qcsubmit.results import (
     TorsionDriveResultCollection,
 )
 from openff.toolkit import ForceField, Molecule
+from tqdm import tqdm
 
 from main import param_sort_key
 
@@ -37,10 +38,10 @@ def load_dataset(ds) -> Iterator[tuple[str, str]]:
 
 
 def td_main(dataset, ff):
-    print("td")
-    ds = load_dataset(TorsionDriveResultCollection.parse_file(dataset))
-    for rec_id, smiles in ds:
-        pass
+    ds = TorsionDriveResultCollection.parse_file(dataset)
+    print("calling to_records")
+    for rec, mol in tqdm(ds.to_records()):
+        print(rec.record_id, mol.to_smiles())
 
 
 def opt_main(dataset, ff):

@@ -47,20 +47,22 @@ def param_sort_key(pid: str):
     return int(m[1]), m[2]
 
 
-ff = ForceField("../output/initial-force-field-openff-2.1.0.offxml")
+ff = ForceField(
+    "01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml"
+)
 opt = load_dataset(
     OptimizationResultCollection.parse_file(
-        "../../02_curate-data/datasets/combined-opt.json"
+        "02_curate-data/datasets/combined-opt.json"
     )
 )
 td = load_dataset(
     TorsionDriveResultCollection.parse_file(
-        "../../02_curate-data/datasets/combined-td.json"
+        "02_curate-data/datasets/combined-td.json"
     )
 )
 bench = load_dataset(
     OptimizationResultCollection.parse_file(
-        "../../../benchmarking/datasets/industry.json"
+        "../benchmarking/datasets/industry.json"
     )
 )
 mols = chain(opt, td, bench)

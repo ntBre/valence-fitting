@@ -39,9 +39,32 @@ def load_dataset(ds) -> Iterator[tuple[str, str]]:
 
 def td_main(dataset, ff):
     ds = TorsionDriveResultCollection.parse_file(dataset)
-    print("calling to_records")
+    # pre-fill instead of defaultdict to catch zeros
+    matches = {
+        p.id: Match()
+        for p in ff.get_parameter_handler("ProperTorsions").parameters
+    }
     for rec, mol in tqdm(ds.to_records()):
-        print(rec.record_id, mol.to_smiles())
+        d = rec.specification.keywords.dihedrals[0]
+        labels = ff.label_molecules(mol.to_topology())[0]["ProperTorsions"]
+        smiles = mol.to_smiles()
+        for env, p in labels.items():
+            matches[p.id].env += 1
+            matches[p.id].rec.add(rec.id)
+            matches[p.id].mol.add(smiles)
+            if env == d or env[::-1] == d:
+                matches[p.id].tor += 1
+
+    matches = list(sorted(matches.items(), key=lambda x: param_sort_key(x[0])))
+    pid_w, env_w, rec_w, smi_w, tor_w = 6, 8, 8, 8, 8
+    print(
+        f"{'pid':<{pid_w}} {'env':>{env_w}} {'rec':>{rec_w}} {'smi':>{smi_w}} {'tor':>{tor_w}}"
+    )
+    for pid, m in matches:
+        rec, smi = len(m.rec), len(m.mol)
+        print(
+            f"{pid:<{pid_w}} {m.env:>{env_w}} {rec:>{rec_w}} {smi:>{smi_w}} {m.tor:>{tor_w}}"
+        )
 
 
 def opt_main(dataset, ff):

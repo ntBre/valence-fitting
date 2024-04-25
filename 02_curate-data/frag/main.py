@@ -1,4 +1,10 @@
+from typing import Iterator
+
+import numpy as np
 from openff.toolkit import Molecule
+from rdkit.Chem import Recap
+from rdkit.Chem.Draw import MolsToGridImage, rdDepictor, rdMolDraw2D
+from rdkit.Chem.rdchem import Mol as RDMol
 
 
 def load_chembl(filename, max_atoms=80, max_mols=1000) -> list[Molecule]:
@@ -22,4 +28,67 @@ def save_mols(filename, mols):
             print(mol.to_smiles(), file=out)
 
 
-save_mols("1000.smi", load_chembl("chembl_33_chemreps.txt"))
+def load_smiles(filename) -> list[Molecule]:
+    with open(filename) as inp:
+        return [
+            Molecule.from_smiles(s.strip(), allow_undefined_stereo=True)
+            for s in inp
+        ]
+
+
+def draw_rdkit(rdmol) -> str:
+    "Return a single molecule drawn as an SVG string"
+    rdDepictor.SetPreferCoordGen(True)
+    rdDepictor.Compute2DCoords(rdmol)
+    rdmol = rdMolDraw2D.PrepareMolForDrawing(rdmol)
+    return MolsToGridImage(
+        [rdmol],
+        useSVG=True,
+        subImgSize=(300, 300),
+        molsPerRow=1,
+    )
+
+
+def draw_molecules(filename, mols: Iterator[RDMol]):
+    with open(filename, "w") as out:
+        for mol in mols:
+            print(draw_rdkit(mol), file=out)
+
+
+def summary(mols: Iterator[RDMol]) -> Iterator[RDMol]:
+    "Compute statistics on streaming mols, printing at the end"
+    num_atoms = []
+    for mol in mols:
+        num_atoms.append(mol.GetNumAtoms())
+        yield mol
+    print(f"{len(num_atoms)} molecules")
+    mn = np.min(num_atoms)
+    mean = np.mean(num_atoms)
+    mx = np.max(num_atoms)
+    print(f"{mn}, {mean:.2f}, {mx} (min, mean, max) atoms")
+
+
+def to_rdkit(mols: Iterator[Molecule]) -> Iterator[RDMol]:
+    return (mol.to_rdkit() for mol in mols)
+
+
+def recap(mols, minFragmentSize):
+    ret = {}
+    for i, mol in enumerate(mols):
+        rdmol = mol.to_rdkit()
+        leaves = Recap.RecapDecompose(
+            rdmol, minFragmentSize=minFragmentSize
+        ).GetLeaves()
+        for smi, node in leaves.items():
+            ret[smi] = node.mol
+    return list(ret.values())
+
+
+mols = load_smiles("100.smi")
+
+# draw_molecules("100.html", to_rdkit(mols))
+
+for min_frag in [0, 2, 4, 8]:
+    print(f"Recap {min_frag}")
+    draw_molecules(f"recap.{min_frag}.html", summary(recap(mols, min_frag)))
+    print("=======")

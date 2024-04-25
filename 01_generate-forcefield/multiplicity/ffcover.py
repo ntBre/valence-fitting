@@ -58,12 +58,14 @@ def td_main(dataset, ff):
     matches = list(sorted(matches.items(), key=lambda x: param_sort_key(x[0])))
     pid_w, env_w, rec_w, smi_w, tor_w = 6, 8, 8, 8, 8
     print(
-        f"{'pid':<{pid_w}} {'env':>{env_w}} {'rec':>{rec_w}} {'smi':>{smi_w}} {'tor':>{tor_w}}"
+        f"{'pid':<{pid_w}} {'env':>{env_w}} {'rec':>{rec_w}} {'smi':>{smi_w}} "
+        f"{'tor':>{tor_w}}"
     )
     for pid, m in matches:
         rec, smi = len(m.rec), len(m.mol)
         print(
-            f"{pid:<{pid_w}} {m.env:>{env_w}} {rec:>{rec_w}} {smi:>{smi_w}} {m.tor:>{tor_w}}"
+            f"{pid:<{pid_w}} {m.env:>{env_w}} {rec:>{rec_w}} {smi:>{smi_w}} "
+            f"{m.tor:>{tor_w}}"
         )
 
 

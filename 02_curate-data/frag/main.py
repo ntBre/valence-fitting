@@ -2,7 +2,8 @@ from typing import Iterator
 
 import numpy as np
 from openff.toolkit import Molecule
-from rdkit.Chem import Recap
+from rdkit import Chem
+from rdkit.Chem import BRICS, Recap
 from rdkit.Chem.Draw import MolsToGridImage, rdDepictor, rdMolDraw2D
 from rdkit.Chem.rdchem import Mol as RDMol
 
@@ -83,6 +84,20 @@ def recap(mols, minFragmentSize):
     return list(ret.values())
 
 
+def brics(mols, minFragmentSize):
+    # brics returns only molecules or only smiles, unlike recap for some
+    # unknown reason, so reconstruct the smiles, mol pairs like recap to
+    # deduplicate by smiles
+    ret = {}
+    for mol in mols:
+        d = BRICS.BRICSDecompose(
+            mol.to_rdkit(), minFragmentSize=minFragmentSize, returnMols=True
+        )
+        for mol in d:
+            ret[Chem.MolToSmiles(mol)] = mol
+    return list(ret.values())
+
+
 mols = load_smiles("100.smi")
 
 # draw_molecules("100.html", to_rdkit(mols))
@@ -90,4 +105,9 @@ mols = load_smiles("100.smi")
 for min_frag in [0, 2, 4, 8]:
     print(f"Recap {min_frag}")
     draw_molecules(f"recap.{min_frag}.html", summary(recap(mols, min_frag)))
+    print("=======")
+
+for min_frag in [0, 2, 4, 8]:
+    print(f"Brics {min_frag}")
+    draw_molecules(f"brics.{min_frag}.html", summary(brics(mols, min_frag)))
     print("=======")

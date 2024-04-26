@@ -1,3 +1,4 @@
+import time
 from typing import Iterator
 
 import numpy as np
@@ -56,17 +57,15 @@ def draw_molecules(filename, mols: Iterator[RDMol]):
             print(draw_rdkit(mol), file=out)
 
 
-def summary(mols: Iterator[RDMol]) -> Iterator[RDMol]:
+def summary(mols: list[RDMol]) -> tuple[int, float, int]:
     "Compute statistics on streaming mols, printing at the end"
     num_atoms = []
     for mol in mols:
         num_atoms.append(mol.GetNumAtoms())
-        yield mol
-    print(f"{len(num_atoms)} molecules")
     mn = np.min(num_atoms)
     mean = np.mean(num_atoms)
     mx = np.max(num_atoms)
-    print(f"{mn}, {mean:.2f}, {mx} (min, mean, max) atoms")
+    return mn, mean, mx
 
 
 def to_rdkit(mols: Iterator[Molecule]) -> Iterator[RDMol]:
@@ -102,12 +101,26 @@ mols = load_smiles("100.smi")
 
 # draw_molecules("100.html", to_rdkit(mols))
 
-for min_frag in [0, 2, 4, 8]:
-    print(f"Recap {min_frag}")
-    draw_molecules(f"recap.{min_frag}.html", summary(recap(mols, min_frag)))
-    print("=======")
+print("Algo Mols Frags Min Mean Max Time")
 
 for min_frag in [0, 2, 4, 8]:
-    print(f"Brics {min_frag}")
-    draw_molecules(f"brics.{min_frag}.html", summary(brics(mols, min_frag)))
-    print("=======")
+    start = time.time()
+    frags = recap(mols, min_frag)
+    stop = time.time()
+    draw_molecules(f"recap.{min_frag}.html", frags)
+    mn, mean, mx = summary(frags)
+    t = stop - start
+    print(
+        f"RECAP-{min_frag} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}"
+    )
+
+for min_frag in [0, 2, 4, 8]:
+    start = time.time()
+    frags = brics(mols, min_frag)
+    stop = time.time()
+    draw_molecules(f"brics.{min_frag}.html", frags)
+    mn, mean, mx = summary(frags)
+    t = stop - start
+    print(
+        f"BRICS-{min_frag} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}"
+    )

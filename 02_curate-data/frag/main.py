@@ -97,6 +97,26 @@ def brics(mols, minFragmentSize):
     return list(ret.values())
 
 
+def erb(mols):
+    "Fragment on every rotatable bond, adapted from Lily's script"
+    ret = {}
+    for mol in mols:
+        bonds = mol.find_rotatable_bonds()
+        rdmol = mol.to_rdkit()
+        rdbonds = tuple(
+            [
+                rdmol.GetBondBetweenAtoms(
+                    bond.atom1_index, bond.atom2_index
+                ).GetIdx()
+                for bond in bonds
+            ]
+        )
+        fragmented = Chem.FragmentOnBonds(rdmol, rdbonds)
+        for frag in Chem.GetMolFrags(fragmented, asMols=True):
+            ret[Chem.MolToSmiles(frag)] = frag
+    return list(ret.values())
+
+
 mols = load_smiles("100.smi")
 
 # draw_molecules("100.html", to_rdkit(mols))
@@ -120,3 +140,11 @@ for mf in [0, 2, 4, 8]:
     mn, mean, mx = summary(frags)
     t = stop - start
     print(f"BRICS-{mf} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")
+
+start = time.time()
+frags = erb(mols)
+stop = time.time()
+draw_molecules("output/erb.html", frags)
+mn, mean, mx = summary(frags)
+t = stop - start
+print(f"ERB {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")

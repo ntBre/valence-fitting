@@ -29,10 +29,11 @@
   | RECAP-2 |  100 |   257 |   3 | 22.94 |  69 |  0.7 |
   | RECAP-4 |  100 |   262 |   5 | 23.08 |  69 |  0.6 |
   | RECAP-8 |  100 |   218 |   9 | 20.03 |  58 |  0.3 |
-  | BRICS-0 |  100 |   240 |   3 | 15.51 |  71 |  7.2 |
-  | BRICS-2 |  100 |   272 |   3 | 15.62 |  71 |  7.1 |
+  | BRICS-0 |  100 |   240 |   3 | 15.51 |  71 |  7.1 |
+  | BRICS-2 |  100 |   272 |   3 | 15.62 |  71 |  6.9 |
   | BRICS-4 |  100 |   329 |   5 | 16.07 |  73 |  0.4 |
   | BRICS-8 |  100 |   343 |   9 | 18.74 |  77 |  0.3 |
+  | ERB     |  100 |   710 |   1 |  7.44 |  66 |  0.2 |
 
   This table shows the number of fragments, minimum, mean, and maximum fragment
   size, and the time for fragmenting in seconds for each of the
@@ -45,3 +46,11 @@
   fragments by maximum size. Another clear trend is the decreasing time for
   larger minimum fragment sizes. This makes sense as it prevents the algorithms
   from recursing into very small fragments.
+
+  Fragmenting on every rotatable bond (ERB) generates far more fragments with a
+  very low average size. Many of the fragments are visually very similar, but
+  this can easily be handled by terminating the fragments with hydrogen atoms,
+  which I think will make their SMILES overlap. For now, all fragments across
+  all three algorithms have been left with ~*~ terminators.
+
+#  LocalWords:  rotatable

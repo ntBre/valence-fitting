@@ -107,7 +107,7 @@ for min_frag in [0, 2, 4, 8]:
     start = time.time()
     frags = recap(mols, min_frag)
     stop = time.time()
-    draw_molecules(f"recap.{min_frag}.html", frags)
+    draw_molecules(f"output/recap.{min_frag}.html", frags)
     mn, mean, mx = summary(frags)
     t = stop - start
     print(
@@ -118,7 +118,7 @@ for min_frag in [0, 2, 4, 8]:
     start = time.time()
     frags = brics(mols, min_frag)
     stop = time.time()
-    draw_molecules(f"brics.{min_frag}.html", frags)
+    draw_molecules(f"output/brics.{min_frag}.html", frags)
     mn, mean, mx = summary(frags)
     t = stop - start
     print(

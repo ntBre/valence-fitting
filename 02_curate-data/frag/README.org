@@ -33,3 +33,15 @@
   | BRICS-2 |  100 |   272 |   3 | 15.62 |  71 |  7.1 |
   | BRICS-4 |  100 |   329 |   5 | 16.07 |  73 |  0.4 |
   | BRICS-8 |  100 |   343 |   9 | 18.74 |  77 |  0.3 |
+
+  This table shows the number of fragments, minimum, mean, and maximum fragment
+  size, and the time for fragmenting in seconds for each of the
+  algorithm-parameter pairs. For both RECAP and BRICS, the only input parameter
+  is the minimum fragment size, so these results cover a minimum size from 0
+  (the default) to 8. All runs share the same initial set of 100 molecules
+  extracted from the first 1000 molecules in ChEMBL 33 with fewer than 80 atoms.
+
+  BRICS appears to produce smaller fragments on average but slightly larger
+  fragments by maximum size. Another clear trend is the decreasing time for
+  larger minimum fragment sizes. This makes sense as it prevents the algorithms
+  from recursing into very small fragments.

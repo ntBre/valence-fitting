@@ -19,7 +19,7 @@
   also quite similar themselves.
 
 * Results
-  #+begin_src shell
+  #+begin_src shell :exports both
 	python main.py
   #+end_src
 

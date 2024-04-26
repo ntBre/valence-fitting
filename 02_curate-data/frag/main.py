@@ -74,7 +74,7 @@ def to_rdkit(mols: Iterator[Molecule]) -> Iterator[RDMol]:
 
 def recap(mols, minFragmentSize):
     ret = {}
-    for i, mol in enumerate(mols):
+    for mol in mols:
         rdmol = mol.to_rdkit()
         leaves = Recap.RecapDecompose(
             rdmol, minFragmentSize=minFragmentSize

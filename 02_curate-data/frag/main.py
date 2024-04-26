@@ -1,6 +1,7 @@
 import time
 from typing import Iterator
 
+import matplotlib.pyplot as plt
 import numpy as np
 from openff.toolkit import Molecule
 from rdkit import Chem
@@ -57,15 +58,24 @@ def draw_molecules(filename, mols: Iterator[RDMol]):
             print(draw_rdkit(mol), file=out)
 
 
-def summary(mols: list[RDMol]) -> tuple[int, float, int]:
-    "Compute statistics on streaming mols, printing at the end"
-    num_atoms = []
-    for mol in mols:
-        num_atoms.append(mol.GetNumAtoms())
-    mn = np.min(num_atoms)
-    mean = np.mean(num_atoms)
-    mx = np.max(num_atoms)
-    return mn, mean, mx
+class Summary:
+    def __init__(self, mols: list[RDMol]):
+        "Compute statistics on streaming mols, printing at the end"
+        self.num_atoms = []
+        for mol in mols:
+            self.num_atoms.append(mol.GetNumAtoms())
+
+    def stats(self) -> tuple[int, float, int]:
+        mn = np.min(self.num_atoms)
+        mean = np.mean(self.num_atoms)
+        mx = np.max(self.num_atoms)
+        return mn, mean, mx
+
+    def hist(self, ax, nbins, title):
+        ax.hist(
+            self.num_atoms, nbins, histtype="step", stacked=True, fill=False
+        )
+        ax.set_title(title)
 
 
 def to_rdkit(mols: Iterator[Molecule]) -> Iterator[RDMol]:
@@ -121,6 +131,12 @@ mols = load_smiles("100.smi")
 
 # draw_molecules("100.html", to_rdkit(mols))
 
+fig, ((ax0, ax1, ax2), (ax3, ax4, ax5), (ax6, ax7, ax8)) = plt.subplots(3, 3)
+axes = [ax0, ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8]
+ptr = 0
+
+NBINS = 10
+
 print("Algo Mols Frags Min Mean Max Time")
 
 for mf in [0, 2, 4, 8]:
@@ -128,23 +144,37 @@ for mf in [0, 2, 4, 8]:
     frags = recap(mols, mf)
     stop = time.time()
     draw_molecules(f"output/recap.{mf}.html", frags)
-    mn, mean, mx = summary(frags)
+    s = Summary(frags)
+    mn, mean, mx = s.stats()
+    title = f"RECAP-{mf}"
+    s.hist(axes[ptr], NBINS, title)
+    ptr += 1
     t = stop - start
-    print(f"RECAP-{mf} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")
+    print(f"{title} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")
 
 for mf in [0, 2, 4, 8]:
     start = time.time()
     frags = brics(mols, mf)
     stop = time.time()
     draw_molecules(f"output/brics.{mf}.html", frags)
-    mn, mean, mx = summary(frags)
+    s = Summary(frags)
+    mn, mean, mx = s.stats()
+    title = f"BRICS-{mf}"
+    s.hist(axes[ptr], NBINS, title)
+    ptr += 1
     t = stop - start
-    print(f"BRICS-{mf} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")
+    print(f"{title} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")
 
 start = time.time()
 frags = erb(mols)
 stop = time.time()
 draw_molecules("output/erb.html", frags)
-mn, mean, mx = summary(frags)
+s = Summary(frags)
+mn, mean, mx = s.stats()
+title = "ERB"
+s.hist(axes[ptr], NBINS, title)
 t = stop - start
 print(f"ERB {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")
+
+fig.tight_layout()
+plt.show()

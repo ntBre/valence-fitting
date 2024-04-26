@@ -53,4 +53,15 @@
   which I think will make their SMILES overlap. For now, all fragments across
   all three algorithms have been left with ~*~ terminators.
 
+  #+ATTR_HTML: :width 800px
+  [[file:hist.png]]
+
+  This figure shows the distribution of fragment sizes from each of the
+  algorithms above. These are mostly in-line with the trends observed in the
+  tabular data. Namely, BRICS produces smaller fragments than RECAP, and the
+  size of fragment is skewed farther left as the minimum fragment size is
+  increased. ERB still produces the smallest fragments overall, and almost all
+  of its fragments fall below 20 atoms, whereas most of the other curves flatten
+  closer to 40 atoms.
+
 #  LocalWords:  rotatable

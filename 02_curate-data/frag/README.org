@@ -53,7 +53,6 @@
   which I think will make their SMILES overlap. For now, all fragments across
   all three algorithms have been left with ~*~ terminators.
 
-  #+ATTR_HTML: :width 800px
   [[file:hist.png]]
 
   This figure shows the distribution of fragment sizes from each of the

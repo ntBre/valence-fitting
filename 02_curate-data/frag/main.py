@@ -177,4 +177,4 @@ t = stop - start
 print(f"ERB {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")
 
 fig.tight_layout()
-plt.show()
+plt.savefig("hist.png")

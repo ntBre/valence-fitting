@@ -103,24 +103,20 @@ mols = load_smiles("100.smi")
 
 print("Algo Mols Frags Min Mean Max Time")
 
-for min_frag in [0, 2, 4, 8]:
+for mf in [0, 2, 4, 8]:
     start = time.time()
-    frags = recap(mols, min_frag)
+    frags = recap(mols, mf)
     stop = time.time()
-    draw_molecules(f"output/recap.{min_frag}.html", frags)
+    draw_molecules(f"output/recap.{mf}.html", frags)
     mn, mean, mx = summary(frags)
     t = stop - start
-    print(
-        f"RECAP-{min_frag} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}"
-    )
+    print(f"RECAP-{mf} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")
 
-for min_frag in [0, 2, 4, 8]:
+for mf in [0, 2, 4, 8]:
     start = time.time()
-    frags = brics(mols, min_frag)
+    frags = brics(mols, mf)
     stop = time.time()
-    draw_molecules(f"output/brics.{min_frag}.html", frags)
+    draw_molecules(f"output/brics.{mf}.html", frags)
     mn, mean, mx = summary(frags)
     t = stop - start
-    print(
-        f"BRICS-{min_frag} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}"
-    )
+    print(f"BRICS-{mf} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")

@@ -1,0 +1,14 @@
+#+attr_html: :width 800 px
+[[file:output/t60g.png]]
+
+This figure shows the QM torsion drive profile (solid line) compared to the
+functional form in the force field itself (dashed line).
+
+#+attr_html: :width 800 px
+[[file:figs/screenshot.png]]
+
+This figure shows the QM profile versus the MM profile from Lily's presentation
+on torsions that need more data. Clearly the MM result is still similar in
+profile to the QM data, despite the functional form of the torsion parameter. Is
+this the only metric that matters, or should the functional form be adjusted
+too?

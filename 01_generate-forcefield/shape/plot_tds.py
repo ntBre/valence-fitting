@@ -2,7 +2,6 @@ import json
 import pathlib
 
 import click
-import numpy as np
 import pandas as pd
 import pyarrow.compute as pc
 import pyarrow.dataset as ds
@@ -18,7 +17,6 @@ sns.set_context("talk")
 @click.option("--parameter-id")
 @click.option("--output-directory")
 @click.option("--qm-dataset")
-@click.option("--mm-dataset")
 @click.option("--parameter-ids-to-torsions")
 @click.option("--suffix")
 def main(
@@ -26,7 +24,6 @@ def main(
     parameter_id: str,
     output_directory: str,
     qm_dataset_path: str = "datasets/qm/output/torsiondrive",
-    mm_dataset_path: str = "datasets/mm/singlepoint-torsiondrive-datasets",
     parameter_ids_to_torsions_path: str = "parameter_id_to_torsion_ids.json",
     suffix: str = "",
 ):
@@ -40,9 +37,6 @@ def main(
     """
 
     qm_dataset = ds.dataset(qm_dataset_path)
-    mm_dataset = ds.dataset(mm_dataset_path)
-    if "forcefield" in mm_dataset.schema.names:
-        mm_dataset = mm_dataset.filter(pc.field("forcefield") == forcefield)
 
     with open(parameter_ids_to_torsions_path, "r") as f:
         parameter_id_to_torsion_ids = json.load(f)
@@ -76,24 +70,6 @@ def main(
         / parameter_id
     )
 
-    # get MM energies
-    mm_expression = pc.field("qcarchive_id").isin(df.qcarchive_id.values)
-    mm_subset = mm_dataset.filter(mm_expression)
-    mm_energies = mm_subset.to_table(columns=["qcarchive_id", "mm_energy"])
-    mm_df = mm_energies.to_pandas().sort_values("qcarchive_id")
-
-    if len(mm_df) == 0:
-        print(f"{parameter_id} has no minimized geometries")
-        df["mm_energy"] = np.nan
-    else:
-        df = df.sort_values("qcarchive_id")
-        df = df.merge(
-            mm_df,
-            left_on=["qcarchive_id"],
-            right_on=["qcarchive_id"],
-            how="left",
-        )
-
     # remove accidental duplicates
     df = (
         df.groupby(
@@ -109,10 +85,6 @@ def main(
         lowest_index = subdf["energy"].idxmin()
         relative_qm = subdf["energy"] - subdf["energy"].values[lowest_index]
         subdf["relative_qm_energy"] = relative_qm
-        relative_mm = (
-            subdf["mm_energy"] - subdf["mm_energy"].values[lowest_index]
-        )
-        subdf["relative_mm_energy"] = relative_mm
         subdfs.append(subdf)
     df = pd.concat(subdfs)
     df = df.melt(

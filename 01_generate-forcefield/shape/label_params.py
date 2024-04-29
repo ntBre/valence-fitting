@@ -2,6 +2,7 @@ import json
 from collections import defaultdict
 
 import click
+import pyarrow.dataset as ds
 import tqdm
 from openff.toolkit import ForceField, Molecule
 
@@ -11,8 +12,6 @@ from openff.toolkit import ForceField, Molecule
 @click.option("--forcefield", "-f")
 @click.option("--output", "-o")
 def main(infile, forcefield, output):
-    import pyarrow.dataset as ds
-
     dataset = ds.dataset(infile, format="parquet")
     ff = ForceField(forcefield, allow_cosmetic_attributes=True)
     columns = ["mapped_smiles", "torsiondrive_id", "dihedral"]

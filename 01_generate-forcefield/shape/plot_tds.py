@@ -2,7 +2,6 @@ import json
 import pathlib
 
 import click
-import matplotlib as mpl
 import numpy as np
 import pandas as pd
 import pyarrow.compute as pc
@@ -12,54 +11,16 @@ from matplotlib import pyplot as plt
 from openff.toolkit import ForceField
 
 sns.set_context("talk")
-mpl.rcParams["font.sans-serif"] = ["muli"]
 
 
 @click.command()
-@click.option(
-    "--forcefield",
-    type=str,
-    help="The forcefield to use.",
-)
-@click.option(
-    "--parameter-id",
-    type=str,
-    help="The parameter id to plot.",
-)
-@click.option(
-    "--output-directory",
-    type=str,
-    help="The directory to save the plots.",
-    default="../images",
-)
-@click.option(
-    "--qm-dataset",
-    "qm_dataset_path",
-    type=str,
-    help="The path to the QM dataset.",
-    default="datasets/qm/output/torsiondrive",
-)
-@click.option(
-    "--mm-dataset",
-    "mm_dataset_path",
-    type=str,
-    help="The path to the MM dataset.",
-    default="datasets/mm/singlepoint-torsiondrive-datasets",
-    required=False,
-)
-@click.option(
-    "--parameter-ids-to-torsions",
-    "parameter_ids_to_torsions_path",
-    type=str,
-    help="The path to the parameter id to torsion ids mapping.",
-    default="parameter_id_to_torsion_ids.json",
-)
-@click.option(
-    "--suffix",
-    type=str,
-    help="The suffix to append to the output file.",
-    default="",
-)
+@click.option("--forcefield")
+@click.option("--parameter-id")
+@click.option("--output-directory")
+@click.option("--qm-dataset")
+@click.option("--mm-dataset")
+@click.option("--parameter-ids-to-torsions")
+@click.option("--suffix")
 def main(
     forcefield: str,
     parameter_id: str,

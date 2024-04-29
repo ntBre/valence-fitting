@@ -42,3 +42,4 @@ worker*.log
 /01_generate-forcefield/shape/datasets/qm/output/
 /01_generate-forcefield/shape/labels.json
 /01_generate-forcefield/shape/figs/
+/01_generate-forcefield/shape/output/

@@ -13,19 +13,19 @@ sns.set_context("talk")
 
 
 @click.command()
-@click.option("--forcefield")
-@click.option("--parameter-id")
-@click.option("--output-directory")
-@click.option("--qm-dataset")
-@click.option("--parameter-ids-to-torsions")
-@click.option("--suffix")
+@click.option("--forcefield", "-f")
+@click.option("--parameter-id", "-p")
+@click.option("--output-directory", default="output")
+@click.option("--qm-dataset", "-q")
+@click.option("--parameter-ids-to-torsions", "-l")
+@click.option("--suffix", default="")
 def main(
-    forcefield: str,
-    parameter_id: str,
-    output_directory: str,
-    qm_dataset_path: str = "datasets/qm/output/torsiondrive",
-    parameter_ids_to_torsions_path: str = "parameter_id_to_torsion_ids.json",
-    suffix: str = "",
+    forcefield,
+    parameter_id,
+    output_directory,
+    qm_dataset,
+    parameter_ids_to_torsions,
+    suffix,
 ):
     """
     Plot the QM and MM energies of torsion drives corresponding to
@@ -36,9 +36,9 @@ def main(
     If dashed lines are not plotted, that means MM energies are not available.
     """
 
-    qm_dataset = ds.dataset(qm_dataset_path)
+    qm_dataset = ds.dataset(qm_dataset)
 
-    with open(parameter_ids_to_torsions_path, "r") as f:
+    with open(parameter_ids_to_torsions, "r") as f:
         parameter_id_to_torsion_ids = json.load(f)
 
     torsiondrive_ids = parameter_id_to_torsion_ids[parameter_id]
@@ -64,11 +64,8 @@ def main(
     df = subset.to_table(columns=cols).to_pandas()
     df["atom_indices"] = [tuple(x) for x in df["dihedral"]]
 
-    output_directory = (
-        pathlib.Path(output_directory)
-        / pathlib.Path(forcefield).stem
-        / parameter_id
-    )
+    output_directory = pathlib.Path(output_directory)
+    output_directory.mkdir(exist_ok=True)
 
     # remove accidental duplicates
     df = (
@@ -83,17 +80,13 @@ def main(
     subdfs = []
     for _, subdf in df.groupby("torsiondrive_id"):
         lowest_index = subdf["energy"].idxmin()
-        relative_qm = subdf["energy"] - subdf["energy"].values[lowest_index]
+        relative_qm = subdf["energy"] - subdf["energy"][lowest_index]
         subdf["relative_qm_energy"] = relative_qm
         subdfs.append(subdf)
     df = pd.concat(subdfs)
     df = df.melt(
-        id_vars=[
-            x
-            for x in df.columns
-            if x not in ["relative_qm_energy", "relative_mm_energy"]
-        ],
-        value_vars=["relative_qm_energy", "relative_mm_energy"],
+        id_vars=[x for x in df.columns if x not in ["relative_qm_energy"]],
+        value_vars=["relative_qm_energy"],
         var_name="Type",
         value_name="relative_energy",
     )
@@ -112,8 +105,7 @@ def main(
     ax.set_ylabel("Relative energy\n[kcal/mol]")
     plt.tight_layout()
 
-    g.add_legend()
-    filename = output_directory / f"mm-torsion-energies{suffix}.png"
+    filename = output_directory / f"mm-torsion-energies-{parameter_id}.png"
     g.savefig(filename, dpi=300)
     print(f"Saved to {filename}")
 

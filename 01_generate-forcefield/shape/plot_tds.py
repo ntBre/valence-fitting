@@ -7,9 +7,11 @@ import click
 import matplotlib as mpl
 import numpy as np
 import pandas as pd
+import pyarrow.compute as pc
+import pyarrow.dataset as ds
 import seaborn as sns
 from matplotlib import pyplot as plt
-from openff.toolkit import Molecule
+from openff.toolkit import ForceField, Molecule
 from rdkit.Chem import Draw
 from reportlab.graphics import renderPM
 from svglib.svglib import svg2rlg
@@ -186,10 +188,6 @@ def main(
     Dashed lines represent MM energies, solid lines represent QM energies.
     If dashed lines are not plotted, that means MM energies are not available.
     """
-
-    import pyarrow.compute as pc
-    import pyarrow.dataset as ds
-    from openff.toolkit import ForceField
 
     qm_dataset = ds.dataset(qm_dataset_path)
     mm_dataset = ds.dataset(mm_dataset_path)

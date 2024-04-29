@@ -1,11 +1,15 @@
 import pathlib
+import warnings
 
 import click
-import numpy as np
 import tqdm
 from matplotlib import pyplot as plt
 from openff.toolkit import ForceField
 from openff.units import unit
+
+warnings.filterwarnings("ignore")
+with warnings.catch_warnings():
+    import numpy as np
 
 
 def calc_torsion_energy(angle, parameter):

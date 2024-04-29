@@ -27,15 +27,6 @@ def main(
     parameter_ids_to_torsions,
     suffix,
 ):
-    """
-    Plot the QM and MM energies of torsion drives corresponding to
-    a parameter ID. Optionally plot all molecules from the TorsionDrive
-    as well.
-
-    Dashed lines represent MM energies, solid lines represent QM energies.
-    If dashed lines are not plotted, that means MM energies are not available.
-    """
-
     qm_dataset = ds.dataset(qm_dataset)
 
     with open(parameter_ids_to_torsions, "r") as f:
@@ -57,15 +48,11 @@ def main(
         "torsiondrive_id",
         "grid_id",
         "energy",
-        "mapped_smiles",
         "dihedral",
         "qcarchive_id",
     ]
     df = subset.to_table(columns=cols).to_pandas()
     df["atom_indices"] = [tuple(x) for x in df["dihedral"]]
-
-    output_directory = pathlib.Path(output_directory)
-    output_directory.mkdir(exist_ok=True)
 
     # remove accidental duplicates
     df = (
@@ -91,21 +78,19 @@ def main(
         value_name="relative_energy",
     )
     df = df.sort_values(by=["torsiondrive_id", "grid_id"])
-    df["TorsionDrive ID"] = [str(x) for x in df.torsiondrive_id.values]
 
-    plt.clf()
-    g = sns.FacetGrid(data=df, aspect=1.4, height=4, hue="TorsionDrive ID")
+    g = sns.FacetGrid(data=df, aspect=1.4, height=4, hue="torsiondrive_id")
     g.map_dataframe(sns.lineplot, "grid_id", "relative_energy", style="Type")
-    title = f"{parameter_id}\n" + smirks.encode("unicode_escape").decode(
-        "utf-8"
-    ).replace("$", "\\$")
+
     ax = list(g.axes.flatten())[0]
-    ax.set_title(title)
+    ax.set_title(f"{parameter_id}\n{smirks}")
     ax.set_xlabel("Angle (°)")
-    ax.set_ylabel("Relative energy\n[kcal/mol]")
+    ax.set_ylabel("Relative energy\n(kcal/mol)")
     plt.tight_layout()
 
-    filename = output_directory / f"mm-torsion-energies-{parameter_id}.png"
+    output_directory = pathlib.Path(output_directory)
+    output_directory.mkdir(exist_ok=True)
+    filename = output_directory / f"{parameter_id}.png"
     g.savefig(filename, dpi=300)
     print(f"Saved to {filename}")
 

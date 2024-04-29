@@ -40,3 +40,4 @@ worker*.log
 /01_generate-forcefield/shape/datasets/mm/minimized-torsiondrive-datasets/
 /01_generate-forcefield/shape/datasets/mm/singlepoint-torsiondrive-datasets/
 /01_generate-forcefield/shape/datasets/qm/output/
+/01_generate-forcefield/shape/labels.json

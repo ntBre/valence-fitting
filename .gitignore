@@ -37,3 +37,6 @@ master.out
 submit_hpc3_worker_local.sh
 worker*.log
 /02_curate-data/frag/chembl_33_chemreps.txt
+/01_generate-forcefield/shape/datasets/mm/minimized-torsiondrive-datasets/
+/01_generate-forcefield/shape/datasets/mm/singlepoint-torsiondrive-datasets/
+/01_generate-forcefield/shape/datasets/qm/output/

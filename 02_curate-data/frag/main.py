@@ -1,13 +1,17 @@
 import time
+import warnings
 from typing import Iterator
 
 import matplotlib.pyplot as plt
-import numpy as np
 from openff.toolkit import Molecule
 from rdkit import Chem
 from rdkit.Chem import BRICS, Recap
 from rdkit.Chem.Draw import MolsToGridImage, rdDepictor, rdMolDraw2D
 from rdkit.Chem.rdchem import Mol as RDMol
+
+warnings.simplefilter("ignore")
+with warnings.catch_warnings():
+    import numpy as np
 
 
 def load_chembl(filename, max_atoms=80, max_mols=1000) -> list[Molecule]:

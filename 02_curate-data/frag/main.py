@@ -1,5 +1,6 @@
 import time
 import warnings
+from itertools import chain
 from typing import Iterator
 
 import matplotlib.pyplot as plt
@@ -8,6 +9,8 @@ from rdkit import Chem
 from rdkit.Chem import BRICS, Recap
 from rdkit.Chem.Draw import MolsToGridImage, rdDepictor, rdMolDraw2D
 from rdkit.Chem.rdchem import Mol as RDMol
+
+from cut_compound import Compound
 
 warnings.simplefilter("ignore")
 with warnings.catch_warnings():
@@ -45,6 +48,7 @@ def load_smiles(filename) -> list[Molecule]:
 
 def draw_rdkit(rdmol) -> str:
     "Return a single molecule drawn as an SVG string"
+    print(Chem.MolToSmiles(rdmol))
     rdDepictor.SetPreferCoordGen(True)
     rdDepictor.Compute2DCoords(rdmol)
     rdmol = rdMolDraw2D.PrepareMolForDrawing(rdmol)
@@ -131,6 +135,29 @@ def erb(mols):
     return list(ret.values())
 
 
+def xff(mols):
+    def find_frag_bonds(rdmol, keep_atoms):
+        "Locate bonds between atoms to keep and those to remove"
+        for bond in rdmol.GetBonds():
+            print(bond)
+        panic
+    ret = {}
+    for mol in mols:
+        rdmol = mol.to_rdkit()
+        c = Compound(rdmol)
+        frags = c.cutCompound()
+        all_atoms = set(range(c.rdmol.GetNumAtoms()))
+        for fr in chain(frags.frag_rings, frags.frag_chains):
+            emol = Chem.rdchem.EditableMol(c.rdmol)
+            frag_atoms = set(fr)
+            to_remove = all_atoms - frag_atoms
+            for idx in sorted(to_remove, reverse=True):
+                emol.RemoveAtom(idx)
+            mol = emol.GetMol()
+            ret[Chem.MolToSmiles(mol)] = mol
+    return list(ret.values())
+
+
 def run_algo(fun, mols, html, title, *args):
     global ptr
     start = time.time()
@@ -149,21 +176,30 @@ mols = load_smiles("100.smi")
 
 # draw_molecules("100.html", to_rdkit(mols))
 
-fig, ((ax0, ax1, ax2), (ax3, ax4, ax5), (ax6, ax7, ax8)) = plt.subplots(3, 3)
-axes = [ax0, ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8]
+fig, ((ax0, ax1, ax2, ax3, ax4), (ax5, ax6, ax7, ax8, ax9)) = plt.subplots(
+    2, 5
+)
+axes = [ax0, ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9]
 ptr = 0
 
 NBINS = 10
 
 print("Algo Mols Frags Min Mean Max Time")
 
-for mf in [0, 2, 4, 8]:
-    run_algo(recap, mols, f"output/recap.{mf}.html", f"RECAP-{mf}", mf)
+# for mf in [0, 2, 4, 8]:
+#     run_algo(recap, mols, f"output/recap.{mf}.html", f"RECAP-{mf}", mf)
 
-for mf in [0, 2, 4, 8]:
-    run_algo(brics, mols, f"output/brics.{mf}.html", f"BRICS-{mf}", mf)
+# for mf in [0, 2, 4, 8]:
+#     run_algo(brics, mols, f"output/brics.{mf}.html", f"BRICS-{mf}", mf)
 
-run_algo(erb, mols, "output/erb.html", "ERB")
+# run_algo(erb, mols, "output/erb.html", "ERB")
+
+import faulthandler
+
+with open("fault_handler.log", "w") as f:
+    faulthandler.enable(f)
+
+    run_algo(xff, mols, "output/xff.html", "XFF")
 
 fig.tight_layout()
 plt.savefig("hist.png")

@@ -25,15 +25,16 @@
 
   #+RESULTS:
   | Algo    | Mols | Frags | Min |  Mean | Max | Time |
-  | RECAP-0 |  100 |   254 |   2 | 23.03 |  69 |  1.0 |
+  | RECAP-0 |  100 |   254 |   2 | 23.03 |  69 |  1.1 |
   | RECAP-2 |  100 |   257 |   3 | 22.94 |  69 |  0.7 |
   | RECAP-4 |  100 |   262 |   5 | 23.08 |  69 |  0.6 |
   | RECAP-8 |  100 |   218 |   9 | 20.03 |  58 |  0.3 |
-  | BRICS-0 |  100 |   240 |   3 | 15.51 |  71 |  7.1 |
-  | BRICS-2 |  100 |   272 |   3 | 15.62 |  71 |  6.9 |
+  | BRICS-0 |  100 |   240 |   3 | 15.51 |  71 |  7.2 |
+  | BRICS-2 |  100 |   272 |   3 | 15.62 |  71 |  7.0 |
   | BRICS-4 |  100 |   329 |   5 | 16.07 |  73 |  0.4 |
   | BRICS-8 |  100 |   343 |   9 | 18.74 |  77 |  0.3 |
   | ERB     |  100 |   710 |   1 |  7.44 |  66 |  0.2 |
+  | XFF     |  100 |  1748 |   1 | 21.66 |  77 |  2.3 |
 
   This table shows the number of fragments, minimum, mean, and maximum fragment
   size, and the time for fragmenting in seconds for each of the
@@ -52,6 +53,11 @@
   this can easily be handled by terminating the fragments with hydrogen atoms,
   which I think will make their SMILES overlap. For now, all fragments across
   all three algorithms have been left with ~*~ terminators.
+
+  The XFF fragmentation algorithm produces a huge number of fragments, with a
+  larger size on average than all but the RECAP algorithm. As mentioned above,
+  the number of "unique" fragments is inflated by the ~*~ terminators with varying
+  numbers, but this should affect each of the algorithms similarly.
 
   [[file:hist.png]]
 

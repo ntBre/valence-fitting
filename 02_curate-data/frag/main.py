@@ -48,7 +48,6 @@ def load_smiles(filename) -> list[Molecule]:
 
 def draw_rdkit(rdmol) -> str:
     "Return a single molecule drawn as an SVG string"
-    print(Chem.MolToSmiles(rdmol))
     rdDepictor.SetPreferCoordGen(True)
     rdDepictor.Compute2DCoords(rdmol)
     rdmol = rdMolDraw2D.PrepareMolForDrawing(rdmol)
@@ -138,23 +137,31 @@ def erb(mols):
 def xff(mols):
     def find_frag_bonds(rdmol, keep_atoms):
         "Locate bonds between atoms to keep and those to remove"
+        to_remove = []
         for bond in rdmol.GetBonds():
-            print(bond)
-        panic
+            b1, b2 = bond.GetBeginAtomIdx(), bond.GetEndAtomIdx()
+            if (b1 in keep_atoms and b2 not in keep_atoms) or (
+                b2 in keep_atoms and b1 not in keep_atoms
+            ):
+                to_remove.append(rdmol.GetBondBetweenAtoms(b1, b2).GetIdx())
+        return to_remove
+
     ret = {}
     for mol in mols:
         rdmol = mol.to_rdkit()
         c = Compound(rdmol)
         frags = c.cutCompound()
-        all_atoms = set(range(c.rdmol.GetNumAtoms()))
         for fr in chain(frags.frag_rings, frags.frag_chains):
-            emol = Chem.rdchem.EditableMol(c.rdmol)
+            emol = Chem.Mol(c.rdmol)
             frag_atoms = set(fr)
-            to_remove = all_atoms - frag_atoms
-            for idx in sorted(to_remove, reverse=True):
-                emol.RemoveAtom(idx)
-            mol = emol.GetMol()
-            ret[Chem.MolToSmiles(mol)] = mol
+            rdbonds = find_frag_bonds(emol, frag_atoms)
+            if rdbonds:
+                fragmented = Chem.FragmentOnBonds(emol, rdbonds)
+                for frag in Chem.GetMolFrags(fragmented, asMols=True):
+                    ret[Chem.MolToSmiles(frag)] = frag
+            else:
+                ret[Chem.MolToSmiles(emol)] = emol
+
     return list(ret.values())
 
 
@@ -186,20 +193,15 @@ NBINS = 10
 
 print("Algo Mols Frags Min Mean Max Time")
 
-# for mf in [0, 2, 4, 8]:
-#     run_algo(recap, mols, f"output/recap.{mf}.html", f"RECAP-{mf}", mf)
+for mf in [0, 2, 4, 8]:
+    run_algo(recap, mols, f"output/recap.{mf}.html", f"RECAP-{mf}", mf)
 
-# for mf in [0, 2, 4, 8]:
-#     run_algo(brics, mols, f"output/brics.{mf}.html", f"BRICS-{mf}", mf)
+for mf in [0, 2, 4, 8]:
+    run_algo(brics, mols, f"output/brics.{mf}.html", f"BRICS-{mf}", mf)
 
-# run_algo(erb, mols, "output/erb.html", "ERB")
+run_algo(erb, mols, "output/erb.html", "ERB")
 
-import faulthandler
-
-with open("fault_handler.log", "w") as f:
-    faulthandler.enable(f)
-
-    run_algo(xff, mols, "output/xff.html", "XFF")
+run_algo(xff, mols, "output/xff.html", "XFF")
 
 fig.tight_layout()
 plt.savefig("hist.png")

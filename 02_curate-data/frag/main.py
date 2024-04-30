@@ -127,6 +127,20 @@ def erb(mols):
     return list(ret.values())
 
 
+def run_algo(fun, mols, html, title, *args):
+    global ptr
+    start = time.time()
+    frags = fun(mols, *args)
+    stop = time.time()
+    draw_molecules(html, frags)
+    s = Summary(frags)
+    mn, mean, mx = s.stats()
+    s.hist(axes[ptr], NBINS, title)
+    ptr += 1
+    t = stop - start
+    print(f"{title} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")
+
+
 mols = load_smiles("100.smi")
 
 # draw_molecules("100.html", to_rdkit(mols))
@@ -140,41 +154,12 @@ NBINS = 10
 print("Algo Mols Frags Min Mean Max Time")
 
 for mf in [0, 2, 4, 8]:
-    start = time.time()
-    frags = recap(mols, mf)
-    stop = time.time()
-    draw_molecules(f"output/recap.{mf}.html", frags)
-    s = Summary(frags)
-    mn, mean, mx = s.stats()
-    title = f"RECAP-{mf}"
-    s.hist(axes[ptr], NBINS, title)
-    ptr += 1
-    t = stop - start
-    print(f"{title} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")
+    run_algo(recap, mols, f"output/recap.{mf}.html", f"RECAP-{mf}", mf)
 
 for mf in [0, 2, 4, 8]:
-    start = time.time()
-    frags = brics(mols, mf)
-    stop = time.time()
-    draw_molecules(f"output/brics.{mf}.html", frags)
-    s = Summary(frags)
-    mn, mean, mx = s.stats()
-    title = f"BRICS-{mf}"
-    s.hist(axes[ptr], NBINS, title)
-    ptr += 1
-    t = stop - start
-    print(f"{title} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")
+    run_algo(brics, mols, f"output/brics.{mf}.html", f"BRICS-{mf}", mf)
 
-start = time.time()
-frags = erb(mols)
-stop = time.time()
-draw_molecules("output/erb.html", frags)
-s = Summary(frags)
-mn, mean, mx = s.stats()
-title = "ERB"
-s.hist(axes[ptr], NBINS, title)
-t = stop - start
-print(f"ERB {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")
+run_algo(erb, mols, "output/erb.html", "ERB")
 
 fig.tight_layout()
 plt.savefig("hist.png")

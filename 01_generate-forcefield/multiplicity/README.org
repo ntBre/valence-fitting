@@ -9,7 +9,7 @@
 
   select uncovered parameters
 
-  #+begin_src awk :in-file opt.dat
+  #+begin_src awk :in-file opt.dat :exports both
 	NR == 1 { print "num", $0 }
 	$NF == 0 { print ++row, $0 }
   #+end_src
@@ -79,7 +79,7 @@
 
   select uncovered parameters
 
-  #+begin_src awk :in-file td.dat
+  #+begin_src awk :in-file td.dat :exports both
 	NR == 1 { print "num", $0 }
 	$NF == 0 { print ++row, $0 }
   #+end_src
@@ -161,7 +161,7 @@
 		| tee 01_generate-forcefield/multiplicity/bench.dat
   #+end_src
 
-  #+begin_src awk :in-file bench.dat
+  #+begin_src awk :in-file bench.dat :exports both
 	NR == 1 { print "num", $0 }
 	$NF == 0 { print ++row, $0 }
   #+end_src

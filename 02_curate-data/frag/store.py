@@ -51,8 +51,7 @@ class Store:
     def send_molecules(self, smiles: list[str]):
         self.queue.put(smiles)
 
-    def load_chembl(self, filename, max_mols=1000) -> dict[str, Molecule]:
-        found = 0
+    def load_chembl(self, filename) -> dict[str, Molecule]:
         with open(filename) as inp:
             for i, line in tqdm(enumerate(inp), total=2372675):
                 if i == 0:  # skip header
@@ -66,9 +65,6 @@ class Store:
                     continue
                 frags = xff(mol)
                 self.send_molecules(frags)
-                found += len(frags)
-                if max_mols and found >= max_mols:
-                    break
 
 
 def xff(mol):

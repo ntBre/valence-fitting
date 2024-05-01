@@ -75,8 +75,7 @@ def find_frag_bonds(rdmol, keep_atoms):
 
 
 def xff(mol):
-    rdmol = mol.to_rdkit()
-    c = Compound(rdmol)
+    c = Compound(mol.to_rdkit())
     frags = c.cutCompound()
 
     ret = set()

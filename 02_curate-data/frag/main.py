@@ -179,29 +179,30 @@ def run_algo(fun, mols, html, title, *args):
     print(f"{title} {len(mols)} {len(frags)} {mn} {mean:.2f} {mx} {t:.1f}")
 
 
-mols = load_smiles("100.smi")
+if __name__ == "__main__":
+    mols = load_smiles("100.smi")
 
-# draw_molecules("100.html", to_rdkit(mols))
+    # draw_molecules("100.html", to_rdkit(mols))
 
-fig, ((ax0, ax1, ax2, ax3, ax4), (ax5, ax6, ax7, ax8, ax9)) = plt.subplots(
-    2, 5
-)
-axes = [ax0, ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9]
-ptr = 0
+    fig, ((ax0, ax1, ax2, ax3, ax4), (ax5, ax6, ax7, ax8, ax9)) = plt.subplots(
+        2, 5
+    )
+    axes = [ax0, ax1, ax2, ax3, ax4, ax5, ax6, ax7, ax8, ax9]
+    ptr = 0
 
-NBINS = 10
+    NBINS = 10
 
-print("Algo Mols Frags Min Mean Max Time")
+    print("Algo Mols Frags Min Mean Max Time")
 
-for mf in [0, 2, 4, 8]:
-    run_algo(recap, mols, f"output/recap.{mf}.html", f"RECAP-{mf}", mf)
+    for mf in [0, 2, 4, 8]:
+        run_algo(recap, mols, f"output/recap.{mf}.html", f"RECAP-{mf}", mf)
 
-for mf in [0, 2, 4, 8]:
-    run_algo(brics, mols, f"output/brics.{mf}.html", f"BRICS-{mf}", mf)
+    for mf in [0, 2, 4, 8]:
+        run_algo(brics, mols, f"output/brics.{mf}.html", f"BRICS-{mf}", mf)
 
-run_algo(erb, mols, "output/erb.html", "ERB")
+    run_algo(erb, mols, "output/erb.html", "ERB")
 
-run_algo(xff, mols, "output/xff.html", "XFF")
+    run_algo(xff, mols, "output/xff.html", "XFF")
 
-fig.tight_layout()
-plt.savefig("hist.png")
+    fig.tight_layout()
+    plt.savefig("hist.png")

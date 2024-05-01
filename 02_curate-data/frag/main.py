@@ -156,7 +156,12 @@ def xff(mols):
             frag_atoms = set(fr)
             rdbonds = find_frag_bonds(emol, frag_atoms)
             if rdbonds:
-                fragmented = Chem.FragmentOnBonds(emol, rdbonds)
+                fragmented = Chem.FragmentOnBonds(
+                    emol,
+                    rdbonds,
+                    addDummies=True,
+                    dummyLabels=[(0, 0)] * len(rdbonds),
+                )
                 for frag in Chem.GetMolFrags(fragmented, asMols=True):
                     ret[Chem.MolToSmiles(frag)] = frag
             else:

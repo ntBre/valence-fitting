@@ -1,6 +1,6 @@
 import sqlite3
 from itertools import chain
-from multiprocessing import Process, Queue
+from multiprocessing import Pool, Process, Queue
 
 from openff.toolkit import Molecule
 from openff.toolkit.utils.exceptions import RadicalsNotSupportedError
@@ -21,6 +21,8 @@ class Store:
             )
             """
         )
+
+    def __enter__(self):
         # spawn a background process for inserting SMILES into the database
         # through a channel to avoid concurrent write attempts. calling
         # `self.send_molecules` enqueues a list of SMILES, which is dequeued in
@@ -29,6 +31,12 @@ class Store:
         self.queue = Queue()
         self.process = Process(target=self.receive_molecules)
         self.process.start()
+        return self
+
+    def __exit__(self, type, value, traceback):
+        self.queue.put("EXIT")
+        self.queue.close()
+        self.process.join()
 
     def insert_molecule(self, smiles: str):
         self.cur.execute(
@@ -46,24 +54,33 @@ class Store:
 
     def receive_molecules(self):
         while True:
-            self.insert_molecules(self.queue.get())
+            res = self.queue.get()
+            if res == "EXIT":
+                return
+            self.insert_molecules(res)
 
     def send_molecules(self, smiles: list[str]):
         self.queue.put(smiles)
 
+    def process_line(line):
+        [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")
+        try:
+            mol = Molecule.from_smiles(cmiles, allow_undefined_stereo=True)
+        except RadicalsNotSupportedError:
+            return
+        return xff(mol)
+
     def load_chembl(self, filename) -> dict[str, Molecule]:
-        with open(filename) as inp:
-            for i, line in tqdm(enumerate(inp), total=2372675):
-                if i == 0:  # skip header
-                    continue
-                [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")
-                try:
-                    mol = Molecule.from_smiles(
-                        cmiles, allow_undefined_stereo=True
-                    )
-                except RadicalsNotSupportedError:
-                    continue
-                frags = xff(mol)
+        with open(filename) as inp, Pool(processes=8) as pool:
+            for frags in pool.imap_unordered(
+                Store.process_line,
+                (
+                    line
+                    for i, line in tqdm(enumerate(inp), total=2372675)
+                    if i > 0
+                ),
+                chunksize=32,
+            ):
                 self.send_molecules(frags)
 
 
@@ -104,5 +121,5 @@ def xff(mol):
 
 
 if __name__ == "__main__":
-    store = Store()
-    store.load_chembl("chembl_33_chemreps.txt", max_mols=None)
+    with Store() as store:
+        store.load_chembl("chembl_33_chemreps.txt")

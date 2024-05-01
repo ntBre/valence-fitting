@@ -1,5 +1,6 @@
 import sqlite3
 from itertools import chain
+from multiprocessing import Process, Queue
 
 from openff.toolkit import Molecule
 from openff.toolkit.utils.exceptions import RadicalsNotSupportedError
@@ -20,6 +21,14 @@ class Store:
             )
             """
         )
+        # spawn a background process for inserting SMILES into the database
+        # through a channel to avoid concurrent write attempts. calling
+        # `self.send_molecules` enqueues a list of SMILES, which is dequeued in
+        # the secondary process by `self.receive_molecules`, which calls the
+        # synchronous `self.insert_molecules`
+        self.queue = Queue()
+        self.process = Process(target=self.receive_molecules)
+        self.process.start()
 
     def insert_molecule(self, smiles: str):
         self.cur.execute(
@@ -35,6 +44,13 @@ class Store:
         )
         self.con.commit()
 
+    def receive_molecules(self):
+        while True:
+            self.insert_molecules(self.queue.get())
+
+    def send_molecules(self, smiles: list[str]):
+        self.queue.put(smiles)
+
     def load_chembl(self, filename, max_mols=1000) -> dict[str, Molecule]:
         found = 0
         with open(filename) as inp:
@@ -49,7 +65,7 @@ class Store:
                 except RadicalsNotSupportedError:
                     continue
                 frags = xff(mol)
-                self.insert_molecules(frags)
+                self.send_molecules(frags)
                 found += len(frags)
                 if max_mols and found >= max_mols:
                     break

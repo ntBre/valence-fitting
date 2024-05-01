@@ -11,7 +11,7 @@ from cut_compound import Compound
 
 
 class Store:
-    def __init__(self, filename="store.sqlite"):
+    def __init__(self, filename="store.sqlite", nprocs=8):
         self.con = sqlite3.connect(filename)
         self.cur = self.con.cursor()
         self.cur.execute(
@@ -21,6 +21,7 @@ class Store:
             )
             """
         )
+        self.nprocs = nprocs
 
     def insert_molecule(self, smiles: str):
         "Insert a single SMILES into the database"
@@ -47,7 +48,7 @@ class Store:
         return xff(mol)
 
     def load_chembl(self, filename) -> dict[str, Molecule]:
-        with open(filename) as inp, Pool(processes=8) as pool:
+        with open(filename) as inp, Pool(processes=self.nprocs) as pool:
             for frags in pool.imap_unordered(
                 Store.process_line,
                 (

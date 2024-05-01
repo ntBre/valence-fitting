@@ -1,6 +1,6 @@
 import sqlite3
 from itertools import chain
-from multiprocessing import Pool, Process, Queue
+from multiprocessing import Pool
 
 from openff.toolkit import Molecule
 from openff.toolkit.utils.exceptions import RadicalsNotSupportedError
@@ -22,23 +22,8 @@ class Store:
             """
         )
 
-    def __enter__(self):
-        # spawn a background process for inserting SMILES into the database
-        # through a channel to avoid concurrent write attempts. calling
-        # `self.send_molecules` enqueues a list of SMILES, which is dequeued in
-        # the secondary process by `self.receive_molecules`, which calls the
-        # synchronous `self.insert_molecules`
-        self.queue = Queue()
-        self.process = Process(target=self.receive_molecules)
-        self.process.start()
-        return self
-
-    def __exit__(self, type, value, traceback):
-        self.queue.put("EXIT")
-        self.queue.close()
-        self.process.join()
-
     def insert_molecule(self, smiles: str):
+        "Insert a single SMILES into the database"
         self.cur.execute(
             "INSERT OR IGNORE INTO molecules (smiles) VALUES (?1)",
             (smiles,),
@@ -46,21 +31,12 @@ class Store:
         self.con.commit()
 
     def insert_molecules(self, smiles: list[str]):
+        "Insert multiple SMILES into the database"
         self.cur.executemany(
             "INSERT OR IGNORE INTO molecules (smiles) VALUES (?1)",
             [(s,) for s in smiles],
         )
         self.con.commit()
-
-    def receive_molecules(self):
-        while True:
-            res = self.queue.get()
-            if res == "EXIT":
-                return
-            self.insert_molecules(res)
-
-    def send_molecules(self, smiles: list[str]):
-        self.queue.put(smiles)
 
     def process_line(line):
         [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")
@@ -81,7 +57,8 @@ class Store:
                 ),
                 chunksize=32,
             ):
-                self.send_molecules(frags)
+                if frags:
+                    self.insert_molecules(frags)
 
 
 def xff(mol):
@@ -121,5 +98,5 @@ def xff(mol):
 
 
 if __name__ == "__main__":
-    with Store() as store:
-        store.load_chembl("chembl_33_chemreps.txt")
+    store = Store()
+    store.load_chembl("chembl_33_chemreps.txt")

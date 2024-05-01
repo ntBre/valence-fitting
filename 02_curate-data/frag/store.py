@@ -62,18 +62,19 @@ class Store:
                     self.insert_molecules(frags)
 
 
-def xff(mol):
-    def find_frag_bonds(rdmol, keep_atoms):
-        "Locate bonds between atoms to keep and those to remove"
-        to_remove = []
-        for bond in rdmol.GetBonds():
-            b1, b2 = bond.GetBeginAtomIdx(), bond.GetEndAtomIdx()
-            if (b1 in keep_atoms and b2 not in keep_atoms) or (
-                b2 in keep_atoms and b1 not in keep_atoms
-            ):
-                to_remove.append(rdmol.GetBondBetweenAtoms(b1, b2).GetIdx())
-        return to_remove
+def find_frag_bonds(rdmol, keep_atoms):
+    "Locate bonds between atoms to keep and those to remove"
+    to_remove = []
+    for bond in rdmol.GetBonds():
+        b1, b2 = bond.GetBeginAtomIdx(), bond.GetEndAtomIdx()
+        if (b1 in keep_atoms and b2 not in keep_atoms) or (
+            b2 in keep_atoms and b1 not in keep_atoms
+        ):
+            to_remove.append(rdmol.GetBondBetweenAtoms(b1, b2).GetIdx())
+    return to_remove
 
+
+def xff(mol):
     rdmol = mol.to_rdkit()
     c = Compound(rdmol)
     frags = c.cutCompound()

@@ -43,3 +43,4 @@ worker*.log
 /01_generate-forcefield/shape/labels.json
 /01_generate-forcefield/shape/figs/
 /01_generate-forcefield/shape/output/
+/02_curate-data/frag/store.sqlite

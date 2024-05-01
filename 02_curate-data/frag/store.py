@@ -1,10 +1,58 @@
+import sqlite3
 from itertools import chain
 
 from openff.toolkit import Molecule
+from openff.toolkit.utils.exceptions import RadicalsNotSupportedError
 from rdkit import Chem
 from tqdm import tqdm
 
 from cut_compound import Compound
+
+
+class Store:
+    def __init__(self, filename="store.sqlite"):
+        self.con = sqlite3.connect(filename)
+        self.cur = self.con.cursor()
+        self.cur.execute(
+            """CREATE TABLE IF NOT EXISTS molecules (
+            id integer primary key,
+            smiles text unique
+            )
+            """
+        )
+
+    def insert_molecule(self, smiles: str):
+        self.cur.execute(
+            "INSERT OR IGNORE INTO molecules (smiles) VALUES (?1)",
+            (smiles,),
+        )
+        self.con.commit()
+
+    def insert_molecules(self, smiles: list[str]):
+        self.cur.executemany(
+            "INSERT OR IGNORE INTO molecules (smiles) VALUES (?1)",
+            [(s,) for s in smiles],
+        )
+        self.con.commit()
+
+    def load_chembl(self, filename, max_mols=1000) -> dict[str, Molecule]:
+        found = 0
+        with open(filename) as inp:
+            for i, line in tqdm(enumerate(inp), total=2372675):
+                if i == 0:  # skip header
+                    continue
+                [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")
+                try:
+                    mol = Molecule.from_smiles(
+                        cmiles, allow_undefined_stereo=True
+                    )
+                except RadicalsNotSupportedError:
+                    continue
+                frags = xff(mol)
+                self.insert_molecules(frags)
+                found += len(frags)
+                if max_mols and found >= max_mols:
+                    break
 
 
 def xff(mol):
@@ -43,21 +91,6 @@ def xff(mol):
     return ret
 
 
-def load_chembl(filename, max_mols=1000) -> dict[str, Molecule]:
-    ret = {}
-    with open(filename) as inp:
-        for i, line in tqdm(enumerate(inp)):
-            if i == 0:  # skip header
-                continue
-            [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")
-            mol = Molecule.from_smiles(cmiles, allow_undefined_stereo=True)
-            ret.update(xff(mol))
-            if len(ret) >= max_mols:
-                break
-    return ret
-
-
 if __name__ == "__main__":
-    mols = load_chembl("chembl_33_chemreps.txt")
-    for smiles in mols.keys():
-        print(smiles)
+    store = Store()
+    store.load_chembl("chembl_33_chemreps.txt", max_mols=None)

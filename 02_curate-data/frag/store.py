@@ -78,7 +78,7 @@ def xff(mol):
     c = Compound(rdmol)
     frags = c.cutCompound()
 
-    ret = {}
+    ret = set()
     for fr in chain(frags.frag_rings, frags.frag_chains):
         emol = Chem.Mol(c.rdmol)
         frag_atoms = set(fr)
@@ -91,9 +91,9 @@ def xff(mol):
                 dummyLabels=[(0, 0)] * len(rdbonds),
             )
             for frag in Chem.GetMolFrags(fragmented, asMols=True):
-                ret[Chem.MolToSmiles(frag)] = frag
+                ret.add(Chem.MolToSmiles(frag))
         else:
-            ret[Chem.MolToSmiles(emol)] = emol
+            ret.add(Chem.MolToSmiles(emol))
 
     return ret
 

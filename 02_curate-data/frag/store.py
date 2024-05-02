@@ -75,7 +75,11 @@ def find_frag_bonds(rdmol, keep_atoms):
 
 
 def xff(mol):
-    c = Compound(mol.to_rdkit())
+    try:
+        c = Compound(mol.to_rdkit())
+    except Exception as e:
+        print(f"warning: failed to convert to rdmol with {e}")
+        return
     frags = c.cutCompound()
 
     ret = set()

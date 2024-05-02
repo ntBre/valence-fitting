@@ -49,14 +49,13 @@ class Store:
 
     def load_chembl(self, filename) -> dict[str, Molecule]:
         with open(filename) as inp, Pool(processes=self.nprocs) as pool:
-            for frags in pool.imap_unordered(
-                Store.process_line,
-                (
-                    line
-                    for i, line in tqdm(enumerate(inp), total=2372675)
-                    if i > 0
+            for frags in tqdm(
+                pool.imap_unordered(
+                    Store.process_line,
+                    (line for i, line in enumerate(inp) if i > 0),
+                    chunksize=32,
                 ),
-                chunksize=32,
+                total=2372675,
             ):
                 if frags:
                     self.insert_molecules(frags)

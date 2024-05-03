@@ -8,8 +8,6 @@ from itertools import combinations
 import networkx as nx
 from rdkit import Chem
 
-CHAIN_NUM = 0
-
 
 class BaseAtom(object):
     """base atom class
@@ -57,6 +55,7 @@ class BaseFragment(object):
     """
 
     def __init__(self, baseAtoms, baseBonds):
+        self.CHAIN_NUM = 0
         self.baseAtoms = baseAtoms
         self.baseBonds = baseBonds
         self.frag_rings = []
@@ -358,14 +357,13 @@ class BaseFragment(object):
             each chain
 
         """
-        global CHAIN_NUM
         if not hasattr(chain_graph, "node"):
             chain_graph.node = chain_graph.nodes
         degree = dict(chain_graph.degree())
         if not self.checkDegree(chain_graph, degree):
-            CHAIN_NUM += 1
+            self.CHAIN_NUM += 1
             for idx in chain_graph.nodes():
-                chain_graph.node[idx]["atom"].chain_num = CHAIN_NUM
+                chain_graph.node[idx]["atom"].chain_num = self.CHAIN_NUM
             return
         terminal_atom = [key for key, value in degree.items() if value == 1]
         mainchain = self.findMainChain(chain_graph, terminal_atom)
@@ -382,13 +380,13 @@ class BaseFragment(object):
                 single_chains.append(grp)
             else:
                 many_chains.append(grp)
-        CHAIN_NUM += 1
+        self.CHAIN_NUM += 1
         for idx in mainchain:
-            chain_graph.node[idx]["atom"].chain_num = CHAIN_NUM
+            chain_graph.node[idx]["atom"].chain_num = self.CHAIN_NUM
         for sgl in single_chains:
-            CHAIN_NUM += 1
+            self.CHAIN_NUM += 1
             for idx in sgl:
-                chain_graph.node[idx]["atom"].chain_num = CHAIN_NUM
+                chain_graph.node[idx]["atom"].chain_num = self.CHAIN_NUM
         many_chains_graph = [chain_graph.subgraph(grp) for grp in many_chains]
         for onegrp in many_chains_graph:
             self.getSingleChain(onegrp)
@@ -418,8 +416,7 @@ class BaseFragment(object):
                 chain = g.subgraph(value)
                 all_single_chains.append(chain.copy())
 
-        global CHAIN_NUM
-        CHAIN_NUM = 0
+        self.CHAIN_NUM = 0
         return all_single_chains
 
     def findMainChain(self, G, terminal_atom):

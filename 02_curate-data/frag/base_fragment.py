@@ -297,10 +297,8 @@ class BaseFragment(object):
                         gm = nx.algorithms.isomorphism.GraphMatcher(
                             sub_g,
                             g,
-                            node_match=lambda n1, n2: n1["atom"].symbol
-                            == n2["atom"].symbol,
-                            edge_match=lambda b1, b2: b1["bondtype"]
-                            == b2["bondtype"],
+                            node_match=node_atom_syms,
+                            edge_match=node_bondtypes,
                         )
                         if self.choiceMatch(gm, key):
                             G.node[key]["atom"].score = bf.baseAtoms[0].score
@@ -310,8 +308,7 @@ class BaseFragment(object):
                         gm = nx.algorithms.isomorphism.GraphMatcher(
                             sub_g,
                             g,
-                            node_match=lambda n1, n2: n1["atom"].symbol
-                            == n2["atom"].symbol,
+                            node_match=node_atom_syms,
                         )
                         if self.choiceMatch(gm, key):
                             G.node[key]["atom"].score = bf.baseAtoms[0].score
@@ -743,6 +740,14 @@ class BaseFragment(object):
                         and G.node[nei]["atom"].symbol in halogen
                     ):
                         cha.append(nei)
+
+
+def node_atom_syms(n1, n2):
+    return n1["atom"].symbol == n2["atom"].symbol
+
+
+def node_bondtypes(b1, b2):
+    return b1["bondtype"] == b2["bondtype"]
 
 
 halogen = {"F", "Cl", "Br", "I", "At"}

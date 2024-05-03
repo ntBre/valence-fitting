@@ -392,13 +392,16 @@ class BaseFragment(object):
             self.getSingleChain(onegrp)
 
     def getAllSingleChains(self, rings):
-        """Cut the entire molecule into several single chains and record the chain number into the chain_num attribute of each atom.
+        """Cut the entire molecule into several single chains and record the
+        chain number into the chain_num attribute of each atom.
 
         Args:
             rings (list of list of int): list of ring fragments
 
         Returns:
-            list of :obj:`networkx.classes.graph.Graph`: list of graphes for single chains
+            list of :obj:`networkx.classes.graph.Graph`: list of graphes for
+            single chains
+
         """
         group_chain = self.getRingAndChainFragment(rings)
         chain_graphs = self.getAllChainScore(group_chain)

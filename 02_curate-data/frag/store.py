@@ -2,6 +2,7 @@ import sqlite3
 from itertools import chain
 from multiprocessing import Pool
 
+import click
 from openff.toolkit import Molecule
 from openff.toolkit.utils.exceptions import RadicalsNotSupportedError
 from rdkit import Chem
@@ -101,6 +102,12 @@ def xff(mol):
     return ret
 
 
-if __name__ == "__main__":
-    store = Store()
+@click.command()
+@click.option("--nprocs", "-n")
+def main(nprocs):
+    store = Store(nprocs=nprocs)
     store.load_chembl("chembl_33_chemreps.txt")
+
+
+if __name__ == "__main__":
+    main()

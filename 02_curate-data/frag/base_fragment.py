@@ -271,10 +271,12 @@ class BaseFragment(object):
         return False
 
     def chainScore(self, G, debug=False):
-        """calculate score for the functional groups in the chain and save them in the score attribute
+        """calculate score for the functional groups in the chain and save them
+        in the score attribute
 
-        Args:
-            G (:obj:`networkx.classes.graph.Graph`): the graph for the chain that need to calculate score
+        Args: G (:obj:`networkx.classes.graph.Graph`): the graph for the chain
+            that need to calculate score
+
         """
         import fun_group_table
 
@@ -323,12 +325,16 @@ class BaseFragment(object):
         """judge if the functional group graph match is success
 
         Args:
-            gm (:obj:`networkx.algorithms.isomorphism.GraphMatcher`): the graph matcher object
+
+            gm (:obj:`networkx.algorithms.isomorphism.GraphMatcher`): the graph
+            matcher object
+
             idx (int): the index of the atom to be scored
 
         Returns:
             match failure -- False;
             match success -- dict (int: int): return match result
+
         """
         for match in gm.subgraph_isomorphisms_iter():
             if idx not in match.keys():
@@ -340,12 +346,19 @@ class BaseFragment(object):
     def getSingleChain(self, chain_graph):
         """Cut a given chain graph into several single chains
 
-        After the chain is cut, the chain number of single chains are saved in the chain_num attribute of each atom;
+        After the chain is cut, the chain number of single chains are saved in
+        the chain_num attribute of each atom;
+
         Merge single atom chain into the main chain;
-        Chains with atoms ranging from 2 to 4 are considered single chains. Longer chains will continue to be cut.
+
+        Chains with atoms ranging from 2 to 4 are considered single chains.
+        Longer chains will continue to be cut.
 
         Args:
-            chain_graph (:obj:`networkx.classes.graph.Graph`): the graph for each chain
+
+            chain_graph (:obj:`networkx.classes.graph.Graph`): the graph for
+            each chain
+
         """
         global CHAIN_NUM
         if not hasattr(chain_graph, "node"):
@@ -709,10 +722,12 @@ class BaseFragment(object):
     def cutAllChain(self, rings):
         """cut all chains in the molecule
 
-        Ring and chain fragments are saved in the frag_rings and frag_chains attributes respectively.
+        Ring and chain fragments are saved in the frag_rings and frag_chains
+        attributes respectively.
 
         Args:
             rings (list of list of int): list of rings
+
         """
         chains = self.getAllSingleChains(rings)
         for chain in chains:

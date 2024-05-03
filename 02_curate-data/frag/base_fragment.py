@@ -31,7 +31,9 @@ class BaseBond(object):
 
     Args:
         beginIdx, endIdx (int, int): indices of two end atoms
-        bondtype (int or :obj:`rdkit.Chem.rdchem.BondType`, optional): bond type, default -1
+        bondtype (int or :obj:`rdkit.Chem.rdchem.BondType`, optional): bond
+                            type, default -1
+
     """
 
     def __init__(self, beginIdx, endIdx, bondtype=1):
@@ -118,13 +120,16 @@ class BaseFragment(object):
         return cls(baseAtoms, baseBonds)
 
     def removeGroup(self, groups):
-        """Remove groups of atoms from molecule graph. Also remove halogen atoms.
+        """Remove groups of atoms from molecule graph. Also remove halogen
+        atoms.
 
         Args:
             groups (list of list of int): list of atom groups to remove
 
         Returns:
-            :obj:`networkx.classes.graph.Graph`: new networkx graph after removing atom groups
+            :obj:`networkx.classes.graph.Graph`: new networkx graph after
+            removing atom groups
+
         """
         G = self.createGraph()
         degree = G.degree()
@@ -137,15 +142,19 @@ class BaseFragment(object):
         return G
 
     def getRingAndChainFragment(self, rings):
-        """Cut the molecule into ring fragments and chain fragments that wait for further cutting
+        """Cut the molecule into ring fragments and chain fragments that wait
+        for further cutting
 
-        A ring fragment contains all atoms on the ring, all halogen atoms attached to the ring, and all atoms double bonded to the ring.
+        A ring fragment contains all atoms on the ring, all halogen atoms
+        attached to the ring, and all atoms double bonded to the ring.
 
         Args:
             rings (list of list of int): list of rings fragments
 
         Returns:
-            list of list of int: list of chain fragments waiting for further cutting
+            list of list of int: list of chain fragments waiting for further
+            cutting
+
         """
         group_chain = []
         self.mergeAtomToRing(rings)
@@ -171,10 +180,12 @@ class BaseFragment(object):
         assert total_count == set_count, "duplicated ring atoms"
 
     def mergeAtomToRing(self, rings):
-        """Merge all halogen atoms that attached to a ring and atoms double bonded to a ring into the ring.
+        """Merge all halogen atoms that attached to a ring and atoms double
+        bonded to a ring into the ring.
 
         Args:
             rings (list of list of int): list of ring fragments
+
         """
         if not rings:
             return
@@ -198,10 +209,13 @@ class BaseFragment(object):
         """calculate the score for each functional group in a chain fragment
 
         Args:
-            group_chain (list of list of int): list of chain fragments that need to cut
+            group_chain (list of list of int): list of chain fragments that
+            need to cut
 
         Returns:
-            list of :obj:`networkx.classes.graph.Graph`: the graph for each chain with calculated scores
+            list of :obj:`networkx.classes.graph.Graph`: the graph for each
+            chain with calculated scores
+
         """
         G = self.createGraph()
         G = self.nonC2Y(G)
@@ -224,7 +238,8 @@ class BaseFragment(object):
         return G
 
     def getSubFromGraph(self, G, cent, max_deep=2):
-        """traverse all vertexes and their pathes with depth less than max_deep, return the corresponding subgraph
+        """traverse all vertexes and their pathes with depth less than
+        max_deep, return the corresponding subgraph
 
         Args:
             G (:obj:`networkx.classes.graph.Graph`): NetworkX graph
@@ -233,6 +248,7 @@ class BaseFragment(object):
 
         Returns:
             :obj:`networkx.classes.graph.Graph`: subgraph of G
+
         """
         assert max_deep > 0, "max_deep must > 0"
         nodes_times = dict(G.degree())
@@ -422,9 +438,10 @@ class BaseFragment(object):
     def findMainChain(self, G, terminal_atom):
         """Find the main chain in the fragment
 
-        A main chain is the longest path in the molecule. If there are two pathes with equal
-        length, pick the one with the highest sum of atom scores. Merge all atoms that are
-        not single bonded to the main chain into the main chain
+        A main chain is the longest path in the molecule. If there are two
+        pathes with equal length, pick the one with the highest sum of atom
+        scores. Merge all atoms that are not single bonded to the main chain
+        into the main chain
 
         Args:
             G (:obj:`networkx.classes.graph.Graph`): networkx graph
@@ -432,6 +449,7 @@ class BaseFragment(object):
 
         Returns:
             list of int: list of atoms for the main chain
+
         """
         all_paths = []
         maxlen = 0
@@ -467,10 +485,12 @@ class BaseFragment(object):
 
         Args:
             G (:obj:`networkx.classes.graph.Graph`): graph for the fragment
-            degree (dict (int: int)): degree for each atom in the graph, G.degree()
+            degree (dict (int: int)): degree for each atom in the graph,
+            G.degree()
 
         Returns:
             bool: whether the fragment contains branches
+
         """
         for key, value in degree.items():
             if value == 3:
@@ -486,40 +506,47 @@ class BaseFragment(object):
 
         1. Do not further cut chains with less than four heavy atoms
 
-        2. When there are four heavy atoms, we do not further cut if there is a tertiary
-           functional group (a functional group that has an atom connected to three other
-           atoms) or there is a non-carbon heavy atom that is not at the end of the chain,
-           otherwise we cut from the center.
+        2. When there are four heavy atoms, we do not further cut if there is a
+           tertiary functional group (a functional group that has an atom
+           connected to three other atoms) or there is a non-carbon heavy atom
+           that is not at the end of the chain, otherwise we cut from the
+           center.
 
         3. When there are more than four heavy atoms:
-            3a. For the bonds that connect to a 1-point score atom, cut the bond that connects
-                to a 0-point atom and retain all the rest. For example in the fragment
-                C-C(0)..Y(1)-C=Y, “..” is the bond to cut while “-” are the bonds to retain.
-                The numbers in the parenthesis are the scores of the corresponding atoms.
-            3b. Check all atoms (with score higher than 1 point) from the highest score to the
-                lowest score. Retain all non-single bonds connected to them. For all single
-                bonds connected to them, cut the bond that connects to another high score
-                atom (larger than 1 point).
-            3c. Cut another single bond of a two-connection low score (score 0 or 1) atom
-                that is connected to a high score atom. For example, in Y=C(7)-C(0)..C cut “..”.
-            3d. When a low score atom is simultaneously connected to two high score atoms,
-                cut the bond that connects to the high-score atom with the lowest score.
-            3e. Merge the end atom to the nearest fragment. If an end atom connects to
-                another 0-point atom, then these two atoms become a standalone elementary
-                fragment.
-            3f. Merge any left over single high score atom to the nearby highest score atom.
-            3g. For the remaining uncut chains, cut every 3 heavy atoms so as to obtain an
-                elementary fragment. If the number of atoms is not divisible by 3, first cut 2
-                heavy atoms and continue with the procedure just mentioned.
-            3h. Merge any non-end single-atom fragment to the nearest fragment. If there is
-                a 0-point atom connected to it, then these two atoms become a standalone
-                elementary fragment.
-
+            3a. For the bonds that connect to a 1-point score atom, cut the
+                bond that connects to a 0-point atom and retain all the rest.
+                For example in the fragment C-C(0)..Y(1)-C=Y, “..” is the bond
+                to cut while “-” are the bonds to retain. The numbers in the
+                parenthesis are the scores of the corresponding atoms.
+            3b. Check all atoms (with score higher than 1 point) from the
+                highest score to the lowest score. Retain all non-single bonds
+                connected to them. For all single bonds connected to them, cut
+                the bond that connects to another high score atom (larger than
+                1 point).
+            3c. Cut another single bond of a two-connection low score (score 0
+                or 1) atom that is connected to a high score atom. For example,
+                in Y=C(7)-C(0)..C cut “..”.
+            3d. When a low score atom is simultaneously connected to two high
+                score atoms, cut the bond that connects to the high-score atom
+                with the lowest score.
+            3e. Merge the end atom to the nearest fragment. If an end atom
+                connects to another 0-point atom, then these two atoms become a
+                standalone elementary fragment.
+            3f. Merge any left over single high score atom to the nearby
+                highest score atom.
+            3g. For the remaining uncut chains, cut every 3 heavy atoms so as
+                to obtain an elementary fragment. If the number of atoms is not
+                divisible by 3, first cut 2 heavy atoms and continue with the
+                procedure just mentioned.
+            3h. Merge any non-end single-atom fragment to the nearest fragment.
+                If there is a 0-point atom connected to it, then these two
+                atoms become a standalone elementary fragment.
         Args:
             chain (:obj:`networkx.calsses.graph.Graph`): graph for the chain
 
         Returns:
             list of list of int: list of cut chain fragments
+
         """
         chain_frags = []
 
@@ -549,7 +576,8 @@ class BaseFragment(object):
             return chain_frags
 
         # 3.
-        # Modify and save bondtype property: -1, can be cut; 0, cannot be cut; >0, undetermined
+        # Modify and save bondtype property: -1, can be cut; 0, cannot be cut;
+        # >0, undetermined
         index_score_dict = {
             node: chain.node[node]["atom"].score
             for node in chain.nodes()
@@ -620,7 +648,8 @@ class BaseFragment(object):
             end_idx = list(chain.neighbors(tm))[0]
             if chain.get_edge_data(tm, end_idx)["bondtype"] == 0:
                 chain.get_edge_data(tm, end_idx)["bondtype"] = -1
-                # A terminal atom forms a fragment with a nearby 0-point C atom.
+                # A terminal atom forms a fragment with a nearby 0-point C
+                # atom.
                 if chain.node[end_idx]["atom"].score == 0:
                     for eend_idx in chain.neighbors(end_idx):
                         if eend_idx != tm:

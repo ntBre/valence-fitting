@@ -337,9 +337,7 @@ class BaseFragment(object):
 
         """
         for match in gm.subgraph_isomorphisms_iter():
-            if idx not in match.keys():
-                continue
-            if match[idx] == 0:
+            if idx in match and match[idx] == 0:
                 return match
         return False
 

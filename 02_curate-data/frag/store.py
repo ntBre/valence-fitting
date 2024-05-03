@@ -103,7 +103,7 @@ def xff(mol):
 
 
 @click.command()
-@click.option("--nprocs", "-n")
+@click.option("--nprocs", "-n", type=int, default=8)
 def main(nprocs):
     store = Store(nprocs=nprocs)
     store.load_chembl("chembl_33_chemreps.txt")

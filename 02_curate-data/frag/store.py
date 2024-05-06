@@ -1,6 +1,7 @@
 import sqlite3
 from itertools import chain
 from multiprocessing import Pool
+from typing import Iterator
 
 import click
 from openff.toolkit import Molecule
@@ -15,6 +16,7 @@ class Store:
     def __init__(self, filename="store.sqlite", nprocs=8):
         self.con = sqlite3.connect(filename)
         self.cur = self.con.cursor()
+        self.cur.arraysize = 1024
         self.cur.execute(
             """CREATE TABLE IF NOT EXISTS molecules (
             id integer primary key,
@@ -39,6 +41,22 @@ class Store:
             [(s,) for s in smiles],
         )
         self.con.commit()
+
+    def get_sizehint(self) -> int:
+        "Return a count of rows in the database"
+        return self.cur.execute("SELECT COUNT(*) FROM molecules").fetchone()[0]
+
+    def get_smiles(self, limit=None) -> Iterator[str]:
+        "Return an iterator over SMILES in the database"
+        if limit:
+            res = self.cur.execute(
+                "SELECT smiles FROM molecules limit ?", (limit,)
+            )
+        else:
+            res = self.cur.execute("SELECT smiles FROM molecules")
+        while len(v := res.fetchmany()) > 0:
+            # unpack 1-tuples
+            yield from (x[0] for x in v)
 
     def process_line(line):
         [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")

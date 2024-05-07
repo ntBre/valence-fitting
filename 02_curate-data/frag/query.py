@@ -73,19 +73,40 @@ def load_want(filename):
         return [line.strip() for line in inp]
 
 
+class Match:
+    smirks: str
+    pid: str
+    molecules: list[str]
+
+    def __init__(self, smirks, pid, molecules):
+        self.smirks = smirks
+        self.pid = pid
+        self.molecules = molecules
+
+
 if __name__ == "__main__":
     s = Store("store.sqlite")
     ff = ForceField(
         "../../01_generate-forcefield/output/initial-force-field-openff-2.1.0"
         ".offxml"
     )
+    pid_to_smirks = {
+        p.id: p.smirks
+        for p in ff.get_parameter_handler("ProperTorsions").parameters
+    }
     params = into_params(ff)
     want = set(load_want("want.params"))
+    res = dict()
     for smiles in tqdm(s.get_smiles(), total=s.get_sizehint()):
         mol = mol_from_smiles(smiles)
         matches = set(find_matches(params, mol).values())
-        if overlap := matches & want:
-            print(overlap, smiles)
+        for pid in matches & want:
+            if pid not in res:
+                res[pid] = Match(pid_to_smirks[pid], pid, list())
+            res[pid].molecules.append(smiles)
+
+    for pid, mat in res.items():
+        print(pid, len(mat.molecules))
 
     # just looping smiles took ~7 seconds
     # MolFromSmiles took 4007 seconds (1:06:48)

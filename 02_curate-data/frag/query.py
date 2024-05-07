@@ -1,5 +1,3 @@
-import time
-
 import numpy as np
 from rdkit import Chem
 from tqdm import tqdm
@@ -70,19 +68,10 @@ def into_params(ff) -> list[tuple[str, Chem.Mol]]:
 
 
 if __name__ == "__main__":
-
     s = Store("store.sqlite")
-
-    start = time.time()
-
-    i = 0
     for smiles in tqdm(s.get_smiles(), total=s.get_sizehint()):
         mol_from_smiles(smiles)
-        i += 1
-
-    end = time.time()
 
     # just looping smiles took ~7 seconds
     # MolFromSmiles took 4007 seconds (1:06:48)
     # mol_from_smiles took 5179 seconds (1:26:20)
-    print(f"processed {i} molecules in {end-start:.2f} sec")

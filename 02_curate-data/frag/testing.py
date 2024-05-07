@@ -1,6 +1,6 @@
 from openff.toolkit import ForceField, Molecule
 
-from query import find_matches, into_params, mol_from_smiles
+from query import find_matches, into_params, load_want, mol_from_smiles
 
 
 def test_find_matches():
@@ -20,3 +20,9 @@ def test_find_matches():
             )
         )
         assert got == want, f"got = {got}, want = {want}"
+
+
+def test_load_want():
+    got = len(load_want("want.params"))
+    want = 51
+    assert got == want

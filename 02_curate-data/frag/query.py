@@ -1,4 +1,5 @@
 import numpy as np
+from openff.toolkit import ForceField
 from rdkit import Chem
 from tqdm import tqdm
 
@@ -67,10 +68,24 @@ def into_params(ff) -> list[tuple[str, Chem.Mol]]:
     ]
 
 
+def load_want(filename):
+    with open(filename) as inp:
+        return [line.strip() for line in inp]
+
+
 if __name__ == "__main__":
     s = Store("store.sqlite")
+    ff = ForceField(
+        "../../01_generate-forcefield/output/initial-force-field-openff-2.1.0"
+        ".offxml"
+    )
+    params = into_params(ff)
+    want = set(load_want("want.params"))
     for smiles in tqdm(s.get_smiles(), total=s.get_sizehint()):
-        mol_from_smiles(smiles)
+        mol = mol_from_smiles(smiles)
+        matches = set(find_matches(params, mol).values())
+        if overlap := matches & want:
+            print(overlap, smiles)
 
     # just looping smiles took ~7 seconds
     # MolFromSmiles took 4007 seconds (1:06:48)

@@ -20,7 +20,7 @@ def mol_from_smiles(smiles):
     )
     Chem.SetAromaticity(rdmol, Chem.AromaticityModel.AROMATICITY_MDL)
     Chem.AssignStereochemistry(rdmol)
-    Chem.AddHs(rdmol)
+    rdmol = Chem.AddHs(rdmol)
     return rdmol
 
 

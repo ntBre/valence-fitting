@@ -1,4 +1,5 @@
 import json
+from functools import partial
 from multiprocessing import Pool
 
 import click
@@ -91,6 +92,11 @@ class Match:
         return dict(smirks=self.smirks, pid=self.pid, molecules=self.molecules)
 
 
+def inner(smiles, params):
+    mol = mol_from_smiles(smiles)
+    return smiles, set(find_matches(params, mol).values())
+
+
 @click.command()
 @click.option("--nprocs", "-n", default=8)
 @click.option("--chunk-size", "-c", default=32)
@@ -106,16 +112,14 @@ def main(nprocs, chunk_size):
     }
     params = into_params(ff)
 
-    def inner(smiles):
-        mol = mol_from_smiles(smiles)
-        return smiles, set(find_matches(params, mol).values())
-
     want = load_want("want.params")
     res = dict()
     all_smiles = [s for s in s.get_smiles()]
     with Pool(processes=nprocs) as p:
         for smiles, matches in tqdm(
-            p.imap(inner, all_smiles, chunksize=chunk_size),
+            p.imap(
+                partial(inner, params=params), all_smiles, chunksize=chunk_size
+            ),
             total=len(all_smiles),
         ):
             for pid in matches & want:

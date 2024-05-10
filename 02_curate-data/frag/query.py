@@ -1,6 +1,7 @@
 import json
 from multiprocessing import Pool
 
+import click
 import numpy as np
 from openff.toolkit import ForceField
 from rdkit import Chem
@@ -90,12 +91,10 @@ class Match:
         return dict(smirks=self.smirks, pid=self.pid, molecules=self.molecules)
 
 
-def inner(smiles):
-    mol = mol_from_smiles(smiles)
-    return smiles, set(find_matches(params, mol).values())
-
-
-if __name__ == "__main__":
+@click.command()
+@click.option("--nprocs", "-n", default=8)
+@click.option("--chunk-size", "-c", default=32)
+def main(nprocs, chunk_size):
     s = Store("store.sqlite")
     ff = ForceField(
         "../../01_generate-forcefield/output/initial-force-field-openff-2.1.0"
@@ -106,14 +105,17 @@ if __name__ == "__main__":
         for p in ff.get_parameter_handler("ProperTorsions").parameters
     }
     params = into_params(ff)
+
+    def inner(smiles):
+        mol = mol_from_smiles(smiles)
+        return smiles, set(find_matches(params, mol).values())
+
     want = load_want("want.params")
     res = dict()
-    NPROCS = 8
-    CHUNKSIZE = 32
     all_smiles = [s for s in s.get_smiles()]
-    with Pool(processes=NPROCS) as p:
+    with Pool(processes=nprocs) as p:
         for smiles, matches in tqdm(
-            p.imap(inner, all_smiles, chunksize=CHUNKSIZE),
+            p.imap(inner, all_smiles, chunksize=chunk_size),
             total=len(all_smiles),
         ):
             for pid in matches & want:
@@ -123,3 +125,7 @@ if __name__ == "__main__":
 
     with open("out.query.json", "w") as out:
         json.dump(res, out, default=Match.to_dict)
+
+
+if __name__ == "__main__":
+    main()

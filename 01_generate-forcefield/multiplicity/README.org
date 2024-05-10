@@ -233,3 +233,27 @@
   |  61 | t163g |   0 |   0 |   0 |
   |  62 | t163h |   0 |   0 |   0 |
   |  63 | t164  |   0 |   0 |   0 |
+
+* Sage 2.2.0 coverage
+  #+begin_src shell
+	python ffcover.py \
+		   -f ../../../benchmarking/forcefields/sage-2.2.0.offxml \
+		   -d ../../02_curate-data/datasets/combined-td.json \
+		   -t \
+		| tee output/sage-2.2/td.dat
+  #+end_src
+
+  #+begin_src awk :in-file output/sage-2.2/td.dat :exports both
+	NR == 1 { print "num", $0 }
+	$NF == 0 { print ++row, $0 }
+  #+end_src
+
+  #+RESULTS:
+  | num | pid   | env | rec | smi | tor |
+  |   1 | t89   |   1 |   1 |   1 |   0 |
+  |   2 | t138a |   0 |   0 |   0 |   0 |
+  |   3 | t141  |  16 |   7 |   7 |   0 |
+  |   4 | t141c |  65 |  12 |  12 |   0 |
+  |   5 | t165  |  17 |  17 |  13 |   0 |
+  |   6 | t166  | 210 |  79 |  63 |   0 |
+  |   7 | t167  |  41 |  28 |  26 |   0 |

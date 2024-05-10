@@ -1,3 +1,5 @@
+import json
+
 import numpy as np
 from openff.toolkit import ForceField
 from rdkit import Chem
@@ -70,7 +72,7 @@ def into_params(ff) -> list[tuple[str, Chem.Mol]]:
 
 def load_want(filename):
     with open(filename) as inp:
-        return [line.strip() for line in inp]
+        return {line.strip() for line in inp}
 
 
 class Match:
@@ -82,6 +84,9 @@ class Match:
         self.smirks = smirks
         self.pid = pid
         self.molecules = molecules
+
+    def to_dict(self):
+        return dict(smirks=self.smirks, pid=self.pid, molecules=self.molecules)
 
 
 if __name__ == "__main__":
@@ -95,9 +100,9 @@ if __name__ == "__main__":
         for p in ff.get_parameter_handler("ProperTorsions").parameters
     }
     params = into_params(ff)
-    want = set(load_want("want.params"))
+    want = load_want("want.params")
     res = dict()
-    for smiles in tqdm(s.get_smiles(), total=s.get_sizehint()):
+    for smiles in tqdm(s.get_smiles(limit=1000), total=s.get_sizehint()):
         mol = mol_from_smiles(smiles)
         matches = set(find_matches(params, mol).values())
         for pid in matches & want:
@@ -105,8 +110,8 @@ if __name__ == "__main__":
                 res[pid] = Match(pid_to_smirks[pid], pid, list())
             res[pid].molecules.append(smiles)
 
-    for pid, mat in res.items():
-        print(pid, len(mat.molecules))
+    with open("out.query.json", "w") as out:
+        json.dump(res, out, default=Match.to_dict)
 
     # just looping smiles took ~7 seconds
     # MolFromSmiles took 4007 seconds (1:06:48)

@@ -110,10 +110,11 @@ if __name__ == "__main__":
     res = dict()
     NPROCS = 8
     CHUNKSIZE = 32
+    all_smiles = [s for s in s.get_smiles()]
     with Pool(processes=NPROCS) as p:
         for smiles, matches in tqdm(
-            p.imap(inner, s.get_smiles(limit=1000), chunksize=CHUNKSIZE),
-            total=s.get_sizehint(),
+            p.imap(inner, all_smiles, chunksize=CHUNKSIZE),
+            total=len(all_smiles),
         ):
             for pid in matches & want:
                 if pid not in res:

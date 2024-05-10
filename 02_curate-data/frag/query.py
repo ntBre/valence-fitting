@@ -11,7 +11,7 @@ from tqdm import tqdm
 from store import Store
 
 
-def mol_from_smiles(smiles):
+def mol_from_smiles(smiles: str) -> Chem.Mol:
     """Create an RDKit molecule from SMILES and perform the cleaning operations
     from the OpenFF toolkit
 

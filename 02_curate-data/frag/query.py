@@ -123,7 +123,3 @@ if __name__ == "__main__":
 
     with open("out.query.json", "w") as out:
         json.dump(res, out, default=Match.to_dict)
-
-    # just looping smiles took ~7 seconds
-    # MolFromSmiles took 4007 seconds (1:06:48)
-    # mol_from_smiles took 5179 seconds (1:26:20)

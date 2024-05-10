@@ -1,4 +1,5 @@
 import json
+from multiprocessing import Pool
 
 import numpy as np
 from openff.toolkit import ForceField
@@ -89,6 +90,11 @@ class Match:
         return dict(smirks=self.smirks, pid=self.pid, molecules=self.molecules)
 
 
+def inner(smiles):
+    mol = mol_from_smiles(smiles)
+    return smiles, set(find_matches(params, mol).values())
+
+
 if __name__ == "__main__":
     s = Store("store.sqlite")
     ff = ForceField(
@@ -102,13 +108,17 @@ if __name__ == "__main__":
     params = into_params(ff)
     want = load_want("want.params")
     res = dict()
-    for smiles in tqdm(s.get_smiles(limit=1000), total=s.get_sizehint()):
-        mol = mol_from_smiles(smiles)
-        matches = set(find_matches(params, mol).values())
-        for pid in matches & want:
-            if pid not in res:
-                res[pid] = Match(pid_to_smirks[pid], pid, list())
-            res[pid].molecules.append(smiles)
+    NPROCS = 8
+    CHUNKSIZE = 32
+    with Pool(processes=NPROCS) as p:
+        for smiles, matches in tqdm(
+            p.imap(inner, s.get_smiles(limit=1000), chunksize=CHUNKSIZE),
+            total=s.get_sizehint(),
+        ):
+            for pid in matches & want:
+                if pid not in res:
+                    res[pid] = Match(pid_to_smirks[pid], pid, list())
+                res[pid].molecules.append(smiles)
 
     with open("out.query.json", "w") as out:
         json.dump(res, out, default=Match.to_dict)

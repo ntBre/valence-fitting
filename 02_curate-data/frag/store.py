@@ -12,6 +12,23 @@ from tqdm import tqdm
 from cut_compound import Compound
 
 
+class DBMol:
+    "Representation of a molecule in the database"
+    id: int
+    smiles: str
+    natoms: int
+
+    def __init__(self, id, smiles, natoms):
+        self.id = id
+        self.smiles = smiles
+        self.natoms = natoms
+
+    def __repr__(self):
+        return (
+            f"DBMol(id={self.id}, smiles={self.smiles}, natoms={self.natoms})"
+        )
+
+
 class Store:
     def __init__(self, filename="store.sqlite", nprocs=8):
         self.con = sqlite3.connect(filename)
@@ -20,7 +37,8 @@ class Store:
         self.cur.execute(
             """CREATE TABLE IF NOT EXISTS molecules (
             id integer primary key,
-            smiles text unique
+            smiles text unique,
+            natoms int
             )
             """
         )
@@ -57,6 +75,12 @@ class Store:
         while len(v := res.fetchmany()) > 0:
             # unpack 1-tuples
             yield from (x[0] for x in v)
+
+    def get_molecules(self) -> Iterator[DBMol]:
+        res = self.cur.execute("SELECT id, smiles, natoms FROM molecules")
+        while len(v := res.fetchmany()) > 0:
+            # unpack 3-tuples
+            yield from (DBMol(id=x[0], smiles=x[1], natoms=x[2]) for x in v)
 
     def process_line(line):
         [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")

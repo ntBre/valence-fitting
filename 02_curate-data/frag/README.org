@@ -1,72 +1,77 @@
-* Introduction
-  investigating various molecule fragmentation algorithms for curating
-  additional datasets
+* Fragmentation algorithm comparison
+** Introduction
+   investigating various molecule fragmentation algorithms for curating
+   additional datasets
 
-* Computational Details
-  Considered algorithms and their statuses:
-  - [X] RECAP - implemented
-  - [X] BRICS - implemented
-  - [ ] Murcko scaffolds - these look different from what we want
-  - [ ] [[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4080744/][molBlocks]] - interesting, GPL C++ code, could reimplement from paper?
-  - [ ] [[https://pubmed.ncbi.nlm.nih.gov/17149868/][DAIM]] - strange license agreement, source by personal request, reimpl?
-  - [ ] [[https://pubs.acs.org/doi/10.1021/acs.jcim.6b00596][eMolFrag]] - GPL Python code, could reimplement?
-  - [ ] [[https://pubs.acs.org/doi/10.1021/acs.jcim.0c00296][rdScaffoldNetwork]] - again, scaffolds look different from what we want?
+** Computational Details
+   Considered algorithms and their statuses:
+   - [X] RECAP - implemented
+   - [X] BRICS - implemented
+   - [ ] Murcko scaffolds - these look different from what we want
+   - [ ] [[https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4080744/][molBlocks]] - interesting, GPL C++ code, could reimplement from paper?
+   - [ ] [[https://pubmed.ncbi.nlm.nih.gov/17149868/][DAIM]] - strange license agreement, source by personal request, reimpl?
+   - [ ] [[https://pubs.acs.org/doi/10.1021/acs.jcim.6b00596][eMolFrag]] - GPL Python code, could reimplement?
+   - [ ] [[https://pubs.acs.org/doi/10.1021/acs.jcim.0c00296][rdScaffoldNetwork]] - again, scaffolds look different from what we want?
 
-  Based on Ivanov, et al. molBlocks and even eMolFrag sound very similar to
-  RECAP and BRICS, to the extent that molBlocks may even just be an
-  implementation of these other algorithms, so I'm not sure they really
-  represent additional algorithms, per se. As I've noticed, BRICS and RECAP are
-  also quite similar themselves.
+   Based on Ivanov, et al. molBlocks and even eMolFrag sound very similar to
+   RECAP and BRICS, to the extent that molBlocks may even just be an
+   implementation of these other algorithms, so I'm not sure they really
+   represent additional algorithms, per se. As I've noticed, BRICS and RECAP are
+   also quite similar themselves.
 
-* Results
-  #+begin_src shell :exports both
-	python main.py
-  #+end_src
+** Results
+   #+begin_src shell :exports both
+	 python main.py
+   #+end_src
 
-  #+RESULTS:
-  | Algo    | Mols | Frags | Min |  Mean | Max | Time |
-  | RECAP-0 |  100 |   254 |   2 | 23.03 |  69 |  1.1 |
-  | RECAP-2 |  100 |   257 |   3 | 22.94 |  69 |  0.7 |
-  | RECAP-4 |  100 |   262 |   5 | 23.08 |  69 |  0.6 |
-  | RECAP-8 |  100 |   218 |   9 | 20.03 |  58 |  0.3 |
-  | BRICS-0 |  100 |   240 |   3 | 15.51 |  71 |  7.2 |
-  | BRICS-2 |  100 |   272 |   3 | 15.62 |  71 |  7.0 |
-  | BRICS-4 |  100 |   329 |   5 | 16.07 |  73 |  0.4 |
-  | BRICS-8 |  100 |   343 |   9 | 18.74 |  77 |  0.3 |
-  | ERB     |  100 |   710 |   1 |  7.44 |  66 |  0.2 |
-  | XFF     |  100 |  1748 |   1 | 21.66 |  77 |  2.3 |
+   #+RESULTS:
+   | Algo    | Mols | Frags | Min |  Mean | Max | Time |
+   | RECAP-0 |  100 |   254 |   2 | 23.03 |  69 |  1.1 |
+   | RECAP-2 |  100 |   257 |   3 | 22.94 |  69 |  0.7 |
+   | RECAP-4 |  100 |   262 |   5 | 23.08 |  69 |  0.6 |
+   | RECAP-8 |  100 |   218 |   9 | 20.03 |  58 |  0.3 |
+   | BRICS-0 |  100 |   240 |   3 | 15.51 |  71 |  7.2 |
+   | BRICS-2 |  100 |   272 |   3 | 15.62 |  71 |  7.0 |
+   | BRICS-4 |  100 |   329 |   5 | 16.07 |  73 |  0.4 |
+   | BRICS-8 |  100 |   343 |   9 | 18.74 |  77 |  0.3 |
+   | ERB     |  100 |   710 |   1 |  7.44 |  66 |  0.2 |
+   | XFF     |  100 |  1748 |   1 | 21.66 |  77 |  2.3 |
 
-  This table shows the number of fragments, minimum, mean, and maximum fragment
-  size, and the time for fragmenting in seconds for each of the
-  algorithm-parameter pairs. For both RECAP and BRICS, the only input parameter
-  is the minimum fragment size, so these results cover a minimum size from 0
-  (the default) to 8. All runs share the same initial set of 100 molecules
-  extracted from the first 1000 molecules in ChEMBL 33 with fewer than 80 atoms.
+   This table shows the number of fragments, minimum, mean, and maximum fragment
+   size, and the time for fragmenting in seconds for each of the
+   algorithm-parameter pairs. For both RECAP and BRICS, the only input parameter
+   is the minimum fragment size, so these results cover a minimum size from 0
+   (the default) to 8. All runs share the same initial set of 100 molecules
+   extracted from the first 1000 molecules in ChEMBL 33 with fewer than 80 atoms.
 
-  BRICS appears to produce smaller fragments on average but slightly larger
-  fragments by maximum size. Another clear trend is the decreasing time for
-  larger minimum fragment sizes. This makes sense as it prevents the algorithms
-  from recursing into very small fragments.
+   BRICS appears to produce smaller fragments on average but slightly larger
+   fragments by maximum size. Another clear trend is the decreasing time for
+   larger minimum fragment sizes. This makes sense as it prevents the algorithms
+   from recursing into very small fragments.
 
-  Fragmenting on every rotatable bond (ERB) generates far more fragments with a
-  very low average size. Many of the fragments are visually very similar, but
-  this can easily be handled by terminating the fragments with hydrogen atoms,
-  which I think will make their SMILES overlap. For now, all fragments across
-  all three algorithms have been left with ~*~ terminators.
+   Fragmenting on every rotatable bond (ERB) generates far more fragments with a
+   very low average size. Many of the fragments are visually very similar, but
+   this can easily be handled by terminating the fragments with hydrogen atoms,
+   which I think will make their SMILES overlap. For now, all fragments across
+   all three algorithms have been left with ~*~ terminators.
 
-  The XFF fragmentation algorithm produces a huge number of fragments, with a
-  larger size on average than all but the RECAP algorithm. As mentioned above,
-  the number of "unique" fragments is inflated by the ~*~ terminators with varying
-  numbers, but this should affect each of the algorithms similarly.
+   The XFF fragmentation algorithm produces a huge number of fragments, with a
+   larger size on average than all but the RECAP algorithm. As mentioned above,
+   the number of "unique" fragments is inflated by the ~*~ terminators with varying
+   numbers, but this should affect each of the algorithms similarly.
 
-  [[file:hist.png]]
+   [[file:hist.png]]
 
-  This figure shows the distribution of fragment sizes from each of the
-  algorithms above. These are mostly in-line with the trends observed in the
-  tabular data. Namely, BRICS produces smaller fragments than RECAP, and the
-  size of fragment is skewed farther left as the minimum fragment size is
-  increased. ERB still produces the smallest fragments overall, and almost all
-  of its fragments fall below 20 atoms, whereas most of the other curves flatten
-  closer to 40 atoms.
+   This figure shows the distribution of fragment sizes from each of the
+   algorithms above. These are mostly in-line with the trends observed in the
+   tabular data. Namely, BRICS produces smaller fragments than RECAP, and the
+   size of fragment is skewed farther left as the minimum fragment size is
+   increased. ERB still produces the smallest fragments overall, and almost all
+   of its fragments fall below 20 atoms, whereas most of the other curves flatten
+   closer to 40 atoms.
+
+* XFF fragment size distribution in ChEMBL
+  #+attr_html: :width 600
+  [[file:figs/natoms.png]]
 
 #  LocalWords:  rotatable

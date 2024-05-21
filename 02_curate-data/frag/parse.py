@@ -12,9 +12,9 @@ def tanimoto(fps):
     n = len(fps)
     ret = np.zeros((n, n))
     for row in range(n):
-        ret[row] = np.array(
+        ret[row, row:] = np.array(
             DataStructs.BulkTanimotoSimilarity(
-                fps[row], fps, returnDistance=True
+                fps[row], fps[row:], returnDistance=True
             )
         )
 

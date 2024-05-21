@@ -82,13 +82,17 @@ class Store:
             # unpack 3-tuples
             yield from (DBMol(id=x[0], smiles=x[1], natoms=x[2]) for x in v)
 
-    def process_line(line):
+    def process_line(line) -> set[str]:
         [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")
-        try:
-            mol = Molecule.from_smiles(cmiles, allow_undefined_stereo=True)
-        except RadicalsNotSupportedError:
-            return
-        return xff(mol)
+        all_smiles = cmiles.split(".")
+        ret = set()
+        for smiles in all_smiles:
+            try:
+                mol = Molecule.from_smiles(cmiles, allow_undefined_stereo=True)
+            except RadicalsNotSupportedError:
+                continue
+            ret.update(xff(mol))
+        return ret
 
     def load_chembl(self, filename) -> dict[str, Molecule]:
         with open(filename) as inp, Pool(processes=self.nprocs) as pool:
@@ -116,7 +120,7 @@ def find_frag_bonds(rdmol, keep_atoms):
     return to_remove
 
 
-def xff(mol):
+def xff(mol) -> set[str]:
     try:
         c = Compound(mol.to_rdkit())
     except Exception as e:

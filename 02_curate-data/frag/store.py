@@ -51,7 +51,7 @@ class Store:
     def insert_molecules(self, smiles: dict[str, int]):
         "Insert multiple SMILES into the database"
         self.cur.executemany(
-            "INSERT OR IGNORE INTO molecules (smiles, natoms) VALUES (?1)",
+            "INSERT OR IGNORE INTO molecules (smiles, natoms) VALUES (?1, ?2)",
             [(s, n) for s, n in smiles.items()],
         )
         self.con.commit()

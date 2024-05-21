@@ -46,11 +46,7 @@ class Store:
 
     def insert_molecule(self, smiles: str):
         "Insert a single SMILES into the database"
-        self.cur.execute(
-            "INSERT OR IGNORE INTO molecules (smiles) VALUES (?1)",
-            (smiles,),
-        )
-        self.con.commit()
+        self.insert_molecules([smiles])
 
     def insert_molecules(self, smiles: list[str]):
         "Insert multiple SMILES into the database"

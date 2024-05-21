@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -J store
+#SBATCH -J query
 #SBATCH -p standard
 #SBATCH -t 144:00:00
 #SBATCH --nodes=1

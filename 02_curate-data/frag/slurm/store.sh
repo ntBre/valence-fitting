@@ -10,7 +10,7 @@
 #SBATCH --export ALL
 #SBATCH --mail-user=bwestbr1@uci.edu
 #SBATCH --constraint=fastscratch
-#SBATCH -o slurm.store.out
+#SBATCH -o logs/store.out
 
 source $HOME/.bashrc
 

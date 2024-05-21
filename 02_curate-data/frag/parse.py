@@ -9,13 +9,15 @@ from query import Match, mol_from_smiles
 
 def tanimoto(fps):
     "Compute the tanimoto distance matrix for a list of fingerprints"
-    ret = np.zeros((len(fps), len(fps)))
-    for i in fps:
-        for j in fps[1:]:
-            if i == j:
-                continue
-            ret[i, j] = 1.0 - DataStructs.TanimotoSimilarity(i, j)
-            ret[j, i] = ret[i, j]
+    n = len(fps)
+    ret = np.zeros((n, n))
+    for row in range(n):
+        ret[row] = np.array(
+            DataStructs.BulkTanimotoSimilarity(
+                fps[row], fps, returnDistance=True
+            )
+        )
+
     return ret
 
 
@@ -34,7 +36,3 @@ for m in matches.values():
         fps.append(fpgen.GetFingerprint(mol))
     dist = tanimoto(fps)
     print(dist)
-
-
-# this only took ~1 minute when computing fingerprints, but with tanimoto the
-# first pid has taken ~12 minutes already without finishing

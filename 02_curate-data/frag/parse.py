@@ -18,7 +18,7 @@ def tanimoto(fps):
             )
         )
 
-    return ret
+    return ret + ret.T  # copy upper triangle to lower, diag is already zero
 
 
 with open("out.query.json") as f:

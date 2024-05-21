@@ -48,11 +48,11 @@ class Store:
         "Insert a single SMILES into the database"
         self.insert_molecules([smiles])
 
-    def insert_molecules(self, smiles: list[str]):
+    def insert_molecules(self, smiles: dict[str, int]):
         "Insert multiple SMILES into the database"
         self.cur.executemany(
-            "INSERT OR IGNORE INTO molecules (smiles) VALUES (?1)",
-            [(s,) for s in smiles],
+            "INSERT OR IGNORE INTO molecules (smiles, natoms) VALUES (?1)",
+            [(s, n) for s, n in smiles.items()],
         )
         self.con.commit()
 
@@ -78,10 +78,10 @@ class Store:
             # unpack 3-tuples
             yield from (DBMol(id=x[0], smiles=x[1], natoms=x[2]) for x in v)
 
-    def process_line(line) -> set[str]:
+    def process_line(line) -> dict[str, int]:
         [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")
         all_smiles = cmiles.split(".")
-        ret = set()
+        ret = dict()
         for smiles in all_smiles:
             try:
                 mol = Molecule.from_smiles(cmiles, allow_undefined_stereo=True)
@@ -116,7 +116,7 @@ def find_frag_bonds(rdmol, keep_atoms):
     return to_remove
 
 
-def xff(mol) -> set[str]:
+def xff(mol) -> dict[str, int]:
     try:
         c = Compound(mol.to_rdkit())
     except Exception as e:
@@ -124,7 +124,7 @@ def xff(mol) -> set[str]:
         return
     frags = c.cutCompound()
 
-    ret = set()
+    ret = dict()
     for fr in chain(frags.frag_rings, frags.frag_chains):
         emol = Chem.Mol(c.rdmol)
         frag_atoms = set(fr)
@@ -137,9 +137,9 @@ def xff(mol) -> set[str]:
                 dummyLabels=[(0, 0)] * len(rdbonds),
             )
             for frag in Chem.GetMolFrags(fragmented, asMols=True):
-                ret.add(Chem.MolToSmiles(frag))
+                ret[Chem.MolToSmiles(frag)] = frag.GetNumAtoms()
         else:
-            ret.add(Chem.MolToSmiles(emol))
+            ret[Chem.MolToSmiles(emol)] = emol.GetNumAtoms()
 
     return ret
 

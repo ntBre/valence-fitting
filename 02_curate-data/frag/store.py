@@ -17,11 +17,15 @@ class DBMol:
     id: int
     smiles: str
     natoms: int
+    elements: int
+    tag: str
 
-    def __init__(self, id, smiles, natoms):
-        self.id = id
+    def __init__(self, smiles, natoms, elements, tag=None, id=None):
         self.smiles = smiles
         self.natoms = natoms
+        self.elements = elements
+        self.tag = tag
+        self.id = id
 
     def __repr__(self):
         return (
@@ -38,21 +42,24 @@ class Store:
             """CREATE TABLE IF NOT EXISTS molecules (
             id integer primary key,
             smiles text unique,
-            natoms int
+            natoms int,
+            elements blob,
+            tag text
             )
             """
         )
         self.nprocs = nprocs
 
-    def insert_molecule(self, smiles: str):
+    def insert_molecule(self, mol: DBMol):
         "Insert a single SMILES into the database"
-        self.insert_molecules([smiles])
+        self.insert_molecules([mol])
 
-    def insert_molecules(self, smiles: dict[str, int]):
+    def insert_molecules(self, mols: list[DBMol]):
         "Insert multiple SMILES into the database"
         self.cur.executemany(
-            "INSERT OR IGNORE INTO molecules (smiles, natoms) VALUES (?1, ?2)",
-            [(s, n) for s, n in smiles.items()],
+            """INSERT OR IGNORE INTO molecules (smiles, natoms, elements, tag)
+            VALUES (?1, ?2, ?3, ?4)""",
+            [(m.smiles, m.natoms, m.elements, m.tag) for m in mols],
         )
         self.con.commit()
 
@@ -78,17 +85,17 @@ class Store:
             # unpack 3-tuples
             yield from (DBMol(id=x[0], smiles=x[1], natoms=x[2]) for x in v)
 
-    def process_line(line) -> dict[str, int]:
+    def process_line(line) -> list[DBMol]:
         [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")
         all_smiles = cmiles.split(".")
-        ret = dict()
+        ret = list()
         for smiles in all_smiles:
             try:
                 mol = Molecule.from_smiles(cmiles, allow_undefined_stereo=True)
             except RadicalsNotSupportedError:
                 continue
             if x := xff(mol):
-                ret.update(x)
+                ret.extend(x)
         return ret
 
     def load_chembl(self, filename) -> dict[str, Molecule]:
@@ -102,6 +109,8 @@ class Store:
                 total=2372675,
             ):
                 if frags:
+                    for frag in frags:
+                        frag.tag = filename
                     self.insert_molecules(frags)
 
 
@@ -117,7 +126,7 @@ def find_frag_bonds(rdmol, keep_atoms):
     return to_remove
 
 
-def xff(mol) -> dict[str, int] | None:
+def xff(mol) -> list[DBMol] | None:
     try:
         c = Compound(mol.to_rdkit())
     except Exception as e:
@@ -125,7 +134,7 @@ def xff(mol) -> dict[str, int] | None:
         return
     frags = c.cutCompound()
 
-    ret = dict()
+    ret = list()
     for fr in chain(frags.frag_rings, frags.frag_chains):
         emol = Chem.Mol(c.rdmol)
         frag_atoms = set(fr)
@@ -138,10 +147,44 @@ def xff(mol) -> dict[str, int] | None:
                 dummyLabels=[(0, 0)] * len(rdbonds),
             )
             for frag in Chem.GetMolFrags(fragmented, asMols=True):
-                ret[Chem.MolToSmiles(frag)] = frag.GetNumAtoms()
+                ret.append(
+                    DBMol(
+                        smiles=Chem.MolToSmiles(frag),
+                        natoms=frag.GetNumAtoms(),
+                        elements=elements_to_bits(get_elements(frag)),
+                    )
+                )
         else:
-            ret[Chem.MolToSmiles(emol)] = emol.GetNumAtoms()
+            ret.append(
+                DBMol(
+                    smiles=Chem.MolToSmiles(emol),
+                    natoms=emol.GetNumAtoms(),
+                    elements=elements_to_bits(get_elements(emol)),
+                )
+            )
 
+    return ret
+
+
+def get_elements(mol: Chem.Mol) -> list[int]:
+    "Return a list of atomic numbers in `mol`"
+    return [atom.GetAtomicNum() for atom in mol.GetAtoms()]
+
+
+def elements_to_bits(nums: list[int]) -> int:
+    "Pack a sequence of atomic numbers into an int"
+    ret = 0
+    for n in nums:
+        ret |= 1 << n
+    return ret
+
+
+def bits_to_elements(bits: int) -> list[int]:
+    "Unpack an int into a sequence of atomic numbers"
+    ret = []
+    for i in range(128):
+        if (bits & (1 << i)) != 0:
+            ret.append(i)
     return ret
 
 

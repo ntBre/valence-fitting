@@ -1,6 +1,8 @@
 from openff.toolkit import ForceField, Molecule
+from rdkit import Chem
 
 from query import find_matches, into_params, load_want, mol_from_smiles
+from store import bits_to_elements, elements_to_bits, get_elements
 
 
 def test_find_matches():
@@ -25,4 +27,15 @@ def test_find_matches():
 def test_load_want():
     got = len(load_want("want.params"))
     want = 51
+    assert got == want
+
+
+def test_elements_to_bits():
+    mol = Chem.MolFromSmiles("CCO")
+    got = elements_to_bits(get_elements(mol))
+    want = 0b101000000
+    assert got == want
+
+    got = bits_to_elements(got)
+    want = [6, 8]
     assert got == want

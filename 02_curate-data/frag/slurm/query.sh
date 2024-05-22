@@ -19,4 +19,4 @@ conda activate fb-196-qcnew
 python query.py \
 	   -n $SLURM_CPUS_PER_TASK \
 	   -x 'natoms:80' \
-	   -x 'elements:Cl, P, Br, I, H, C, B, Si, O, N, F, S'
+	   -x 'elements:Cl, P, Br, I, H, C, O, N, F, S'

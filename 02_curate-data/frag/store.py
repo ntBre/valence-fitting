@@ -117,7 +117,7 @@ def find_frag_bonds(rdmol, keep_atoms):
     return to_remove
 
 
-def xff(mol) -> dict[str, int]:
+def xff(mol) -> dict[str, int] | None:
     try:
         c = Compound(mol.to_rdkit())
     except Exception as e:

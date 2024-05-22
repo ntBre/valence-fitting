@@ -8,7 +8,22 @@ from openff.toolkit import ForceField
 from rdkit import Chem
 from tqdm import tqdm
 
-from store import Store
+from store import DBMol, Store, elements_to_bits
+
+# fmt: off
+PTABLE = [
+    "X", "H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne", "Na", "Mg",
+    "Al", "Si", "P", "S", "Cl", "Ar", "K", "Ca", "Sc", "Ti", "V", "Cr", "Mn",
+    "Fe", "Co", "Ni", "Cu", "Zn", "Ga", "Ge", "As", "Se", "Br", "Kr", "Rb",
+    "Sr", "Y", "Zr", "Nb", "Mo", "Tc", "Ru", "Rh", "Pd", "Ag", "Cd", "In",
+    "Sn", "Sb", "Te", "I", "Xe", "Cs", "Ba", "La", "Ce", "Pr", "Nd", "Pm",
+    "Sm", "Eu", "Gd", "Tb", "Dy", "Ho", "Er", "Tm", "Yb", "Lu", "Hf", "Ta",
+    "W", "Re", "Os", "Ir", "Pt", "Au", "Hg", "Tl", "Pb", "Bi", "Po", "At",
+    "Rn", "Fr", "Ra", "Ac", "Th", "Pa", "U", "Np", "Pu", "Am", "Cm", "Bk",
+    "Cf", "Es", "Fm", "Md", "No", "Lr", "Rf", "Db", "Sg", "Bh", "Hs", "Mt",
+    "Ds ", "Rg ", "Cn ", "Nh", "Fl", "Mc", "Lv", "Ts", "Og",
+]
+# fmt: on
 
 
 def mol_from_smiles(smiles: str) -> Chem.Mol:
@@ -97,10 +112,53 @@ def inner(smiles, params):
     return smiles, set(find_matches(params, mol).values())
 
 
+class Filter:
+    def apply(self, mol: DBMol) -> bool:
+        raise NotImplementedError()
+
+
+class ElementFilter(Filter):
+    def __init__(self, elements: int):
+        self.mask = elements
+
+    def apply(self, mol: DBMol) -> bool:
+        return (mol.elements | self.mask) == self.mask
+
+
+class NatomsFilter(Filter):
+    def __init__(self, natoms: int):
+        self.natoms = natoms
+
+    def apply(self, mol: DBMol) -> bool:
+        return mol.natoms <= self.natoms
+
+
+def symbols_to_bits(symbols: list[str]) -> int:
+    atomic_nums = [PTABLE.index(sym) for sym in symbols]
+    return elements_to_bits(atomic_nums)
+
+
+def parse_filters(filters: list[str]) -> list[Filter]:
+    ret = list()
+    for filt in filters:
+        fields = filt.strip().split(":")
+        match fields:
+            case ["elements", arg]:
+                atomic_symbols = [s.strip() for s in arg.split(",")]
+                ret.append(ElementFilter(symbols_to_bits(atomic_symbols)))
+            case ["natoms", natoms]:
+                ret.append(NatomsFilter(natoms))
+            case _:
+                raise NotImplementedError(f"unrecognized filter: `{fields}`")
+    return ret
+
+
 @click.command()
 @click.option("--nprocs", "-n", default=8)
 @click.option("--chunk-size", "-c", default=32)
-def main(nprocs, chunk_size):
+@click.option("--filter", "-x", "filters", multiple=True)
+def main(nprocs, chunk_size, filters):
+    filters = parse_filters(filters)
     s = Store("store.sqlite")
     ff = ForceField(
         "../../01_generate-forcefield/output/initial-force-field-openff-2.1.0"

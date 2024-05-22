@@ -32,6 +32,14 @@ class DBMol:
             f"DBMol(id={self.id}, smiles={self.smiles}, natoms={self.natoms})"
         )
 
+    @classmethod
+    def from_rdmol(cls, mol: Chem.Mol):
+        return cls(
+            smiles=Chem.MolToSmiles(mol),
+            natoms=mol.GetNumAtoms(),
+            elements=elements_to_bits(get_elements(mol)),
+        )
+
 
 class Store:
     def __init__(self, filename="store.sqlite", nprocs=8):
@@ -147,21 +155,9 @@ def xff(mol) -> list[DBMol] | None:
                 dummyLabels=[(0, 0)] * len(rdbonds),
             )
             for frag in Chem.GetMolFrags(fragmented, asMols=True):
-                ret.append(
-                    DBMol(
-                        smiles=Chem.MolToSmiles(frag),
-                        natoms=frag.GetNumAtoms(),
-                        elements=elements_to_bits(get_elements(frag)),
-                    )
-                )
+                ret.append(DBMol.from_rdmol(frag))
         else:
-            ret.append(
-                DBMol(
-                    smiles=Chem.MolToSmiles(emol),
-                    natoms=emol.GetNumAtoms(),
-                    elements=elements_to_bits(get_elements(emol)),
-                )
-            )
+            ret.append(DBMol.from_rdmol(emol))
 
     return ret
 

@@ -107,11 +107,6 @@ class Match:
         return dict(smirks=self.smirks, pid=self.pid, molecules=self.molecules)
 
 
-def inner(smiles, params):
-    mol = mol_from_smiles(smiles)
-    return smiles, set(find_matches(params, mol).values())
-
-
 class Filter:
     def apply(self, mol: DBMol) -> bool:
         raise NotImplementedError()
@@ -153,6 +148,13 @@ def parse_filters(filters: list[str]) -> list[Filter]:
     return ret
 
 
+def inner(m: DBMol, params, filters):
+    if not all((f.apply(m) for f in filters)):
+        return "", set()
+    mol = mol_from_smiles(m.smiles)
+    return m.smiles, set(find_matches(params, mol).values())
+
+
 @click.command()
 @click.option("--nprocs", "-n", default=8)
 @click.option("--chunk-size", "-c", default=32)
@@ -172,13 +174,15 @@ def main(nprocs, chunk_size, filters):
 
     want = load_want("want.params")
     res = dict()
-    all_smiles = [s for s in s.get_smiles()]
+    all_mols = [s for s in s.get_molecules()]
     with Pool(processes=nprocs) as p:
         for smiles, matches in tqdm(
             p.imap(
-                partial(inner, params=params), all_smiles, chunksize=chunk_size
+                partial(inner, params=params, filters=filters),
+                all_mols,
+                chunksize=chunk_size,
             ),
-            total=len(all_smiles),
+            total=len(all_mols),
         ):
             for pid in matches & want:
                 if pid not in res:

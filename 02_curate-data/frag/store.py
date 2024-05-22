@@ -87,7 +87,8 @@ class Store:
                 mol = Molecule.from_smiles(cmiles, allow_undefined_stereo=True)
             except RadicalsNotSupportedError:
                 continue
-            ret.update(xff(mol))
+            if x := xff(mol):
+                ret.update(x)
         return ret
 
     def load_chembl(self, filename) -> dict[str, Molecule]:

@@ -141,19 +141,7 @@ def inner(m: DBMol, params, filters) -> tuple[str, set[str]]:
     return m.smiles, set(find_matches(params, mol).values())
 
 
-@click.command()
-@click.option("--nprocs", "-n", default=8)
-@click.option("--chunk-size", "-c", default=32)
-@click.option("--filter", "-x", "filters", multiple=True)
-@click.option("--store-name", "-s", default="store.sqlite")
-@click.option("--ffname", "-f", default="openff-2.1.0.offxml")
-@click.option("--target-params", "-t", default="want.params")
-@click.option("--limit", "-l", hidden=True, default=None)
-def main(
-    nprocs, chunk_size, filters, store_name, ffname, target_params, limit
-):
-    filters = parse_filters(filters)
-    want = load_want(target_params)
+def _main(nprocs, chunk_size, filters, store_name, ffname, want, limit):
     s = Store(store_name)
     ff = ForceField(ffname)
     params = into_params(ff)
@@ -180,6 +168,22 @@ def main(
                 res[pid].molecules.append(smiles)
 
     s.insert_forcefield(DBForceField(ffname, list(res.values())))
+
+
+@click.command()
+@click.option("--nprocs", "-n", default=8)
+@click.option("--chunk-size", "-c", default=32)
+@click.option("--filter", "-x", "filters", multiple=True)
+@click.option("--store-name", "-s", default="store.sqlite")
+@click.option("--ffname", "-f", default="openff-2.1.0.offxml")
+@click.option("--target-params", "-t", default="want.params")
+@click.option("--limit", "-l", hidden=True, default=None)
+def main(
+    nprocs, chunk_size, filters, store_name, ffname, target_params, limit
+):
+    filters = parse_filters(filters)
+    want = load_want(target_params)
+    _main(nprocs, chunk_size, filters, store_name, ffname, want, limit)
 
 
 if __name__ == "__main__":

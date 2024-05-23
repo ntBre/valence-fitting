@@ -67,7 +67,10 @@ class Store:
         self.cur.executemany(
             """INSERT OR IGNORE INTO molecules (smiles, natoms, elements, tag)
             VALUES (?1, ?2, ?3, ?4)""",
-            [(m.smiles, m.natoms, m.elements, m.tag) for m in mols],
+            [
+                (m.smiles, m.natoms, m.elements.to_bytes(128, "big"), m.tag)
+                for m in mols
+            ],
         )
         self.con.commit()
 
@@ -88,10 +91,21 @@ class Store:
             yield from (x[0] for x in v)
 
     def get_molecules(self) -> Iterator[DBMol]:
-        res = self.cur.execute("SELECT id, smiles, natoms FROM molecules")
+        res = self.cur.execute(
+            "SELECT id, smiles, natoms, elements, tag FROM molecules"
+        )
         while len(v := res.fetchmany()) > 0:
             # unpack 3-tuples
-            yield from (DBMol(id=x[0], smiles=x[1], natoms=x[2]) for x in v)
+            yield from (
+                DBMol(
+                    id=x[0],
+                    smiles=x[1],
+                    natoms=x[2],
+                    elements=int.from_bytes(x[3], "big"),
+                    tag=x[4],
+                )
+                for x in v
+            )
 
     def process_line(line) -> list[DBMol]:
         [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")

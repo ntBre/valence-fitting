@@ -56,6 +56,13 @@ class Match:
         self.pid = pid
         self.molecules = molecules
 
+    def __eq__(self, o):
+        return (
+            self.smirks == o.smirks
+            and self.pid == o.pid
+            and self.molecules == o.molecules
+        )
+
     def to_dict(self):
         return dict(smirks=self.smirks, pid=self.pid, molecules=self.molecules)
 
@@ -119,6 +126,13 @@ class Store:
             (ff.name, sqlite3.Binary(pickle.dumps(ff.matches))),
         )
         self.con.commit()
+
+    def get_forcefield(self, ffname: str) -> DBForceField:
+        id, name, matches = self.cur.execute(
+            "SELECT id, name, matches FROM forcefields WHERE name = ?1",
+            (ffname,),
+        ).fetchone()
+        return DBForceField(id=id, name=name, matches=pickle.loads(matches))
 
     def get_sizehint(self) -> int:
         "Return a count of rows in the database"

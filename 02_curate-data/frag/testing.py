@@ -62,5 +62,14 @@ def test_store():
 def test_query():
     from query import _main
 
+    ffname = "openff-2.1.0.offxml"
     with tempfile.NamedTemporaryFile() as f:
-        _main(8, 32, [], f.name, "openff-2.1.0.offxml", ["t1", "t2"], 100)
+        s = Store(f.name)
+        s.insert_molecules(
+            [
+                DBMol("CCO", 3, 1 << 6 | 1 << 8),
+            ]
+        )
+        s, got = _main(8, 32, [], f.name, ffname, {"t1", "t2", "t9"}, 100)
+        want = s.get_forcefield(ffname)
+        assert got == want.matches

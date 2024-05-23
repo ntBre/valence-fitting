@@ -167,7 +167,10 @@ def _main(nprocs, chunk_size, filters, store_name, ffname, want, limit):
                     res[pid] = Match(pid_to_smirks[pid], pid, list())
                 res[pid].molecules.append(smiles)
 
-    s.insert_forcefield(DBForceField(ffname, list(res.values())))
+    ret = list(res.values())
+    s.insert_forcefield(DBForceField(ffname, ret))
+
+    return s, ret
 
 
 @click.command()

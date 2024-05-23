@@ -1,8 +1,16 @@
+import tempfile
+
 from openff.toolkit import ForceField, Molecule
 from rdkit import Chem
 
 from query import find_matches, into_params, load_want, mol_from_smiles
-from store import bits_to_elements, elements_to_bits, get_elements
+from store import (
+    DBMol,
+    Store,
+    bits_to_elements,
+    elements_to_bits,
+    get_elements,
+)
 
 
 def test_find_matches():
@@ -39,3 +47,13 @@ def test_elements_to_bits():
     got = bits_to_elements(got)
     want = [6, 8]
     assert got == want
+
+
+def test_store():
+    with tempfile.NamedTemporaryFile() as f:
+        s = Store(f.name)
+        mol = DBMol("CC[At]", 3, 1 << 85 | 1 << 6)
+        s.insert_molecule(mol)
+        got = next(s.get_molecules()).get_elements()
+        want = [6, 85]
+        assert got == want

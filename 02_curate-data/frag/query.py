@@ -145,7 +145,8 @@ def inner(m: DBMol, params, filters):
 @click.option("--nprocs", "-n", default=8)
 @click.option("--chunk-size", "-c", default=32)
 @click.option("--filter", "-x", "filters", multiple=True)
-def main(nprocs, chunk_size, filters):
+@click.option("--limit", "-l", hidden=True, default=None)
+def main(nprocs, chunk_size, filters, limit):
     filters = parse_filters(filters)
     s = Store("store.sqlite")
     ff = ForceField(
@@ -160,7 +161,7 @@ def main(nprocs, chunk_size, filters):
 
     want = load_want("want.params")
     res = dict()
-    all_mols = [s for s in s.get_molecules()]
+    all_mols = [s for s in s.get_molecules(limit)]
     with Pool(processes=nprocs) as p:
         for smiles, matches in tqdm(
             p.imap(

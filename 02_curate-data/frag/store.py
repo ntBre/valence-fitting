@@ -49,7 +49,7 @@ class DBMol:
 class Match:
     smirks: str
     pid: str
-    molecules: list[str]
+    molecules: list[str]  # TODO this is actually supposed to be list[rowid]
 
     def __init__(self, smirks, pid, molecules):
         self.smirks = smirks

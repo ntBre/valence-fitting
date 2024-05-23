@@ -108,10 +108,17 @@ class Store:
             # unpack 1-tuples
             yield from (x[0] for x in v)
 
-    def get_molecules(self) -> Iterator[DBMol]:
-        res = self.cur.execute(
-            "SELECT id, smiles, natoms, elements, tag FROM molecules"
-        )
+    def get_molecules(self, limit=None) -> Iterator[DBMol]:
+        if limit:
+            res = self.cur.execute(
+                """SELECT id, smiles, natoms, elements, tag FROM molecules
+                limit ?""",
+                (limit,),
+            )
+        else:
+            res = self.cur.execute(
+                "SELECT id, smiles, natoms, elements, tag FROM molecules"
+            )
         while len(v := res.fetchmany()) > 0:
             # unpack 3-tuples
             yield from (

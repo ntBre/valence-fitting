@@ -1,3 +1,4 @@
+import pickle
 import sqlite3
 from itertools import chain
 from multiprocessing import Pool
@@ -115,7 +116,7 @@ class Store:
         self.cur.execute(
             """INSERT OR IGNORE INTO forcefields (name, matches)
             VALUES (?1, ?2)""",
-            (ff.name, ff.matches),
+            (ff.name, sqlite3.Binary(pickle.dumps(ff.matches))),
         )
         self.con.commit()
 

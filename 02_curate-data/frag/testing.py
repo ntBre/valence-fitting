@@ -57,3 +57,10 @@ def test_store():
         got = next(s.get_molecules()).get_elements()
         want = [6, 85]
         assert got == want
+
+
+def test_query():
+    from query import _main
+
+    with tempfile.NamedTemporaryFile() as f:
+        _main(8, 32, [], f.name, "openff-2.1.0.offxml", ["t1", "t2"], 100)

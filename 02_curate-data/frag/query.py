@@ -145,14 +145,15 @@ def inner(m: DBMol, params, filters) -> tuple[str, set[str]]:
 @click.option("--nprocs", "-n", default=8)
 @click.option("--chunk-size", "-c", default=32)
 @click.option("--filter", "-x", "filters", multiple=True)
+@click.option("--store-name", "-s", default="store.sqlite")
+@click.option("--ffname", "-f", default="openff-2.1.0.offxml")
+@click.option("--target-params", "-t", default="want.params")
 @click.option("--limit", "-l", hidden=True, default=None)
-def main(nprocs, chunk_size, filters, limit):
+def main(
+    nprocs, chunk_size, filters, store_name, ffname, target_params, limit
+):
     filters = parse_filters(filters)
-    s = Store("store.sqlite")
-    ffname = (
-        "../../01_generate-forcefield/output/initial-force-field-openff-2.1.0"
-        ".offxml"
-    )
+    s = Store(store_name)
     ff = ForceField(ffname)
     pid_to_smirks = {
         p.id: p.smirks
@@ -160,7 +161,7 @@ def main(nprocs, chunk_size, filters, limit):
     }
     params = into_params(ff)
 
-    want = load_want("want.params")
+    want = load_want(target_params)
     res = dict()
     all_mols = [s for s in s.get_molecules(limit)]
     with Pool(processes=nprocs) as p:

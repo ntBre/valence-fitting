@@ -153,15 +153,16 @@ def main(
     nprocs, chunk_size, filters, store_name, ffname, target_params, limit
 ):
     filters = parse_filters(filters)
+    want = load_want(target_params)
     s = Store(store_name)
     ff = ForceField(ffname)
+    params = into_params(ff)
+
     pid_to_smirks = {
         p.id: p.smirks
         for p in ff.get_parameter_handler("ProperTorsions").parameters
     }
-    params = into_params(ff)
 
-    want = load_want(target_params)
     res = dict()
     all_mols = [s for s in s.get_molecules(limit)]
     with Pool(processes=nprocs) as p:

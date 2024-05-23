@@ -40,6 +40,10 @@ class DBMol:
             elements=elements_to_bits(get_elements(mol)),
         )
 
+    def get_elements(self) -> list[int]:
+        "Return `self.elements` as a list of atomic numbers"
+        return bits_to_elements(self.elements)
+
 
 class Store:
     def __init__(self, filename="store.sqlite", nprocs=8):

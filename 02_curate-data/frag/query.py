@@ -8,7 +8,7 @@ from openff.toolkit import ForceField
 from rdkit import Chem
 from tqdm import tqdm
 
-from store import DBMol, Store, elements_to_bits
+from store import DBMol, Store, elements_to_bits, Match
 
 # fmt: off
 PTABLE = [
@@ -91,20 +91,6 @@ def into_params(ff) -> list[tuple[str, Chem.Mol]]:
 def load_want(filename):
     with open(filename) as inp:
         return {line.strip() for line in inp}
-
-
-class Match:
-    smirks: str
-    pid: str
-    molecules: list[str]
-
-    def __init__(self, smirks, pid, molecules):
-        self.smirks = smirks
-        self.pid = pid
-        self.molecules = molecules
-
-    def to_dict(self):
-        return dict(smirks=self.smirks, pid=self.pid, molecules=self.molecules)
 
 
 class Filter:

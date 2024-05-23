@@ -45,6 +45,20 @@ class DBMol:
         return bits_to_elements(self.elements)
 
 
+class Match:
+    smirks: str
+    pid: str
+    molecules: list[str]
+
+    def __init__(self, smirks, pid, molecules):
+        self.smirks = smirks
+        self.pid = pid
+        self.molecules = molecules
+
+    def to_dict(self):
+        return dict(smirks=self.smirks, pid=self.pid, molecules=self.molecules)
+
+
 class Store:
     def __init__(self, filename="store.sqlite", nprocs=8):
         self.con = sqlite3.connect(filename)

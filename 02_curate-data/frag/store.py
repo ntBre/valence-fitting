@@ -59,6 +59,17 @@ class Match:
         return dict(smirks=self.smirks, pid=self.pid, molecules=self.molecules)
 
 
+class DBForceField:
+    id: int
+    name: str
+    matches: list[Match]
+
+    def __init__(self, name, matches, id=None):
+        self.id = id
+        self.name = name
+        self.matches = matches
+
+
 class Store:
     def __init__(self, filename="store.sqlite", nprocs=8):
         self.con = sqlite3.connect(filename)
@@ -71,6 +82,14 @@ class Store:
             natoms int,
             elements blob,
             tag text
+            )
+            """
+        )
+        self.cur.execute(
+            """CREATE TABLE IF NOT EXISTS forcefields (
+            id integer primary key,
+            name text unique,
+            matches blob
             )
             """
         )
@@ -89,6 +108,14 @@ class Store:
                 (m.smiles, m.natoms, m.elements.to_bytes(128, "big"), m.tag)
                 for m in mols
             ],
+        )
+        self.con.commit()
+
+    def insert_forcefield(self, ff: DBForceField):
+        self.cur.execute(
+            """INSERT OR IGNORE INTO forcefields (name, matches)
+            VALUES (?1, ?2)""",
+            (ff.name, ff.matches),
         )
         self.con.commit()
 

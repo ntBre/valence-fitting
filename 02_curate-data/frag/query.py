@@ -1,4 +1,3 @@
-import json
 from functools import partial
 from multiprocessing import Pool
 
@@ -8,7 +7,7 @@ from openff.toolkit import ForceField
 from rdkit import Chem
 from tqdm import tqdm
 
-from store import DBMol, Store, elements_to_bits, Match
+from store import DBForceField, DBMol, Match, Store, elements_to_bits
 
 # fmt: off
 PTABLE = [
@@ -150,10 +149,11 @@ def inner(m: DBMol, params, filters) -> tuple[str, set[str]]:
 def main(nprocs, chunk_size, filters, limit):
     filters = parse_filters(filters)
     s = Store("store.sqlite")
-    ff = ForceField(
+    ffname = (
         "../../01_generate-forcefield/output/initial-force-field-openff-2.1.0"
         ".offxml"
     )
+    ff = ForceField(ffname)
     pid_to_smirks = {
         p.id: p.smirks
         for p in ff.get_parameter_handler("ProperTorsions").parameters
@@ -177,8 +177,7 @@ def main(nprocs, chunk_size, filters, limit):
                     res[pid] = Match(pid_to_smirks[pid], pid, list())
                 res[pid].molecules.append(smiles)
 
-    with open("out.query.json", "w") as out:
-        json.dump(res, out, default=Match.to_dict)
+    s.insert_forcefield(DBForceField(ffname, list(res.values())))
 
 
 if __name__ == "__main__":

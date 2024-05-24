@@ -42,3 +42,8 @@ def index():
         molecule_counts=molecule_counts,
         pid_counts=[0] * len(molecule_counts),  # TODO get from db
     )
+
+
+@app.route("/param/<pid>")
+def param(pid):
+    return f"hello {pid}"

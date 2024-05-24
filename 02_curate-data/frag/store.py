@@ -103,6 +103,21 @@ class Store:
         )
         self.nprocs = nprocs
 
+    @classmethod
+    def quick(cls, filename="store.sqlite", nprocs=8):
+        """Connect to an existing `Store` without attempting to initialize the
+        tables.
+
+        This is intended for temporary use such as in `serve.py`.
+
+        """
+        self = cls.__new__(cls)
+        self.con = sqlite3.connect(filename)
+        self.cur = self.con.cursor()
+        self.cur.arraysize = 1024
+        self.nprocs = nprocs
+        return self
+
     def insert_molecule(self, mol: DBMol):
         "Insert a single SMILES into the database"
         self.insert_molecules([mol])

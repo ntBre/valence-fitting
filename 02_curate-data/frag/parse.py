@@ -1,10 +1,9 @@
-import json
-
 import numpy as np
 from rdkit import DataStructs
 from rdkit.Chem import AllChem
 
-from query import Match, mol_from_smiles
+from query import mol_from_smiles
+from store import Store
 
 
 def tanimoto(fps):
@@ -21,14 +20,20 @@ def tanimoto(fps):
     return ret + ret.T  # copy upper triangle to lower, diag is already zero
 
 
-with open("out.query.json") as f:
-    data: dict[str, dict] = json.load(f)
+ff = (
+    "../../01_generate-forcefield/output/"
+    "initial-force-field-openff-2.1.0.offxml"
+)
+s = Store("store.sqlite")
+dbff = s.get_forcefield(ff)
 
-matches: dict[str, Match] = {k: Match(**v) for k, v in data.items()}
+matches = dbff.matches
+
+print(f"found {len(matches)} matches")
 
 fpgen = AllChem.GetMorganGenerator(radius=3)
 
-for m in matches.values():
+for m in matches:
     print(m.pid, m.smirks, len(m.molecules))
     fps = []
     for smile in m.molecules:

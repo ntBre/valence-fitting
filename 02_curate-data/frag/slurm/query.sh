@@ -12,10 +12,13 @@
 #SBATCH --constraint=fastscratch
 #SBATCH -o logs/query.out
 
+date
+hostname
+echo jobid $SLURM_JOB_ID
+
 source $HOME/.bashrc
 
 conda activate fb-196-qcnew
-
 
 ff=../../01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml
 
@@ -24,3 +27,5 @@ python query.py \
 	   -n $SLURM_CPUS_PER_TASK \
 	   -x 'natoms:80' \
 	   -x 'elements:Cl, P, Br, I, H, C, O, N, F, S'
+
+date

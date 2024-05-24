@@ -127,7 +127,7 @@ def parse_filters(filters: list[str]) -> list[Filter]:
                 atomic_symbols = [s.strip() for s in arg.split(",")]
                 ret.append(ElementFilter(symbols_to_bits(atomic_symbols)))
             case ["natoms", natoms]:
-                ret.append(NatomsFilter(natoms))
+                ret.append(NatomsFilter(int(natoms)))
             case _:
                 raise NotImplementedError(f"unrecognized filter: `{fields}`")
     return ret

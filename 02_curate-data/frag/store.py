@@ -204,7 +204,7 @@ class Store:
         ret = list()
         for smiles in all_smiles:
             try:
-                mol = Molecule.from_smiles(cmiles, allow_undefined_stereo=True)
+                mol = Molecule.from_smiles(smiles, allow_undefined_stereo=True)
             except RadicalsNotSupportedError:
                 continue
             if x := xff(mol):

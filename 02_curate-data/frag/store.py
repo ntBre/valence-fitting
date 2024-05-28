@@ -149,6 +149,15 @@ class Store:
         ).fetchone()
         return DBForceField(id=id, name=name, matches=pickle.loads(matches))
 
+    def get_smiles_matching(self, ffname: str, pid: str) -> list[str]:
+        "Return the SMILES matching `pid` for `ffname`"
+        dbff = self.get_forcefield(ffname)
+        smiles = []
+        for m in dbff.matches:
+            if m.pid == pid:
+                smiles.extend(m.molecules)
+        return smiles
+
     def get_sizehint(self) -> int:
         "Return a count of rows in the database"
         return self.cur.execute("SELECT COUNT(*) FROM molecules").fetchone()[0]

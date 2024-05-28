@@ -1,8 +1,10 @@
 import re
 
-from flask import Flask
+from flask import Flask, request
 from jinja2 import Environment, PackageLoader, select_autoescape
+from openff.toolkit import ForceField
 
+from query import mol_from_smiles
 from store import Store
 
 app = Flask("serve")
@@ -14,6 +16,11 @@ ff = (
     "../../01_generate-forcefield/output/"
     "initial-force-field-openff-2.1.0.offxml"
 )
+off = ForceField(ff)
+pid_to_smarts = {
+    p.id: p.smirks
+    for p in off.get_parameter_handler("ProperTorsions").parameters
+}
 
 
 PID_RE = re.compile("(t)([0-9]+)(.*)")
@@ -46,4 +53,23 @@ def index():
 
 @app.route("/param/<pid>")
 def param(pid):
-    return f"hello {pid}"
+    MAX_DRAW = 50
+    max_draw = request.args.get("max", MAX_DRAW)
+    table = Store.quick()
+    smiles_list = table.get_smiles_matching(ff, pid)
+    mols = []
+    for s in smiles_list:
+        mol = mol_from_smiles(s)
+        natoms = mol.GetNumAtoms()
+        mols.append((mol, s, natoms))
+    mols = sorted(mols, key=lambda k: k[2])  # sort by natoms
+    smarts = pid_to_smarts[pid]  # TODO error page on missing
+    total_mols = len(mols)
+    template = env.get_template("param.html")
+    return template.render(
+        smarts=smarts,
+        pid=pid,
+        mols=mols,
+        cur_mols=len(mols),
+        total_mols=total_mols,
+    )

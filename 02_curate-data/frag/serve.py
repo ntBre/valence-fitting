@@ -95,16 +95,7 @@ def param(pid):
     mols = get_smiles_list(table, ffname, pid)
     mol_map = into_params(off)
 
-    draw_mols = []
-    for mol, smiles, natoms in mols[:max_draw]:
-        matches = find_matches(mol_map, mol)
-        hl_atoms = []
-        for atoms, mpid in matches.items():
-            if mpid == pid:
-                hl_atoms = atoms
-                break
-        svg = mol_to_svg(mol, 300, 300, "", hl_atoms)
-        draw_mols.append(DrawMol(smiles, natoms, svg))
+    draw_mols = mols_to_draw(mols, pid, mol_map, max_draw)
 
     smarts = pid_to_smarts[pid]  # TODO error page on missing
     total_mols = len(mols)
@@ -127,3 +118,17 @@ def get_smiles_list(table, ffname, pid) -> list[tuple[Chem.Mol, str, int]]:
         mols.append((mol, s, natoms))
     mols = sorted(mols, key=lambda k: k[2])  # sort by natoms
     return mols
+
+
+def mols_to_draw(mols, pid, mol_map, max_draw):
+    draw_mols = []
+    for mol, smiles, natoms in mols[:max_draw]:
+        matches = find_matches(mol_map, mol)
+        hl_atoms = []
+        for atoms, mpid in matches.items():
+            if mpid == pid:
+                hl_atoms = atoms
+                break
+        svg = mol_to_svg(mol, 300, 300, "", hl_atoms)
+        draw_mols.append(DrawMol(smiles, natoms, svg))
+    return draw_mols

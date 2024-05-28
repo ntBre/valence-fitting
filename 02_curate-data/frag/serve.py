@@ -110,6 +110,10 @@ def param(pid):
 
 
 def get_smiles_list(table, ffname, pid) -> list[tuple[Chem.Mol, str, int]]:
+    """Return a sequence of Mol, SMILES, natom tuples from `table`, sorted by
+    natoms.
+
+    """
     smiles_list = table.get_smiles_matching(ffname, pid)
     mols = []
     for s in smiles_list:

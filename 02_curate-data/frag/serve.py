@@ -92,17 +92,11 @@ def param(pid):
     MAX_DRAW = 50
     max_draw = int(request.args.get("max", MAX_DRAW))
     table = Store.quick()
-    smiles_list = table.get_smiles_matching(ffname, pid)
-    mols = []
-    for s in smiles_list:
-        mol = mol_from_smiles(s)
-        natoms = mol.GetNumAtoms()
-        mols.append((mol, s, natoms))
-    mols = sorted(mols, key=lambda k: k[2])  # sort by natoms
+    mols = get_smiles_list(table, ffname, pid)
     mol_map = into_params(off)
 
     draw_mols = []
-    for mol, smiles, _natoms in mols[:max_draw]:
+    for mol, smiles, natoms in mols[:max_draw]:
         matches = find_matches(mol_map, mol)
         hl_atoms = []
         for atoms, mpid in matches.items():
@@ -122,3 +116,14 @@ def param(pid):
         cur_mols=len(draw_mols),
         total_mols=total_mols,
     )
+
+
+def get_smiles_list(table, ffname, pid) -> list[tuple[Chem.Mol, str, int]]:
+    smiles_list = table.get_smiles_matching(ffname, pid)
+    mols = []
+    for s in smiles_list:
+        mol = mol_from_smiles(s)
+        natoms = mol.GetNumAtoms()
+        mols.append((mol, s, natoms))
+    mols = sorted(mols, key=lambda k: k[2])  # sort by natoms
+    return mols

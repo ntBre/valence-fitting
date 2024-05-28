@@ -15,11 +15,11 @@ env = Environment(
     loader=PackageLoader("serve"), autoescape=select_autoescape()
 )
 dbname = "store.sqlite"
-ff = (
+ffname = (
     "../../01_generate-forcefield/output/"
     "initial-force-field-openff-2.1.0.offxml"
 )
-off = ForceField(ff)
+off = ForceField(ffname)
 pid_to_smarts = {
     p.id: p.smirks
     for p in off.get_parameter_handler("ProperTorsions").parameters
@@ -66,7 +66,7 @@ def index():
     template = env.get_template("index.html")
     table = Store.quick()
     pairs = [
-        (m.pid, len(m.molecules)) for m in table.get_forcefield(ff).matches
+        (m.pid, len(m.molecules)) for m in table.get_forcefield(ffname).matches
     ]
     pairs = sorted(pairs, key=lambda x: pid_sort(x[0]))
     parameter_ids, molecule_counts = (
@@ -92,7 +92,7 @@ def param(pid):
     MAX_DRAW = 50
     max_draw = int(request.args.get("max", MAX_DRAW))
     table = Store.quick()
-    smiles_list = table.get_smiles_matching(ff, pid)
+    smiles_list = table.get_smiles_matching(ffname, pid)
     mols = []
     for s in smiles_list:
         mol = mol_from_smiles(s)

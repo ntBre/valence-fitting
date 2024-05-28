@@ -216,3 +216,11 @@ def cluster(pid):
         map=r.map,
         mol_map=r.mol_map,
     )
+
+
+@app.route("/add-molecule", methods=["POST"])
+def add_molecule():
+    data = request.get_json()
+    table = Store.quick()
+    table.add_to_dataset(data["smiles"], data["pid"])
+    return "", 201

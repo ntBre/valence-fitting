@@ -101,6 +101,15 @@ class Store:
             )
             """
         )
+        self.cur.execute(
+            """CREATE TABLE IF NOT EXISTS dataset (
+            id integer primary key,
+            smiles text,
+            pid text,
+            CONSTRAINT unq UNIQUE (smiles, pid)
+            )
+            """
+        )
         self.nprocs = nprocs
 
     @classmethod
@@ -197,6 +206,15 @@ class Store:
                 )
                 for x in v
             )
+
+    def add_to_dataset(self, smiles: str, pid: str):
+        self.cur.execute(
+            """INSERT OR IGNORE INTO dataset (smiles, pid)
+            VALUES (?1, ?2)
+            """,
+            (smiles, pid),
+        )
+        self.con.commit()
 
     def process_line(line) -> list[DBMol]:
         [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")

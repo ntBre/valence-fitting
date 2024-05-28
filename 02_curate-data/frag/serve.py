@@ -225,3 +225,8 @@ def add_molecule():
     table = Store.quick()
     table.add_to_dataset(data["smiles"], data["pid"])
     return "", HTTPStatus.CREATED
+
+
+@app.route("/preview-dataset")
+def preview_dataset():
+    return "preview dataset"

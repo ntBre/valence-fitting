@@ -1,6 +1,7 @@
 import re
 import warnings
 from dataclasses import dataclass
+from http import HTTPStatus
 
 from flask import Flask, request, send_from_directory
 from jinja2 import Environment, PackageLoader, select_autoescape
@@ -223,4 +224,4 @@ def add_molecule():
     data = request.get_json()
     table = Store.quick()
     table.add_to_dataset(data["smiles"], data["pid"])
-    return "", 201
+    return "", HTTPStatus.CREATED

@@ -1,6 +1,6 @@
 import re
 
-from flask import Flask, request
+from flask import Flask, request, send_from_directory
 from jinja2 import Environment, PackageLoader, select_autoescape
 from openff.toolkit import ForceField
 
@@ -30,6 +30,16 @@ def pid_sort(pid: str) -> tuple[str, int, str | None]:
     "Return the fields of a ProperTorsion parameter ID as a tuple for sorting"
     t, n, tail = PID_RE.match(pid).groups()
     return (t, int(n), tail)
+
+
+@app.route("/js/<path:name>")
+def js(name):
+    return send_from_directory("js", name)
+
+
+@app.route("/css/<path:name>")
+def css(name):
+    return send_from_directory("css", name)
 
 
 @app.route("/")

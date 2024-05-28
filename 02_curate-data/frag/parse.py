@@ -1,10 +1,15 @@
-import numpy as np
+import warnings
+
 from rdkit import DataStructs
 from rdkit.Chem import AllChem
-from sklearn import cluster
 
 from query import mol_from_smiles
 from store import Store
+
+warnings.filterwarnings("ignore")
+with warnings.catch_warnings():
+    import numpy as np
+    from sklearn import cluster
 
 
 def tanimoto(fps):
@@ -21,30 +26,31 @@ def tanimoto(fps):
     return ret + ret.T  # copy upper triangle to lower, diag is already zero
 
 
-DB_EPS = 0.7
-DB_MIN_SAMPLES = 1
+if __name__ == "__main__":
+    DB_EPS = 0.7
+    DB_MIN_SAMPLES = 1
 
-ff = (
-    "../../01_generate-forcefield/output/"
-    "initial-force-field-openff-2.1.0.offxml"
-)
-s = Store("store.sqlite")
-dbff = s.get_forcefield(ff)
+    ff = (
+        "../../01_generate-forcefield/output/"
+        "initial-force-field-openff-2.1.0.offxml"
+    )
+    s = Store("store.sqlite")
+    dbff = s.get_forcefield(ff)
 
-matches = dbff.matches
+    matches = dbff.matches
 
-print(f"found {len(matches)} matches")
+    print(f"found {len(matches)} matches")
 
-fpgen = AllChem.GetMorganGenerator(radius=3)
-dbscan = cluster.DBSCAN(eps=DB_EPS, min_samples=DB_MIN_SAMPLES)
+    fpgen = AllChem.GetMorganGenerator(radius=3)
+    dbscan = cluster.DBSCAN(eps=DB_EPS, min_samples=DB_MIN_SAMPLES)
 
-for m in matches:
-    print(m.pid, m.smirks, len(m.molecules))
-    fps = []
-    for smile in m.molecules:
-        mol = mol_from_smiles(smile)
-        fps.append(fpgen.GetFingerprint(mol))
-    dist = tanimoto(fps)
-    clustering = dbscan.fit(dist)
-    print(dist)
-    print(clustering.labels_)
+    for m in matches:
+        print(m.pid, m.smirks, len(m.molecules))
+        fps = []
+        for smile in m.molecules:
+            mol = mol_from_smiles(smile)
+            fps.append(fpgen.GetFingerprint(mol))
+        dist = tanimoto(fps)
+        clustering = dbscan.fit(dist)
+        print(dist)
+        print(clustering.labels_)

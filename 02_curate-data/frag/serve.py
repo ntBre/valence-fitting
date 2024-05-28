@@ -1,19 +1,28 @@
 import re
+import warnings
 from dataclasses import dataclass
 
 from flask import Flask, request, send_from_directory
 from jinja2 import Environment, PackageLoader, select_autoescape
 from openff.toolkit import ForceField
 from rdkit import Chem
-from rdkit.Chem.Draw import MolsToGridImage, rdDepictor, rdMolDraw2D
 
+from parse import tanimoto
 from query import find_matches, into_params, mol_from_smiles
 from store import Store
+from utils import find_smallest, make_svg, mol_to_svg
+
+warnings.filterwarnings("ignore")
+with warnings.catch_warnings():
+    from sklearn import cluster as skcluster
 
 app = Flask("serve")
 env = Environment(
     loader=PackageLoader("serve"), autoescape=select_autoescape()
 )
+env.globals["Chem"] = Chem
+env.globals["make_svg"] = make_svg
+env.globals["find_smallest"] = find_smallest
 dbname = "store.sqlite"
 ffname = (
     "../../01_generate-forcefield/output/"
@@ -33,22 +42,6 @@ def pid_sort(pid: str) -> tuple[str, int, str | None]:
     "Return the fields of a ProperTorsion parameter ID as a tuple for sorting"
     t, n, tail = PID_RE.match(pid).groups()
     return (t, int(n), tail)
-
-
-def mol_to_svg(
-    mol: Chem.Mol, width: int, height: int, legend: str, hl_atoms: list[int]
-) -> str:
-    "Return an SVG of `mol`"
-    rdDepictor.SetPreferCoordGen(True)
-    rdDepictor.Compute2DCoords(mol)
-    rdmol = rdMolDraw2D.PrepareMolForDrawing(mol)
-    return MolsToGridImage(
-        [rdmol],
-        useSVG=True,
-        highlightAtomLists=[hl_atoms],
-        subImgSize=(300, 300),
-        molsPerRow=1,
-    )
 
 
 @app.route("/js/<path:name>")
@@ -136,3 +129,90 @@ def mols_to_draw(mols, pid, mol_map, max_draw):
         svg = mol_to_svg(mol, 300, 300, "", hl_atoms)
         draw_mols.append(DrawMol(smiles, natoms, svg))
     return draw_mols
+
+
+@dataclass
+class Report:
+    max: int
+    nfps: int
+    noise: int
+    clusters: list[list[int]]
+    mols: list[Chem.Mol]
+    map: dict[str, str]
+    mol_map: list[tuple[str, Chem.Mol]]
+
+
+def make_fps(mols: list[Chem.Mol], radius: int):
+    fpgen = Chem.AllChem.GetMorganGenerator(radius=radius)
+    return [fpgen.GetFingerprint(mol) for mol in mols]
+
+
+def dbscan(dist, eps, min_pts):
+    db = skcluster.DBSCAN(eps=eps, min_samples=min_pts)
+    return db.fit(dist).labels_
+
+
+def make_cluster_report(ffname, mols, eps, min_pts) -> Report:
+    MORGAN_RADIUS = 4
+    map = {
+        p.id: p.smirks
+        for p in off.get_parameter_handler("ProperTorsions").parameters
+    }
+    mol_map = into_params(off)
+    fps = make_fps(mols, MORGAN_RADIUS)
+    nfps = len(fps)
+    dist = tanimoto(fps)
+    labels = dbscan(dist, eps, min_pts)
+    label_max = max(labels)
+    clusters = [[] for _ in range(label_max + 1)]
+    noise = []
+    for i, el in enumerate(labels):
+        if el < 0:
+            noise.append(i)
+        else:
+            clusters[el].append(i)
+
+    noise_pts = len(noise)
+    if len(clusters[0]) == 0:
+        print(f"warning: all noise points: {labels}")
+        clusters[0] = noise
+
+    return Report(
+        max=label_max,
+        nfps=nfps,
+        noise=noise_pts,
+        clusters=clusters,
+        mols=mols,
+        map=map,
+        mol_map=mol_map,
+    )
+
+
+@app.route("/cluster/<pid>")
+def cluster(pid):
+    smarts = pid_to_smarts[pid]
+    table = Store.quick()
+    mols = [mol_from_smiles(s) for s in table.get_smiles_matching(ffname, pid)]
+    DBSCAN_EPS = 0.5
+    DBSCAN_MIN_PTS = 1
+
+    eps = request.args.get("eps", default=DBSCAN_EPS, type=float)
+    min_pts = request.args.get("min_pts", default=DBSCAN_MIN_PTS, type=int)
+
+    r = make_cluster_report(ffname, mols, eps, min_pts)
+
+    clusters = sorted(r.clusters, key=lambda c: r.mols[c[0]].GetNumAtoms())
+    template = env.get_template("cluster.html")
+    return template.render(
+        pid=pid,
+        smarts=smarts,
+        eps=eps,
+        min_pts=min_pts,
+        max=r.max,
+        nfps=r.nfps,
+        noise=r.noise,
+        clusters=clusters,
+        mols=r.mols,
+        map=r.map,
+        mol_map=r.mol_map,
+    )

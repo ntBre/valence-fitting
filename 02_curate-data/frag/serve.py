@@ -4,7 +4,7 @@ from collections import defaultdict
 from dataclasses import dataclass
 from http import HTTPStatus
 
-from flask import Flask, request, send_from_directory
+from flask import Flask, redirect, request, send_from_directory, url_for
 from jinja2 import Environment, PackageLoader, select_autoescape
 from openff.toolkit import ForceField
 from rdkit import Chem
@@ -251,3 +251,15 @@ def preview_dataset():
         )
     template = env.get_template("preview.html")
     return template.render(mols=draw_mols)
+
+
+@app.route("/export-dataset", methods=["POST"])
+def export_dataset():
+    body = request.get_data(as_text=True)
+    [label, filename] = body.split("=")
+    assert label == "filename"
+    table = Store.quick()
+    with open(filename, "w") as out:
+        for smiles, pid in table.get_dataset_entries():
+            print(pid, smiles, file=out)
+    return redirect(url_for("index"))

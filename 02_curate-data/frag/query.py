@@ -139,7 +139,6 @@ def parse_filters(filters: list[str]) -> list[Filter]:
 def inner(m: DBMol, params, filters) -> tuple[str, set[str]]:
     "Returns a SMILES and its matching parameter IDs"
     if not all((f.apply(m) for f in filters)):
-        logger.warning(f"filtered out {m.smiles}")
         return "", set()
     mol = mol_from_smiles(m.smiles)
     res = set(find_matches(params, mol).values())

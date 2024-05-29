@@ -263,3 +263,10 @@ def export_dataset():
         for smiles, pid in table.get_dataset_entries():
             print(pid, smiles, file=out)
     return redirect(url_for("index"))
+
+
+@app.route("/reset-dataset", methods=["POST"])
+def reset_dataset():
+    table = Store.quick()
+    table.reset_dataset()
+    return redirect(url_for("index"))

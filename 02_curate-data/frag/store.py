@@ -225,6 +225,10 @@ class Store:
         res = self.cur.execute("SELECT COUNT(*) from dataset")
         return res.fetchone()[0]
 
+    def reset_dataset(self):
+        self.cur.execute("DELETE FROM dataset")
+        self.con.commit()
+
     def process_line(line) -> list[DBMol]:
         [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")
         all_smiles = cmiles.split(".")

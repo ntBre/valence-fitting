@@ -216,6 +216,11 @@ class Store:
         )
         self.con.commit()
 
+    def get_dataset_entries(self) -> Iterator[tuple[str, str]]:
+        res = self.cur.execute("SELECT smiles, pid FROM dataset")
+        while len(v := res.fetchmany()) > 0:
+            yield from ((smiles, pid) for smiles, pid in v)
+
     def process_line(line) -> list[DBMol]:
         [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")
         all_smiles = cmiles.split(".")

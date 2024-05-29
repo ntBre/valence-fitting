@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script type="text/javascript" src="/js/param.js"></script>
+{% endblock %}
+
+{% block content %}
+<p><a href="/">Home</a></p>
+
+{% for m in mols %}
+<span natoms="{{m.natoms}}" smiles="{{m.smiles}}">{{m.svg|safe}}</span>
+{% endfor %}
+
+{% endblock %}

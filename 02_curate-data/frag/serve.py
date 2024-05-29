@@ -229,4 +229,12 @@ def add_molecule():
 
 @app.route("/preview-dataset")
 def preview_dataset():
-    return "preview dataset"
+    table = Store.quick()
+    draw_mols = []
+    for s, _pid in table.get_dataset_entries():
+        mol = mol_from_smiles(s)
+        draw_mols.append(
+            DrawMol(s, mol.GetNumAtoms(), mol_to_svg(mol, 300, 300, "", []))
+        )
+    template = env.get_template("preview.html")
+    return template.render(mols=draw_mols)

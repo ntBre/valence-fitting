@@ -159,6 +159,7 @@ def _main(nprocs, chunk_size, filters, store_name, ffname, want, limit):
 
     res = dict()
     all_mols = [s for s in s.get_molecules(limit)]
+    unmatched = 0
     with Pool(processes=nprocs) as p:
         for smiles, matches in tqdm(
             p.imap(
@@ -172,9 +173,17 @@ def _main(nprocs, chunk_size, filters, store_name, ffname, want, limit):
                 if pid not in res:
                     res[pid] = Match(pid_to_smirks[pid], pid, list())
                 res[pid].molecules.append(smiles)
+            else:
+                unmatched += 1
+
+    logger.warning(f"{unmatched} SMILES not matching desired parameters")
 
     ret = list(res.values())
     s.insert_forcefield(DBForceField(ffname, ret))
+
+    if logger.level > logging.WARNING:
+        for mat in ret:
+            print(mat.pid, len(mat.molecules))
 
     return s, ret
 

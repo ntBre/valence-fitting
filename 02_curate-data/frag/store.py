@@ -221,6 +221,10 @@ class Store:
         while len(v := res.fetchmany()) > 0:
             yield from ((smiles, pid) for smiles, pid in v)
 
+    def get_dataset_size(self) -> int:
+        res = self.cur.execute("SELECT COUNT(*) from dataset")
+        return res.fetchone()[0]
+
     def process_line(line) -> list[DBMol]:
         [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")
         all_smiles = cmiles.split(".")

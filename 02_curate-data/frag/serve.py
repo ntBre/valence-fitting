@@ -1,5 +1,6 @@
 import re
 import warnings
+from collections import defaultdict
 from dataclasses import dataclass
 from http import HTTPStatus
 
@@ -67,10 +68,22 @@ def index():
         [x[0] for x in pairs],
         [x[1] for x in pairs],
     )
+
+    dsmap = defaultdict(int)
+    for _smiles, pid in table.get_dataset_entries():
+        dsmap[pid] += 1
+
+    pid_counts = []
+    for pid in parameter_ids:
+        pid_counts.append(dsmap.get(pid, 0))
+
+    ds_size = table.get_dataset_size()
+
     return template.render(
         parameter_ids=parameter_ids,
         molecule_counts=molecule_counts,
-        pid_counts=[0] * len(molecule_counts),  # TODO get from db
+        pid_counts=pid_counts,
+        ds_size=ds_size,
     )
 
 

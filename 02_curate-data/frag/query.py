@@ -1,3 +1,4 @@
+import logging
 from functools import partial
 from multiprocessing import Pool
 
@@ -8,6 +9,8 @@ from rdkit import Chem
 from tqdm import tqdm
 
 from store import DBForceField, DBMol, Match, Store, elements_to_bits
+
+logger = logging.getLogger(__name__)
 
 # fmt: off
 PTABLE = [
@@ -136,9 +139,13 @@ def parse_filters(filters: list[str]) -> list[Filter]:
 def inner(m: DBMol, params, filters) -> tuple[str, set[str]]:
     "Returns a SMILES and its matching parameter IDs"
     if not all((f.apply(m) for f in filters)):
+        logger.warning(f"filtered out {m.smiles}")
         return "", set()
     mol = mol_from_smiles(m.smiles)
-    return m.smiles, set(find_matches(params, mol).values())
+    res = set(find_matches(params, mol).values())
+    if len(res) == 0:
+        logger.warning(f"no matches found for {m.smiles}")
+    return m.smiles, res
 
 
 def _main(nprocs, chunk_size, filters, store_name, ffname, want, limit):

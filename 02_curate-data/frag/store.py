@@ -94,6 +94,16 @@ class Store:
             """
         )
         self.cur.execute(
+            """CREATE TABLE IF NOT EXISTS fragments (
+            id integer primary key,
+            smiles text unique,
+            natoms int,
+            elements blob,
+            tag text
+            )
+            """
+        )
+        self.cur.execute(
             """CREATE TABLE IF NOT EXISTS forcefields (
             id integer primary key,
             name text unique,
@@ -135,6 +145,18 @@ class Store:
         "Insert multiple SMILES into the database"
         self.cur.executemany(
             """INSERT OR IGNORE INTO molecules (smiles, natoms, elements, tag)
+            VALUES (?1, ?2, ?3, ?4)""",
+            [
+                (m.smiles, m.natoms, m.elements.to_bytes(128, "big"), m.tag)
+                for m in mols
+            ],
+        )
+        self.con.commit()
+
+    def insert_fragments(self, mols: list[DBMol]):
+        "Insert multiple SMILES into the database"
+        self.cur.executemany(
+            """INSERT OR IGNORE INTO fragments (smiles, natoms, elements, tag)
             VALUES (?1, ?2, ?3, ?4)""",
             [
                 (m.smiles, m.natoms, m.elements.to_bytes(128, "big"), m.tag)
@@ -229,22 +251,26 @@ class Store:
         self.cur.execute("DELETE FROM dataset")
         self.con.commit()
 
-    def process_line(line) -> list[DBMol]:
+    def process_line(line) -> tuple[list[DBMol], list[DBMol]]:
+        "Returns a list of fragments and a list of whole molecules"
         [_chembl_id, cmiles, _inchi, _inchikey] = line.split("\t")
         all_smiles = cmiles.split(".")
-        ret = list()
+        frags = list()
+        mols = list()
         for smiles in all_smiles:
             try:
                 mol = Molecule.from_smiles(smiles, allow_undefined_stereo=True)
             except RadicalsNotSupportedError:
                 continue
-            if x := xff(mol):
-                ret.extend(x)
-        return ret
+            rdmol = mol.to_rdkit()
+            mols.append(DBMol.from_rdmol(rdmol))
+            if x := xff(rdmol):
+                frags.extend(x)
+        return frags, mols
 
     def load_chembl(self, filename) -> dict[str, Molecule]:
         with open(filename) as inp, Pool(processes=self.nprocs) as pool:
-            for frags in tqdm(
+            for frags, mols in tqdm(
                 pool.imap_unordered(
                     Store.process_line,
                     (line for i, line in enumerate(inp) if i > 0),
@@ -255,7 +281,8 @@ class Store:
                 if frags:
                     for frag in frags:
                         frag.tag = filename
-                    self.insert_molecules(frags)
+                    self.insert_fragments(frags)
+                    self.insert_molecules(mols)
 
 
 def find_frag_bonds(rdmol, keep_atoms):
@@ -270,9 +297,9 @@ def find_frag_bonds(rdmol, keep_atoms):
     return to_remove
 
 
-def xff(mol) -> list[DBMol] | None:
+def xff(mol: Chem.Mol) -> list[DBMol] | None:
     try:
-        c = Compound(mol.to_rdkit())
+        c = Compound(mol)
     except Exception as e:
         print(f"warning: failed to convert to rdmol with {e}")
         return
@@ -292,8 +319,6 @@ def xff(mol) -> list[DBMol] | None:
             )
             for frag in Chem.GetMolFrags(fragmented, asMols=True):
                 ret.append(DBMol.from_rdmol(frag))
-        else:
-            ret.append(DBMol.from_rdmol(emol))
 
     return ret
 

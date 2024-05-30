@@ -34,6 +34,19 @@ def mol_from_smiles(smiles: str) -> Chem.Mol:
 
     """
     rdmol = Chem.MolFromSmiles(smiles)
+    return openff_clean(rdmol)
+
+
+def mol_from_smarts(smarts: str) -> Chem.Mol:
+    """Create an RDKit molecule from SMARTS and perform the cleaning operations
+    from the OpenFF toolkit
+
+    """
+    rdmol = Chem.MolFromSmarts(smarts)
+    return openff_clean(rdmol)
+
+
+def openff_clean(rdmol: Chem.Mol) -> Chem.Mol:
     Chem.SanitizeMol(
         rdmol,
         Chem.SanitizeFlags.SANITIZE_ALL

@@ -4,4 +4,5 @@ set -xe
 
 name=$(date +%s)
 mkdir -p .backups
-mv -i store.sqlite .backups/$name.sqlite
+gzip store.sqlite
+mv -i store.sqlite.gz .backups/$name.sqlite.gz

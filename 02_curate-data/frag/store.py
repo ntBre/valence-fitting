@@ -137,33 +137,28 @@ class Store:
         self.nprocs = nprocs
         return self
 
+    def _insert_dbmols(self, mols: list[DBMol], tblname: str):
+        self.cur.executemany(
+            f"""INSERT OR IGNORE INTO {tblname} (smiles, natoms, elements, tag)
+            VALUES (?1, ?2, ?3, ?4)""",
+            [
+                (m.smiles, m.natoms, m.elements.to_bytes(128, "big"), m.tag)
+                for m in mols
+            ],
+        )
+        self.con.commit()
+
     def insert_molecule(self, mol: DBMol):
         "Insert a single SMILES into the database"
         self.insert_molecules([mol])
 
     def insert_molecules(self, mols: list[DBMol]):
-        "Insert multiple SMILES into the database"
-        self.cur.executemany(
-            """INSERT OR IGNORE INTO molecules (smiles, natoms, elements, tag)
-            VALUES (?1, ?2, ?3, ?4)""",
-            [
-                (m.smiles, m.natoms, m.elements.to_bytes(128, "big"), m.tag)
-                for m in mols
-            ],
-        )
-        self.con.commit()
+        "Insert multiple SMILES into the molecules table"
+        self._insert_dbmols(mols, "molecules")
 
     def insert_fragments(self, mols: list[DBMol]):
-        "Insert multiple SMILES into the database"
-        self.cur.executemany(
-            """INSERT OR IGNORE INTO fragments (smiles, natoms, elements, tag)
-            VALUES (?1, ?2, ?3, ?4)""",
-            [
-                (m.smiles, m.natoms, m.elements.to_bytes(128, "big"), m.tag)
-                for m in mols
-            ],
-        )
-        self.con.commit()
+        "Insert multiple SMILES into the fragments table"
+        self._insert_dbmols(mols, "fragments")
 
     def insert_forcefield(self, ff: DBForceField):
         self.cur.execute(
@@ -206,15 +201,21 @@ class Store:
             yield from (x[0] for x in v)
 
     def get_molecules(self, limit=None) -> Iterator[DBMol]:
+        return self._get_dbmols("molecules", limit)
+
+    def get_fragments(self, limit=None) -> Iterator[DBMol]:
+        return self._get_dbmols("fragments", limit)
+
+    def _get_dbmols(self, tablename: str, limit=None) -> Iterator[DBMol]:
         if limit:
             res = self.cur.execute(
-                """SELECT id, smiles, natoms, elements, tag FROM molecules
+                f"""SELECT id, smiles, natoms, elements, tag FROM {tablename}
                 limit ?""",
                 (limit,),
             )
         else:
             res = self.cur.execute(
-                "SELECT id, smiles, natoms, elements, tag FROM molecules"
+                f"SELECT id, smiles, natoms, elements, tag FROM {tablename}"
             )
         while len(v := res.fetchmany()) > 0:
             # unpack 3-tuples

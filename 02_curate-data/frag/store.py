@@ -8,10 +8,11 @@ import click
 from openff.toolkit import Molecule
 from openff.toolkit.utils.exceptions import RadicalsNotSupportedError
 from rdkit import Chem
+from rdkit.Chem import Descriptors
 from tqdm import tqdm
 
 from cut_compound import Compound
-from query import mol_from_smiles
+from utils import mol_from_smiles
 
 
 class DBMol:
@@ -261,7 +262,7 @@ class Store:
         mols = list()
         for smiles in all_smiles:
             rdmol = mol_from_smiles(smiles)
-            if Chem.Descriptors.NumRadicalElectrons(rdmol) > 0:
+            if Descriptors.NumRadicalElectrons(rdmol) > 0:
                 continue
             mols.append(DBMol.from_rdmol(rdmol))
             if x := xff(rdmol):

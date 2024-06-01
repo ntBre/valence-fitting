@@ -11,6 +11,7 @@ from rdkit import Chem
 from tqdm import tqdm
 
 from cut_compound import Compound
+from query import mol_from_smiles
 
 
 class DBMol:
@@ -259,11 +260,9 @@ class Store:
         frags = list()
         mols = list()
         for smiles in all_smiles:
-            try:
-                mol = Molecule.from_smiles(smiles, allow_undefined_stereo=True)
-            except RadicalsNotSupportedError:
+            rdmol = mol_from_smiles(smiles)
+            if Chem.Descriptors.NumRadicalElectrons(rdmol) > 0:
                 continue
-            rdmol = mol.to_rdkit()
             mols.append(DBMol.from_rdmol(rdmol))
             if x := xff(rdmol):
                 frags.extend(x)

@@ -28,37 +28,6 @@ PTABLE = [
 # fmt: on
 
 
-def mol_from_smiles(smiles: str) -> Chem.Mol:
-    """Create an RDKit molecule from SMILES and perform the cleaning operations
-    from the OpenFF toolkit
-
-    """
-    rdmol = Chem.MolFromSmiles(smiles)
-    return openff_clean(rdmol)
-
-
-def mol_from_smarts(smarts: str) -> Chem.Mol:
-    """Create an RDKit molecule from SMARTS and perform the cleaning operations
-    from the OpenFF toolkit
-
-    """
-    rdmol = Chem.MolFromSmarts(smarts)
-    return openff_clean(rdmol)
-
-
-def openff_clean(rdmol: Chem.Mol) -> Chem.Mol:
-    Chem.SanitizeMol(
-        rdmol,
-        Chem.SanitizeFlags.SANITIZE_ALL
-        ^ Chem.SanitizeFlags.SANITIZE_ADJUSTHS
-        ^ Chem.SanitizeFlags.SANITIZE_SETAROMATICITY,
-    )
-    Chem.SetAromaticity(rdmol, Chem.AromaticityModel.AROMATICITY_MDL)
-    Chem.AssignStereochemistry(rdmol)
-    rdmol = Chem.AddHs(rdmol)
-    return rdmol
-
-
 def find_smarts_matches(mol, smirks: Chem.Mol):
     "Adapted from RDKitToolkitWrapper._find_smarts_matches"
     idx_map = dict()

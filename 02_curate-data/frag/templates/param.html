@@ -2,6 +2,7 @@
 
 {% block head %}
 <script type="text/javascript" src="/js/param.js"></script>
+<script type="text/javascript" src="/js/cluster.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -31,6 +32,9 @@
 
 <dialog onclick="event.target==this && this.close()" id="modal-box">
 	<div id="modal-box-content"> </div>
+	<form method="dialog" onsubmit="addToDataset()">
+	  <button>Add to dataset</button>
+	</form>
 </dialog>
 
 {% endblock %}

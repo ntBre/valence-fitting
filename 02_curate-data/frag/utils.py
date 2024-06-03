@@ -1,3 +1,4 @@
+import numpy as np
 from rdkit import Chem
 from rdkit.Chem.Draw import MolsToGridImage, rdDepictor, rdMolDraw2D
 

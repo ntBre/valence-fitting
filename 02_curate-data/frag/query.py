@@ -3,12 +3,12 @@ from functools import partial
 from multiprocessing import Pool
 
 import click
-import numpy as np
 from openff.toolkit import ForceField
 from rdkit import Chem
 from tqdm import tqdm
 
 from store import DBForceField, DBMol, Match, Store, elements_to_bits
+from utils import find_matches, mol_from_smiles
 
 logger = logging.getLogger(__name__)
 

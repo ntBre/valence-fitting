@@ -3,7 +3,7 @@ import tempfile
 from openff.toolkit import ForceField, Molecule
 from rdkit import Chem
 
-from query import find_matches, into_params, load_want, mol_from_smiles
+from query import into_params, load_want
 from store import (
     DBMol,
     Store,
@@ -11,6 +11,7 @@ from store import (
     elements_to_bits,
     get_elements,
 )
+from utils import find_matches, mol_from_smiles
 
 
 def test_find_matches():

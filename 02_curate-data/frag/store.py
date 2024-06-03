@@ -52,17 +52,20 @@ class Match:
     smirks: str
     pid: str
     molecules: list[str]  # TODO this is actually supposed to be list[rowid]
+    fragments: list[str]  # TODO this is actually supposed to be list[rowid]
 
-    def __init__(self, smirks, pid, molecules):
+    def __init__(self, smirks, pid, molecules, fragments):
         self.smirks = smirks
         self.pid = pid
         self.molecules = molecules
+        self.fragments = fragments
 
     def __eq__(self, o):
         return (
             self.smirks == o.smirks
             and self.pid == o.pid
             and self.molecules == o.molecules
+            and self.fragments == o.fragments
         )
 
     def to_dict(self):

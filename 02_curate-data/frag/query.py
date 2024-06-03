@@ -1,3 +1,4 @@
+import itertools
 import logging
 from functools import partial
 from multiprocessing import Pool
@@ -82,15 +83,16 @@ def parse_filters(filters: list[str]) -> list[Filter]:
     return ret
 
 
-def inner(m: DBMol, params, filters) -> tuple[str, set[str]]:
+def inner(pair: tuple[DBMol, bool], params, filters) -> tuple[str, set[str]]:
     "Returns a SMILES and its matching parameter IDs"
+    m, is_frag = pair
     if not all((f.apply(m) for f in filters)):
         return "", set()
     mol = mol_from_smiles(m.smiles)
     res = set(find_matches(params, mol).values())
     if len(res) == 0:
         logger.warning(f"no matches found for {m.smiles}")
-    return m.smiles, res
+    return m.smiles, res, is_frag
 
 
 def _main(nprocs, chunk_size, filters, store_name, ffname, want, limit):
@@ -104,10 +106,12 @@ def _main(nprocs, chunk_size, filters, store_name, ffname, want, limit):
     }
 
     res = dict()
-    all_mols = [s for s in s.get_molecules(limit)]
+    mols = [(s, False) for s in s.get_molecules(limit)]
+    frags = [(s, True) for s in s.get_fragments(limit)]
+    all_mols = [i for i in itertools.chain(mols, frags)]
     unmatched = 0
     with Pool(processes=nprocs) as p:
-        for smiles, matches in tqdm(
+        for smiles, matches, is_frag in tqdm(
             p.imap(
                 partial(inner, params=params, filters=filters),
                 all_mols,
@@ -117,8 +121,11 @@ def _main(nprocs, chunk_size, filters, store_name, ffname, want, limit):
         ):
             for pid in matches & want:
                 if pid not in res:
-                    res[pid] = Match(pid_to_smirks[pid], pid, list())
-                res[pid].molecules.append(smiles)
+                    res[pid] = Match(pid_to_smirks[pid], pid, list(), list())
+                if is_frag:
+                    res[pid].fragments.append(smiles)
+                else:
+                    res[pid].molecules.append(smiles)
             else:
                 unmatched += 1
 

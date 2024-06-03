@@ -261,7 +261,11 @@ class Store:
         frags = list()
         mols = list()
         for smiles in all_smiles:
-            rdmol = mol_from_smiles(smiles)
+            try:
+                rdmol = mol_from_smiles(smiles)
+            except Exception as e:
+                print(f"failed to build rdmol with: `{e}`")
+                continue
             if Descriptors.NumRadicalElectrons(rdmol) > 0:
                 continue
             mols.append(DBMol.from_rdmol(rdmol))
@@ -299,11 +303,7 @@ def find_frag_bonds(rdmol, keep_atoms):
 
 
 def xff(mol: Chem.Mol) -> list[DBMol] | None:
-    try:
-        c = Compound(mol)
-    except Exception as e:
-        print(f"warning: failed to convert to rdmol with {e}")
-        return
+    c = Compound(mol)
     frags = c.cutCompound()
 
     ret = list()

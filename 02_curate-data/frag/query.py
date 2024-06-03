@@ -87,7 +87,7 @@ def inner(pair: tuple[DBMol, bool], params, filters) -> tuple[str, set[str]]:
     "Returns a SMILES and its matching parameter IDs"
     m, is_frag = pair
     if not all((f.apply(m) for f in filters)):
-        return "", set()
+        return "", set(), False
     mol = mol_from_smiles(m.smiles)
     res = set(find_matches(params, mol).values())
     if len(res) == 0:

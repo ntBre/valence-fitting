@@ -57,8 +57,8 @@ function drawMolecule(moldata) {
 	frame.setAttribute("id", "edit-molecule-modal-content");
 
 	let canvas = document.createElement("canvas");
-	canvas.setAttribute("width", "400");
-	canvas.setAttribute("height", "400");
+	canvas.setAttribute("width", moldata.canvas_size);
+	canvas.setAttribute("height", moldata.canvas_size);
 	let ctx = canvas.getContext("2d");
 	ctx.fillStyle = "black";
 	for (let i = 0; i < moldata.atoms.length; i++) {

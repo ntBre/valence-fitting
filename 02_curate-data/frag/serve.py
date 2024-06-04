@@ -244,7 +244,9 @@ def add_molecule():
 
 @app.route("/edit-molecule", methods=["POST"])
 def edit_molecule():
+    CANVAS_SIZE = 400  # size of html canvas
     data = request.get_json()
+    # TODO use pid to highlight the right atoms in js
     smiles = data["smiles"]  # also contains pid
     mol = mol_from_smiles(smiles)
     rdDepictor.SetPreferCoordGen(True)
@@ -258,16 +260,20 @@ def edit_molecule():
     xs, ys = coords[:, 0], coords[:, 1]
     minx, maxx = np.min(xs), np.max(xs)
     miny, maxy = np.min(ys), np.max(ys)
-    print("init x: ", xs)
-    print("translated x:", xs - minx, coords[:, 0])
     xs -= minx
     ys -= miny
-    xs *= 300 / (maxx - minx)
-    ys *= 300 / (maxy - miny)
-    xs += 50
-    ys += 50
-    print("scaled x: ", xs)
-    ret = dict(atoms=atoms, bonds=bonds, coords=coords.tolist())
+    # normalize the coordinates in the middle 3/4 of the canvas to prevent
+    # overflow
+    xs *= 0.750 * CANVAS_SIZE / (maxx - minx)
+    ys *= 0.750 * CANVAS_SIZE / (maxy - miny)
+    xs += 0.125 * CANVAS_SIZE
+    ys += 0.125 * CANVAS_SIZE
+    ret = dict(
+        atoms=atoms,
+        bonds=bonds,
+        coords=coords.tolist(),
+        canvas_size=CANVAS_SIZE,
+    )
     return ret, HTTPStatus.CREATED
 
 

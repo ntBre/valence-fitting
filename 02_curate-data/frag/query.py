@@ -100,6 +100,8 @@ def _main(nprocs, chunk_size, filters, store_name, ffname, want, limit):
     ff = ForceField(ffname)
     params = into_params(ff)
 
+    s.reset_forcefield(ffname)
+
     pid_to_smirks = {
         p.id: p.smirks
         for p in ff.get_parameter_handler("ProperTorsions").parameters

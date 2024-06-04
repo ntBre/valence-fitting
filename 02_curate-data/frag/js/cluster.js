@@ -60,7 +60,9 @@ function drawMolecule(mol) {
 	canvas.setAttribute("width", mol.canvas_size);
 	canvas.setAttribute("height", mol.canvas_size);
 	let ctx = canvas.getContext("2d");
+	ctx.font = "normal 20px sans-serif";
 	ctx.fillStyle = "black";
+	ctx.lineWidth = 2;
 	for (let i = 0; i < mol.atoms.length; i++) {
 		let x = mol.coords[i][0];
 		let y = mol.coords[i][1];

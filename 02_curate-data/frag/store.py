@@ -180,6 +180,10 @@ class Store:
         ).fetchone()
         return DBForceField(id=id, name=name, matches=pickle.loads(matches))
 
+    def reset_forcefield(self, ffname: str):
+        self.cur.execute("DELETE FROM forcefields WHERE name = ?1", (ffname,))
+        self.con.commit()
+
     def get_smiles_matching(self, ffname: str, pid: str) -> list[str]:
         "Return the SMILES matching `pid` for `ffname`"
         dbff = self.get_forcefield(ffname)

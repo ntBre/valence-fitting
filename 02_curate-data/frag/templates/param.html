@@ -22,7 +22,7 @@
 
 <p>Showing {{cur_mols}}/{{total_mols}} molecules</p>
 {% for m in mols %}
-<span natoms="{{m.natoms}}" smiles="{{m.smiles}}">{{m.svg|safe}}</span>
+<span pid="{{pid}}" natoms="{{m.natoms}}" smiles="{{m.smiles}}">{{m.svg|safe}}</span>
 {% endfor %}
 {% if cur_mols < total_mols %}
 	<form action="/param/{{pid}}">

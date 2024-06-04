@@ -49,6 +49,11 @@ async function editMolecule() {
 	}
 }
 
+function centerText(ctx, text, x, y) {
+	let w = ctx.measureText(text).width;
+	ctx.fillText(text, x - w/2, y);
+}
+
 function drawMolecule(mol) {
 	let dialog = document.getElementById("edit-molecule-modal");
 
@@ -69,11 +74,11 @@ function drawMolecule(mol) {
 		let [atomic_sym, charge] = mol.atoms[i];
 		if (charge != 0 || atomic_sym != "C") {
 			if (charge == 0) {
-				ctx.fillText(atomic_sym, x, y);
+				centerText(ctx, atomic_sym, x, y);
 			} else if (charge == -1) {
-				ctx.fillText(atomic_sym + "-", x, y);
+				centerText(ctx, atomic_sym + "-", x, y);
 			} else if (charge == 1) {
-				ctx.fillText(atomic_sym + "+", x, y);
+				centerText(ctx, atomic_sym + "+", x, y);
 			} else {
 				console.log("warning: unrecognized atomic charge: ", charge);
 			}

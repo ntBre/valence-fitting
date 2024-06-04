@@ -12,7 +12,7 @@ from rdkit import Chem
 from rdkit.Chem.Draw import rdDepictor, rdMolDraw2D
 
 from parse import tanimoto
-from query import find_matches, into_params, mol_from_smiles
+from query import PTABLE, find_matches, into_params, mol_from_smiles
 from store import Store
 from utils import find_smallest, make_svg, mol_to_svg
 
@@ -252,7 +252,7 @@ def edit_molecule():
     mol = rdMolDraw2D.PrepareMolForDrawing(mol)
     assert mol.GetNumConformers() == 1
     conf = mol.GetConformer()
-    atoms = [atom.GetAtomicNum() for atom in mol.GetAtoms()]
+    atoms = [PTABLE[atom.GetAtomicNum()] for atom in mol.GetAtoms()]
     bonds = [(b.GetBeginAtomIdx(), b.GetEndAtomIdx()) for b in mol.GetBonds()]
     coords = conf.GetPositions()
     xs, ys = coords[:, 0], coords[:, 1]

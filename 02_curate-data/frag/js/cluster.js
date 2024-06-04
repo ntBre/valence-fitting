@@ -43,7 +43,6 @@ async function editMolecule() {
 			return;
 		}
 		let moldata = await response.json();
-		console.log(moldata);
 		drawMolecule(moldata);
 	} else {
 		console.log("no smiles found");
@@ -51,7 +50,6 @@ async function editMolecule() {
 }
 
 function drawMolecule(moldata) {
-	console.log("in drawMolecule");
 	let dialog = document.getElementById("edit-molecule-modal");
 
 	// new frame to put into the dialog
@@ -66,15 +64,15 @@ function drawMolecule(moldata) {
 	for (let i = 0; i < moldata.atoms.length; i++) {
 		let x = moldata.coords[i][0];
 		let y = moldata.coords[i][1];
-		ctx.arc(x, y, 3, 0, 2*Math.PI);
-		ctx.fill();
-		ctx.closePath();
+		let atomic_sym = moldata.atoms[i];
+		if (atomic_sym != "C") {
+			ctx.fillText(atomic_sym, x, y);
+		}
 	}
 
 	for (b of moldata.bonds) {
 		let c1 = moldata.coords[b[0]];
 		let c2 = moldata.coords[b[1]];
-		console.log(b, c1, c2);
 		let x1 = c1[0];
 		let y1 = c1[1];
 		let x2 = c2[0];
@@ -83,7 +81,6 @@ function drawMolecule(moldata) {
 		ctx.moveTo(x1, y1);
 		ctx.lineTo(x2, y2);
 		ctx.stroke();
-		console.log(b, moldata.atoms[b[0]], moldata.atoms[b[1]]);
 	}
 
 	frame.appendChild(canvas);

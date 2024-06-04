@@ -259,7 +259,10 @@ def edit_molecule():
     mol = rdMolDraw2D.PrepareMolForDrawing(mol)
     assert mol.GetNumConformers() == 1
     conf = mol.GetConformer()
-    atoms = [PTABLE[atom.GetAtomicNum()] for atom in mol.GetAtoms()]
+    atoms = [
+        (PTABLE[atom.GetAtomicNum()], atom.GetFormalCharge())
+        for atom in mol.GetAtoms()
+    ]
     bonds = [
         (b.GetBeginAtomIdx(), b.GetEndAtomIdx(), b.GetBondType())
         for b in mol.GetBonds()

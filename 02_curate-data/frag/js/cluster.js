@@ -64,9 +64,17 @@ function drawMolecule(mol) {
 	for (let i = 0; i < mol.atoms.length; i++) {
 		let x = mol.coords[i][0];
 		let y = mol.coords[i][1];
-		let atomic_sym = mol.atoms[i];
-		if (atomic_sym != "C") {
-			ctx.fillText(atomic_sym, x, y);
+		let [atomic_sym, charge] = mol.atoms[i];
+		if (charge != 0 || atomic_sym != "C") {
+			if (charge == 0) {
+				ctx.fillText(atomic_sym, x, y);
+			} else if (charge == -1) {
+				ctx.fillText(atomic_sym + "-", x, y);
+			} else if (charge == 1) {
+				ctx.fillText(atomic_sym + "+", x, y);
+			} else {
+				console.log("warning: unrecognized atomic charge: ", charge);
+			}
 		}
 	}
 

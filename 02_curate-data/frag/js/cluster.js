@@ -49,7 +49,7 @@ async function editMolecule() {
 	}
 }
 
-function drawMolecule(moldata) {
+function drawMolecule(mol) {
 	let dialog = document.getElementById("edit-molecule-modal");
 
 	// new frame to put into the dialog
@@ -57,23 +57,23 @@ function drawMolecule(moldata) {
 	frame.setAttribute("id", "edit-molecule-modal-content");
 
 	let canvas = document.createElement("canvas");
-	canvas.setAttribute("width", moldata.canvas_size);
-	canvas.setAttribute("height", moldata.canvas_size);
+	canvas.setAttribute("width", mol.canvas_size);
+	canvas.setAttribute("height", mol.canvas_size);
 	let ctx = canvas.getContext("2d");
 	ctx.fillStyle = "black";
-	for (let i = 0; i < moldata.atoms.length; i++) {
-		let x = moldata.coords[i][0];
-		let y = moldata.coords[i][1];
-		let atomic_sym = moldata.atoms[i];
+	for (let i = 0; i < mol.atoms.length; i++) {
+		let x = mol.coords[i][0];
+		let y = mol.coords[i][1];
+		let atomic_sym = mol.atoms[i];
 		if (atomic_sym != "C") {
 			ctx.fillText(atomic_sym, x, y);
 		}
 	}
 
-	for ([a1, a2, order] of moldata.bonds) {
-		let hl_bond = moldata.hl_atoms.includes(a1) && moldata.hl_atoms.includes(a2);
-		let [x1, y1] = moldata.coords[a1];
-		let [x2, y2] = moldata.coords[a2];
+	for ([a1, a2, order] of mol.bonds) {
+		let hl_bond = mol.hl_atoms.includes(a1) && mol.hl_atoms.includes(a2);
+		let [x1, y1] = mol.coords[a1];
+		let [x2, y2] = mol.coords[a2];
 		if (hl_bond) {
 			ctx.strokeStyle = "orange";
 		}

@@ -37,6 +37,7 @@ pid_to_smarts = {
     p.id: p.smirks
     for p in off.get_parameter_handler("ProperTorsions").parameters
 }
+mol_map = into_params(off)
 
 
 PID_RE = re.compile("(t)([0-9]+)(.*)")
@@ -102,7 +103,6 @@ def param(pid):
     max_draw = int(request.args.get("max", MAX_DRAW))
     table = Store.quick()
     mols = get_smiles_list(table, ffname, pid)
-    mol_map = into_params(off)
 
     draw_mols = mols_to_draw(mols, pid, mol_map, max_draw)
 
@@ -247,8 +247,13 @@ def edit_molecule():
     CANVAS_SIZE = 400  # size of html canvas
     data = request.get_json()
     # TODO use pid to highlight the right atoms in js
-    smiles = data["smiles"]  # also contains pid
+    smiles, pid = data["smiles"], data["pid"]
     mol = mol_from_smiles(smiles)
+    matches = find_matches(mol_map, mol)
+    hl_atoms = next(
+        iter((atoms for atoms, mpid in matches.items() if mpid == pid))
+    )
+    hl_atoms = [] if hl_atoms is None else hl_atoms
     rdDepictor.SetPreferCoordGen(True)
     rdDepictor.Compute2DCoords(mol)
     mol = rdMolDraw2D.PrepareMolForDrawing(mol)
@@ -276,6 +281,7 @@ def edit_molecule():
         bonds=bonds,
         coords=coords.tolist(),
         canvas_size=CANVAS_SIZE,
+        hl_atoms=hl_atoms,
     )
     return ret, HTTPStatus.CREATED
 

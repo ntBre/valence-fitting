@@ -70,15 +70,19 @@ function drawMolecule(moldata) {
 		}
 	}
 
-	for (b of moldata.bonds) {
-		let [x1, y1] = moldata.coords[b[0]];
-		let [x2, y2] = moldata.coords[b[1]];
-		if (b[2] == 1) {
+	for ([a1, a2, order] of moldata.bonds) {
+		let hl_bond = moldata.hl_atoms.includes(a1) && moldata.hl_atoms.includes(a2);
+		let [x1, y1] = moldata.coords[a1];
+		let [x2, y2] = moldata.coords[a2];
+		if (hl_bond) {
+			ctx.strokeStyle = "orange";
+		}
+		if (order == 1) {
 			ctx.beginPath();
 			ctx.moveTo(x1, y1);
 			ctx.lineTo(x2, y2);
 			ctx.stroke();
-		} else if (b[2] === 2) {
+		} else if (order === 2) {
 			// compute perpendicular unit vector to move along for double bonds
 			let dx = x2 - x1;
 			let dy = y2 - y1;
@@ -97,7 +101,7 @@ function drawMolecule(moldata) {
 			ctx.lineTo(x2 - f * ux, y2 - f * uy);
 			ctx.stroke();
 		} else {
-			console.log("warning: unknown bond order ", b[2]);
+			console.log("warning: unknown bond order ", order);
 			ctx.strokeStyle = "red";
 			ctx.beginPath();
 			ctx.moveTo(x1, y1);
@@ -105,6 +109,7 @@ function drawMolecule(moldata) {
 			ctx.stroke();
 			ctx.strokeStyle = "black";
 		}
+		ctx.strokeStyle = "black";
 	}
 
 	frame.appendChild(canvas);

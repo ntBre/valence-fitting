@@ -4,10 +4,12 @@ from collections import defaultdict
 from dataclasses import dataclass
 from http import HTTPStatus
 
+import numpy as np
 from flask import Flask, redirect, request, send_from_directory, url_for
 from jinja2 import Environment, PackageLoader, select_autoescape
 from openff.toolkit import ForceField
 from rdkit import Chem
+from rdkit.Chem.Draw import rdDepictor, rdMolDraw2D
 
 from parse import tanimoto
 from query import find_matches, into_params, mol_from_smiles
@@ -238,6 +240,35 @@ def add_molecule():
     table = Store.quick()
     table.add_to_dataset(data["smiles"], data["pid"])
     return "", HTTPStatus.CREATED
+
+
+@app.route("/edit-molecule", methods=["POST"])
+def edit_molecule():
+    data = request.get_json()
+    smiles = data["smiles"]  # also contains pid
+    mol = mol_from_smiles(smiles)
+    rdDepictor.SetPreferCoordGen(True)
+    rdDepictor.Compute2DCoords(mol)
+    mol = rdMolDraw2D.PrepareMolForDrawing(mol)
+    assert mol.GetNumConformers() == 1
+    conf = mol.GetConformer()
+    atoms = [atom.GetAtomicNum() for atom in mol.GetAtoms()]
+    bonds = [(b.GetBeginAtomIdx(), b.GetEndAtomIdx()) for b in mol.GetBonds()]
+    coords = conf.GetPositions()
+    xs, ys = coords[:, 0], coords[:, 1]
+    minx, maxx = np.min(xs), np.max(xs)
+    miny, maxy = np.min(ys), np.max(ys)
+    print("init x: ", xs)
+    print("translated x:", xs - minx, coords[:, 0])
+    xs -= minx
+    ys -= miny
+    xs *= 300 / (maxx - minx)
+    ys *= 300 / (maxy - miny)
+    xs += 50
+    ys += 50
+    print("scaled x: ", xs)
+    ret = dict(atoms=atoms, bonds=bonds, coords=coords.tolist())
+    return ret, HTTPStatus.CREATED
 
 
 @app.route("/preview-dataset")

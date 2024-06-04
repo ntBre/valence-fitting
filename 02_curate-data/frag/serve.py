@@ -255,7 +255,10 @@ def edit_molecule():
     assert mol.GetNumConformers() == 1
     conf = mol.GetConformer()
     atoms = [PTABLE[atom.GetAtomicNum()] for atom in mol.GetAtoms()]
-    bonds = [(b.GetBeginAtomIdx(), b.GetEndAtomIdx()) for b in mol.GetBonds()]
+    bonds = [
+        (b.GetBeginAtomIdx(), b.GetEndAtomIdx(), b.GetBondType())
+        for b in mol.GetBonds()
+    ]
     coords = conf.GetPositions()
     xs, ys = coords[:, 0], coords[:, 1]
     minx, maxx = np.min(xs), np.max(xs)

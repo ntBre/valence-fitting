@@ -304,8 +304,6 @@ async function drawMolecule(mol, pid) {
 				ctx.clearRect(0, 0, canvas.width, canvas.height);
 				scene.draw(ctx, font_size);
 				break;
-			default:
-				console.log("warning: unexpected key event: ", event);
 		}
 	});
 

@@ -242,6 +242,26 @@ def add_molecule():
     return "", HTTPStatus.CREATED
 
 
+# the current rdkit molecule being edited. shared between `edit_molecule` and
+# `update_molecule`
+CUR_EDIT_MOL: Chem.Mol = None
+
+
+@dataclass
+class Atom:
+    index: int
+    symbol: str
+    charge: int
+
+
+@dataclass
+class Bond:
+    index: int
+    atom1: int
+    atom2: int
+    order: int
+
+
 @app.route("/edit-molecule", methods=["POST"])
 def edit_molecule():
     CANVAS_SIZE = 400  # size of html canvas
@@ -260,13 +280,19 @@ def edit_molecule():
     assert mol.GetNumConformers() == 1
     conf = mol.GetConformer()
     atoms = [
-        (PTABLE[atom.GetAtomicNum()], atom.GetFormalCharge())
+        Atom(
+            atom.GetIdx(), PTABLE[atom.GetAtomicNum()], atom.GetFormalCharge()
+        )
         for atom in mol.GetAtoms()
     ]
     bonds = [
-        (b.GetBeginAtomIdx(), b.GetEndAtomIdx(), b.GetBondType())
+        Bond(
+            b.GetIdx(), b.GetBeginAtomIdx(), b.GetEndAtomIdx(), b.GetBondType()
+        )
         for b in mol.GetBonds()
     ]
+    global CUR_EDIT_MOL
+    CUR_EDIT_MOL = mol
     coords = conf.GetPositions()
     xs, ys = coords[:, 0], coords[:, 1]
     minx, maxx = np.min(xs), np.max(xs)

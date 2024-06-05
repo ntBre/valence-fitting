@@ -55,7 +55,7 @@ function centerText(ctx, text, x, y, font_size) {
 }
 
 class Atom {
-	constructor(x, y, symbol, charge) {
+	constructor(x, y, symbol, charge, index) {
 		this.x = x;
 		this.y = y;
 		if (charge == 0) {
@@ -69,6 +69,7 @@ class Atom {
 		}
 		this.is_highlighted = false;
 		this.is_selected = false;
+		this.index = index;
 	}
 
 	draw(ctx, font_size) {
@@ -97,7 +98,7 @@ class Atom {
 }
 
 class Bond {
-	constructor(x1, y1, x2, y2, order, hl_bond) {
+	constructor(x1, y1, x2, y2, order, hl_bond, index) {
 		let dx = x2 - x1;
 		let dy = y2 - y1;
 		let m = Math.sqrt(dx * dx + dy * dy);
@@ -117,6 +118,7 @@ class Bond {
 		this.hl_bond = hl_bond;
 		let [cx, cy] = midpoint(x1, y1, x2, y2);
 		this.midpoint = [cx + x1, cy + y1];
+		this.index = index;
 	}
 
 	contains(x, y, r) {
@@ -181,13 +183,14 @@ class Scene {
 		for (let i = 0; i < mol.atoms.length; i++) {
 			let x = mol.coords[i][0];
 			let y = mol.coords[i][1];
-			let [atomic_sym, charge] = mol.atoms[i];
-			this.atoms.push(new Atom(x, y, atomic_sym, charge));
+			let atom = mol.atoms[i];
+			this.atoms.push(new Atom(x, y, atom.symbol, atom.charge, atom.index));
 		}
 
 		this.bonds = Array();
 		let pad = 8; // padding for ends of bonds
-		for (let [a1, a2, order] of mol.bonds) {
+		for (let bond of mol.bonds) {
+			let [a1, a2, order] = [bond.atom1, bond.atom2, bond.order];
 			let hl_bond = mol.hl_atoms.includes(a1) && mol.hl_atoms.includes(a2);
 			let [x1, y1] = mol.coords[a1];
 			let [x2, y2] = mol.coords[a2];
@@ -196,8 +199,8 @@ class Scene {
 			let m = Math.sqrt(dx * dx + dy * dy);
 			let [ux, uy] = [dx / m, dy / m];
 
-			let [as1, ch1] = mol.atoms[a1];
-			let [as2, ch2] = mol.atoms[a2];
+			let [as1, ch1] = [mol.atoms[a1].symbol, mol.atoms[a1].charge];
+			let [as2, ch2] = [mol.atoms[a2].symbol, mol.atoms[a2].charge];
 			if (ch1 != 0 || as1 != "C") {
 				x1 += pad * ux;
 				y1 += pad * uy;
@@ -206,7 +209,7 @@ class Scene {
 				x2 -= pad * ux;
 				y2 -= pad * uy;
 			}
-			this.bonds.push(new Bond(x1, y1, x2, y2, order, hl_bond));
+			this.bonds.push(new Bond(x1, y1, x2, y2, order, hl_bond, bond.index));
 		}
 	}
 
@@ -262,6 +265,24 @@ function drawMolecule(mol) {
 			if (bond.contains(event.offsetX, event.offsetY, font_size)) {
 				bond.is_selected = !bond.is_selected;
 			}
+		}
+	});
+
+	window.addEventListener("keydown", (event) => {
+		switch (event.code) {
+			case "KeyD":
+				let selected_atoms =
+					scene.atoms.filter((atom) => atom.is_selected)
+						.map((atom) => atom.index);
+				let selected_bonds =
+					scene.bonds.filter((bond) => bond.is_selected)
+						.map((bond) => bond.index);
+				console.log("emitting delete instruction");
+				console.log("atoms: ", selected_atoms);
+				console.log("bonds: ", selected_bonds);
+				break;
+			default:
+				console.log("warning: unexpected key event: ", event);
 		}
 	});
 

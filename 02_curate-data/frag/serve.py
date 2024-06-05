@@ -14,7 +14,7 @@ from rdkit.Chem.Draw import rdDepictor, rdMolDraw2D
 from parse import tanimoto
 from query import PTABLE, find_matches, into_params, mol_from_smiles
 from store import Store
-from utils import find_smallest, make_svg, mol_to_svg
+from utils import find_smallest, make_svg, mol_to_svg, openff_clean
 
 warnings.filterwarnings("ignore")
 with warnings.catch_warnings():
@@ -262,17 +262,28 @@ class Bond:
     order: int
 
 
+CANVAS_SIZE = 400  # size of html canvas
+
+
 @app.route("/edit-molecule", methods=["POST"])
 def edit_molecule():
-    CANVAS_SIZE = 400  # size of html canvas
     data = request.get_json()
     # TODO use pid to highlight the right atoms in js
     smiles, pid = data["smiles"], data["pid"]
     mol = mol_from_smiles(smiles)
+    mol, ret = mol_to_js(mol, pid)
+    global CUR_EDIT_MOL
+    CUR_EDIT_MOL = mol
+    return ret, HTTPStatus.CREATED
+
+
+def mol_to_js(mol, pid):
     matches = find_matches(mol_map, mol)
-    hl_atoms = next(
-        iter((atoms for atoms, mpid in matches.items() if mpid == pid))
-    )
+    hl_atoms = []
+    for atoms, mpid in matches.items():
+        if mpid == pid:
+            hl_atoms = atoms
+            break
     hl_atoms = [] if hl_atoms is None else hl_atoms
     rdDepictor.SetPreferCoordGen(True)
     rdDepictor.Compute2DCoords(mol)
@@ -291,8 +302,6 @@ def edit_molecule():
         )
         for b in mol.GetBonds()
     ]
-    global CUR_EDIT_MOL
-    CUR_EDIT_MOL = mol
     coords = conf.GetPositions()
     xs, ys = coords[:, 0], coords[:, 1]
     minx, maxx = np.min(xs), np.max(xs)
@@ -305,13 +314,31 @@ def edit_molecule():
     ys *= 0.750 * CANVAS_SIZE / (maxy - miny)
     xs += 0.125 * CANVAS_SIZE
     ys += 0.125 * CANVAS_SIZE
-    ret = dict(
+    return mol, dict(
         atoms=atoms,
         bonds=bonds,
         coords=coords.tolist(),
         canvas_size=CANVAS_SIZE,
         hl_atoms=hl_atoms,
     )
+
+
+@app.route("/update-molecule", methods=["POST"])
+def update_molecule():
+    data = request.get_json()
+    global CUR_EDIT_MOL
+    atoms, bonds, pid = data["atoms"], data["bonds"], data["pid"]
+    emol = Chem.EditableMol(CUR_EDIT_MOL)
+    for atom in sorted(atoms, reverse=True):
+        emol.RemoveAtom(atom)
+    for [a1, a2] in sorted(bonds, reverse=True):
+        try:
+            emol.RemoveBond(a1, a2)
+        except Exception as e:
+            print(f"warning: {e}")
+
+    mol, ret = mol_to_js(openff_clean(emol.GetMol()), pid)
+    CUR_EDIT_MOL = mol
     return ret, HTTPStatus.CREATED
 
 

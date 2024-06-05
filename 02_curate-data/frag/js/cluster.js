@@ -43,7 +43,7 @@ async function editMolecule() {
 			return;
 		}
 		let moldata = await response.json();
-		drawMolecule(moldata);
+		await drawMolecule(moldata, pid);
 	} else {
 		console.log("no smiles found");
 	}
@@ -98,7 +98,7 @@ class Atom {
 }
 
 class Bond {
-	constructor(x1, y1, x2, y2, order, hl_bond, index) {
+	constructor(x1, y1, x2, y2, order, hl_bond, atom1, atom2) {
 		let dx = x2 - x1;
 		let dy = y2 - y1;
 		let m = Math.sqrt(dx * dx + dy * dy);
@@ -118,7 +118,8 @@ class Bond {
 		this.hl_bond = hl_bond;
 		let [cx, cy] = midpoint(x1, y1, x2, y2);
 		this.midpoint = [cx + x1, cy + y1];
-		this.index = index;
+		this.atom1 = atom1;
+		this.atom2 = atom2;
 	}
 
 	contains(x, y, r) {
@@ -209,7 +210,7 @@ class Scene {
 				x2 -= pad * ux;
 				y2 -= pad * uy;
 			}
-			this.bonds.push(new Bond(x1, y1, x2, y2, order, hl_bond, bond.index));
+			this.bonds.push(new Bond(x1, y1, x2, y2, order, hl_bond, a1, a2));
 		}
 	}
 
@@ -224,7 +225,7 @@ class Scene {
 }
 
 
-function drawMolecule(mol) {
+async function drawMolecule(mol, pid) {
 	let dialog = document.getElementById("edit-molecule-modal");
 
 	// new frame to put into the dialog
@@ -268,7 +269,7 @@ function drawMolecule(mol) {
 		}
 	});
 
-	window.addEventListener("keydown", (event) => {
+	window.addEventListener("keydown", async (event) => {
 		switch (event.code) {
 			case "KeyD":
 				let selected_atoms =
@@ -276,10 +277,28 @@ function drawMolecule(mol) {
 						.map((atom) => atom.index);
 				let selected_bonds =
 					scene.bonds.filter((bond) => bond.is_selected)
-						.map((bond) => bond.index);
-				console.log("emitting delete instruction");
-				console.log("atoms: ", selected_atoms);
-				console.log("bonds: ", selected_bonds);
+						.map((bond) => [bond.atom1, bond.atom2]);
+
+				let response = await fetch("/update-molecule", {
+					method: "POST",
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						"atoms": selected_atoms,
+						"bonds": selected_bonds,
+						"pid": pid
+					}),
+				});
+				if (!response.ok) {
+					console.log(`error handling request: ${response}`);
+					return;
+				}
+				let moldata = await response.json();
+				scene = new Scene(moldata);
+				ctx.clearRect(0, 0, canvas.width, canvas.height);
+				scene.draw(ctx, font_size);
 				break;
 			default:
 				console.log("warning: unexpected key event: ", event);

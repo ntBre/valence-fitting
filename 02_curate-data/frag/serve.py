@@ -286,6 +286,8 @@ def mol_to_js(mol, pid):
             break
     hl_atoms = [] if hl_atoms is None else hl_atoms
     rdDepictor.SetPreferCoordGen(True)
+    # this seems to help with a segfault I was having before
+    mol = mol_from_smiles(Chem.MolToSmiles(mol))
     rdDepictor.Compute2DCoords(mol)
     mol = rdMolDraw2D.PrepareMolForDrawing(mol)
     assert mol.GetNumConformers() == 1
@@ -329,13 +331,13 @@ def update_molecule():
     global CUR_EDIT_MOL
     atoms, bonds, pid = data["atoms"], data["bonds"], data["pid"]
     emol = Chem.EditableMol(CUR_EDIT_MOL)
-    for atom in sorted(atoms, reverse=True):
-        emol.RemoveAtom(atom)
     for [a1, a2] in sorted(bonds, reverse=True):
         try:
             emol.RemoveBond(a1, a2)
         except Exception as e:
             print(f"warning: {e}")
+    for atom in sorted(atoms, reverse=True):
+        emol.RemoveAtom(atom)
 
     mol, ret = mol_to_js(openff_clean(emol.GetMol()), pid)
     CUR_EDIT_MOL = mol

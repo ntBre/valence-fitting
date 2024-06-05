@@ -105,10 +105,20 @@ class Bond {
 		this.px = px;
 		this.py = py;
 		this.order = order;
+		this.is_highlighted = false;
 		this.hl_bond = hl_bond;
+		let [cx, cy] = midpoint(x1, y1, x2, y2);
+		this.midpoint = [cx + x1, cy + y1];
 	}
 
-	draw(ctx) {
+	contains(x, y, r) {
+		let [cx, cy] = this.midpoint;
+		let dx = x - cx;
+		let dy = y - cy;
+		return dx * dx + dy * dy <= r * r;
+	}
+
+	draw(ctx, font_size) {
 		const f = 2;
 		if (this.hl_bond) {
 			ctx.strokeStyle = "orange";
@@ -137,7 +147,17 @@ class Bond {
 			ctx.stroke();
 		}
 		ctx.strokeStyle = "black";
+		if (this.is_highlighted) {
+			let [cx, cy] = this.midpoint;
+			ctx.beginPath();
+			ctx.arc(cx, cy, 0.5 * font_size, 0, 2*Math.PI);
+			ctx.stroke();
+		}
 	}
+}
+
+function midpoint(x1, y1, x2, y2) {
+	return [(x2 - x1) / 2, (y2 - y1) / 2];
 }
 
 class Scene {
@@ -180,7 +200,7 @@ class Scene {
 			atom.draw(ctx, font_size);
 		}
 		for (let bond of this.bonds) {
-			bond.draw(ctx);
+			bond.draw(ctx, font_size);
 		}
 	}
 }
@@ -210,6 +230,9 @@ function drawMolecule(mol) {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		for (let atom of scene.atoms) {
 			atom.is_highlighted = atom.contains(event.offsetX, event.offsetY, font_size);
+		}
+		for (let bond of scene.bonds) {
+			bond.is_highlighted = bond.contains(event.offsetX, event.offsetY, font_size);
 		}
 		scene.draw(ctx, font_size);
 	});

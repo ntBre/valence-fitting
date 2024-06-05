@@ -325,18 +325,22 @@ def mol_to_js(mol, pid):
     )
 
 
+def remove_bonds(emol, atom):
+    "Remove all of the bonds involving `atom` in place (?)"
+    for bond in emol.GetMol().GetBonds():
+        b1, b2 = bond.GetBeginAtomIdx(), bond.GetEndAtomIdx()
+        if atom in [b1, b2]:
+            emol.RemoveBond(b1, b2)
+
+
 @app.route("/update-molecule", methods=["POST"])
 def update_molecule():
     data = request.get_json()
     global CUR_EDIT_MOL
-    atoms, bonds, pid = data["atoms"], data["bonds"], data["pid"]
+    atoms, pid = data["atoms"], data["pid"]
     emol = Chem.EditableMol(CUR_EDIT_MOL)
-    for [a1, a2] in sorted(bonds, reverse=True):
-        try:
-            emol.RemoveBond(a1, a2)
-        except Exception as e:
-            print(f"warning: {e}")
     for atom in sorted(atoms, reverse=True):
+        remove_bonds(emol, atom)
         emol.RemoveAtom(atom)
 
     mol, ret = mol_to_js(openff_clean(emol.GetMol()), pid)

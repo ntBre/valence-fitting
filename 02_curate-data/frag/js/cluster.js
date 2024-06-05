@@ -54,15 +54,6 @@ function centerText(ctx, text, x, y, font_size) {
 	ctx.fillText(text, x - w / 2, y + font_size / 2);
 }
 
-class Circle {
-	constructor(x, y, r) {
-		this.x = x;
-		this.y = y;
-		this.r = r;
-	}
-
-}
-
 class Atom {
 	constructor(x, y, symbol, charge) {
 		this.x = x;

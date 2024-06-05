@@ -1,4 +1,5 @@
 import re
+import time
 import warnings
 from collections import defaultdict
 from dataclasses import dataclass
@@ -215,7 +216,11 @@ def cluster(pid):
     eps = request.args.get("eps", default=DBSCAN_EPS, type=float)
     min_pts = request.args.get("min_pts", default=DBSCAN_MIN_PTS, type=int)
 
+    start = time.time()
     r = make_cluster_report(ffname, mols, eps, min_pts)
+    end = time.time()
+
+    elapsed = f"{end - start:.2f} sec"
 
     clusters = sorted(r.clusters, key=lambda c: r.mols[c[0]].GetNumAtoms())
     template = env.get_template("cluster.html")
@@ -231,6 +236,7 @@ def cluster(pid):
         mols=r.mols,
         map=r.map,
         mol_map=r.mol_map,
+        elapsed=elapsed,
     )
 
 

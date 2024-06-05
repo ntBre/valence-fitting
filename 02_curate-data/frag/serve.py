@@ -338,6 +338,9 @@ def update_molecule():
     data = request.get_json()
     global CUR_EDIT_MOL
     atoms, pid = data["atoms"], data["pid"]
+    # kekulize before removing, sanitize after (openff_clean). from:
+    # https://sourceforge.net/p/rdkit/mailman/message/37610064/
+    Chem.Kekulize(CUR_EDIT_MOL, clearAromaticFlags=True)
     emol = Chem.EditableMol(CUR_EDIT_MOL)
     for atom in sorted(atoms, reverse=True):
         remove_bonds(emol, atom)

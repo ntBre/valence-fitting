@@ -182,6 +182,10 @@ function midpoint(x1, y1, x2, y2) {
 	return [(x2 - x1) / 2, (y2 - y1) / 2];
 }
 
+function is_contained(obj, x1, y1, x2, y2) {
+	return (obj.x >= x1 && obj.x <= x2 && obj.y >= y1 && obj.y <= y2);
+}
+
 class Scene {
 	constructor(mol) {
 		this.atoms = Array();
@@ -249,14 +253,41 @@ async function drawMolecule(mol, pid) {
 
 	scene.draw(ctx, font_size);
 
-	canvas.addEventListener("mousemove", (event) => {
+	let drag_start;
+	let drag_stop;
+	canvas.addEventListener("mousedown", (event) => {
+		drag_start = [event.offsetX, event.offsetY];
+	});
+
+	const drag_thresh = 10;
+	canvas.addEventListener("mouseup", (event) => {
+		drag_stop = [event.offsetX, event.offsetY];
+		let [x1, y1] = drag_start;
+		let [x2, y2] = drag_stop;
+		if (Math.abs(y2 - y1) > drag_thresh && Math.abs(x2 - x1) > drag_thresh) {
+			for (let atom of scene.atoms) {
+				if (is_contained(atom, x1, y1, x2, y2)) {
+					atom.is_selected = !atom.is_selected;
+				}
+			}
+			for (let bond of scene.bonds) {
+				if (is_contained(bond, x1, y1, x2, y2)) {
+					bond.is_selected = !bond.is_selected;
+				}
+			}
+		}
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		scene.draw(ctx, font_size);
+	});
+
+	canvas.addEventListener("mousemove", (event) => {
 		for (let atom of scene.atoms) {
 			atom.is_highlighted = atom.contains(event.offsetX, event.offsetY, font_size / 2);
 		}
 		for (let bond of scene.bonds) {
 			bond.is_highlighted = bond.contains(event.offsetX, event.offsetY, font_size / 2);
 		}
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		scene.draw(ctx, font_size);
 	});
 

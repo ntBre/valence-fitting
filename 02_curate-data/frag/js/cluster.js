@@ -252,22 +252,22 @@ async function drawMolecule(mol, pid) {
 	canvas.addEventListener("mousemove", (event) => {
 		ctx.clearRect(0, 0, canvas.width, canvas.height);
 		for (let atom of scene.atoms) {
-			atom.is_highlighted = atom.contains(event.offsetX, event.offsetY, font_size);
+			atom.is_highlighted = atom.contains(event.offsetX, event.offsetY, font_size / 2);
 		}
 		for (let bond of scene.bonds) {
-			bond.is_highlighted = bond.contains(event.offsetX, event.offsetY, font_size);
+			bond.is_highlighted = bond.contains(event.offsetX, event.offsetY, font_size / 2);
 		}
 		scene.draw(ctx, font_size);
 	});
 
 	canvas.addEventListener("click", (event) => {
 		for (let atom of scene.atoms) {
-			if (atom.contains(event.offsetX, event.offsetY, font_size)) {
+			if (atom.contains(event.offsetX, event.offsetY, font_size / 2)) {
 				atom.is_selected = !atom.is_selected;
 			}
 		}
 		for (let bond of scene.bonds) {
-			if (bond.contains(event.offsetX, event.offsetY, font_size)) {
+			if (bond.contains(event.offsetX, event.offsetY, font_size / 2)) {
 				bond.is_selected = !bond.is_selected;
 			}
 		}

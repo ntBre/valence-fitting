@@ -68,6 +68,7 @@ class Atom {
 			console.log("warning: unrecognized atomic charge: ", charge);
 		}
 		this.is_highlighted = false;
+		this.is_selected = false;
 	}
 
 	draw(ctx, font_size) {
@@ -75,7 +76,13 @@ class Atom {
 			let w = ctx.measureText(this.symbol).width;
 			ctx.fillText(this.symbol, this.x - w / 2, this.y + font_size / 2);
 		}
-		if (this.is_highlighted) {
+		if (this.is_selected) {
+			ctx.strokeStyle = "blue";
+			ctx.beginPath();
+			ctx.arc(this.x, this.y, 1.0 * font_size, 0, 2 * Math.PI);
+			ctx.stroke();
+			ctx.strokeStyle = "black";
+		} else if (this.is_highlighted) {
 			ctx.beginPath();
 			ctx.arc(this.x, this.y, 1.0 * font_size, 0, 2 * Math.PI);
 			ctx.stroke();
@@ -106,6 +113,7 @@ class Bond {
 		this.py = py;
 		this.order = order;
 		this.is_highlighted = false;
+		this.is_selected = false;
 		this.hl_bond = hl_bond;
 		let [cx, cy] = midpoint(x1, y1, x2, y2);
 		this.midpoint = [cx + x1, cy + y1];
@@ -147,10 +155,17 @@ class Bond {
 			ctx.stroke();
 		}
 		ctx.strokeStyle = "black";
-		if (this.is_highlighted) {
+		if (this.is_selected) {
+			let [cx, cy] = this.midpoint;
+			ctx.strokeStyle = "blue";
+			ctx.beginPath();
+			ctx.arc(cx, cy, 0.5 * font_size, 0, 2 * Math.PI);
+			ctx.stroke();
+			ctx.strokeStyle = "black";
+		} else if (this.is_highlighted) {
 			let [cx, cy] = this.midpoint;
 			ctx.beginPath();
-			ctx.arc(cx, cy, 0.5 * font_size, 0, 2*Math.PI);
+			ctx.arc(cx, cy, 0.5 * font_size, 0, 2 * Math.PI);
 			ctx.stroke();
 		}
 	}
@@ -235,6 +250,19 @@ function drawMolecule(mol) {
 			bond.is_highlighted = bond.contains(event.offsetX, event.offsetY, font_size);
 		}
 		scene.draw(ctx, font_size);
+	});
+
+	canvas.addEventListener("click", (event) => {
+		for (let atom of scene.atoms) {
+			if (atom.contains(event.offsetX, event.offsetY, font_size)) {
+				atom.is_selected = !atom.is_selected;
+			}
+		}
+		for (let bond of scene.bonds) {
+			if (bond.contains(event.offsetX, event.offsetY, font_size)) {
+				bond.is_selected = !bond.is_selected;
+			}
+		}
 	});
 
 	frame.appendChild(canvas);

@@ -78,12 +78,14 @@ class Atom {
 			ctx.fillText(this.symbol, this.x - w / 2, this.y + font_size / 2);
 		}
 		if (this.is_selected) {
-			ctx.strokeStyle = "blue";
+			let cur = ctx.fillStyle;
+			ctx.fillStyle = "rgba(0, 0, 255, 0.2)";
 			ctx.beginPath();
 			ctx.arc(this.x, this.y, 1.0 * font_size, 0, 2 * Math.PI);
-			ctx.stroke();
-			ctx.strokeStyle = "black";
-		} else if (this.is_highlighted) {
+			ctx.fill();
+			ctx.fillStyle = cur;
+		}
+		if (this.is_highlighted) {
 			ctx.beginPath();
 			ctx.arc(this.x, this.y, 1.0 * font_size, 0, 2 * Math.PI);
 			ctx.stroke();
@@ -160,12 +162,14 @@ class Bond {
 		ctx.strokeStyle = "black";
 		if (this.is_selected) {
 			let [cx, cy] = this.midpoint;
-			ctx.strokeStyle = "blue";
+			let cur = ctx.fillStyle;
+			ctx.fillStyle = "rgba(0, 0, 255, 0.2)";
 			ctx.beginPath();
 			ctx.arc(cx, cy, 0.5 * font_size, 0, 2 * Math.PI);
-			ctx.stroke();
-			ctx.strokeStyle = "black";
-		} else if (this.is_highlighted) {
+			ctx.fill();
+			ctx.fillStyle = cur;
+		}
+		if (this.is_highlighted) {
 			let [cx, cy] = this.midpoint;
 			ctx.beginPath();
 			ctx.arc(cx, cy, 0.5 * font_size, 0, 2 * Math.PI);

@@ -74,28 +74,39 @@ def make_svg(pid, map, mol_map, mol):
     hl_atoms = []
     if pid in map:
         tmp = find_matches(mol_map, mol)
-        hl_atoms, _pid = [
-            (atoms, param_id)
-            for atoms, param_id in tmp.items()
-            if param_id == pid
-        ][0]
+        hl_atoms = [
+            atoms for atoms, param_id in tmp.items() if param_id == pid
+        ]
     return mol_to_svg(mol, 400, 300, "", hl_atoms)
 
 
 def mol_to_svg(
-    mol: Chem.Mol, width: int, height: int, legend: str, hl_atoms: list[int]
-) -> str:
-    "Return an SVG of `mol`"
-    rdDepictor.SetPreferCoordGen(True)
-    rdDepictor.Compute2DCoords(mol)
-    rdmol = rdMolDraw2D.PrepareMolForDrawing(mol)
-    return MolsToGridImage(
-        [rdmol],
-        useSVG=True,
-        highlightAtomLists=[hl_atoms],
-        subImgSize=(300, 300),
-        molsPerRow=1,
-    )
+    mol: Chem.Mol,
+    width: int,
+    height: int,
+    legend: str,
+    hl_atoms: list[list[int]],
+) -> list[str]:
+    "Return a list of SVGs, one for each match in hl_atoms"
+
+    if len(hl_atoms) == 0:
+        hl_atoms = [[]]
+
+    ret = []
+    for hl in hl_atoms:
+        rdDepictor.SetPreferCoordGen(True)
+        rdDepictor.Compute2DCoords(mol)
+        rdmol = rdMolDraw2D.PrepareMolForDrawing(mol)
+        ret.append(
+            MolsToGridImage(
+                [rdmol],
+                useSVG=True,
+                highlightAtomLists=[hl],
+                subImgSize=(300, 300),
+                molsPerRow=1,
+            )
+        )
+    return ret
 
 
 def find_smallest(mols: list[Chem.Mol], cluster: list[int]) -> int:

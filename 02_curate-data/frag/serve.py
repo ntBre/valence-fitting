@@ -95,7 +95,7 @@ def index():
 class DrawMol:
     smiles: str
     natoms: int
-    svg: str
+    svgs: list[str]
 
 
 @app.route("/param/<pid>")
@@ -139,8 +139,7 @@ def mol_to_draw(mol, pid, smiles, natoms):
     hl_atoms = []
     for atoms, mpid in matches.items():
         if mpid == pid:
-            hl_atoms = atoms
-            break
+            hl_atoms.append(atoms)
     svg = mol_to_svg(mol, 300, 300, "", hl_atoms)
     return DrawMol(smiles, natoms, svg)
 

@@ -35,7 +35,7 @@ def test_find_matches():
 
 def test_load_want():
     got = len(load_want("want.params"))
-    want = 51
+    want = 62
     assert got == want
 
 

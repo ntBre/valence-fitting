@@ -150,8 +150,6 @@ def get_smiles_list(table, ffname, pid) -> list[tuple[Chem.Mol, str, int]]:
 
 
 def mol_to_draw(mol, pid, natoms, atoms=None):
-    logger.warn(f"pre-match: {mol_to_smiles(mol, mapped=True)}")
-    logger.warn(f"pid: {pid}")
     matches = find_matches(mol_map, mol)
     hl_atoms = []
     for _atoms, mpid in matches.items():
@@ -159,6 +157,8 @@ def mol_to_draw(mol, pid, natoms, atoms=None):
         if mpid == pid:
             hl_atoms.append(_atoms)
     if atoms:
+        map_to_id = {a.GetAtomMapNum(): a.GetIdx() for a in mol.GetAtoms()}
+        atoms = tuple([map_to_id[a + 1] for a in atoms])
         if atoms in hl_atoms:
             hl_atoms = [atoms]
         else:

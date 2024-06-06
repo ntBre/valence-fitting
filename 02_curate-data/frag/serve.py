@@ -153,7 +153,6 @@ def mol_to_draw(mol, pid, natoms, atoms=None):
     matches = find_matches(mol_map, mol)
     hl_atoms = []
     for _atoms, mpid in matches.items():
-        logger.warn(f"{_atoms} => {mpid}")
         if mpid == pid:
             hl_atoms.append(_atoms)
     if atoms:
@@ -172,7 +171,6 @@ def mol_to_draw(mol, pid, natoms, atoms=None):
             hl_atoms = []
     svg = mol_to_svg(mol, 300, 300, "", hl_atoms)
     smiles = mol_to_smiles(mol, mapped=True)
-    logger.info(smiles)
     return DrawMol(smiles, natoms, svg, hl_atoms)
 
 
@@ -399,7 +397,6 @@ def preview_dataset():
     pids = []
     ids = []
     for id, s, pid, hl_atoms in table.get_dataset_entries():
-        logger.info(f"preview: SMILES: {s}, map: {hl_atoms}")
         mol = mol_from_mapped_smiles(s)
         draw_mols.append(
             mol_to_draw(mol, pid, mol.GetNumAtoms(), atoms=hl_atoms)

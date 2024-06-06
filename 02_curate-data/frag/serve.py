@@ -157,8 +157,14 @@ def mol_to_draw(mol, pid, natoms, atoms=None):
         if mpid == pid:
             hl_atoms.append(_atoms)
     if atoms:
+        # find_matches returns atom indices, not atom map nums because it was
+        # constructed from the original smiles where these two were the same.
+        # here, I convert these original indices (now captured in the mapped
+        # smiles) to indices in the current molecule
         map_to_id = {a.GetAtomMapNum(): a.GetIdx() for a in mol.GetAtoms()}
         atoms = tuple([map_to_id[a + 1] for a in atoms])
+        if atoms[0] > atoms[-1]:
+            atoms = atoms[::-1]
         if atoms in hl_atoms:
             hl_atoms = [atoms]
         else:

@@ -51,7 +51,7 @@ def find_smarts_matches(mol, smirks: Chem.Mol, mapped=False):
 
     matches = [tuple(match[x] for x in map_list) for match in full_matches]
 
-    if mapped:
+    if mapped and all((a.GetAtomMapNum() != 0 for a in mol.GetAtoms())):
         new_matches = []
         for m in matches:
             new_matches.append(

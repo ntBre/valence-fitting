@@ -21,9 +21,11 @@
 </form>
 
 <p>Showing {{cur_mols}}/{{total_mols}} molecules</p>
+<!-- m is a DrawMol -->
 {% for m in mols %}
   {% for svg in m.svgs %}
-<span pid="{{pid}}" natoms="{{m.natoms}}" smiles="{{m.smiles}}">
+<span pid="{{pid}}" natoms="{{m.natoms}}" smiles="{{m.smiles}}"
+	  hl_atoms="{{m.hl_atoms[loop.index0]}}">
   {{svg|safe}}
 </span>
   {% endfor %}

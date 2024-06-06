@@ -29,9 +29,11 @@ clusters|length}} empty clusters, after {{elapsed}}
 	<h1>Cluster {{loop.index}}, {{c|length}} molecules</h1>
 	{% set idx = c[0] %}
 	{% set mol = mols[idx] %}
-	{% set svgs = make_svg(pid, map, mol_map, mol) %}
+	{% set svgs, hl_atoms = make_svg(pid, map, mol_map, mol) %}
 	{% for svg in svgs %}
-	<span pid="{{pid}}" natoms="{{mol.GetNumAtoms()}}" smiles="{{Chem.MolToSmiles(mol)}}">
+	<span pid="{{pid}}" natoms="{{mol.GetNumAtoms()}}"
+		  smiles="{{mol_to_smiles(mol, mapped=True)}}"
+		  hl_atoms="{{hl_atoms[loop.index0]}}">
 	  {{svg|safe}}
 	</span>
 	{% endfor %}
@@ -40,9 +42,11 @@ clusters|length}} empty clusters, after {{elapsed}}
 	{% if smallest != 0 %}
 		{% set small_idx = c[smallest] %}
 		{% set small_mol = mols[small_idx] %}
-	{% set svgs = make_svg(pid, map, mol_map, small_mol) %}
+	{% set svgs, hl_atoms = make_svg(pid, map, mol_map, small_mol) %}
 	{% for svg in svgs %}
-		<span pid="{{pid}}" natoms="{{small_mol.GetNumAtoms()}}" smiles="{{Chem.MolToSmiles(small_mol)}}">
+	<span pid="{{pid}}" natoms="{{small_mol.GetNumAtoms()}}"
+		  smiles="{{mol_to_smiles(small_mol, mapped=True)}}"
+		  hl_atoms="{{hl_atoms[loop.index0]}}">
 		{{svg|safe}}
 		</span>
 		{% endfor %}

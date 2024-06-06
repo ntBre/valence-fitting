@@ -34,6 +34,7 @@ env = Environment(
 env.globals["Chem"] = Chem
 env.globals["make_svg"] = make_svg
 env.globals["find_smallest"] = find_smallest
+env.globals["mol_to_smiles"] = mol_to_smiles
 dbname = "store.sqlite"
 ffname = (
     "../../01_generate-forcefield/output/"

@@ -70,14 +70,18 @@ def find_matches(
     return matches
 
 
-def make_svg(pid, map, mol_map, mol):
+def make_svg(pid, map, mol_map, mol) -> tuple[list[str], list[list[int]]]:
+    """Returns a sequence of SVGs corresponding to each match for `pid` in
+    `mol`, along with the corresponding list of chemical environment tuples.
+
+    """
     hl_atoms = []
     if pid in map:
         tmp = find_matches(mol_map, mol)
         hl_atoms = [
             atoms for atoms, param_id in tmp.items() if param_id == pid
         ]
-    return mol_to_svg(mol, 400, 300, "", hl_atoms)
+    return mol_to_svg(mol, 400, 300, "", hl_atoms), hl_atoms
 
 
 def mol_to_svg(

@@ -1,6 +1,7 @@
 import tempfile
 
-from openff.toolkit import ForceField, Molecule
+from openff.toolkit import ForceField, Molecule, RDKitToolkitWrapper
+from openff.toolkit.utils import ToolkitRegistry, toolkit_registry_manager
 from rdkit import Chem
 
 from query import into_params, load_want
@@ -11,7 +12,7 @@ from store import (
     elements_to_bits,
     get_elements,
 )
-from utils import find_matches, mol_from_smiles
+from utils import find_matches, mol_from_smiles, mol_to_smiles
 
 
 def test_find_matches():
@@ -74,3 +75,13 @@ def test_query():
         s, got = _main(8, 32, [], f.name, ffname, {"t1", "t2", "t9"}, 100)
         want = s.get_forcefield(ffname)
         assert got == want.matches
+
+
+def test_mol_to_smiles():
+    smiles = "CCO"
+    rdk = mol_from_smiles(smiles)
+    off = Molecule.from_smiles(smiles)
+    got = mol_to_smiles(rdk, mapped=True)
+    with toolkit_registry_manager(ToolkitRegistry([RDKitToolkitWrapper()])):
+        want = off.to_smiles(mapped=True)
+    assert got == want

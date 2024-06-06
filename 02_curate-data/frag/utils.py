@@ -102,3 +102,11 @@ def find_smallest(mols: list[Chem.Mol], cluster: list[int]) -> int:
     "Return the index of the smallest molecule in `cluster`"
     tmp = [(i, mols[c]) for i, c in enumerate(cluster)]
     return min(tmp, key=lambda x: x[1].GetNumAtoms())[0]
+
+
+def mol_to_smiles(mol: Chem.Mol, mapped=False) -> str:
+    "Very simplified version of offtk rdkit_wrapper to_smiles"
+    if mapped:
+        for atom in mol.GetAtoms():
+            atom.SetAtomMapNum(atom.GetIdx() + 1)
+    return Chem.MolToSmiles(mol)

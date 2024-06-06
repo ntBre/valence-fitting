@@ -117,7 +117,10 @@ def find_smallest(mols: list[Chem.Mol], cluster: list[int]) -> int:
 
 def mol_to_smiles(mol: Chem.Mol, mapped=False) -> str:
     "Very simplified version of offtk rdkit_wrapper to_smiles"
-    if mapped:
+
+    # this should check for an existing atom map, such as the one provided by
+    # mol_from_mapped_smiles
+    if mapped and any((a.GetAtomMapNum() == 0 for a in mol.GetAtoms())):
         for atom in mol.GetAtoms():
             atom.SetAtomMapNum(atom.GetIdx() + 1)
     return Chem.MolToSmiles(mol)

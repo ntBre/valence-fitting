@@ -15,7 +15,13 @@ from rdkit.Chem.Draw import rdDepictor, rdMolDraw2D
 from parse import tanimoto
 from query import PTABLE, find_matches, into_params, mol_from_smiles
 from store import Store
-from utils import find_smallest, make_svg, mol_to_svg, openff_clean
+from utils import (
+    find_smallest,
+    make_svg,
+    mol_to_smiles,
+    mol_to_svg,
+    openff_clean,
+)
 
 warnings.filterwarnings("ignore")
 with warnings.catch_warnings():
@@ -96,6 +102,7 @@ class DrawMol:
     smiles: str
     natoms: int
     svgs: list[str]
+    hl_atoms: list[list[int]]
 
 
 @app.route("/param/<pid>")
@@ -134,7 +141,7 @@ def get_smiles_list(table, ffname, pid) -> list[tuple[Chem.Mol, str, int]]:
     return mols
 
 
-def mol_to_draw(mol, pid, smiles, natoms, atoms=None):
+def mol_to_draw(mol, pid, natoms, atoms=None):
     matches = find_matches(mol_map, mol)
     hl_atoms = []
     for _atoms, mpid in matches.items():
@@ -147,13 +154,14 @@ def mol_to_draw(mol, pid, smiles, natoms, atoms=None):
             print(f"warning: requested atoms {atoms} not found in {hl_atoms}")
             hl_atoms = []
     svg = mol_to_svg(mol, 300, 300, "", hl_atoms)
-    return DrawMol(smiles, natoms, svg)
+    smiles = mol_to_smiles(mol, mapped=True)
+    return DrawMol(smiles, natoms, svg, hl_atoms)
 
 
 def mols_to_draw(mols, pid, mol_map, max_draw):
     draw_mols = []
     for mol, smiles, natoms in mols[:max_draw]:
-        draw_mols.append(mol_to_draw(mol, pid, smiles, natoms))
+        draw_mols.append(mol_to_draw(mol, pid, natoms))
     return draw_mols
 
 
@@ -377,9 +385,7 @@ def preview_dataset():
         # TODO this DrawMol should only contain one SVG even though mol_to_draw
         # now returns multiple. should be able to control this by passing in
         # `atoms` once I propagate that through the rest of the code
-        draw_mols.append(
-            mol_to_draw(mol, pid, s, mol.GetNumAtoms(), atoms=None)
-        )
+        draw_mols.append(mol_to_draw(mol, pid, mol.GetNumAtoms(), atoms=None))
         pids.append(pid)
         ids.append(id)
     template = env.get_template("preview.html")

@@ -121,6 +121,7 @@ class Store:
             id integer primary key,
             smiles text,
             pid text,
+            hl_atoms blob,
             CONSTRAINT unq UNIQUE (smiles, pid)
             )
             """
@@ -239,19 +240,24 @@ class Store:
                 for x in v
             )
 
-    def add_to_dataset(self, smiles: str, pid: str):
+    def add_to_dataset(self, smiles: str, pid: str, hl_atoms: tuple[int]):
         self.cur.execute(
-            """INSERT OR IGNORE INTO dataset (smiles, pid)
-            VALUES (?1, ?2)
+            """INSERT OR IGNORE INTO dataset (smiles, pid, hl_atoms)
+            VALUES (?1, ?2, ?3)
             """,
-            (smiles, pid),
+            (smiles, pid, sqlite3.Binary(pickle.dumps(tuple(hl_atoms)))),
         )
         self.con.commit()
 
-    def get_dataset_entries(self) -> Iterator[tuple[int, str, str]]:
-        res = self.cur.execute("SELECT id, smiles, pid FROM dataset")
+    def get_dataset_entries(
+        self,
+    ) -> Iterator[tuple[int, str, str, tuple[int]]]:
+        res = self.cur.execute("SELECT id, smiles, pid, hl_atoms FROM dataset")
         while len(v := res.fetchmany()) > 0:
-            yield from ((id, smiles, pid) for id, smiles, pid in v)
+            yield from (
+                (id, smiles, pid, tuple(pickle.loads(hl_atoms)))
+                for id, smiles, pid, hl_atoms in v
+            )
 
     def get_dataset_size(self) -> int:
         res = self.cur.execute("SELECT COUNT(*) from dataset")

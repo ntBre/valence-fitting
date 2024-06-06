@@ -34,7 +34,7 @@ def openff_clean(rdmol: Chem.Mol) -> Chem.Mol:
     return rdmol
 
 
-def find_smarts_matches(mol, smirks: Chem.Mol):
+def find_smarts_matches(mol, smirks: Chem.Mol, mapped=False):
     "Adapted from RDKitToolkitWrapper._find_smarts_matches"
     idx_map = dict()
     for atom in smirks.GetAtoms():
@@ -51,18 +51,26 @@ def find_smarts_matches(mol, smirks: Chem.Mol):
 
     matches = [tuple(match[x] for x in map_list) for match in full_matches]
 
+    if mapped:
+        new_matches = []
+        for m in matches:
+            new_matches.append(
+                tuple([mol.GetAtomWithIdx(i).GetAtomMapNum() - 1 for i in m])
+            )
+        matches = new_matches
+
     return matches
 
 
 def find_matches(
-    params: list[tuple[str, Chem.Mol]], mol: Chem.Mol
+    params: list[tuple[str, Chem.Mol]], mol: Chem.Mol, mapped=False
 ) -> dict[tuple[int], str]:
     """Returns a map of chemical environment tuples to their matching parameter
     ids. Modeled (loosely) after ForceField.label_molecules and
     ParameterHandler._find_matches"""
     matches = {}
     for id, smirks in params:
-        env_matches = find_smarts_matches(mol, smirks)
+        env_matches = find_smarts_matches(mol, smirks, mapped=mapped)
         for mat in env_matches:
             if mat[0] > mat[-1]:
                 mat = mat[::-1]
@@ -101,6 +109,10 @@ def mol_to_svg(
         rdDepictor.SetPreferCoordGen(True)
         rdDepictor.Compute2DCoords(mol)
         rdmol = rdMolDraw2D.PrepareMolForDrawing(mol)
+        # PrepareMolForDrawing returns a copy, and I asserted that `mol` still
+        # had mapping numbers after doing this
+        for atom in rdmol.GetAtoms():
+            atom.SetAtomMapNum(0)
         ret.append(
             MolsToGridImage(
                 [rdmol],
@@ -138,7 +150,6 @@ def mol_from_mapped_smiles(smiles) -> Chem.Mol:
     # stereochemistry tags. I'm stripping it out for the call to `openff_clean`
     # and then putting it back. hopefully that works
     for atom in rdmol.GetAtoms():
-        print(atom.GetAtomMapNum())
         if (map_num := atom.GetAtomMapNum()) != 0:
             atom.SetProp("_map_idx", str(map_num))
             atom.SetAtomMapNum(0)
@@ -147,3 +158,11 @@ def mol_from_mapped_smiles(smiles) -> Chem.Mol:
         map_num = atom.GetProp("_map_idx")
         atom.SetAtomMapNum(int(map_num))
     return ret
+
+
+def into_params(ff) -> list[tuple[str, Chem.Mol]]:
+    "Convert a ForceField into a sequence of pid:Mol pairs"
+    return [
+        (p.id, Chem.MolFromSmarts(p.smirks))
+        for p in ff.get_parameter_handler("ProperTorsions").parameters
+    ]

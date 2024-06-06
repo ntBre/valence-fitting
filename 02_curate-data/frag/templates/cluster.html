@@ -33,7 +33,7 @@ clusters|length}} empty clusters, after {{elapsed}}
 	{% for svg in svgs %}
 	<span pid="{{pid}}" natoms="{{mol.GetNumAtoms()}}"
 		  smiles="{{mol_to_smiles(mol, mapped=True)}}"
-		  hl_atoms="{{hl_atoms[loop.index0]}}">
+		  hl_atoms="{{list(hl_atoms[loop.index0])}}">
 	  {{svg|safe}}
 	</span>
 	{% endfor %}
@@ -46,7 +46,7 @@ clusters|length}} empty clusters, after {{elapsed}}
 	{% for svg in svgs %}
 	<span pid="{{pid}}" natoms="{{small_mol.GetNumAtoms()}}"
 		  smiles="{{mol_to_smiles(small_mol, mapped=True)}}"
-		  hl_atoms="{{hl_atoms[loop.index0]}}">
+		  hl_atoms="{{list(hl_atoms[loop.index0])}}">
 		{{svg|safe}}
 		</span>
 		{% endfor %}

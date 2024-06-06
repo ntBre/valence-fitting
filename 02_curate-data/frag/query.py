@@ -9,7 +9,7 @@ from rdkit import Chem
 from tqdm import tqdm
 
 from store import DBForceField, DBMol, Match, Store, elements_to_bits
-from utils import find_matches, mol_from_smiles
+from utils import find_matches, into_params, mol_from_smiles
 
 logger = logging.getLogger(__name__)
 
@@ -27,14 +27,6 @@ PTABLE = [
     "Ds ", "Rg ", "Cn ", "Nh", "Fl", "Mc", "Lv", "Ts", "Og",
 ]
 # fmt: on
-
-
-def into_params(ff) -> list[tuple[str, Chem.Mol]]:
-    "Convert a ForceField into a sequence of pid:Mol pairs"
-    return [
-        (p.id, Chem.MolFromSmarts(p.smirks))
-        for p in ff.get_parameter_handler("ProperTorsions").parameters
-    ]
 
 
 def load_want(filename):

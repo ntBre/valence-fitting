@@ -8,6 +8,7 @@ function main() {
 			let smiles = svg.getAttribute("smiles");
 			let natoms = svg.getAttribute("natoms");
 			let pid = svg.getAttribute("pid");
+			let hl_atoms = svg.getAttribute("hl_atoms");
 
 			// get the dialog box initially in the page
 			let dialog = document.getElementById("modal-box");
@@ -32,6 +33,11 @@ function main() {
 				frame.setAttribute("pid", pid);
 			} else {
 				console.log("WARNING: pid unset");
+			}
+			if (hl_atoms) {
+				frame.setAttribute("hl_atoms", hl_atoms);
+			} else {
+				console.log("WARNING: hl_atoms unset");
 			}
 			frame.appendChild(svg.cloneNode(true));
 

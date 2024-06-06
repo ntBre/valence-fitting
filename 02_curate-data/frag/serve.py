@@ -1,3 +1,4 @@
+import logging
 import re
 import time
 import warnings
@@ -18,6 +19,7 @@ from store import Store
 from utils import (
     find_smallest,
     make_svg,
+    mol_from_mapped_smiles,
     mol_to_smiles,
     mol_to_svg,
     openff_clean,
@@ -27,6 +29,10 @@ warnings.filterwarnings("ignore")
 with warnings.catch_warnings():
     from sklearn import cluster as skcluster
 
+logger = logging.getLogger(__name__)
+logging.getLogger("werkzeug").setLevel(logging.ERROR)
+logging.basicConfig(level=logging.INFO)
+
 app = Flask("serve")
 env = Environment(
     loader=PackageLoader("serve"), autoescape=select_autoescape()
@@ -35,6 +41,7 @@ env.globals["Chem"] = Chem
 env.globals["make_svg"] = make_svg
 env.globals["find_smallest"] = find_smallest
 env.globals["mol_to_smiles"] = mol_to_smiles
+env.globals["list"] = list
 dbname = "store.sqlite"
 ffname = (
     "../../01_generate-forcefield/output/"
@@ -81,7 +88,7 @@ def index():
     )
 
     dsmap = defaultdict(int)
-    for _id, _smiles, pid in table.get_dataset_entries():
+    for _id, _smiles, pid, _hl_atoms in table.get_dataset_entries():
         dsmap[pid] += 1
 
     pid_counts = []
@@ -143,19 +150,23 @@ def get_smiles_list(table, ffname, pid) -> list[tuple[Chem.Mol, str, int]]:
 
 
 def mol_to_draw(mol, pid, natoms, atoms=None):
+    logger.warn(f"pre-match: {mol_to_smiles(mol, mapped=True)}")
+    logger.warn(f"pid: {pid}")
     matches = find_matches(mol_map, mol)
     hl_atoms = []
     for _atoms, mpid in matches.items():
+        logger.warn(f"{_atoms} => {mpid}")
         if mpid == pid:
             hl_atoms.append(_atoms)
     if atoms:
         if atoms in hl_atoms:
             hl_atoms = [atoms]
         else:
-            print(f"warning: requested atoms {atoms} not found in {hl_atoms}")
+            logger.warn(f"requested atoms {atoms} not found in {hl_atoms}")
             hl_atoms = []
     svg = mol_to_svg(mol, 300, 300, "", hl_atoms)
     smiles = mol_to_smiles(mol, mapped=True)
+    logger.info(smiles)
     return DrawMol(smiles, natoms, svg, hl_atoms)
 
 
@@ -262,7 +273,7 @@ def cluster(pid):
 def add_molecule():
     data = request.get_json()
     table = Store.quick()
-    table.add_to_dataset(data["smiles"], data["pid"])
+    table.add_to_dataset(data["smiles"], data["pid"], data["hl_atoms"])
     return "", HTTPStatus.CREATED
 
 
@@ -381,12 +392,12 @@ def preview_dataset():
     draw_mols = []
     pids = []
     ids = []
-    for id, s, pid in table.get_dataset_entries():
-        mol = mol_from_smiles(s)
-        # TODO this DrawMol should only contain one SVG even though mol_to_draw
-        # now returns multiple. should be able to control this by passing in
-        # `atoms` once I propagate that through the rest of the code
-        draw_mols.append(mol_to_draw(mol, pid, mol.GetNumAtoms(), atoms=None))
+    for id, s, pid, hl_atoms in table.get_dataset_entries():
+        logger.info(f"preview: SMILES: {s}, map: {hl_atoms}")
+        mol = mol_from_mapped_smiles(s)
+        draw_mols.append(
+            mol_to_draw(mol, pid, mol.GetNumAtoms(), atoms=hl_atoms)
+        )
         pids.append(pid)
         ids.append(id)
     template = env.get_template("preview.html")
@@ -400,8 +411,8 @@ def export_dataset():
     assert label == "filename"
     table = Store.quick()
     with open(filename, "w") as out:
-        for _id, smiles, pid in table.get_dataset_entries():
-            print(pid, smiles, file=out)
+        for _id, smiles, pid, hl_atoms in table.get_dataset_entries():
+            print(pid, smiles, hl_atoms, file=out)
     return redirect(url_for("index"))
 
 

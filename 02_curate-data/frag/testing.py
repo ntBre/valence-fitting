@@ -14,6 +14,7 @@ from store import (
 )
 from utils import (
     find_matches,
+    into_params,
     mol_from_mapped_smiles,
     mol_from_smiles,
     mol_to_smiles,
@@ -99,5 +100,34 @@ def test_mapping():
         want = off.to_smiles(mapped=True)
     rdk = mol_from_mapped_smiles(smiles)
     got = mol_to_smiles(rdk, mapped=True)
+
+    assert got == want
+
+
+def test_mapping_debug():
+    smiles = (
+        "[C:1]([O:2][C:3](=[O:4])[C:5]([C:6]([N+:7]1([O-:8])"
+        "[C:9]([H:18])([H:19])[C:10]1([H:20])[H:21])([H:16])"
+        "[H:17])([H:14])[H:15])([H:11])([H:12])[H:13]"
+    )
+    mol = Molecule.from_mapped_smiles(smiles)
+    ff = ForceField(
+        "../../01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml"
+    )
+    want = list(
+        (k, v.id)
+        for k, v in sorted(
+            ff.label_molecules(mol.to_topology())[0]["ProperTorsions"].items()
+        )
+    )
+
+    params = into_params(ff)
+    got = list(
+        sorted(
+            find_matches(
+                params, mol_from_mapped_smiles(smiles), mapped=True
+            ).items()
+        )
+    )
 
     assert got == want

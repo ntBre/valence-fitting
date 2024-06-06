@@ -122,12 +122,25 @@ def test_mapping_debug():
     )
 
     params = into_params(ff)
-    got = list(
-        sorted(
-            find_matches(
-                params, mol_from_mapped_smiles(smiles), mapped=True
-            ).items()
-        )
-    )
+    mol = mol_from_mapped_smiles(smiles)
+    pairs = find_matches(params, mol).items()
+    # find_matches returns atom indices, which in the case of my
+    # `mol_from_mapped_smiles` may be (and likely are) different from the atom
+    # map. ff.label_molecules also returns atom indices, but the toolkit
+    # ensures that they correspond to the atom map (minus 1). this code maps
+    # from the native rdkit indices to the mapping to match the toolkit output.
+    # I originally made this an option to pass to find_matches, but I think
+    # it's easier to do it after the fact only when necessary
+    map_to_id = {a.GetIdx(): a.GetAtomMapNum() for a in mol.GetAtoms()}
+    got = []
+    for k, v in pairs:
+        tup, v = (tuple([map_to_id[a] - 1 for a in k]), v)
+        if tup[0] > tup[-1]:
+            tup = tup[::-1]
+        got.append((tup, v))
+    got = list(sorted(got))
+    print(got)
 
+    print(len(got))
+    assert len(got) == len(want)
     assert got == want

@@ -34,7 +34,7 @@ def openff_clean(rdmol: Chem.Mol) -> Chem.Mol:
     return rdmol
 
 
-def find_smarts_matches(mol, smirks: Chem.Mol, mapped=False):
+def find_smarts_matches(mol, smirks: Chem.Mol):
     "Adapted from RDKitToolkitWrapper._find_smarts_matches"
     idx_map = dict()
     for atom in smirks.GetAtoms():
@@ -51,26 +51,18 @@ def find_smarts_matches(mol, smirks: Chem.Mol, mapped=False):
 
     matches = [tuple(match[x] for x in map_list) for match in full_matches]
 
-    if mapped and all((a.GetAtomMapNum() != 0 for a in mol.GetAtoms())):
-        new_matches = []
-        for m in matches:
-            new_matches.append(
-                tuple([mol.GetAtomWithIdx(i).GetAtomMapNum() - 1 for i in m])
-            )
-        matches = new_matches
-
     return matches
 
 
 def find_matches(
-    params: list[tuple[str, Chem.Mol]], mol: Chem.Mol, mapped=False
+    params: list[tuple[str, Chem.Mol]], mol: Chem.Mol
 ) -> dict[tuple[int], str]:
     """Returns a map of chemical environment tuples to their matching parameter
     ids. Modeled (loosely) after ForceField.label_molecules and
     ParameterHandler._find_matches"""
     matches = {}
     for id, smirks in params:
-        env_matches = find_smarts_matches(mol, smirks, mapped=mapped)
+        env_matches = find_smarts_matches(mol, smirks)
         for mat in env_matches:
             if mat[0] > mat[-1]:
                 mat = mat[::-1]
@@ -113,6 +105,7 @@ def mol_to_svg(
         # had mapping numbers after doing this
         for atom in rdmol.GetAtoms():
             atom.SetAtomMapNum(0)
+
         ret.append(
             MolsToGridImage(
                 [rdmol],

@@ -12,7 +12,12 @@ from store import (
     elements_to_bits,
     get_elements,
 )
-from utils import find_matches, mol_from_smiles, mol_to_smiles
+from utils import (
+    find_matches,
+    mol_from_mapped_smiles,
+    mol_from_smiles,
+    mol_to_smiles,
+)
 
 
 def test_find_matches():
@@ -84,4 +89,15 @@ def test_mol_to_smiles():
     got = mol_to_smiles(rdk, mapped=True)
     with toolkit_registry_manager(ToolkitRegistry([RDKitToolkitWrapper()])):
         want = off.to_smiles(mapped=True)
+    assert got == want
+
+
+def test_mapping():
+    smiles = "[H:5][N+:1]([H:6])([H:7])[S:2](=[O:3])[O:4][H:8]"
+    with toolkit_registry_manager(ToolkitRegistry([RDKitToolkitWrapper()])):
+        off = Molecule.from_mapped_smiles(smiles, allow_undefined_stereo=True)
+        want = off.to_smiles(mapped=True)
+    rdk = mol_from_mapped_smiles(smiles)
+    got = mol_to_smiles(rdk, mapped=True)
+
     assert got == want

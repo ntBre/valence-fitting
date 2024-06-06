@@ -124,3 +124,22 @@ def mol_to_smiles(mol: Chem.Mol, mapped=False) -> str:
         for atom in mol.GetAtoms():
             atom.SetAtomMapNum(atom.GetIdx() + 1)
     return Chem.MolToSmiles(mol)
+
+
+def mol_from_mapped_smiles(smiles) -> Chem.Mol:
+    """Adapted from offtk rdkit_wrapper from_smiles without skipping the atom
+    mapping part like `mol_from_smiles`"""
+    rdmol = Chem.MolFromSmiles(smiles, sanitize=False)
+    # the toolkit says we have to strip the atom map to avoid affecting the
+    # stereochemistry tags. I'm stripping it out for the call to `openff_clean`
+    # and then putting it back. hopefully that works
+    for atom in rdmol.GetAtoms():
+        print(atom.GetAtomMapNum())
+        if (map_num := atom.GetAtomMapNum()) != 0:
+            atom.SetProp("_map_idx", str(map_num))
+            atom.SetAtomMapNum(0)
+    ret = openff_clean(rdmol)
+    for atom in ret.GetAtoms():
+        map_num = atom.GetProp("_map_idx")
+        atom.SetAtomMapNum(int(map_num))
+    return ret

@@ -122,7 +122,7 @@ class Store:
             smiles text,
             pid text,
             hl_atoms blob,
-            CONSTRAINT unq UNIQUE (smiles, pid)
+            CONSTRAINT unq UNIQUE (smiles, pid, hl_atoms)
             )
             """
         )

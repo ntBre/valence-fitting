@@ -134,12 +134,18 @@ def get_smiles_list(table, ffname, pid) -> list[tuple[Chem.Mol, str, int]]:
     return mols
 
 
-def mol_to_draw(mol, pid, smiles, natoms):
+def mol_to_draw(mol, pid, smiles, natoms, atoms=None):
     matches = find_matches(mol_map, mol)
     hl_atoms = []
-    for atoms, mpid in matches.items():
+    for _atoms, mpid in matches.items():
         if mpid == pid:
-            hl_atoms.append(atoms)
+            hl_atoms.append(_atoms)
+    if atoms:
+        if atoms in hl_atoms:
+            hl_atoms = [atoms]
+        else:
+            print(f"warning: requested atoms {atoms} not found in {hl_atoms}")
+            hl_atoms = []
     svg = mol_to_svg(mol, 300, 300, "", hl_atoms)
     return DrawMol(smiles, natoms, svg)
 
@@ -368,7 +374,12 @@ def preview_dataset():
     ids = []
     for id, s, pid in table.get_dataset_entries():
         mol = mol_from_smiles(s)
-        draw_mols.append(mol_to_draw(mol, pid, s, mol.GetNumAtoms()))
+        # TODO this DrawMol should only contain one SVG even though mol_to_draw
+        # now returns multiple. should be able to control this by passing in
+        # `atoms` once I propagate that through the rest of the code
+        draw_mols.append(
+            mol_to_draw(mol, pid, s, mol.GetNumAtoms(), atoms=None)
+        )
         pids.append(pid)
         ids.append(id)
     template = env.get_template("preview.html")

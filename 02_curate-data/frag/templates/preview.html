@@ -9,9 +9,11 @@
 
 {% for m in mols %}
 {{pids[loop.index0]}}
+{% for svg in m.svgs %}
 <span id="{{ids[loop.index0]}}" natoms="{{m.natoms}}" smiles="{{m.smiles}}">
-  {{m.svg|safe}}
+  {{svg|safe}}
 </span>
+{% endfor %}
 {% endfor %}
 
 {% endblock %}

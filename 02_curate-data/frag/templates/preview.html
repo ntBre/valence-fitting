@@ -8,7 +8,10 @@
 <p><a href="/">Home</a></p>
 
 {% for m in mols %}
-<span natoms="{{m.natoms}}" smiles="{{m.smiles}}">{{m.svg|safe}}</span>
+{{pids[loop.index0]}}
+<span id="{{ids[loop.index0]}}" natoms="{{m.natoms}}" smiles="{{m.smiles}}">
+  {{m.svg|safe}}
+</span>
 {% endfor %}
 
 {% endblock %}

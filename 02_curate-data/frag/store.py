@@ -248,10 +248,10 @@ class Store:
         )
         self.con.commit()
 
-    def get_dataset_entries(self) -> Iterator[tuple[str, str]]:
-        res = self.cur.execute("SELECT smiles, pid FROM dataset")
+    def get_dataset_entries(self) -> Iterator[tuple[int, str, str]]:
+        res = self.cur.execute("SELECT id, smiles, pid FROM dataset")
         while len(v := res.fetchmany()) > 0:
-            yield from ((smiles, pid) for smiles, pid in v)
+            yield from ((id, smiles, pid) for id, smiles, pid in v)
 
     def get_dataset_size(self) -> int:
         res = self.cur.execute("SELECT COUNT(*) from dataset")

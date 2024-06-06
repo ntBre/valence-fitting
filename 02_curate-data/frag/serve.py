@@ -74,7 +74,7 @@ def index():
     )
 
     dsmap = defaultdict(int)
-    for _smiles, pid in table.get_dataset_entries():
+    for _id, _smiles, pid in table.get_dataset_entries():
         dsmap[pid] += 1
 
     pid_counts = []
@@ -134,17 +134,21 @@ def get_smiles_list(table, ffname, pid) -> list[tuple[Chem.Mol, str, int]]:
     return mols
 
 
+def mol_to_draw(mol, pid, smiles, natoms):
+    matches = find_matches(mol_map, mol)
+    hl_atoms = []
+    for atoms, mpid in matches.items():
+        if mpid == pid:
+            hl_atoms = atoms
+            break
+    svg = mol_to_svg(mol, 300, 300, "", hl_atoms)
+    return DrawMol(smiles, natoms, svg)
+
+
 def mols_to_draw(mols, pid, mol_map, max_draw):
     draw_mols = []
     for mol, smiles, natoms in mols[:max_draw]:
-        matches = find_matches(mol_map, mol)
-        hl_atoms = []
-        for atoms, mpid in matches.items():
-            if mpid == pid:
-                hl_atoms = atoms
-                break
-        svg = mol_to_svg(mol, 300, 300, "", hl_atoms)
-        draw_mols.append(DrawMol(smiles, natoms, svg))
+        draw_mols.append(mol_to_draw(mol, pid, smiles, natoms))
     return draw_mols
 
 
@@ -361,13 +365,15 @@ def update_molecule():
 def preview_dataset():
     table = Store.quick()
     draw_mols = []
-    for s, _pid in table.get_dataset_entries():
+    pids = []
+    ids = []
+    for id, s, pid in table.get_dataset_entries():
         mol = mol_from_smiles(s)
-        draw_mols.append(
-            DrawMol(s, mol.GetNumAtoms(), mol_to_svg(mol, 300, 300, "", []))
-        )
+        draw_mols.append(mol_to_draw(mol, pid, s, mol.GetNumAtoms()))
+        pids.append(pid)
+        ids.append(id)
     template = env.get_template("preview.html")
-    return template.render(mols=draw_mols)
+    return template.render(mols=draw_mols, pids=pids, ids=ids)
 
 
 @app.route("/export-dataset", methods=["POST"])
@@ -377,7 +383,7 @@ def export_dataset():
     assert label == "filename"
     table = Store.quick()
     with open(filename, "w") as out:
-        for smiles, pid in table.get_dataset_entries():
+        for _id, smiles, pid in table.get_dataset_entries():
             print(pid, smiles, file=out)
     return redirect(url_for("index"))
 

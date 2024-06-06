@@ -31,7 +31,7 @@ with warnings.catch_warnings():
 
 logger = logging.getLogger(__name__)
 logging.getLogger("werkzeug").setLevel(logging.ERROR)
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 app = Flask("serve")
 env = Environment(
@@ -385,7 +385,9 @@ def update_molecule():
         remove_bonds(emol, atom)
         emol.RemoveAtom(atom)
 
-    mol, ret = mol_to_js(openff_clean(emol.GetMol()), pid)
+    mol = openff_clean(emol.GetMol())
+    logger.debug(f"updated mol: {mol_to_smiles(mol)}")
+    mol, ret = mol_to_js(mol, pid)
     CUR_EDIT_MOL = mol
     return ret, HTTPStatus.CREATED
 

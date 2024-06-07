@@ -60,7 +60,7 @@ def test_elements_to_bits():
 def test_store():
     with tempfile.NamedTemporaryFile() as f:
         s = Store(f.name)
-        mol = DBMol("CC[At]", 3, 1 << 85 | 1 << 6)
+        mol = DBMol("CC[At]", "inchikey", 3, 1 << 85 | 1 << 6)
         s.insert_molecule(mol)
         got = next(s.get_molecules()).get_elements()
         want = [6, 85]
@@ -75,7 +75,7 @@ def test_query():
         s = Store(f.name)
         s.insert_molecules(
             [
-                DBMol("CCO", 3, 1 << 6 | 1 << 8),
+                DBMol("CCO", "inchikey", 3, 1 << 6 | 1 << 8),
             ]
         )
         s, got = _main(8, 32, [], f.name, ffname, {"t1", "t2", "t9"}, 100)

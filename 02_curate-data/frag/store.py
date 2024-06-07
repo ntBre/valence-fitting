@@ -18,12 +18,14 @@ class DBMol:
     "Representation of a molecule in the database"
     id: int
     smiles: str
+    inchikey: str
     natoms: int
     elements: int
     tag: str
 
-    def __init__(self, smiles, natoms, elements, tag=None, id=None):
+    def __init__(self, smiles, inchikey, natoms, elements, tag=None, id=None):
         self.smiles = smiles
+        self.inchikey = inchikey
         self.natoms = natoms
         self.elements = elements
         self.tag = tag
@@ -160,7 +162,22 @@ class Store:
 
     def insert_molecules(self, mols: list[DBMol]):
         "Insert multiple SMILES into the molecules table"
-        self._insert_dbmols(mols, "molecules")
+        self.cur.executemany(
+            """INSERT OR IGNORE INTO molecules
+            (smiles, inchikey, natoms, elements, tag)
+            VALUES (?1, ?2, ?3, ?4, ?5)""",
+            [
+                (
+                    m.smiles,
+                    m.inchikey,
+                    m.natoms,
+                    m.elements.to_bytes(128, "big"),
+                    m.tag,
+                )
+                for m in mols
+            ],
+        )
+        self.con.commit()
 
     def insert_fragments(self, mols: list[DBMol]):
         "Insert multiple SMILES into the fragments table"
@@ -211,7 +228,31 @@ class Store:
             yield from (x[0] for x in v)
 
     def get_molecules(self, limit=None) -> Iterator[DBMol]:
-        return self._get_dbmols("molecules", limit)
+        if limit:
+            res = self.cur.execute(
+                """SELECT id, smiles, inchikey, natoms, elements, tag
+                FROM molecules
+                limit ?""",
+                (limit,),
+            )
+        else:
+            res = self.cur.execute(
+                """SELECT id, smiles, inchikey, natoms, elements, tag
+                FROM molecules"""
+            )
+        while len(v := res.fetchmany()) > 0:
+            # unpack 3-tuples
+            yield from (
+                DBMol(
+                    id=x[0],
+                    smiles=x[1],
+                    inchikey=[2],
+                    natoms=x[3],
+                    elements=int.from_bytes(x[4], "big"),
+                    tag=x[5],
+                )
+                for x in v
+            )
 
     def get_fragments(self, limit=None) -> Iterator[DBMol]:
         return self._get_dbmols("fragments", limit)

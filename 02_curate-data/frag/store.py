@@ -92,6 +92,7 @@ class Store:
             """CREATE TABLE IF NOT EXISTS molecules (
             id integer primary key,
             smiles text unique,
+            inchikey text unique,
             natoms int,
             elements blob,
             tag text

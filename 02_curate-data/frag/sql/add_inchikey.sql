@@ -10,8 +10,6 @@ elements blob,
 tag text
 );
 
-INSERT INTO molecules id, smiles, inchikey, natoms, elements, tag
-SELECT id, smiles, smiles, natoms, elements, tag
-FROM old_table;
+INSERT INTO molecules SELECT id, smiles, smiles, natoms, elements, tag FROM old_table;
 
 DROP TABLE old_table;

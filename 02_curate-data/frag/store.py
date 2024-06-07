@@ -277,6 +277,7 @@ class Store:
                     natoms=x[2],
                     elements=int.from_bytes(x[3], "big"),
                     tag=x[4],
+                    inchikey=None,
                 )
                 for x in v
             )

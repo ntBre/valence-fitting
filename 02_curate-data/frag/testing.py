@@ -78,6 +78,7 @@ def test_query():
                 DBMol("CCO", "inchikey", 3, 1 << 6 | 1 << 8),
             ]
         )
+        s.insert_fragments([DBMol("*CCO", None, 3, 1 << 6 | 1 << 8)])
         s, got = _main(8, 32, [], f.name, ffname, {"t1", "t2", "t9"}, 100)
         want = s.get_forcefield(ffname)
         assert got == want.matches

@@ -26,6 +26,7 @@ python query.py \
 	   -f $ff \
 	   -n $SLURM_CPUS_PER_TASK \
 	   -x 'natoms:80' \
-	   -x 'elements:Cl, P, Br, I, H, C, O, N, F, S'
+	   -x 'elements:Cl, P, Br, I, H, C, O, N, F, S' \
+	   -x 'inchi:inchis.dat'
 
 date

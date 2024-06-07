@@ -6,7 +6,6 @@ from typing import Iterator
 
 import click
 from openff.toolkit import Molecule
-from openff.toolkit.utils.exceptions import RadicalsNotSupportedError
 from rdkit import Chem
 from rdkit.Chem import Descriptors
 from tqdm import tqdm

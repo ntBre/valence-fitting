@@ -8,7 +8,7 @@ s = Store()
 res = []
 for m in tqdm(s.get_molecules(), desc="Adding inchis", total=s.get_sizehint()):
     mol = mol_from_smiles(m.smiles)
-    res.append((m.id, Chem.MolToInchiKey(mol)))
+    res.append((Chem.MolToInchiKey(mol), m.id))
 
 s.cur.executemany("UPDATE molecules SET inchikey = ?1 WHERE id = ?2", res)
 s.con.commit()

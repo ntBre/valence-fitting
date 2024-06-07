@@ -6,7 +6,6 @@ from multiprocessing import Pool
 import click
 from numpy import loadtxt
 from openff.toolkit import ForceField
-from rdkit import Chem
 from tqdm import tqdm
 
 from store import DBForceField, DBMol, Match, Store, elements_to_bits
@@ -61,6 +60,7 @@ class InchiFilter(Filter):
     returns True if the given molecules is not in the list of known InChIKeys.
 
     """
+
     def __init__(self, inchis: list[str]):
         self.inchis = inchis
 
@@ -139,6 +139,9 @@ def _main(nprocs, chunk_size, filters, store_name, ffname, want, limit):
                 unmatched += 1
 
     logger.warning(f"{unmatched} SMILES not matching desired parameters")
+
+    for pid, mat in res.items():
+        print(f"{pid} {len(mat.fragments)} frags {len(mat.molecules)} mols")
 
     ret = list(res.values())
     s.insert_forcefield(DBForceField(ffname, ret))

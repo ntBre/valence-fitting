@@ -4,7 +4,7 @@ from openff.toolkit import ForceField, Molecule, RDKitToolkitWrapper
 from openff.toolkit.utils import ToolkitRegistry, toolkit_registry_manager
 from rdkit import Chem
 
-from query import into_params, load_want
+from query import load_want
 from store import (
     DBMol,
     Store,
@@ -112,7 +112,8 @@ def test_mapping_debug():
     )
     mol = Molecule.from_mapped_smiles(smiles)
     ff = ForceField(
-        "../../01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml"
+        "../../01_generate-forcefield/output/"
+        "initial-force-field-openff-2.1.0.offxml"
     )
     want = list(
         (k, v.id)

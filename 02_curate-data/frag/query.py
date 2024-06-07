@@ -4,6 +4,7 @@ from functools import partial
 from multiprocessing import Pool
 
 import click
+from numpy import loadtxt
 from openff.toolkit import ForceField
 from rdkit import Chem
 from tqdm import tqdm
@@ -55,6 +56,18 @@ class NatomsFilter(Filter):
         return mol.natoms <= self.natoms
 
 
+class InchiFilter(Filter):
+    """A filter for molecules we already use for training or testing. `apply`
+    returns True if the given molecules is not in the list of known InChIKeys.
+
+    """
+    def __init__(self, inchis: list[str]):
+        self.inchis = inchis
+
+    def apply(self, mol: DBMol) -> bool:
+        return mol.inchikey not in self.inchis
+
+
 def symbols_to_bits(symbols: list[str]) -> int:
     atomic_nums = [PTABLE.index(sym) for sym in symbols]
     return elements_to_bits(atomic_nums)
@@ -65,6 +78,8 @@ def parse_filters(filters: list[str]) -> list[Filter]:
     for filt in filters:
         fields = filt.strip().split(":")
         match fields:
+            case ["inchi", filename]:
+                ret.append(InchiFilter(loadtxt(filename, dtype=str)))
             case ["elements", arg]:
                 atomic_symbols = [s.strip() for s in arg.split(",")]
                 ret.append(ElementFilter(symbols_to_bits(atomic_symbols)))

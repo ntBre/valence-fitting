@@ -1,3 +1,4 @@
+import logging
 import pickle
 import sqlite3
 from itertools import chain
@@ -12,6 +13,8 @@ from tqdm import tqdm
 
 from cut_compound import Compound
 from utils import mol_from_smiles
+
+logger = logging.getLogger(__name__)
 
 
 class DBMol:
@@ -38,10 +41,16 @@ class DBMol:
 
     @classmethod
     def from_rdmol(cls, mol: Chem.Mol):
+        try:
+            inchikey = Chem.MolToInchiKey(mol)
+        except Exception as e:
+            logger.warn(f"failed to compute inchikey with {e}")
+            inchikey = None
         return cls(
             smiles=Chem.MolToSmiles(mol),
             natoms=mol.GetNumAtoms(),
             elements=elements_to_bits(get_elements(mol)),
+            inchikey=inchikey,
         )
 
     def get_elements(self) -> list[int]:

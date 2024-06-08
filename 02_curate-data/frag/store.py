@@ -1,4 +1,3 @@
-import logging
 import pickle
 import sqlite3
 from itertools import chain
@@ -13,8 +12,6 @@ from tqdm import tqdm
 
 from cut_compound import Compound
 from utils import mol_from_smiles
-
-logger = logging.getLogger(__name__)
 
 
 class DBMol:
@@ -40,17 +37,16 @@ class DBMol:
         )
 
     @classmethod
-    def from_rdmol(cls, mol: Chem.Mol):
-        try:
-            inchikey = Chem.MolToInchiKey(mol)
-        except Exception as e:
-            logger.warn(f"failed to compute inchikey with {e}")
-            inchikey = None
+    def from_rdmol(cls, mol: Chem.Mol, fragment: bool):
+        if fragment:
+            inchi = None
+        else:
+            inchi = Chem.MolToInchiKey(mol)
         return cls(
             smiles=Chem.MolToSmiles(mol),
             natoms=mol.GetNumAtoms(),
             elements=elements_to_bits(get_elements(mol)),
-            inchikey=inchikey,
+            inchikey=inchi,
         )
 
     def get_elements(self) -> list[int]:
@@ -332,7 +328,7 @@ class Store:
                 continue
             if Descriptors.NumRadicalElectrons(rdmol) > 0:
                 continue
-            mols.append(DBMol.from_rdmol(rdmol))
+            mols.append(DBMol.from_rdmol(rdmol, fragment=False))
             if x := xff(rdmol):
                 frags.extend(x)
         return frags, mols
@@ -383,7 +379,7 @@ def xff(mol: Chem.Mol) -> list[DBMol] | None:
                 dummyLabels=[(0, 0)] * len(rdbonds),
             )
             for frag in Chem.GetMolFrags(fragmented, asMols=True):
-                ret.append(DBMol.from_rdmol(frag))
+                ret.append(DBMol.from_rdmol(frag, fragment=True))
 
     return ret
 

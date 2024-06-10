@@ -224,6 +224,7 @@ class Scene {
 			}
 			this.bonds.push(new Bond(x1, y1, x2, y2, order, hl_bond, a1, a2));
 		}
+		this.mol = mol;
 	}
 
 	draw(ctx, font_size) {
@@ -342,7 +343,29 @@ async function drawMolecule(mol, pid) {
 		}
 	});
 
+	let form = document.createElement("form");
+	form.setAttribute("method", "dialog");
+	form.addEventListener("submit", async () => {
+		await fetch("/add-edit-mol", {
+			method: "POST",
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				"smiles": scene.mol.smiles,
+				"pid": pid,
+				"hl_atoms": scene.mol.hl_atoms
+			}),
+		});
+	});
+
+	let button = document.createElement("button");
+	button.textContent = "Add to dataset";
+
 	frame.appendChild(canvas);
+	form.appendChild(button);
+	frame.appendChild(form);
 
 	// do replace
 	let toReplace = document.getElementById("edit-molecule-modal-content");

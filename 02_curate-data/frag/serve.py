@@ -371,6 +371,13 @@ def remove_bonds(emol, atom):
             emol.RemoveBond(b1, b2)
 
 
+def is_radical(mol: Chem.Mol) -> bool:
+    for atom in mol.GetAtoms():
+        if atom.GetNumRadicalElectrons() > 0:
+            return True
+    return False
+
+
 @app.route("/update-molecule", methods=["POST"])
 def update_molecule():
     data = request.get_json()
@@ -379,16 +386,45 @@ def update_molecule():
     # kekulize before removing, sanitize after (openff_clean). from:
     # https://sourceforge.net/p/rdkit/mailman/message/37610064/
     Chem.Kekulize(CUR_EDIT_MOL, clearAromaticFlags=True)
+    was_radical = is_radical(CUR_EDIT_MOL)
     emol = Chem.EditableMol(CUR_EDIT_MOL)
     for atom in sorted(atoms, reverse=True):
         remove_bonds(emol, atom)
         emol.RemoveAtom(atom)
 
     mol = openff_clean(emol.GetMol())
+    if is_radical(mol) and not was_radical:
+        for atom in mol.GetAtoms():
+            while _n := atom.GetNumRadicalElectrons():
+                atom.SetNumRadicalElectrons(_n - 1)
+                atom.SetNumExplicitHs(atom.GetNumExplicitHs() + 1)
+        mol = Chem.AddHs(mol)
+
+    is_rad = is_radical(mol)
+
+    # okay if it was already a radical, but if not, it shouldn't be now either
+    assert (
+        was_radical or not is_rad
+    ), f"was radical? {was_radical}, is_radical? {is_rad}"
+
     logger.debug(f"updated mol: {mol_to_smiles(mol)}")
     mol, ret = mol_to_js(mol, pid)
     CUR_EDIT_MOL = mol
     return ret, HTTPStatus.CREATED
+
+
+@app.route("/add-edit-mol", methods=["POST"])
+def add_edit_mol():
+    global CUR_EDIT_MOL
+    smiles = mol_to_smiles(CUR_EDIT_MOL, mapped=True)
+    data = request.get_json()
+    pid, hl_atoms = data["pid"], data["hl_atoms"]
+    logger.debug(
+        f"add_edit_mol: smiles = {smiles}, pid = {pid}, atoms = {hl_atoms}"
+    )
+    table = Store.quick()
+    table.add_to_dataset(smiles, pid, hl_atoms)
+    return "", HTTPStatus.CREATED
 
 
 @app.route("/preview-dataset")

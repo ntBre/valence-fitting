@@ -307,7 +307,6 @@ CANVAS_SIZE = 400  # size of html canvas
 @app.route("/edit-molecule", methods=["POST"])
 def edit_molecule():
     data = request.get_json()
-    # TODO use pid to highlight the right atoms in js
     smiles, pid = data["smiles"], data["pid"]
     mol = mol_from_smiles(smiles)
     mol, ret = mol_to_js(mol, pid)

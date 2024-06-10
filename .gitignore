@@ -47,5 +47,4 @@ worker*.log
 /02_curate-data/frag/natoms.dat
 /02_curate-data/frag/out.query.json
 /02_curate-data/frag/logs
-/02_curate-data/frag/dataset.smi
 /02_curate-data/frag/check_smiles.ipynb

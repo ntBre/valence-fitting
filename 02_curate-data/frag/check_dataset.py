@@ -1,5 +1,6 @@
 import logging
 import re
+import sys
 
 from openff.toolkit import ForceField, Molecule
 
@@ -12,7 +13,7 @@ ff = ForceField(ffname)
 junk = re.compile("[(,)]")
 
 conformers = []
-with open("dataset.smi") as inp:
+with open(sys.argv[1]) as inp:
     for line in inp:
         if line.startswith("#"):
             continue

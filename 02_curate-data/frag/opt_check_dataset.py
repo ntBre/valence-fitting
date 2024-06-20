@@ -12,7 +12,7 @@ ff = ForceField(ffname)
 conformers = []
 with open("remaining.opt") as inp:
     for line in inp:
-        if line.startswith("#"):
+        if line.startswith("#") or line.startswith("\n"):
             continue
         pid, _smarts, cmiles = line.split()
         mol = Molecule.from_smiles(cmiles, allow_undefined_stereo=True)

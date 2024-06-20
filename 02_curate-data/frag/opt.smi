@@ -53,18 +53,34 @@ t159g [O:1]([P:2]([O:3][H:8])[C:4]([N:5]([H:10])[H:11])([C:6]([H:12])([H:13])[H:
 t159g [c:1]1([H:16])[c:2]([H:17])[c:3]([H:18])[c:4]([O:5][P:6]2[O:7][C:8]([H:19])([H:20])[C:9]([C:10]([H:21])([H:22])[H:23])([C:11]([H:24])([H:25])[H:26])[C:12]([H:27])([H:28])[O:13]2)[c:14]([H:29])[c:15]1[H:30] (3, 4, 5, 6)
 # above from chembl, below created manually
 t131g [NH3+][NH3+]
+t131g C[NH+](C)[NH+](C)C
 t144g CS(=O)(=O)[NH3+]
+t144g CCS(=O)(=O)[NH2+]C
 t144i CS(=O)[NH3+]
+t144i CCS(=O)[NH2+]C
 t145g C=CS(=O)(=O)[NH3+]
+t145g C=CS(=O)(=O)[NH2+]C
 t145i C=CS(=O)[NH3+]
+t145i C=CS(=O)[NH2+]C
 t146g CS(=O)(=O)[NH2+]C
+t146g CCS(=O)(=O)[NH+](C)C
 t146i CS(=O)[NH2+]C
+t146i CCS(=O)[NH+](C)C
 t147g C=CS(=O)(=O)[NH2+]C
+t147g C(C=CC=C1)=C1S(=O)(=O)[NH+](C)C
 t147i C=CS(=O)[NH2+]C
+t147i c1(ccccc1)S(=O)[NH2+]C
 t148g C=CS(=O)(=O)[NH2+]C
+t148g c1(ccccc1)CS(=O)(=O)[NH2+]C
 t148i C=CS(=O)[NH2+]C
+t148i c1(ccccc1)S(=O)[NH2+]C
 t149g C=CS(=O)(=O)[NH2+]C
+t149g c1(ccccc1)S(=O)(=O)[NH2+]C
 t153h C=CS(=O)NN=C
+t153h c1(ccccc1)S(=O)NN=C
 t155h CS(=O)N=C
+t155h CS(=O)N=Cc1(ccccc1)
 t158h S[SH2+]
+t158h c1(ccccc1)CS[SH2+]
 t158i [SH2+][SH2+]
+t158i c1(ccccc1)C[SH+][SH+]C

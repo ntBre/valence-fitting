@@ -48,3 +48,5 @@ worker*.log
 /02_curate-data/frag/out.query.json
 /02_curate-data/frag/logs
 /02_curate-data/frag/check_smiles.ipynb
+/02_curate-data/frag/ff.sql
+/02_curate-data/frag/tors.sqlite

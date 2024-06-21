@@ -691,10 +691,10 @@
 
 * benchmark coverage
   #+begin_src shell
-	python 01_generate-forcefield/multiplicity/ffcover.py \
-		   -f 01_generate-forcefield/output/initial-force-field-openff-2.1.0.offxml \
-		   -d ../benchmarking/datasets/industry.json \
-		| tee 01_generate-forcefield/multiplicity/bench.dat
+	python ffcover.py \
+		   -f ../output/initial-force-field-openff-2.1.0.offxml \
+		   -d ../../../benchmarking/datasets/industry.json \
+		| tee bench.dat
   #+end_src
 
   #+begin_src awk :in-file bench.dat :exports both
@@ -703,6 +703,60 @@
   #+end_src
 
   #+RESULTS:
+  | num | pid   | env | rec | smi |
+  |   1 | t8    |   0 |   0 |   0 |
+  |   2 | t31a  |   0 |   0 |   0 |
+  |   3 | t42a  |   0 |   0 |   0 |
+  |   4 | t63   |   0 |   0 |   0 |
+  |   5 | t89   |   0 |   0 |   0 |
+  |   6 | t102  |   0 |   0 |   0 |
+  |   7 | t112  |   0 |   0 |   0 |
+  |   8 | t113g |   0 |   0 |   0 |
+  |   9 | t113h |   0 |   0 |   0 |
+  |  10 | t114  |   0 |   0 |   0 |
+  |  11 | t115i |   0 |   0 |   0 |
+  |  12 | t116i |   0 |   0 |   0 |
+  |  13 | t116j |   0 |   0 |   0 |
+  |  14 | t117h |   0 |   0 |   0 |
+  |  15 | t122g |   0 |   0 |   0 |
+  |  16 | t122h |   0 |   0 |   0 |
+  |  17 | t122j |   0 |   0 |   0 |
+  |  18 | t124h |   0 |   0 |   0 |
+  |  19 | t127i |   0 |   0 |   0 |
+  |  20 | t130g |   0 |   0 |   0 |
+  |  21 | t131g |   0 |   0 |   0 |
+  |  22 | t131h |   0 |   0 |   0 |
+  |  23 | t132g |   0 |   0 |   0 |
+  |  24 | t132h |   0 |   0 |   0 |
+  |  25 | t133g |   0 |   0 |   0 |
+  |  26 | t133h |   0 |   0 |   0 |
+  |  27 | t134g |   0 |   0 |   0 |
+  |  28 | t138a |   0 |   0 |   0 |
+  |  29 | t142j |   0 |   0 |   0 |
+  |  30 | t142k |   0 |   0 |   0 |
+  |  31 | t143i |   0 |   0 |   0 |
+  |  32 | t143k |   0 |   0 |   0 |
+  |  33 | t144g |   0 |   0 |   0 |
+  |  34 | t144i |   0 |   0 |   0 |
+  |  35 | t145g |   0 |   0 |   0 |
+  |  36 | t145i |   0 |   0 |   0 |
+  |  37 | t146g |   0 |   0 |   0 |
+  |  38 | t146i |   0 |   0 |   0 |
+  |  39 | t147g |   0 |   0 |   0 |
+  |  40 | t147i |   0 |   0 |   0 |
+  |  41 | t148g |   0 |   0 |   0 |
+  |  42 | t148i |   0 |   0 |   0 |
+  |  43 | t149g |   0 |   0 |   0 |
+  |  44 | t149i |   0 |   0 |   0 |
+  |  45 | t150h |   0 |   0 |   0 |
+  |  46 | t151h |   0 |   0 |   0 |
+  |  47 | t154h |   0 |   0 |   0 |
+  |  48 | t158h |   0 |   0 |   0 |
+  |  49 | t158i |   0 |   0 |   0 |
+  |  50 | t161g |   0 |   0 |   0 |
+  |  51 | t162g |   0 |   0 |   0 |
+  |  52 | t163g |   0 |   0 |   0 |
+  |  53 | t164  |   0 |   0 |   0 |
 
 * Sage 2.2.0 coverage
   #+begin_src shell

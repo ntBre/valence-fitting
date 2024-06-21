@@ -27,6 +27,7 @@ with open("remaining.opt") as inp:
             if "Omega conformer generation failed" in str(e):
                 conformers.append(cmiles)
             else:
+                print(line)
                 raise e
 
 print(f"{len(conformers)} failed for omega errors")

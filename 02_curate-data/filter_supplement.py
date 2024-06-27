@@ -31,11 +31,7 @@ def main(input, output):
         if entry.record_id not in records_to_remove
     ]
 
-    # in a number of datasets the iodine-containing molecules
-    # were tainted due to an auxiliary basis set issue
-    # This has since been resolved and entries have been recomputed
-    # in new datasets, but we still need to filter the old ones
-    elements = ["H", "C", "N", "O", "S", "P", "F", "Cl", "Br"]
+    elements = ["H", "C", "N", "O", "S", "P", "F", "Cl", "Br", "I"]
 
     # filter out other unsuitable entries
     dataset = dataset.filter(

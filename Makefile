@@ -69,8 +69,16 @@ $(CURATE)/datasets/filtered-%-opt.json: $(CURATE)/datasets/%-opt.json $(CURATE)/
 	cd $(CURATE) ; python filter_opt_supplement.py --input ../$< --output ../$@
 
 ## step 2d combine the core and sage datasets
-OPT_SETS := $(CURATE)/datasets/filtered-opt.json $(CURATE)/sage/filtered-opt.json
-TD_SETS := $(CURATE)/datasets/filtered-td.json $(CURATE)/sage/filtered-td.json $(CURATE)/datasets/filtered-supp-td.json
+OPT_SETS := \
+$(CURATE)/datasets/filtered-opt.json \
+$(CURATE)/datasets/filtered-supp-opt.json \
+$(CURATE)/sage/filtered-opt.json
+
+TD_SETS := \
+$(CURATE)/datasets/filtered-td.json \
+$(CURATE)/sage/filtered-td.json \
+$(CURATE)/datasets/filtered-supp-td.json \
+$(CURATE)/datasets/filtered-supp2-td.json
 
 $(CURATE)/datasets/combined-opt.json: $(OPT_SETS) $(CURATE)/combine.py
 	cd $(CURATE) ;					\

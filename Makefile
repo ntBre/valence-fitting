@@ -40,6 +40,9 @@ $(CURATE)/datasets/supp-td.json: $(CURATE)/download_td.py
 $(CURATE)/datasets/supp2-td.json: $(CURATE)/download_td.py
 	cd $(CURATE); python download_td.py -o ../$@ -d "OpenFF Torsion Multiplicity Torsion Drive Coverage Supplement v1.0"
 
+$(CURATE)/datasets/supp-opt.json: $(CURATE)/download_opt.py
+	cd $(CURATE); python $< -o ../$@ -d "OpenFF Torsion Multiplicity Optimization Training Coverage Supplement v1.0"
+
 ## step 2b filter sage data sets for charge issues
 $(CURATE)/sage/filtered-opt.json: $(CURATE)/sage/opt.json $(CURATE)/charge-filter.py
 	python $(CURATE)/charge-filter.py --input $< --output $@

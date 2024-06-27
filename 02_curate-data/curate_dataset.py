@@ -179,32 +179,6 @@ def cap_torsions_per_parameter(
     return dataset
 
 
-def download_td_data(
-    td_datasets: typing.List[str],
-    ds_cache,
-    invalidate_cache=False,
-) -> "TorsionDriveResultCollection":
-    """Download TorsionDrive datasets."""
-
-    from openff.qcsubmit.results import TorsionDriveResultCollection
-    from qcportal import FractalClient
-
-    if os.path.isfile(ds_cache) and not invalidate_cache:
-        print(f"loading td from {ds_cache}", file=sys.stderr)
-        return TorsionDriveResultCollection.parse_file(ds_cache)
-
-    client = FractalClient()
-    dataset = TorsionDriveResultCollection.from_server(
-        client=client,
-        datasets=td_datasets,
-        spec_name="default",
-    )
-    with open(ds_cache, "w") as out:
-        out.write(dataset.json(indent=2))
-
-    return dataset
-
-
 def select_parameters(
     dataset: typing.Union[
         "TorsionDriveResultCollection", "OptimizationResultCollection"

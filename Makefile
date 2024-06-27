@@ -106,6 +106,14 @@ $(CURATE)/output/td-smirks.json: $(DEPS)
 	--output-smirks output/td-smirks.json	\
 	--ring-torsions explicit_ring_torsions.dat
 
+$(CURATE)/output/improper-smirks.json: $(DEPS)
+	cd $(CURATE) ;				\
+	python select_parameters.py select-impropers	\
+	--dataset datasets/combined-td.json	\
+	--forcefield ../$(INITIAL_FF)		\
+	--output-smirks output/improper-smirks.json	\
+	--ring-torsions explicit_ring_torsions.dat
+
 ### step 2e.ii select opt
 DEPS := $(CURATE)/datasets/combined-opt.json $(CURATE)/select_parameters.py $(INITIAL_FF)
 

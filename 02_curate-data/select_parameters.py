@@ -44,6 +44,33 @@ def select_td(dataset, forcefield, output_smirks, ring_torsions):
         json.dump(selected_parameters, f, indent=2)
 
 
+@cli.command("select-impropers")
+@click.option("--dataset", required=True)
+@click.option("--forcefield", required=True)
+@click.option("--output-smirks", required=True)
+@click.option("--ring-torsions", required=True)
+def select_impropers(dataset, forcefield, output_smirks, ring_torsions):
+    dataset = TorsionDriveResultCollection.parse_file(dataset)
+
+    ff = ForceField(
+        forcefield,
+        allow_cosmetic_attributes=True,
+    )
+
+    explicit_ring_torsions = np.loadtxt(ring_torsions, dtype=str)
+
+    print("selecting improper parameters")
+    selected_parameters = select_parameters(
+        dataset,
+        ["ImproperTorsions"],
+        force_field=ff,
+        explicit_ring_torsions=explicit_ring_torsions,
+    )
+
+    with open(output_smirks, "w") as f:
+        json.dump(selected_parameters, f, indent=2)
+
+
 @cli.command("select-opt")
 @click.option("--dataset", required=True)
 @click.option("--forcefield", required=True)

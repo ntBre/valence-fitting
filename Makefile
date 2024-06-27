@@ -139,10 +139,10 @@ $(MSM_FF): $(INITIAL_FF) $(CURATE)/datasets/combined-opt.json $(MSM)/create-msm-
 
 # step 4 - generate ForceBalance inputs
 
-DEPS := $(FIT)/smiles-to-exclude.dat $(FIT)/smarts-to-exclude.dat		\
-	$(CURATE)/datasets/combined-opt.json					\
-	$(CURATE)/datasets/combined-td.json $(CURATE)/output/opt-smirks.json	\
-	$(CURATE)/output/td-smirks.json $(MSM_FF) $(FIT)/create-fb-inputs.py
+DEPS := $(FIT)/smiles-to-exclude.dat $(FIT)/smarts-to-exclude.dat				\
+	$(CURATE)/datasets/combined-opt.json $(CURATE)/datasets/combined-td.json	\
+	$(CURATE)/output/opt-smirks.json $(CURATE)/output/td-smirks.json			\
+	$(CURATE)/output/improper-smirks.json $(MSM_FF) $(FIT)/create-fb-inputs.py
 
 $(FIT)/ready: $(DEPS)
 	-rm -r $(FIT)/fb-fit/targets
@@ -154,6 +154,7 @@ $(FIT)/ready: $(DEPS)
 	--torsion-dataset           ../$(CURATE)/datasets/combined-td.json      \
 	--valence-to-optimize       ../$(CURATE)/output/opt-smirks.json		\
 	--torsions-to-optimize      ../$(CURATE)/output/td-smirks.json		\
+	--impropers-to-optimize      ../$(CURATE)/output/impropers-smirks.json		\
 	--forcefield                ../$(MSM_FF)                                \
 	--smiles-to-exclude         smiles-to-exclude.dat                       \
 	--smarts-to-exclude         smarts-to-exclude.dat                       \

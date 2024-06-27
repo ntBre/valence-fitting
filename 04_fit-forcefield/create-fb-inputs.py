@@ -107,6 +107,12 @@ def load_training_data(
     help="The path to the torsions to optimize (JSON).",
 )
 @click.option(
+    "--impropers-to-optimize",
+    type=click.Path(exists=True, dir_okay=False, file_okay=True),
+    required=True,
+    help="The path to the torsions to optimize (JSON).",
+)
+@click.option(
     "--output-directory",
     type=click.Path(exists=False, dir_okay=True, file_okay=False),
     required=True,
@@ -159,6 +165,7 @@ def generate(
     forcefield: str,
     valence_to_optimize: str,
     torsions_to_optimize: str,
+    impropers_to_optimize: str,
     output_directory: str,
     smarts_to_exclude: typing.Optional[str] = None,
     smiles_to_exclude: typing.Optional[str] = None,
@@ -180,6 +187,7 @@ def generate(
         BondHyperparameters,
         BondSMIRKS,
         ImproperTorsionHyperparameters,
+        ImproperTorsionSMIRKS,
         ProperTorsionHyperparameters,
         ProperTorsionSMIRKS,
     )
@@ -244,6 +252,8 @@ def generate(
         valence_smirks = json.load(f)
     with open(torsions_to_optimize, "r") as f:
         torsion_smirks = json.load(f)
+    with open(impropers_to_optimize, "r") as f:
+        improper_smirks = json.load(f)
 
     target_parameters = []
     for smirks in valence_smirks["Angles"]:
@@ -268,6 +278,15 @@ def generate(
             attributes = {f"k{i + 1}" for i in range(len(original_k))}
             target_parameters.append(
                 ProperTorsionSMIRKS(smirks=smirks, attributes=attributes)
+            )
+
+    improper_handler = ff.get_parameter_handler("ImproperTorsions")
+    for smirks in improper_smirks["ImproperTorsions"]:
+        if smirks in improper_handler.parameters:
+            original_k = improper_handler.parameters[smirks].k
+            attributes = {f"k{i + 1}" for i in range(len(original_k))}
+            target_parameters.append(
+                ImproperTorsionSMIRKS(smirks=smirks, attributes=attributes)
             )
 
     optimization_schema = OptimizationSchema(

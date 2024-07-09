@@ -4,22 +4,38 @@ import os
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from operator import itemgetter
-from typing import Any, Dict, List, Optional, Tuple, Union
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 from xml.dom.minidom import parseString
 
 import networkx as nx
 import numpy as np
 import qcelemental as qcel
-import qubekit
-from chemper.graphs.cluster_graph import ClusterGraph
-from chemper.graphs.single_graph import SingleGraph
-from openff.toolkit.typing.engines.smirnoff import ForceField
-from openff.toolkit.utils.exceptions import ParameterLookupError
-from openmm import unit
-from openmm.app import Aromatic, Double, Single, Topology, Triple
-from openmm.app.element import Element
 from pydantic.v1 import Field, validator
 from qcelemental.models.types import Array
+from qubekit.molecules import Ligand
+from qubekit.utils import constants
+from qubekit.utils.datastructures import StageBase
+from rdkit import Chem
+from typing_extensions import Literal
+
+try:
+    # fix for the openmm namechange
+    from openmm import unit
+    from openmm.app import Aromatic, Double, PDBFile, Single, Topology, Triple
+    from openmm.app.element import Element
+except (ModuleNotFoundError, ImportError):
+    from simtk import unit
+    from simtk.openmm.app import (
+        Aromatic,
+        Double,
+        Single,
+        Topology,
+        Triple,
+        PDBFile,
+    )
+    from simtk.openmm.app.element import Element
+
+import qubekit
 from qubekit.forcefield import (
     BaseForceGroup,
     HarmonicAngleForce,
@@ -29,36 +45,27 @@ from qubekit.forcefield import (
     PeriodicTorsionForce,
     RBImproperTorsionForce,
     RBProperTorsionForce,
-    UreyBradleyHarmonicForce,
     VirtualSiteGroup,
 )
-from qubekit.molecules import Ligand
 from qubekit.molecules.components import Atom, Bond, TorsionDriveData
 from qubekit.molecules.utils import RDKit, ReadInput
 from qubekit.utils import constants
-from qubekit.utils.datastructures import SchemaBase, StageBase
+from qubekit.utils.datastructures import SchemaBase
 from qubekit.utils.exceptions import (
     ConformerError,
     FileTypeError,
-    MissingParameterError,
     MissingReferenceData,
     StereoChemistryError,
     TopologyMismatch,
 )
-from qubekit.utils.file_handling import folder_setup
-from rdkit import Chem
-from typing_extensions import Literal
 
 
 class Molecule(SchemaBase):
     """Base class for ligands and proteins.
 
-    The class is a simple representation of the molecule as a list of atom and
-    bond objects, many attributes are then inferred from these core objects.
-
+    The class is a simple representation of the molecule as a list of atom and bond objects, many attributes are then
+    inferred from these core objects.
     """
-
-    type: Literal["Molecule"] = "Molecule"
 
     atoms: List[Atom] = Field(
         ...,
@@ -92,10 +99,6 @@ class Molecule(SchemaBase):
         HarmonicBondForce(),
         description="A force object which records bonded interactions between pairs of atoms",
     )
-    UreyBradleyForce: UreyBradleyHarmonicForce = Field(
-        UreyBradleyHarmonicForce(),
-        description="A force object which records Urey-Bradley bond-angle cross terms.",
-    )
     AngleForce: Union[HarmonicAngleForce] = Field(
         HarmonicAngleForce(),
         description="A force object which records angle interactions between atom triplets.",
@@ -125,18 +128,6 @@ class Molecule(SchemaBase):
         description="The coordinates used to calculate the chargemol quantities, "
         "this is a reorientated conformation",
     )
-    hessian: Optional[Array[float]] = Field(
-        None,
-        description="The hessian matrix calculated for this molecule at the QM optimised geometry.",
-    )
-    qm_scans: Optional[List[TorsionDriveData]] = Field(
-        None,
-        description="The list of reference torsiondrive results which we can fit against.",
-    )
-    wbo: Optional[Array[float]] = Field(
-        None,
-        description="The WBO matrix calculated at the QM optimised geometry.",
-    )
 
     @validator("coordinates", "chargemol_coords")
     def _reshape_coords(
@@ -146,18 +137,6 @@ class Molecule(SchemaBase):
             return coordinates.reshape((-1, 3))
         else:
             return coordinates
-
-    @validator("hessian", "wbo", allow_reuse=True)
-    def _reshape_matrix(
-        cls, matrix: Optional[np.ndarray]
-    ) -> Optional[np.ndarray]:
-        if matrix is not None:
-            if len(matrix.shape) == 1:
-                # the matrix is a flat list
-                # so we need to make the matrix to be square
-                length = int(np.sqrt(matrix.shape[0]))
-                return matrix.reshape((length, length))
-        return matrix
 
     def __init__(
         self,
@@ -202,7 +181,6 @@ class Molecule(SchemaBase):
             # make sure we respect the provenance when parsing a json file
             new_provenance = provenance
             new_provenance["routine"] = new_provenance["routine"]
-        name = name or "unk"
 
         super(Molecule, self).__init__(
             atoms=atoms,
@@ -212,13 +190,6 @@ class Molecule(SchemaBase):
             coordinates=coordinates,
             provenance=new_provenance,
             **kwargs,
-        )
-        # make sure we have unique atom names
-        self._validate_atom_names()
-
-    def __eq__(self, other: "Molecule"):
-        return self.to_smiles(isomeric=True, mapped=False) == other.to_smiles(
-            isomeric=True, mapped=False
         )
 
     def to_topology(self) -> nx.Graph:
@@ -435,12 +406,17 @@ class Molecule(SchemaBase):
         topology = self.to_topology()
         # Work through the network using each edge as a central dihedral bond
         for edge in topology.edges:
+
             for start in list(nx.neighbors(topology, edge[0])):
+
                 # Check atom not in main bond
                 if start != edge[0] and start != edge[1]:
+
                     for end in list(nx.neighbors(topology, edge[1])):
+
                         # Check atom not in main bond
-                        if end != edge[0] and end != edge[1] and end != start:
+                        if end != edge[0] and end != edge[1]:
+
                             if edge not in dihedrals:
                                 # Add the central edge as a key the first time it is used
                                 dihedrals[edge] = [
@@ -528,7 +504,7 @@ class Molecule(SchemaBase):
         atom_types = {}
         for atom_index, cip_type in self.atom_types.items():
             atom_types.setdefault(cip_type, []).append((atom_index,))
-        for atoms in atom_types.values():
+        for atoms in atom_types.items():
             self._symmetrise_parameters(
                 force_group=self.NonbondedForce, parameter_keys=atoms
             )
@@ -550,16 +526,10 @@ class Molecule(SchemaBase):
                 force_group=self.BondForce, parameter_keys=bonds
             )
 
-        if self.n_angles > 0:
-            for angles in self.angle_types.values():
-                self._symmetrise_parameters(
-                    force_group=self.AngleForce, parameter_keys=angles
-                )
-                if self.UreyBradleyForce.n_parameters > 0:
-                    self._symmetrise_parameters(
-                        force_group=self.UreyBradleyForce,
-                        parameter_keys=angles,
-                    )
+        for angles in self.angle_types.values():
+            self._symmetrise_parameters(
+                force_group=self.AngleForce, parameter_keys=angles
+            )
 
         return True
 
@@ -598,7 +568,7 @@ class Molecule(SchemaBase):
 
     def measure_dihedrals(
         self,
-    ) -> Optional[Dict[Tuple[int, int, int, int], np.ndarray]]:
+    ) -> Optional[Dict[Tuple[int, int, int, int], float]]:
         """
         For the given conformation measure the dihedrals in the topology in degrees.
         """
@@ -621,9 +591,7 @@ class Molecule(SchemaBase):
 
         return dih_phis
 
-    def measure_angles(
-        self,
-    ) -> Optional[Dict[Tuple[int, int, int], np.ndarray]]:
+    def measure_angles(self) -> Optional[Dict[Tuple[int, int, int], float]]:
         """
         For the given conformation measure the angles in the topology in degrees.
         """
@@ -752,18 +720,6 @@ class Molecule(SchemaBase):
                 parameter.openmm_type(),
                 attrib=parameter.xml_data(),
             )
-        if self.UreyBradleyForce.n_parameters > 0:
-            UBForce = ET.SubElement(
-                root,
-                self.UreyBradleyForce.openmm_group(),
-                attrib=self.UreyBradleyForce.xml_data(),
-            )
-            for parameter in self.UreyBradleyForce:
-                ET.SubElement(
-                    UBForce,
-                    parameter.openmm_type(),
-                    attrib=parameter.xml_data(),
-                )
         if (
             self.TorsionForce.n_parameters > 0
             or self.ImproperTorsionForce.n_parameters > 0
@@ -845,7 +801,7 @@ class Molecule(SchemaBase):
     def bond_types(self) -> Dict[str, List[Tuple[int, int]]]:
         """
         Using the symmetry dict, give each bond a code. If any codes match, the bonds can be symmetrised.
-        e.g. bond_symmetry_classes = {(0, 3): (2, 0), (0, 4): (2, 0), (0, 5): (2, 0) ...}
+        e.g. bond_symmetry_classes = {(0, 3): '2-0', (0, 4): '2-0', (0, 5): '2-0' ...}
         all of the above bonds (tuples) are of the same type (methyl H-C bonds in same region)
         This dict is then used to produce bond_types.
         bond_types is just a dict where the keys are the string code from above and the values are all
@@ -855,8 +811,8 @@ class Molecule(SchemaBase):
         bond_symmetry_classes = {}
         for bond in self.bonds:
             bond_symmetry_classes[(bond.atom1_index, bond.atom2_index)] = (
-                atom_types[bond.atom1_index],
-                atom_types[bond.atom2_index],
+                f"{atom_types[bond.atom1_index]}-"
+                f"{atom_types[bond.atom2_index]}"
             )
 
         bond_types = {}
@@ -870,21 +826,18 @@ class Molecule(SchemaBase):
     def angle_types(self) -> Dict[str, List[Tuple[int, int, int]]]:
         """
         Using the symmetry dict, give each angle a code. If any codes match, the angles can be symmetrised.
-        e.g. angle_symmetry_classes = {(1, 0, 3): (3, 2, 0), (1, 0, 4): (3, 2, 0), (1, 0, 5): (3, 2, 0) ...}
+        e.g. angle_symmetry_classes = {(1, 0, 3): '3-2-0', (1, 0, 4): '3-2-0', (1, 0, 5): '3-2-0' ...}
         all of the above angles (tuples) are of the same type (methyl H-C-H angles in same region)
         angle_types is just a dict where the keys are the string code from the above and the values are all
         of the angles with that particular type.
         """
         atom_types = self.atom_types
         angle_symmetry_classes = {}
-        if self.n_angles == 0:
-            return {}
-
         for angle in self.angles:
             angle_symmetry_classes[angle] = (
-                atom_types[angle[0]],
-                atom_types[angle[1]],
-                atom_types[angle[2]],
+                f"{atom_types[angle[0]]}-"
+                f"{atom_types[angle[1]]}-"
+                f"{atom_types[angle[2]]}"
             )
 
         angle_types = {}
@@ -899,22 +852,18 @@ class Molecule(SchemaBase):
         """
         Using the symmetry dict, give each dihedral a code. If any codes match, the dihedrals can be clustered and their
         parameters should be the same, this is to be used in dihedral fitting so all symmetry equivalent dihedrals are
-        optimised at the same time. dihedral_equiv_classes = {(0, 1, 2 ,3): (1, 1, 2, 1)...} all of the tuples are the
+        optimised at the same time. dihedral_equiv_classes = {(0, 1, 2 ,3): '1-1-2-1'...} all of the tuples are the
         dihedrals index by topology and the strings are the symmetry equivalent atom combinations.
         """
-
-        if self.n_dihedrals == 0:
-            return {}
-
         atom_types = self.atom_types
         dihedral_symmetry_classes = {}
         for dihedral_set in self.dihedrals.values():
             for dihedral in dihedral_set:
                 dihedral_symmetry_classes[tuple(dihedral)] = (
-                    atom_types[dihedral[0]],
-                    atom_types[dihedral[1]],
-                    atom_types[dihedral[2]],
-                    atom_types[dihedral[3]],
+                    f"{atom_types[dihedral[0]]}-"
+                    f"{atom_types[dihedral[1]]}-"
+                    f"{atom_types[dihedral[2]]}-"
+                    f"{atom_types[dihedral[3]]}"
                 )
 
         dihedral_types = {}
@@ -928,18 +877,14 @@ class Molecule(SchemaBase):
     def improper_types(self) -> Dict[str, List[Tuple[int, int, int, int]]]:
         """Using the atom symmetry types work out the improper types."""
 
-        if self.n_improper_torsions == 0:
-            return {}
-
         atom_types = self.atom_types
         improper_symmetry_classes = {}
         for dihedral in self.improper_torsions:
-            # sort the neighbour atom types to get correct clustering, keep central atom first
-            neighbours = [atom_types[dihedral[i]] for i in range(1, 4)]
-            neighbours.sort()
             improper_symmetry_classes[tuple(dihedral)] = (
-                atom_types[dihedral[0]],
-                *neighbours,
+                f"{atom_types[dihedral[0]]}-"
+                f"{atom_types[dihedral[1]]}-"
+                f"{atom_types[dihedral[2]]}-"
+                f"{atom_types[dihedral[3]]}"
             )
 
         improper_types = {}
@@ -970,7 +915,7 @@ class Molecule(SchemaBase):
         return new_classes
 
     @property
-    def atom_types(self) -> Dict[int, int]:
+    def atom_types(self) -> Dict[int, str]:
         """Returns a dictionary of atom indices mapped to their class or None if there is no rdkit molecule."""
 
         return RDKit.find_symmetry_classes(self.to_rdkit())
@@ -1121,13 +1066,69 @@ class Molecule(SchemaBase):
             last_atom_index = self.n_atoms - 1
             self.NonbondedForce[(last_atom_index,)].charge += extra
 
+
+class Ligand(Molecule):
+    """
+    The Ligand class seperats from protiens as we add fields to store QM calculations, such as the hessian and add more
+    rdkit support methods.
+    """
+
+    hessian: Optional[Array[float]] = Field(
+        None,
+        description="The hessian matrix calculated for this molecule at the QM optimised geometry.",
+    )
+    qm_scans: Optional[List[TorsionDriveData]] = Field(
+        None,
+        description="The list of reference torsiondrive results which we can fit against.",
+    )
+    wbo: Optional[Array[float]] = Field(
+        None,
+        description="The WBO matrix calculated at the QM optimised geometry.",
+    )
+
+    def __init__(
+        self,
+        atoms: List[Atom],
+        bonds: Optional[List[Bond]] = None,
+        coordinates: Optional[np.ndarray] = None,
+        multiplicity: int = 1,
+        name: str = "unk",
+        routine: Optional[Set] = None,
+        provenance: Optional[Dict[str, Any]] = None,
+        **kwargs,
+    ):
+        super(Ligand, self).__init__(
+            atoms=atoms,
+            bonds=bonds,
+            coordinates=coordinates,
+            multiplicity=multiplicity,
+            name=name,
+            routine=routine,
+            provenance=provenance,
+            **kwargs,
+        )
+        # make sure we have unique atom names
+        self._validate_atom_names()
+
+    @validator("hessian", "wbo", allow_reuse=True)
+    def _reshape_matrix(
+        cls, matrix: Optional[np.ndarray]
+    ) -> Optional[np.ndarray]:
+        if matrix is not None:
+            if len(matrix.shape) == 1:
+                # the matrix is a flat list
+                # so we need to make the matrix to be square
+                length = int(np.sqrt(matrix.shape[0]))
+                return matrix.reshape((length, length))
+        return matrix
+
     @classmethod
     def from_rdkit(
         cls,
         rdkit_mol: Chem.Mol,
         name: Optional[str] = None,
         multiplicity: int = 1,
-    ) -> "Molecule":
+    ) -> "Ligand":
         """
         Build an instance of a qubekit ligand directly from an rdkit molecule.
 
@@ -1170,11 +1171,22 @@ class Molecule(SchemaBase):
         )
 
     def has_ub_terms(self) -> bool:
-        """Return `True` if the molecule has Urey-Bradley terms, as there are forces between non-bonded atoms."""
-        if self.UreyBradleyForce.n_parameters > 0:
-            return True
-
+        """Return `True` if the molecule has Ure-Bradly terms, as there are forces between non-bonded atoms."""
+        for bond in self.BondForce:
+            try:
+                self.get_bond_between(*bond.atoms)
+            except TopologyMismatch:
+                return True
         return False
+
+    def _to_ub_pdb(self, file_name: Optional[str] = None) -> None:
+        """A privet method to write the molecule to a non-standard pdb file with connections for Urey-Bradly terms."""
+        openmm_top = self.to_openmm_topology()
+        PDBFile.writeFile(
+            topology=openmm_top,
+            positions=self.openmm_coordinates(),
+            file=open(f"{file_name or self.name}.pdb", "w"),
+        )
 
     @staticmethod
     def _check_file_name(file_name: str) -> None:
@@ -1188,7 +1200,7 @@ class Molecule(SchemaBase):
             )
 
     @classmethod
-    def from_file(cls, file_name: str, multiplicity: int = 1) -> "Molecule":
+    def from_file(cls, file_name: str, multiplicity: int = 1) -> "Ligand":
         """
         Build a ligand from a supported input file.
 
@@ -1214,7 +1226,7 @@ class Molecule(SchemaBase):
     @classmethod
     def from_smiles(
         cls, smiles_string: str, name: str, multiplicity: int = 1
-    ) -> "Molecule":
+    ) -> "Ligand":
         """
         Build the ligand molecule directly from a non mapped smiles string.
 
@@ -1272,6 +1284,18 @@ class Molecule(SchemaBase):
             topology.addBond(
                 atom1=atom1, atom2=atom2, type=b_type, order=bond.bond_order
             )
+        # now check for Urey-Bradley terms
+        for bond in self.BondForce:
+            try:
+                self.get_bond_between(*bond.atoms)
+            except TopologyMismatch:
+                # the bond is not in the bond list so add it as a u-b term
+                atom1 = top_atoms[bond.atoms[0]]
+                atom2 = top_atoms[bond.atoms[1]]
+                # this is a fake bond used for U-B terms.
+                topology.addBond(
+                    atom1=atom1, atom2=atom2, type=Single, order=1
+                )
 
         return topology
 
@@ -1332,13 +1356,10 @@ class Molecule(SchemaBase):
         """
         import copy
 
-        # make sure we have a valid conformer
-        if self.coordinates is None or self.coordinates.shape != (
-            self.n_atoms,
-            3,
-        ):
+        # make sure we have a conformer
+        if self.coordinates == [] or self.coordinates is None:
             raise ConformerError(
-                "The molecule must have a valid conformation to make a qcschema molecule."
+                "The molecule must have a conformation to make a qcschema molecule."
             )
         coords = copy.deepcopy(self.coordinates)
         # input must be in bohr
@@ -1390,551 +1411,6 @@ class Molecule(SchemaBase):
                 coords = input_data.coords
         self.coordinates = coords
 
-    def to_offxml(self, file_name: str, h_constraints: bool = True):
-        """
-        Build an offxml for the molecule and raise an error if we do not think this will be possible due to the presence
-        of v-sites or if the potential can not be accurately transferred to an equivalent openff potential.
-
-        Note:
-            There are a limited number of currently supported potentials in openff without using smirnoff-plugins.
-        """
-
-        offxml = self._build_offxml_general(h_constraints=h_constraints)
-        self.add_params_to_offxml(offxml=offxml)
-        offxml.to_file(filename=file_name)
-
-    def add_params_to_offxml(
-        self,
-        offxml: ForceField,
-        include_torsions: bool = True,
-        parameterize: bool = False,
-    ):
-        """
-        Edits the force field in place by adding this molecules force field parameters.
-
-        Args:
-            include_torsions:
-                If the proper torsion parameters should also be included, this is only used when building transferable
-                force fields between fragments and ligands.
-            parameterize:
-                If any dihedrals passing through a scanned central bond should be marked for optimisation.
-        """
-
-        if self.ImproperRBTorsionForce.n_parameters > 0:
-            raise NotImplementedError(
-                "RB Improper Torsions can not yet be safely converted into offxml format yet."
-            )
-
-        self._build_offxml_bonds(offxml=offxml)
-        self._build_offxml_angles(offxml=offxml)
-        if include_torsions and self.TorsionForce.n_parameters > 0:
-            self._build_offxml_torsions(
-                offxml=offxml, parameterize=parameterize
-            )
-        if self.ImproperTorsionForce.n_parameters > 0:
-            self._build_offxml_improper_torsions(offxml=offxml)
-        if self.RBTorsionForce.n_parameters > 0:
-            self._build_offxml_rb_torsions(offxml=offxml)
-        self._build_offxml_vdw(offxml=offxml)
-        self._build_offxml_charges(offxml=offxml)
-        self._build_offxml_vs(offxml=offxml)
-
-    def _build_offxml_bonds(self, offxml: ForceField):
-        """Edit the offxml in place by adding the bonds for this molecule to the harmonic bond section"""
-
-        rdkit_mol = self.to_rdkit()
-        bond_handler = offxml.get_parameter_handler("Bonds")
-        bond_types = self.bond_types
-        # for each bond type collection create a single smirks pattern
-        for bonds in bond_types.values():
-            graph = SingleGraph(
-                mol=rdkit_mol, smirks_atoms=bonds[0], layers="all"
-            )
-            qube_bond = self.BondForce[bonds[0]]
-            bond_handler.add_parameter(
-                parameter_kwargs={
-                    "smirks": graph.as_smirks(),
-                    "length": qube_bond.length * unit.nanometers,
-                    "k": qube_bond.k
-                    * unit.kilojoule_per_mole
-                    / unit.nanometers**2,
-                }
-            )
-
-    def _build_offxml_angles(self, offxml: ForceField):
-        """Edit the offxml in place by adding the angles for this molecule to the harmonic angle section"""
-
-        rdkit_mol = self.to_rdkit()
-        has_ub_terms = self.has_ub_terms()
-        if has_ub_terms:
-            angle_handler = offxml.get_parameter_handler("UreyBradley")
-        else:
-            angle_handler = offxml.get_parameter_handler("Angles")
-
-        angle_types = self.angle_types
-        for angles in angle_types.values():
-            graph = SingleGraph(
-                mol=rdkit_mol,
-                smirks_atoms=angles[0],
-                layers="all",
-            )
-            qube_angle = self.AngleForce[angles[0]]
-            angle_data = {
-                "smirks": graph.as_smirks(),
-                "angle": qube_angle.angle * unit.radian,
-            }
-            if has_ub_terms:
-                angle_data["angle_k"] = (
-                    qube_angle.k * unit.kilojoule_per_mole / unit.radians**2
-                )
-                qube_ub = self.UreyBradleyForce[angles[0]]
-                angle_data["bond_length"] = qube_ub.d * unit.nanometers
-                angle_data["bond_k"] = (
-                    qube_ub.k * unit.kilojoule_per_mole / unit.nanometers**2
-                )
-            else:
-                angle_data["k"] = (
-                    qube_angle.k * unit.kilojoule_per_mole / unit.radians**2
-                )
-            angle_handler.add_parameter(parameter_kwargs=angle_data)
-
-    def _build_offxml_torsions(
-        self, offxml: ForceField, parameterize: bool = False
-    ):
-        """
-        Edit the offxml in place by adding this molecules proper torsion force field parameters.
-
-        Args:
-            parameterize:
-                If torsions passing through a scanned central bond should be marked for optimisation `True` or not `False`.
-        """
-
-        rdkit_mol = self.to_rdkit()
-        proper_torsions = offxml.get_parameter_handler("ProperTorsions")
-        torsion_types = self.dihedral_types
-        if self.qm_scans is None:
-            scanned_bonds = []
-        else:
-            scanned_bonds = [
-                torsiondrive_data.central_bond
-                for torsiondrive_data in self.qm_scans
-            ]
-        for dihedrals in torsion_types.values():
-            try:
-                qube_dihedral = self.TorsionForce[dihedrals[0]]
-                graph = SingleGraph(
-                    mol=rdkit_mol,
-                    smirks_atoms=dihedrals[0],
-                    layers="all",
-                )
-                torsion_data = {
-                    "smirks": graph.as_smirks(),
-                    "k1": qube_dihedral.k1 * unit.kilojoule_per_mole,
-                    "k2": qube_dihedral.k2 * unit.kilojoule_per_mole,
-                    "k3": qube_dihedral.k3 * unit.kilojoule_per_mole,
-                    "k4": qube_dihedral.k4 * unit.kilojoule_per_mole,
-                    "periodicity1": qube_dihedral.periodicity1,
-                    "periodicity2": qube_dihedral.periodicity2,
-                    "periodicity3": qube_dihedral.periodicity3,
-                    "periodicity4": qube_dihedral.periodicity4,
-                    "phase1": qube_dihedral.phase1 * unit.radians,
-                    "phase2": qube_dihedral.phase2 * unit.radians,
-                    "phase3": qube_dihedral.phase3 * unit.radians,
-                    "phase4": qube_dihedral.phase4 * unit.radians,
-                    "idivf1": 1,
-                    "idivf2": 1,
-                    "idivf3": 1,
-                    "idivf4": 1,
-                }
-                if parameterize:
-                    # we need to check if any of the torsions in this symmetry group pass through a scanned bond
-                    for dihedral in dihedrals:
-                        if (
-                            tuple(dihedral[1:3]) in scanned_bonds
-                            or tuple(reversed(dihedral[1:3])) in scanned_bonds
-                        ):
-                            torsion_data["parameterize"] = "k1, k2, k3, k4"
-                            torsion_data["allow_cosmetic_attributes"] = True
-                            break
-
-                proper_torsions.add_parameter(parameter_kwargs=torsion_data)
-            except MissingParameterError:
-                # we have no torsion force for this dihedral it could be handled by RB torsions
-                continue
-
-    def _build_offxml_rb_torsions(self, offxml: ForceField):
-        """
-        Edit the offxml in place and add RB Proper torsions using our plugin handler.
-        """
-
-        # we need a dummy proper torsion to cover the dihedrals which have RB terms
-        if "ProperTorsions" in offxml.registered_parameter_handlers:
-            periodic_torsions = offxml.get_parameter_handler("ProperTorsions")
-            generic_smirks = "[*:1]~[*:2]~[*:3]~[*:4]"
-            try:
-                _ = periodic_torsions[generic_smirks]
-            except ParameterLookupError:
-                # make sure it is inserted at the start of the handlers
-                periodic_torsions.add_parameter(
-                    parameter_kwargs={
-                        "smirks": generic_smirks,
-                        "periodicity1": 1,
-                        "phase1": 0.0 * unit.degree,
-                        "k1": 0.0 * unit.kilojoule_per_mole,
-                        "idivf1": 1,
-                    },
-                    before=0,
-                )
-
-        rdkit_mol = self.to_rdkit()
-        proper_torsions = offxml.get_parameter_handler(
-            "ProperRyckhaertBellemans"
-        )
-        # we only use these torsion types for flexible non-aromatic ring movements applied by QForce
-        # not sure if we need to also group by symmetry?
-        torsion_types = self.dihedral_types
-        for dihedrals in torsion_types.values():
-            try:
-                rb_torsion = self.RBTorsionForce[dihedrals[0]]
-                graph = SingleGraph(
-                    mol=rdkit_mol,
-                    smirks_atoms=dihedrals[0],
-                    layers="all",
-                )
-                proper_torsions.add_parameter(
-                    parameter_kwargs={
-                        "smirks": graph.as_smirks(),
-                        "c0": rb_torsion.c0 * unit.kilojoule_per_mole,
-                        "c1": rb_torsion.c1 * unit.kilojoule_per_mole,
-                        "c2": rb_torsion.c2 * unit.kilojoule_per_mole,
-                        "c3": rb_torsion.c3 * unit.kilojoule_per_mole,
-                        "c4": rb_torsion.c4 * unit.kilojoule_per_mole,
-                        "c5": rb_torsion.c5 * unit.kilojoule_per_mole,
-                    }
-                )
-            except MissingParameterError:
-                # there is rb torsion force for these dihedrals so skip over them?
-                continue
-
-    def _build_offxml_improper_torsions(self, offxml: ForceField):
-        """Edit the offxml in place and add periodic improper torsions."""
-
-        rdkit_mol = self.to_rdkit()
-        improper_torsions = offxml.get_parameter_handler("ImproperTorsions")
-        improper_types = self.improper_types
-        for torsions in improper_types.values():
-            impropers = [
-                (improper[1], improper[0], *improper[2:])
-                for improper in torsions
-            ]
-            graph = SingleGraph(
-                mol=rdkit_mol, smirks_atoms=impropers[0], layers="all"
-            )
-            qube_improper = self.ImproperTorsionForce[torsions[0]]
-            # we need to multiply each k value by 3 as they will be applied as trefoil see
-            # <https://openforcefield.github.io/standards/standards/smirnoff/#impropertorsions> for more details
-            # we assume we only have a k2 term for improper torsions via a periodic term
-            improper_torsions.add_parameter(
-                parameter_kwargs={
-                    "smirks": graph.as_smirks(),
-                    "k1": qube_improper.k2 * 3 * unit.kilojoule_per_mole,
-                    "periodicity1": qube_improper.periodicity2,
-                    "phase1": qube_improper.phase2 * unit.radians,
-                }
-            )
-
-    def _build_offxml_vdw(self, offxml: ForceField):
-        """Edit the offxml in place and add the vdw parameters via the normal LJ nonbonded force."""
-
-        rdkit_mol = self.to_rdkit()
-        vdw_handler = offxml.get_parameter_handler("vdW")
-        atom_types = {}
-        for atom_index, cip_type in self.atom_types.items():
-            atom_types.setdefault(cip_type, []).append((atom_index,))
-        for sym_set in atom_types.values():
-            graph = SingleGraph(
-                mol=rdkit_mol, smirks_atoms=sym_set[0], layers="all"
-            )
-            qube_non_bond = self.NonbondedForce[sym_set[0]]
-            vdw_handler.add_parameter(
-                parameter_kwargs={
-                    "smirks": graph.as_smirks(),
-                    "epsilon": qube_non_bond.epsilon * unit.kilojoule_per_mole,
-                    "sigma": qube_non_bond.sigma * unit.nanometers,
-                }
-            )
-
-    @classmethod
-    def _build_offxml_general(cls, h_constraints: bool = True):
-        """Initiate a custom offxml file with general metadata"""
-
-        offxml = ForceField(allow_cosmetic_attributes=True, load_plugins=True)
-        offxml.author = f"QUBEKit_version_{qubekit.__version__}"
-        offxml.date = datetime.now().strftime("%Y_%m_%d")
-
-        if h_constraints:
-            # add a generic h-bond constraint
-            constraints = offxml.get_parameter_handler("Constraints")
-            constraints.add_parameter(
-                parameter_kwargs={"smirks": "[#1:1]-[*:2]", "id": "h-c1"}
-            )
-
-        # add a standard Electrostatic tag
-        _ = offxml.get_parameter_handler(
-            "Electrostatics",
-            handler_kwargs={"scale14": 0.8333333333, "version": 0.3},
-        )
-
-        return offxml
-
-    def _build_offxml_charges(self, offxml: ForceField):
-        """Edit the offxml in place by adding the charges as library charges."""
-
-        rdkit_mol = self.to_rdkit()
-        library_charges = offxml.get_parameter_handler("LibraryCharges")
-        charge_data = dict(
-            (
-                f"charge{param.atoms[0] + 1}",
-                param.charge * unit.elementary_charge,
-            )
-            for param in self.NonbondedForce
-        )
-        graph = SingleGraph(
-            mol=rdkit_mol,
-            smirks_atoms=list([i for i in range(self.n_atoms)]),
-            layers="all",
-        )
-        charge_data["smirks"] = graph.as_smirks()
-        library_charges.add_parameter(parameter_kwargs=charge_data)
-
-    def _build_offxml_volumes(self, offxml: ForceField):
-        """Edit the offxml in place by adding the atomic volumes using the plugin handler"""
-
-        rdkit_mol = self.to_rdkit()
-        qube_handler = offxml.get_parameter_handler("QUBEKitvdWTS")
-        volume_data = dict(
-            (f"volume{atom.atom_index + 1}", atom.aim.volume * unit.bohr**3)
-            for atom in self.atoms
-        )
-        graph = SingleGraph(
-            mol=rdkit_mol,
-            smirks_atoms=list([i for i in range(self.n_atoms)]),
-            layers="all",
-        )
-        volume_data["smirks"] = graph.as_smirks()
-        qube_handler.add_parameter(parameter_kwargs=volume_data)
-
-    def _build_offxml_vs(self, offxml: ForceField):
-        """Edit the offxml in place adding any virtual sites via our custom plugin handler."""
-
-        if self.extra_sites.n_sites == 0:
-            return
-
-        rdkit_mol = self.to_rdkit()
-        # use our local coordinate vsite plugin
-        local_vsites = offxml.get_parameter_handler(
-            "LocalCoordinateVirtualSites"
-        )
-        # we need to work around duplicate smirks patterns so we add them our self
-        for i, site in enumerate(self.extra_sites):
-            site_type = (
-                "local3p" if site.type == "VirtualSite3Point" else "local4p"
-            )
-            atoms = [
-                site.parent_index,
-                site.closest_a_index,
-                site.closest_b_index,
-            ]
-            if site_type == "local4p":
-                atoms.append(site.closest_c_index)
-
-            graph = SingleGraph(
-                mol=rdkit_mol,
-                smirks_atoms=atoms,
-                layers="all",
-            )
-            vsite_parameter = local_vsites._INFOTYPE(
-                **{
-                    "smirks": graph.as_smirks(),
-                    "name": f"site_{i}",
-                    "x_local": site.p1 * unit.nanometers,
-                    "y_local": site.p2 * unit.nanometers,
-                    "z_local": site.p3 * unit.nanometers,
-                    "o_weights": site.o_weights,
-                    "x_weights": site.x_weights,
-                    "y_weights": site.y_weights,
-                    "charge": site.charge * unit.elementary_charge,
-                    "epsilon": 0 * unit.kilojoule_per_mole,
-                    "sigma": 1 * unit.nanometer,
-                    "type": "local",
-                }
-            )
-            local_vsites._parameters.append(vsite_parameter)
-
-    def get_atom_with_map_index(self, map_index: int) -> Atom:
-        """
-        Get the atom in the molecule which has the requested map index.
-        """
-        for atom in self.atoms:
-            if atom.map_index == map_index:
-                return atom
-
-
-class Fragment(Molecule):
-    """
-    Fragments use bond indices to identify rotatable bonds and can be stored in Ligands that they are related to.
-    """
-
-    type: Literal["Fragment"] = "Fragment"
-    bond_indices: List[Tuple[int, int]] = Field(
-        default_factory=list,
-        description="The map indices of the atoms in the parent molecule that are involved in the bond. "
-        "The fragment was built around these atoms. Note that one fragment might have more "
-        "than one torsion bond for performance reasons.",
-    )
-
-
-class Ligand(Fragment):
-    """
-    the main data class for QUBEKit which describes a small molecule and its fragments when required.
-    """
-
-    type: Literal["Ligand"] = "Ligand"
-    fragments: Optional[List[Fragment]] = Field(
-        None,
-        description="Fragments in the molecule with the bonds around which the fragments were built.",
-    )
-
-    @property
-    def n_fragments(self) -> int:
-        return 0 if self.fragments is None else len(self.fragments)
-
-    def _optimizeable_offxml(
-        self, file_name: str, h_constraints: bool = False
-    ):
-        """
-        Build an optimizeable offxml for the torsion optimisation stage, which correctly handles any fragments of
-        the molecule. This logic has been moved from the ForceBalance wrapper to make it more general.
-        """
-
-        offxml = self._build_offxml_general(h_constraints=h_constraints)
-
-        if self.n_fragments == 0 or self.qm_scans is not None:
-            # If there are no fragments pass the parent molecule through with the correct tags
-            self.add_params_to_offxml(
-                offxml=offxml, include_torsions=True, parameterize=True
-            )
-        if self.n_fragments != 0:
-            for fragment in self.fragments:
-                fragment.add_params_to_offxml(
-                    offxml=offxml, include_torsions=False
-                )
-                self._build_transferable_torsions(
-                    fragment=fragment, offxml=offxml
-                )
-
-        offxml.to_file(filename=file_name)
-
-    def _build_transferable_torsions(
-        self, fragment: Fragment, offxml: ForceField
-    ):
-        """Edit an offxml in place by adding proper torsions from the fragment molecule and for scanned torsions create
-        a transferable smirks pattern."""
-        parent_rdkit = self.to_rdkit()
-        fragment_rdkit = fragment.to_rdkit()
-        proper_torsions = offxml.get_parameter_handler("ProperTorsions")
-        fragment_torsion_types = fragment.dihedral_types
-        scanned_bonds = [
-            torsiondrive_data.central_bond
-            for torsiondrive_data in fragment.qm_scans
-        ]
-        for dihedrals in fragment_torsion_types.values():
-            qube_dihedral = fragment.TorsionForce[dihedrals[0]]
-
-            # build the kwargs
-            torsion_data = {
-                "k1": qube_dihedral.k1 * unit.kilojoule_per_mole,
-                "k2": qube_dihedral.k2 * unit.kilojoule_per_mole,
-                "k3": qube_dihedral.k3 * unit.kilojoule_per_mole,
-                "k4": qube_dihedral.k4 * unit.kilojoule_per_mole,
-                "periodicity1": qube_dihedral.periodicity1,
-                "periodicity2": qube_dihedral.periodicity2,
-                "periodicity3": qube_dihedral.periodicity3,
-                "periodicity4": qube_dihedral.periodicity4,
-                "phase1": qube_dihedral.phase1 * unit.radians,
-                "phase2": qube_dihedral.phase2 * unit.radians,
-                "phase3": qube_dihedral.phase3 * unit.radians,
-                "phase4": qube_dihedral.phase4 * unit.radians,
-                "idivf1": 1,
-                "idivf2": 1,
-                "idivf3": 1,
-                "idivf4": 1,
-            }
-
-            mols = [fragment_rdkit]
-            smirks_atoms_lists = [dihedrals]
-
-            # check any of the dihedrals in this symmetry group run through a scanned bond
-            include_parent = False
-            corresponding_parent_dihedrals = []
-            frag_dihedral_maps = []
-
-            for dihedral in dihedrals:
-                # check to see if this should be a transferable parameter
-                if (
-                    tuple(dihedral[1:3]) in scanned_bonds
-                    or tuple(reversed(dihedral[1:3])) in scanned_bonds
-                ):
-                    include_parent = True
-
-                # get the map indices of the dihedral in the correct order
-                frag_dihedral_map = [
-                    fragment.atoms[i].map_index for i in dihedral
-                ]
-                frag_dihedral_maps.append(frag_dihedral_map)
-
-            if include_parent:
-                mols.append(parent_rdkit)
-                # find the corresponding dihedral atom indices in the parent with the same ordering
-                for frag_dihedral_map in frag_dihedral_maps:
-                    corresponding_parent_dihedral_real = [
-                        self.get_atom_with_map_index(map_index=i).atom_index
-                        for i in frag_dihedral_map
-                    ]
-                    corresponding_parent_dihedrals.append(
-                        tuple(corresponding_parent_dihedral_real)
-                    )
-                smirks_atoms_lists.append(corresponding_parent_dihedrals)
-
-                joint_graph = ClusterGraph(
-                    mols=mols,
-                    smirks_atoms_lists=smirks_atoms_lists,
-                    layers="all",
-                )
-                # add the tags to mark as optimisable
-                torsion_data["smirks"] = joint_graph.as_smirks()
-                torsion_data["parameterize"] = "k1, k2, k3, k4"
-                torsion_data["allow_cosmetic_attributes"] = True
-                torsion_data["fragment"] = fragment.name
-
-            else:
-                # use a single graph to create the torsions for on dihedral in the fragment symmetry group
-                # this should transfer to all instances
-                single_graph = SingleGraph(
-                    mol=fragment_rdkit, smirks_atoms=dihedrals[0], layers="all"
-                )
-                torsion_data["smirks"] = single_graph.as_smirks()
-
-            proper_torsions.add_parameter(parameter_kwargs=torsion_data)
-
-
-"""
-Module to implement the Modified Seminario Method
-Originally written by Alice E. A. Allen, TCM, University of Cambridge
-Modified by Joshua T. Horton and rewritten by Chris Ringrose, Newcastle University
-Reference using AEA Allen, MC Payne, DJ Cole, J. Chem. Theory Comput. (2018), doi:10.1021/acs.jctc.7b00785
-"""
-
 
 class ModSemMaths:
     """Static methods for various mathematical functions relevant to the modified Seminario method."""
@@ -1974,6 +1450,7 @@ class ModSemMaths:
 
     @staticmethod
     def dot_product(u_pa, eig_ab):
+
         return sum(u_pa[i] * eig_ab[i].conjugate() for i in range(3))
 
     @staticmethod
@@ -2078,6 +1555,7 @@ class ModSemMaths:
         k_theta_array = np.zeros(n_samples)
 
         for theta in range(n_samples):
+
             u_n = [
                 np.sin(theta) * np.cos(theta),
                 np.sin(theta) * np.sin(theta),
@@ -2112,6 +1590,7 @@ class ModSemMaths:
 
 
 class ModSeminario(StageBase):
+
     type: Literal["ModSeminario"] = "ModSeminario"
     vibrational_scaling: float = Field(
         1.0,
@@ -2129,7 +1608,7 @@ class ModSeminario(StageBase):
     def finish_message(self, **kwargs) -> str:
         return "Bond and angle parameters calculated."
 
-    def _run(self, molecule: Ligand, *args, **kwargs) -> Ligand:
+    def run(self, molecule: Ligand, **kwargs) -> Ligand:
         """
         The main worker stage which takes the molecule and its hessian and calculates the modified seminario method.
 
@@ -2140,20 +1619,17 @@ class ModSeminario(StageBase):
             Please cite this method using <J. Chem. Theory Comput. (2018), doi:10.1021/acs.jctc.7b00785>
         """
 
-        with folder_setup(molecule.name):
-            # reset the bond and angle parameter groups
-            molecule.BondForce.clear_parameters()
-            molecule.AngleForce.clear_parameters()
-            # convert the hessian from atomic units
-            conversion = constants.HA_TO_KCAL_P_MOL / (
-                constants.BOHR_TO_ANGS**2
-            )
-            # make sure we do not change the molecule hessian
-            hessian = copy.deepcopy(molecule.hessian)
-            hessian *= conversion
-            self._modified_seminario_method(molecule=molecule, hessian=hessian)
-            # apply symmetry to the bond and angle parameters
-            molecule.symmetrise_bonded_parameters()
+        # reset the bond and angle parameter groups
+        molecule.BondForce.clear_parameters()
+        molecule.AngleForce.clear_parameters()
+        # convert the hessian from atomic units
+        conversion = constants.HA_TO_KCAL_P_MOL / (constants.BOHR_TO_ANGS**2)
+        # make sure we do not change the molecule hessian
+        hessian = copy.deepcopy(molecule.hessian)
+        hessian *= conversion
+        self._modified_seminario_method(molecule=molecule, hessian=hessian)
+        # apply symmetry to the bond and angle parameters
+        molecule.symmetrise_bonded_parameters()
 
         return molecule
 
@@ -2186,9 +1662,7 @@ class ModSeminario(StageBase):
 
         # The bond and angle values are calculated and written to file.
         self.calculate_bonds(eigenvals, eigenvecs, molecule, bond_lens)
-        if molecule.n_angles > 0:
-            # handle linear molecules with no angles
-            self.calculate_angles(eigenvals, eigenvecs, molecule, bond_lens)
+        self.calculate_angles(eigenvals, eigenvecs, molecule, bond_lens)
         return molecule
 
     def calculate_angles(
@@ -2309,15 +1783,16 @@ class ModSeminario(StageBase):
                     scaling_factor_all_angles[i][j][1]
                 ].append(scaling_factor_all_angles[i][j][0])
 
-        k_theta, theta_0 = (
-            np.zeros(len(molecule.angles)),
-            np.zeros(len(molecule.angles)),
+        k_theta, theta_0 = np.zeros(len(molecule.angles)), np.zeros(
+            len(molecule.angles)
         )
 
         conversion = constants.KCAL_TO_KJ * 2
 
         with open("Modified_Seminario_Angles.txt", "w") as angle_file:
+
             for i, angle in enumerate(molecule.angles):
+
                 scalings = scaling_factors_angles_list[i]
 
                 # Ensures that there is no difference when the ordering is changed.
@@ -2371,6 +1846,7 @@ class ModSeminario(StageBase):
         k_b, bond_len_list = np.zeros(len(bonds)), np.zeros(len(bonds))
 
         with open("Modified_Seminario_Bonds.txt", "w") as bond_file:
+
             for pos, bond in enumerate(bonds):
                 ab = ModSemMaths.force_constant_bond(
                     bond, eigenvals, eigenvecs, molecule.coordinates

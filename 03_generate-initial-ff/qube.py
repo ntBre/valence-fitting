@@ -112,37 +112,6 @@ class SchemaBase(BaseModel):
         json_encoders = {np.ndarray: lambda v: v.flatten().tolist()}
 
 
-class LocalResource(SchemaBase):
-
-    cores: PositiveInt = Field(
-        4,
-        description="The number of cores to be allocated to the computation.",
-    )
-    memory: PositiveInt = Field(
-        10,
-        description="The amount of memory that should be allocated to the computation in GB.",
-    )
-
-    @property
-    def local_options(self) -> Dict[str, int]:
-        """return the local options."""
-        return {"memory": self.memory, "ncores": self.cores}
-
-    def divide_resource(self, n_tasks: int) -> "LocalResource":
-        """
-        Create a new local resource object by dividing the current one by n_tasks.
-
-        Important:
-            The resource is always rounded down to avoid over subscriptions.
-        """
-        if n_tasks == 1:
-            return self
-        else:
-            cores = int(self.cores / n_tasks)
-            memory = int(self.memory / n_tasks)
-            return LocalResource(cores=cores, memory=memory)
-
-
 class TDSettings(SchemaBase):
     """
     A schema with available options for Time-Dependent calculations.

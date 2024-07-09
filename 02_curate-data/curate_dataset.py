@@ -9,6 +9,7 @@ from openff.qcsubmit.results import (
     TorsionDriveResultCollection,
 )
 from openff.toolkit import ForceField, Molecule
+from openff.toolkit.utils.exceptions import NotBondedError
 from qcportal.torsiondrive.record_models import (
     OptimizationRecord,
     TorsiondriveRecord,
@@ -17,8 +18,22 @@ from qcportal.torsiondrive.record_models import (
 type Record = typing.Union[TorsiondriveRecord, OptimizationRecord]
 
 
+def safe_ring_bond(mol: Molecule, i: int, j: int) -> bool:
+    """Returns true if the bond between atoms ``i`` and ``j`` in ``mol`` is in
+    a ring. Catches ``NotBondedError``s and returns ``False`` instead.
+
+    This function will always return ``False`` for improper torsions, but I
+    think an improper with three ring bonds will be fairly rare anyway.
+
+    """
+    try:
+        return mol.get_bond_between(i, j).is_in_ring()
+    except NotBondedError:
+        return False
+
+
 def check_torsion_is_in_ring(
-    molecule: Molecule,
+    mol: Molecule,
     indices: typing.Tuple[int, int, int, int],
 ) -> bool:
     """
@@ -30,9 +45,9 @@ def check_torsion_is_in_ring(
     """
     i, j, k, m = indices
     return (
-        molecule.get_bond_between(i, j).is_in_ring()
-        and molecule.get_bond_between(j, k).is_in_ring()
-        and molecule.get_bond_between(k, m).is_in_ring()
+        safe_ring_bond(mol, i, j)
+        and safe_ring_bond(mol, j, k)
+        and safe_ring_bond(mol, k, m)
     )
 
 

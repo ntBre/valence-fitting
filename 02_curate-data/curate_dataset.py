@@ -14,6 +14,8 @@ from qcportal.torsiondrive.record_models import (
     TorsiondriveRecord,
 )
 
+type Record = typing.Union[TorsiondriveRecord, OptimizationRecord]
+
 
 def check_torsion_is_in_ring(
     molecule: Molecule,
@@ -35,9 +37,7 @@ def check_torsion_is_in_ring(
 
 
 def label_and_tag_ids(
-    record_and_molecule: typing.Tuple[
-        typing.Union[TorsiondriveRecord, OptimizationRecord], Molecule
-    ],
+    record_and_molecule: typing.Tuple[Record, Molecule],
     force_field: ForceField,
     parameter_types: typing.List[str],
     explicit_ring_torsions: typing.Optional[str] = None,

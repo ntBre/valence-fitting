@@ -1,12 +1,9 @@
 import abc
 import copy
 import decimal
-import os
-import re
 import xml.etree.ElementTree as ET
 from datetime import datetime
 from enum import Enum
-from itertools import groupby
 from operator import itemgetter
 from pathlib import Path
 from typing import TYPE_CHECKING, Any, Dict, List, Optional, Set, Tuple, Union
@@ -15,10 +12,8 @@ from xml.dom.minidom import parseString
 import networkx as nx
 import numpy as np
 import qcelemental as qcel
-import qcengine as qcng
 import qubekit
-from openff.toolkit.typing.engines.smirnoff import get_available_force_fields
-from pydantic.v1 import BaseModel, Field, PositiveInt, dataclasses, validator
+from pydantic.v1 import BaseModel, Field, dataclasses, validator
 from qcelemental.models.types import Array
 from qubekit.forcefield import (
     BaseForceGroup,
@@ -36,7 +31,6 @@ from qubekit.utils.exceptions import (
     FileTypeError,
     MissingReferenceData,
     SmartsError,
-    SpecificationError,
     StereoChemistryError,
     TopologyMismatch,
     TorsionDriveDataError,

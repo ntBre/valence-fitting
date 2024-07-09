@@ -15,8 +15,8 @@ from openff.qcsubmit.results import (
 from openff.qcsubmit.results.filters import LowestEnergyFilter
 from openff.toolkit import ForceField
 from openff.units import unit
-from qubekit.bonded.mod_seminario import ModSeminario, ModSemMaths
-from qubekit.molecules import Ligand
+
+from qube import Ligand, ModSeminario, ModSemMaths
 
 if typing.TYPE_CHECKING:
     from openff.toolkit import Molecule

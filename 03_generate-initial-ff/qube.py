@@ -4,7 +4,6 @@ import decimal
 import os
 import re
 import xml.etree.ElementTree as ET
-from collections import namedtuple
 from datetime import datetime
 from enum import Enum
 from itertools import groupby
@@ -102,23 +101,6 @@ EPSILON_CONVERSION = (
     (BOHR_TO_ANGS**6) * HA_TO_KCAL_P_MOL * KCAL_TO_KJ
 )  # L-J Conversion
 SIGMA_CONVERSION = ANGS_TO_NM  # L-J Conversion
-
-
-# Used for printing colours to terminal. Wrap a colour and end around a block like so:
-# f'{COLOURS.red}sample message here{COLOURS.end}'
-Colours = namedtuple("colours", "red green orange blue purple end")
-
-# Uses exit codes to set terminal font colours.
-# \033[ is the exit code. 1;32m are the style (bold); colour (green) m reenters the code block.
-# The end code resets the style back to default; this MUST be applied to avoid errors.
-COLOURS = Colours(
-    red="\033[1;31m",
-    green="\033[1;32m",
-    orange="\033[1;33m",
-    blue="\033[1;34m",
-    purple="\033[1;35m",
-    end="\033[0m",
-)
 
 
 class SchemaBase(BaseModel):

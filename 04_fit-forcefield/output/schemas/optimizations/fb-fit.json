@@ -33,28 +33,19 @@
       "parameters": [
         {
           "type": "Angles",
-          "smirks": "[#1:1]-[#6X4:2]-[#1:3]",
-          "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
           "smirks": "[#1:1]-[#7X4,#7X3,#7X2-1:2]-[*:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
         {
           "type": "Angles",
-          "smirks": "[*:1]~[#7X4,#7X3,#7X2-1:2]~[*:3]",
+          "smirks": "[#1:1]-[#6X4:2]-[#1:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -62,17 +53,17 @@
           "type": "Angles",
           "smirks": "[*:1]~[#6X4:2]-[*:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
         {
           "type": "Angles",
-          "smirks": "[*:1]-[#8:2]-[*:3]",
+          "smirks": "[*:1]~[#7X4,#7X3,#7X2-1:2]~[*:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -80,8 +71,8 @@
           "type": "Angles",
           "smirks": "[*:1]~[#16X4:2]~[*:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -89,35 +80,17 @@
           "type": "Angles",
           "smirks": "[*:1]-[#16X4,#16X3+0:2]~[*:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
         {
           "type": "Angles",
-          "smirks": "[#1:1]-[#7X2+0:2]~[*:3]",
+          "smirks": "[*:1]-[#8:2]-[*:3]",
           "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[*:1]~[#16X3$(*~[#8X1,#7X2]):2]~[*:3]",
-          "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[#1:1]-[#7X3$(*~[#6X3,#6X2,#7X2+0]):2]-[*:3]",
-          "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -125,17 +98,35 @@
           "type": "Angles",
           "smirks": "[*:1]~[#6X3:2]~[*:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
         {
           "type": "Angles",
-          "smirks": "[*;r5:1]1@[*;r5:2]@[*;r5:3]@[*;r5]@[*;r5]1",
+          "smirks": "[#1:1]-[#7X2+0:2]~[*:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[#1:1]-[#7X3$(*~[#6X3,#6X2,#7X2+0]):2]-[*:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*:1]~[#16X3$(*~[#8X1,#7X2]):2]~[*:3]",
+          "attributes": [
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -143,8 +134,17 @@
           "type": "Angles",
           "smirks": "[*;r5:1]1@[#16;r5:2]@[*;r5:3]@[*;r5]@[*;r5]1",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*;r5:1]1@[*;r5:2]@[*;r5:3]@[*;r5]@[*;r5]1",
+          "attributes": [
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -152,8 +152,8 @@
           "type": "Angles",
           "smirks": "[#1:1]-[#6X3:2]~[*:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -161,17 +161,8 @@
           "type": "Angles",
           "smirks": "[*:1]~[#15:2]~[*:3]",
           "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[#8X1:1]~[#6X3:2]~[#8:3]",
-          "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -179,8 +170,17 @@
           "type": "Angles",
           "smirks": "[*:1]~[#16X2,#16X3+1:2]~[*:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[#8X1:1]~[#6X3:2]~[#8:3]",
+          "attributes": [
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -196,8 +196,8 @@
           "type": "Angles",
           "smirks": "[#1:1]-[#6X3:2]-[#1:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -205,8 +205,8 @@
           "type": "Angles",
           "smirks": "[*:1]~[#7X3$(*~[#6X3,#6X2,#7X2+0]):2]~[*:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -214,8 +214,8 @@
           "type": "Angles",
           "smirks": "[*:1]~;!@[*;X3;r5:2]~;@[*;r5:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -223,8 +223,8 @@
           "type": "Angles",
           "smirks": "[*;r6:1]~;@[*;r5:2]~;@[*;r5;x2:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -232,8 +232,8 @@
           "type": "Angles",
           "smirks": "[#6X3:1]-[#16X2:2]-[#6X3:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -241,98 +241,8 @@
           "type": "Angles",
           "smirks": "[*:1]~[#7X2+0:2]~[*:3]",
           "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[*;r3:1]1~;@[*;r3:2]~;@[*;r3:3]1",
-          "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[#1:1]-[*;r3:2]~;!@[*:3]",
-          "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[*;r3:1]~;@[*;r3:2]~;!@[*:3]",
-          "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[*:1]~;!@[*;r3:2]~;!@[*:3]",
-          "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[#6X3,#7:1]~;@[#8;r:2]~;@[#6X3,#7:3]",
-          "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[!#1:1]-[#6r4:2]-;!@[!#1:3]",
-          "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[!#1:1]-[#6r4:2]-;!@[#1:3]",
-          "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[#6r4:1]-;@[#6r4:2]-;@[#6r4:3]",
-          "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[*:1]@-[r!r6;#7X4,#7X3,#7X2-1:2]@-[*:3]",
-          "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
-          "smirks": "[#6,#7,#8:1]-[#7X3:2](~[#8X1])~[#8X1:3]",
-          "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -340,8 +250,116 @@
           "type": "Angles",
           "smirks": "[#8X1:1]~[#7X3:2]~[#8X1:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[#6,#7,#8:1]-[#7X3:2](~[#8X1])~[#8X1:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*:1]-[#8X2+1:2]=[*:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*:1]@-[r!r6;#7X4,#7X3,#7X2-1:2]@-[*:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*;r6:1]~;@[*;r5;x4,*;r5;X4:2]~;@[*;r5;x2:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*;r3:1]1~;@[*;r3:2]~;@[*;r3:3]1",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[#1:1]-[*;r3:2]~;!@[*:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*;r3:1]~;@[*;r3:2]~;!@[*:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[*:1]~;!@[*;r3:2]~;!@[*:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[#6X3,#7:1]~;@[#8;r:2]~;@[#6X3,#7:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[!#1:1]-[#6r4:2]-;!@[!#1:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[#6r4:1]-;@[#6r4:2]-;@[#6r4:3]",
+          "attributes": [
+            "angle",
+            "k"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Angles",
+          "smirks": "[!#1:1]-[#6r4:2]-;!@[#1:3]",
+          "attributes": [
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -349,8 +367,8 @@
           "type": "Angles",
           "smirks": "[*:1]~[#7X2+0:2]~[#6X2:3](~[#16X1])",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -358,8 +376,8 @@
           "type": "Angles",
           "smirks": "[#6X3:1]-[#16X2:2]-[#6X4:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -367,8 +385,8 @@
           "type": "Angles",
           "smirks": "[#6X3:1]-[#16X2:2]-[#1:3]",
           "attributes": [
-            "k",
-            "angle"
+            "angle",
+            "k"
           ],
           "cached": false
         },
@@ -382,15 +400,6 @@
         },
         {
           "type": "Angles",
-          "smirks": "[*;r6:1]~;@[*;r5;x4,*;r5;X4:2]~;@[*;r5;x2:3]",
-          "attributes": [
-            "k",
-            "angle"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Angles",
           "smirks": "[*:1]~[#7X2:2]~[#7X1:3]",
           "attributes": [
             "k"
@@ -399,25 +408,16 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X4:1]-[#1:2]",
-          "attributes": [
-            "k",
-            "length"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
-          "smirks": "[#7:1]-[#1:2]",
-          "attributes": [
-            "k",
-            "length"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
           "smirks": "[#7:1]-[#7:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X4:1]-[#1:2]",
           "attributes": [
             "k",
             "length"
@@ -444,16 +444,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#16X4,#16X3:1]~[#8X1:2]",
-          "attributes": [
-            "k",
-            "length"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
-          "smirks": "[#8:1]-[#1:2]",
+          "smirks": "[#7:1]-[#1:2]",
           "attributes": [
             "k",
             "length"
@@ -480,7 +471,16 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X3:1]=[#7X2,#7X3+1:2]",
+          "smirks": "[#8:1]-[#1:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#16X4,#16X3:1]~[#8X1:2]",
           "attributes": [
             "k",
             "length"
@@ -490,6 +490,15 @@
         {
           "type": "Bonds",
           "smirks": "[#6X3:1]-[#7X3:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X3:1]=[#7X2,#7X3+1:2]",
           "attributes": [
             "k",
             "length"
@@ -534,15 +543,6 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X3:1]-[#6X3:2]",
-          "attributes": [
-            "k",
-            "length"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
           "smirks": "[#6:1]=[#8X1+0,#8X2+1:2]",
           "attributes": [
             "k",
@@ -553,6 +553,15 @@
         {
           "type": "Bonds",
           "smirks": "[#6X4:1]-[#6X3:2]=[#8X1+0]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X3:1]-[#6X3:2]",
           "attributes": [
             "k",
             "length"
@@ -588,15 +597,6 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#16:1]-[#15:2]",
-          "attributes": [
-            "k",
-            "length"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
           "smirks": "[#15:1]=[#16X1:2]",
           "attributes": [
             "k",
@@ -616,6 +616,15 @@
         {
           "type": "Bonds",
           "smirks": "[#16X2,#16X1-1,#16X3+1:1]-[#6X4:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#16:1]-[#15:2]",
           "attributes": [
             "k",
             "length"
@@ -678,7 +687,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#16X2,#16X1-1:1]-[#7:2]",
+          "smirks": "[#6X3:1](=[#8X1+0])-[#7X3:2]",
           "attributes": [
             "k",
             "length"
@@ -696,7 +705,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X3:1](=[#8X1+0])-[#7X3:2]",
+          "smirks": "[#7:1]-[#8X2:2]",
           "attributes": [
             "k",
             "length"
@@ -705,7 +714,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#7:1]-[#8X2:2]",
+          "smirks": "[#16X2,#16X1-1:1]-[#7:2]",
           "attributes": [
             "k",
             "length"
@@ -813,6 +822,33 @@
         },
         {
           "type": "Bonds",
+          "smirks": "[#7:1]~[#8X1:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#15:1]~[#6:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#6X4:1]-[#17:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
           "smirks": "[#6:1]-[#9:2]",
           "attributes": [
             "k",
@@ -858,15 +894,6 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#7:1]~[#8X1:2]",
-          "attributes": [
-            "k",
-            "length"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
           "smirks": "[#7:1]:[#7:2]",
           "attributes": [
             "k",
@@ -885,25 +912,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#15:1]~[#6:2]",
-          "attributes": [
-            "k",
-            "length"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
           "smirks": "[#15:1]=[#7:2]",
-          "attributes": [
-            "k",
-            "length"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
-          "smirks": "[#15:1]-[#1:2]",
           "attributes": [
             "k",
             "length"
@@ -921,7 +930,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#15:1]-[#7:2]",
+          "smirks": "[#15:1]-[#1:2]",
           "attributes": [
             "k",
             "length"
@@ -931,6 +940,15 @@
         {
           "type": "Bonds",
           "smirks": "[#16:1]=[#6:2]",
+          "attributes": [
+            "k",
+            "length"
+          ],
+          "cached": false
+        },
+        {
+          "type": "Bonds",
+          "smirks": "[#15:1]-[#7:2]",
           "attributes": [
             "k",
             "length"
@@ -957,7 +975,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#6X2:1]=[#7:2]",
+          "smirks": "[#16:1]-[#16:2]",
           "attributes": [
             "k",
             "length"
@@ -975,16 +993,7 @@
         },
         {
           "type": "Bonds",
-          "smirks": "[#16:1]-[#16:2]",
-          "attributes": [
-            "k",
-            "length"
-          ],
-          "cached": false
-        },
-        {
-          "type": "Bonds",
-          "smirks": "[#6X4:1]-[#17:2]",
+          "smirks": "[#6X2:1]=[#7:2]",
           "attributes": [
             "k",
             "length"
@@ -1092,6 +1101,16 @@
         },
         {
           "type": "ProperTorsions",
+          "smirks": "[#1:1]-[#7X3:2]-[#7X3:3]-[#1:4]",
+          "attributes": [
+            "k3",
+            "k2",
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
           "smirks": "[*:1]~[#7X3:2]-[#7X3:3]~[*:4]",
           "attributes": [
             "k1"
@@ -1100,21 +1119,11 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#7X3:2]-[#7X3:3]-[#1:4]",
-          "attributes": [
-            "k2",
-            "k1",
-            "k3"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#7X3:2]-[#7X3:3]-[#1:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1130,9 +1139,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#7X3:2]-[#7X3:3]-[#6X4:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1140,9 +1149,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#7X3:2]-[#7X4:3]-[#6X4:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1150,9 +1159,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#7X4:2]-[#7X3:3]-[#1:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1166,11 +1175,20 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]~[#16X3+0:2]-[#7X3:3]~[*:4]",
+          "smirks": "[#8X1:1]~[#16X3+0:2]-[#7X3:3]-[#1:4]",
           "attributes": [
             "k2",
-            "k1",
-            "k3"
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[*:1]~[#16X3+0:2]-[#7X3:3]~[*:4]",
+          "attributes": [
+            "k3",
+            "k2",
+            "k1"
           ],
           "cached": false
         },
@@ -1178,12 +1196,12 @@
           "type": "ProperTorsions",
           "smirks": "[#8X1:1]~[#16X3+0:2]-[#7X2:3]~[#6X3:4]",
           "attributes": [
-            "k1",
+            "k3",
             "k6",
             "k5",
+            "k1",
             "k2",
-            "k4",
-            "k3"
+            "k4"
           ],
           "cached": false
         },
@@ -1213,14 +1231,6 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#6X2:1]-[#16X4:2]-[#6X3:3]~[*:4]",
-          "attributes": [
-            "k1"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
           "smirks": "[*:1]~[#16X4:2]-[#6X3:3]~[*:4]",
           "attributes": [
             "k1"
@@ -1229,7 +1239,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]-[#6X4:2]-[#6X4:3]-[*:4]",
+          "smirks": "[#6X2:1]-[#16X4:2]-[#6X3:3]~[*:4]",
           "attributes": [
             "k1"
           ],
@@ -1254,11 +1264,9 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#6X4:1]-[#6X4:2]-[#6X4:3]-[#6X4:4]",
+          "smirks": "[*:1]-[#6X4:2]-[#6X4:3]-[*:4]",
           "attributes": [
-            "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1266,6 +1274,16 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#6X4:2]-[#6X4:3]-[#6X4:4]",
           "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[#6X4:1]-[#6X4:2]-[#6X4:3]-[#6X4:4]",
+          "attributes": [
+            "k3",
+            "k2",
             "k1"
           ],
           "cached": false
@@ -1289,6 +1307,14 @@
         },
         {
           "type": "ProperTorsions",
+          "smirks": "[*:1]-[#6X4:2]-[#6X3:3]=[*:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
           "smirks": "[#1:1]-[#6X4:2]-[#6X3:3]=[#6X3:4]",
           "attributes": [
             "k2",
@@ -1298,19 +1324,11 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]-[#6X4:2]-[#6X3:3]=[*:4]",
-          "attributes": [
-            "k1"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
           "smirks": "[#1:1]-[#6X4:2]-[#6X3:3]=[#8X1:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1361,9 +1379,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3:3]=[#7X2:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1371,9 +1389,9 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#6X4;r3:2]-[#6X3:3]~[#6X3:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1390,9 +1408,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3;r6:3]:[#7X2;r6:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1474,7 +1492,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#6X3:1]-[#7X3:2]-[#6X4:3]-[#6X3:4]",
+          "smirks": "[*:1]-[#6X4:2]-[#7X3$(*~[#6X3,#6X2]):3]~[*:4]",
           "attributes": [
             "k2",
             "k1"
@@ -1483,7 +1501,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]-[#6X4:2]-[#7X3$(*~[#6X3,#6X2]):3]~[*:4]",
+          "smirks": "[#6X3:1]-[#7X3:2]-[#6X4:3]-[#6X3:4]",
           "attributes": [
             "k2",
             "k1"
@@ -1494,9 +1512,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X3:1]-[#7X3:2]-[#6X4;r3:3]-[#6X4;r3:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1504,16 +1522,16 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#6X4:2]-[#7X3:3]-[#6X3:4]=[#8,#16,#7]",
           "attributes": [
+            "k3",
             "k2",
             "k4",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]-[#7X3:2]-[#6X3$(*=[#8,#16,#7]):3]~[*:4]",
+          "smirks": "[#1:1]-[#7X3:2]-[#6X3:3]=[#8,#16,#7:4]",
           "attributes": [
             "k2",
             "k1"
@@ -1522,7 +1540,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#7X3:2]-[#6X3:3]=[#8,#16,#7:4]",
+          "smirks": "[*:1]-[#7X3:2]-[#6X3$(*=[#8,#16,#7]):3]~[*:4]",
           "attributes": [
             "k2",
             "k1"
@@ -1648,21 +1666,21 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#8X2:2]-[#6X4;r3:3]-[#6X4;r3:4]",
+          "smirks": "[#1:1]-[#8X2:2]-[#6X4;r3:3]-[#6X4:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#8X2:2]-[#6X4;r3:3]-[#6X4:4]",
+          "smirks": "[#1:1]-[#8X2:2]-[#6X4;r3:3]-[#6X4;r3:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1781,17 +1799,17 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#6X4:1]-[#16X4:2]-[#7X3:3]-[#6X3:4]",
+          "smirks": "[#8X1:1]~[#16X4:2]-[#7X3:3]-[#6X3:4]",
           "attributes": [
-            "k2",
             "k1"
           ],
           "cached": false
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#8X1:1]~[#16X4:2]-[#7X3:3]-[#6X3:4]",
+          "smirks": "[#6X4:1]-[#16X4:2]-[#7X3:3]-[#6X3:4]",
           "attributes": [
+            "k2",
             "k1"
           ],
           "cached": false
@@ -1817,9 +1835,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X3:1]-[#16X4:2]-[#7X3:3]-[#6X4:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1827,9 +1845,9 @@
           "type": "ProperTorsions",
           "smirks": "[#8X1:1]~[#16X4:2]-[#7X3:3]-[#6X4:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -1852,7 +1870,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#9:1]-[#6X4:2]-[#6X4:3]-[#9:4]",
+          "smirks": "[#35:1]-[#6X4:2]-[#6X4:3]-[#35:4]",
           "attributes": [
             "k2",
             "k1"
@@ -1861,7 +1879,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#35:1]-[#6X4:2]-[#6X4:3]-[#35:4]",
+          "smirks": "[#9:1]-[#6X4:2]-[#6X4:3]-[#9:4]",
           "attributes": [
             "k2",
             "k1"
@@ -1915,12 +1933,12 @@
           "type": "ProperTorsions",
           "smirks": "[#16X2,#16X1-1,#16X3+1:1]-[#6X3:2]-[#6X4:3]-[#7X3$(*-[#6X3,#6X2]):4]",
           "attributes": [
-            "k1",
+            "k3",
             "k6",
             "k5",
+            "k1",
             "k2",
-            "k4",
-            "k3"
+            "k4"
           ],
           "cached": false
         },
@@ -1937,11 +1955,11 @@
           "type": "ProperTorsions",
           "smirks": "[#16X2,#16X1-1,#16X3+1:1]-[#6X3:2]-[#6X4:3]-[#7X4,#7X3:4]",
           "attributes": [
-            "k1",
+            "k3",
             "k5",
+            "k1",
             "k2",
-            "k4",
-            "k3"
+            "k4"
           ],
           "cached": false
         },
@@ -1966,9 +1984,19 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3:3]~[#6X3:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3;r5:3]-;@[#6X3;r5:4]",
+          "attributes": [
+            "k3",
+            "k2",
+            "k1"
           ],
           "cached": false
         },
@@ -1982,21 +2010,11 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3;r5:3]-;@[#6X3;r5:4]",
-          "attributes": [
-            "k2",
-            "k1",
-            "k3"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
           "smirks": "[#6X3:1]-[#6X4;r3:2]-[#6X3:3]=[#8X1:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -2018,14 +2036,6 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#7X3:2]-[#6X4;r3:3]-[*:4]",
-          "attributes": [
-            "k1"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
           "smirks": "[#1:1]-[#7X3:2]-[#6X4;r3:3]-[#6X4;r3:4]",
           "attributes": [
             "k1"
@@ -2034,7 +2044,7 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[!#1:1]-[#7X3:2]-[#6X4;r3:3]-[#6X4;r3:4]",
+          "smirks": "[#1:1]-[#7X3:2]-[#6X4;r3:3]-[*:4]",
           "attributes": [
             "k1"
           ],
@@ -2043,6 +2053,14 @@
         {
           "type": "ProperTorsions",
           "smirks": "[!#1:1]-[#7X3:2]-[#6X4;r3:3]-[*:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[!#1:1]-[#7X3:2]-[#6X4;r3:3]-[#6X4;r3:4]",
           "attributes": [
             "k1"
           ],
@@ -2084,9 +2102,9 @@
           "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#8X2:2]-[#6X4:3]-[#8X2:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -2094,16 +2112,7 @@
           "type": "ProperTorsions",
           "smirks": "[#1:1]-[#8X2:2]-[#6X4;r3:3]-[#1:4]",
           "attributes": [
-            "k2",
-            "k1",
-            "k3"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
-          "smirks": "[#1:1]-[#8X2:2]-[#6X3:3]=[#8X1:4]",
-          "attributes": [
+            "k3",
             "k2",
             "k1"
           ],
@@ -2113,6 +2122,15 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]~[#6X3:2](=[#8,#16,#7])-[#8:3]-[#1:4]",
           "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[#1:1]-[#8X2:2]-[#6X3:3]=[#8X1:4]",
+          "attributes": [
+            "k2",
             "k1"
           ],
           "cached": false
@@ -2154,9 +2172,9 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]~[#16X4:2]-[#7X3:3]~[*:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -2172,9 +2190,9 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]-[#8X2:2]-[#15X4:3]~[*:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -2182,17 +2200,16 @@
           "type": "ProperTorsions",
           "smirks": "[#8X2:1]-[#15:2]-[#8X2:3]-[#6X4:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[*:1]-[#7X3:2]-[#15X4:3]=[*:4]",
+          "smirks": "[#6X3:1]-[#7X3:2]-[#15X4:3]=[*:4]",
           "attributes": [
-            "k2",
             "k1"
           ],
           "cached": false
@@ -2201,6 +2218,15 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]~[#7X3:2]-[#15X4:3]~[*:4]",
           "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
+          "smirks": "[*:1]-[#7X3:2]-[#15X4:3]=[*:4]",
+          "attributes": [
+            "k2",
             "k1"
           ],
           "cached": false
@@ -2360,9 +2386,9 @@
           "type": "ProperTorsions",
           "smirks": "[*:1]~[#16X4:2]-[#7X2:3]~[*:4]",
           "attributes": [
+            "k3",
             "k2",
-            "k1",
-            "k3"
+            "k1"
           ],
           "cached": false
         },
@@ -2370,12 +2396,12 @@
           "type": "ProperTorsions",
           "smirks": "[#8X1:1]~[#16X4:2]-[#7X2:3]~[#6X3:4]",
           "attributes": [
-            "k1",
+            "k3",
             "k6",
             "k5",
+            "k1",
             "k2",
-            "k4",
-            "k3"
+            "k4"
           ],
           "cached": false
         },
@@ -2439,6 +2465,16 @@
         },
         {
           "type": "ProperTorsions",
+          "smirks": "[#6X3:1]-[#6X4;r3:2]-[#6X3:3](~[#8X1])~[#8X1:4]",
+          "attributes": [
+            "k3",
+            "k2",
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ProperTorsions",
           "smirks": "[#6X4;r3:1]-;@[#6X4;r3:2]-[#6X3:3](~[#8X1])~[#8X1:4]",
           "attributes": [
             "k1"
@@ -2447,30 +2483,68 @@
         },
         {
           "type": "ProperTorsions",
-          "smirks": "[#6X3:1]-[#6X4;r3:2]-[#6X3:3](~[#8X1])~[#8X1:4]",
-          "attributes": [
-            "k2",
-            "k1",
-            "k3"
-          ],
-          "cached": false
-        },
-        {
-          "type": "ProperTorsions",
           "smirks": "[#6X4:1]-[#16X4:2]-[#7X2:3]~[#6X3:4]",
           "attributes": [
-            "k1",
+            "k3",
             "k6",
             "k5",
+            "k1",
             "k2",
-            "k4",
-            "k3"
+            "k4"
           ],
           "cached": false
         },
         {
           "type": "ProperTorsions",
           "smirks": "[*:1]~[#15X4:2]-[#6X4:3]-[*:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ImproperTorsions",
+          "smirks": "[*:1]~[#7X3$(*~[#15,#16](!-[*])):2](~[*:3])~[*:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ImproperTorsions",
+          "smirks": "[*:1]~[#7X3$(*~[#6X3]):2](~[*:3])~[*:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ImproperTorsions",
+          "smirks": "[*:1]~[#6X3:2](~[*:3])~[*:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ImproperTorsions",
+          "smirks": "[*:1]~[#6X3:2](=[#7X2,#7X3+1:3])~[#7:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ImproperTorsions",
+          "smirks": "[*:1]~[#7X3$(*@1-[*]=,:[*][*]=,:[*]@1):2](~[*:3])~[*:4]",
+          "attributes": [
+            "k1"
+          ],
+          "cached": false
+        },
+        {
+          "type": "ImproperTorsions",
+          "smirks": "[*:1]~[#7X3$(*~[#7X2]):2](~[*:3])~[*:4]",
           "attributes": [
             "k1"
           ],
@@ -10628,6 +10702,174 @@
                   "record_id": 119466834,
                   "cmiles": "[H:1][C:2]#[C:3][C:4](=[O:5])[C:6]([H:7])([H:8])[C:9]([H:10])([H:11])[C:12]([H:13])([H:14])/[N:15]=[N+:16](\\[O-:17])[C:18]([H:19])=[C:20]([H:21])[H:22]",
                   "inchi_key": "LUOCGKHBSXMBDF-KTKRTIGZNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061125,
+                  "cmiles": "[H:19][C:7]1([C:8]([N+:4]1([C:5]([H:14])([H:15])[C:6]([H:16])([H:17])[H:18])[C:3]([H:12])([H:13])[C:2]([H:10])([H:11])[O:1][H:9])([H:21])[H:22])[H:20]",
+                  "inchi_key": "LZDYZEGISBDSDP-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061126,
+                  "cmiles": "[H:14][C:4]1([C:3]2=[N:2][N:1]([C:11](=[O:12])[C:10]2([C:9]([C:8]([C:7]([C:6]([C:5]1([H:16])[H:17])([H:18])[H:19])([H:20])[H:21])([H:22])[H:23])([H:24])[H:25])[H:26])[H:13])[H:15]",
+                  "inchi_key": "VXXYGTCBALEZOR-OVWMGBBENA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061127,
+                  "cmiles": "[H:10][C:1]1=[C:2]2[C:3]([C:4](=[O:5])[O:6][C:7]2([C:8]([C:9]1([H:16])[H:17])([H:14])[H:15])[H:13])([H:11])[H:12]",
+                  "inchi_key": "UBZBTIIUSORUOZ-LURJTMIENA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061130,
+                  "cmiles": "[H:11][c:1]1[c:2]([c:3]([c:4]2[c:5]([c:6]1[H:14])[C:7]([C:8]3([C:10]2([O:9]3)[H:18])[H:17])([H:15])[H:16])[H:13])[H:12]",
+                  "inchi_key": "UKGCFMYYDATGNN-BDAKNGLRNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061134,
+                  "cmiles": "[H:14][C:7]1([C:8]2([C:9](=[O:10])[N:1]([C:2](=[O:3])[N:4]2[C:5]([S:6]1)([H:12])[H:13])[H:11])[H:16])[H:15]",
+                  "inchi_key": "VSHNGALPNIMBCM-KIBXGKIZNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061135,
+                  "cmiles": "[H:22][c:12]1[c:13]([c:14]([c:15]2[c:10]([c:11]1[H:21])[C:2](=[C:1]([O:16]2)[H:17])[C:3]([H:18])([H:19])[C:4]3=[N:5][O:6][S:7](=[O:8])[N:9]3[H:20])[H:24])[H:23]",
+                  "inchi_key": "ZEIXTBJVAASJRX-YVLDIAJPNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061137,
+                  "cmiles": "[H:14][C:9]1=[C:8]([N:7]2[C:3](=[C:4]([C:5](=[N:6]2)[H:12])[H:11])[N:2]=[C:1]1[H:10])[H:13]",
+                  "inchi_key": "LDIJKUBTLZTFRG-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061138,
+                  "cmiles": "[H:7][C:1]1([C:6]2([C:4]([O:5]2)([C:3]([O:2]1)([H:9])[H:10])[H:11])[H:12])[H:8]",
+                  "inchi_key": "AIUTZIYTEUMXGG-ZXZARUISNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061139,
+                  "cmiles": "[H:18][c:6]1[c:5]([c:4]([c:3]([c:8]([c:7]1[H:19])[H:20])[S:2](=[N:1][H:15])[c:9]2[c:10]([c:11]([c:12]([c:13]([c:14]2[H:25])[H:24])[H:23])[H:22])[H:21])[H:16])[H:17]",
+                  "inchi_key": "LEXXWUCMDYEREL-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061144,
+                  "cmiles": "[H:15][C:1]1=[C:2]([O:4][N:5]=[N+:6]1[C:7]([H:16])([H:17])[C:8]([H:18])([H:19])[N+:9]2=[N:10][O:11][C:12](=[C:14]2[H:20])[O-:13])[O-:3]",
+                  "inchi_key": "CPVDYGMRFZDUMQ-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061145,
+                  "cmiles": "[H:13][C:5]1=[C:6]([N:7]([C:9]2=[C:10]([C:1](=[N:2][C:3]2=[C:4]1[H:12])[H:11])[H:18])[C:8]([H:15])([H:16])[H:17])[H:14]",
+                  "inchi_key": "SELLQELQMGEERR-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061147,
+                  "cmiles": "[H:9][C:5](=[N:4][S:2](=[O:1])[C:3]([H:6])([H:7])[H:8])[H:10]",
+                  "inchi_key": "JZZJSPATKILJCC-RXMQYKEDNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061148,
+                  "cmiles": "[H:11][C:6]([H:12])([H:13])[N+:4]([H:5])([C:7]([H:14])([H:15])[H:16])[S:2](=[O:1])[C:3]([H:8])([H:9])[H:10]",
+                  "inchi_key": "AQNQZLOSBFEYBX-HECMHJMYNA-O"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061152,
+                  "cmiles": "[H:20][C@:12]12[C:7]3=[C:8]([C:4](=[N:5][N:6]3[H:14])[C:2](=[O:3])[O:1][H:13])[C:9]([C@:10]1([C:11]2([H:18])[H:19])[H:17])([H:15])[H:16]",
+                  "inchi_key": "CUTZNERBKDMLAP-ABWFHAGQNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061153,
+                  "cmiles": "[H:7][C:1]([H:8])([H:9])[N:2]([H:10])[N+:3]([H:4])([H:5])[C:6]([H:11])([H:12])[H:13]",
+                  "inchi_key": "DIIIISSCIXVANO-LUJXRTBWNA-O"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061155,
+                  "cmiles": "[H:11][C:7]([H:12])([H:13])[N+:4]([H:5])([H:6])[S:2](=[O:3])[C:1]([H:8])([H:9])[H:10]",
+                  "inchi_key": "AJUFAGSXJJYIAV-LHIISKKRNA-O"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061156,
+                  "cmiles": "[H:9][C:1]([H:10])([H:11])[N+:2]([H:3])([H:4])[N+:5]([H:6])([H:7])[C:8]([H:12])([H:13])[H:14]",
+                  "inchi_key": "HINNVIATDCXOGW-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061157,
+                  "cmiles": "[H:10][C:1](=[C:2]([H:12])[S:3](=[O:4])(=[O:5])[N+:6]([H:7])([H:8])[C:9]([H:13])([H:14])[H:15])[H:11]",
+                  "inchi_key": "MVUKBEZYHBERNA-PQLOFIBWNA-O"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061159,
+                  "cmiles": "[H:12][C:6]1([C:7]([C:5]1([H:11])[N+:2]([H:3])([H:4])[C:1]([H:8])([H:9])[H:10])([H:14])[H:15])[H:13]",
+                  "inchi_key": "VEBLEROFGPOMPB-BYEAVUQJNA-O"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061162,
+                  "cmiles": "[H:12][C:8]([H:13])([H:14])[N+:5]([H:6])([H:7])[S:2](=[O:3])(=[O:4])[C:1]([H:9])([H:10])[H:11]",
+                  "inchi_key": "UHNHTTIUNATJKL-FDUDNIEWNA-O"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061168,
+                  "cmiles": "[H:22][c:2]1[c:1]([c:17]([c:16]([c:15]([c:3]1[C:4]([H:23])([H:24])[O:5][S:6](=[O:7])[N:8]([C:9]([H:25])([H:26])[C:10]([H:27])([H:28])[Cl:11])[C:12]([H:29])([H:30])[C:13]([H:31])([H:32])[Cl:14])[H:33])[H:34])[N+:18](=[O:19])[O-:20])[H:21]",
+                  "inchi_key": "RBVQKUIUMUAGGI-HXUWFJFHNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061169,
+                  "cmiles": "[H:27][c:9]1[c:8]([c:7]([c:6]([c:11]([c:10]1[H:28])[H:29])[C:5]([H:23])([H:24])[N+:4]2([C:19]([C:20]([C@@:2]([O:3]2)([H:22])[O:1][H:21])([H:39])[H:40])([H:37])[H:38])[C:12]([H:30])([H:31])[c:13]3[c:14]([c:15]([c:16]([c:17]([c:18]3[H:36])[H:35])[H:34])[H:33])[H:32])[H:25])[H:26]",
+                  "inchi_key": "IEWGJNOVXRAKAU-KRWDZBQONA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061172,
+                  "cmiles": "[H:18][c:1]1[c:2]([c:3]([c:4]([c:16]([c:17]1[H:35])[H:34])[P:5]([c:6]2[c:7]([c:8]([c:9]([c:10]([c:11]2[H:25])[H:24])[H:23])[H:22])[H:21])[C:12]([H:26])([H:27])[C:13]([H:28])([H:29])[C:14]([H:30])([H:31])[N:15]([H:32])[H:33])[H:20])[H:19]",
+                  "inchi_key": "DQZWMOWSTWWMPP-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061173,
+                  "cmiles": "[H:5][C:1]([H:6])([H:7])[P:2]([C:3]([H:8])([H:9])[H:10])[C:4]([H:11])([H:12])[H:13]",
+                  "inchi_key": "YWWDBCBWQNCYNR-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061174,
+                  "cmiles": "[H:17][c:4]1[c:3]([c:2]([c:13]([c:12]([c:5]1/[C:6](=[N:7]\\[N+:8]([C:9]([H:19])([H:20])[H:21])([C:10]([H:22])([H:23])[H:24])[C:11]([H:25])([H:26])[H:27])/[H:18])[H:28])[O:14][H:29])[O:1][H:15])[H:16]",
+                  "inchi_key": "DDIPCSIALILULA-CVLZNAGDNA-O"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061178,
+                  "cmiles": "[H:6][N:4]([H:7])[S:2](=[O:3])[O:1][H:5]",
+                  "inchi_key": "JXUFISIHEZOBPI-QEZKKOIZNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061180,
+                  "cmiles": "[H:18][c:2]1[c:1]([c:6]([c:5]2[c:4]([c:3]1[H:19])[n+:15]([c:10]([n:9][n+:7]2[O-:8])[N:11]([H:21])[C:12]3([C:13]([C:14]3([H:25])[H:26])([H:23])[H:24])[H:22])[O-:16])[H:20])[H:17]",
+                  "inchi_key": "MBZHDHBBJKNQOK-WXRBYKJCNA-N"
+                },
+                {
+                  "type": "torsion",
+                  "record_id": 137061181,
+                  "cmiles": "[H:22][c:14]1[c:13]([c:12]([c:11]2[c:16]([c:15]1[H:23])[C:6](=[N:7][S:8]2(=[O:9])=[O:10])[S:5][C:4]([H:18])([H:19])[C:2](=[O:3])[O:1][H:17])[H:20])[H:21]",
+                  "inchi_key": "LYHWDWXFGPHJOQ-WXRBYKJCNA-N"
                 }
               ]
             },
@@ -12664,6 +12906,294 @@
                   "record_id": 104321466,
                   "cmiles": "[H:7][C:1]([H:8])([C:2]([H:9])([H:10])[S:3](=[O:4])[O:5][H:11])[N:6]([H:12])[H:13]",
                   "inchi_key": "VVIUBCNYACGLLV-JLSKMEETNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137148999,
+                  "cmiles": "[H:10][C:9]([H:11])([H:12])/[C:2](=[N+:3](/[C:5]([H:6])([H:7])[H:8])\\[O-:4])/[N:1]([H:13])[H:14]",
+                  "inchi_key": "APZLASAMSFXVIN-HWKANZRONA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149000,
+                  "cmiles": "[H:8][C:7]([H:9])([H:10])[N+:6](=[C:2]([N:3]([H:4])[H:5])[N:1]([H:15])[H:16])[C:11]([H:12])([H:13])[H:14]",
+                  "inchi_key": "SWSQBOPZIKWTGO-XHAMHFKSNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149001,
+                  "cmiles": "[H:2][C:1]1=[C:3]([N:5]([C:7](=[N:15]1)/[N+:8](=[C:10](\\[H:14])/[N+:11](=[O:12])[O-:13])/[O-:9])[H:6])[H:4]",
+                  "inchi_key": "BSLJDEXDTSEBIP-WWUURVBRNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149002,
+                  "cmiles": "[H:2][C:1]1=[C:3]([N:5]([C:7](=[N:15]1)/[N+:8](=[C:10](\\[H:14])/[N+:11](=[O:12])[O-:13])/[O-:9])[H:6])[H:4]",
+                  "inchi_key": "BSLJDEXDTSEBIP-WWUURVBRNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149111,
+                  "cmiles": "[H:2][C:1]1=[C:3]([N:5]([C:7](=[N:15]1)/[N+:8](=[C:10](\\[H:14])/[N+:11](=[O:12])[O-:13])/[O-:9])[H:6])[H:4]",
+                  "inchi_key": "BSLJDEXDTSEBIP-WWUURVBRNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149004,
+                  "cmiles": "[H:8][c:7]1[c:5]([c:4]([c:13]([n+:11]([c:9]1[H:10])[O-:12])[H:14])[C:2](=[O:3])[O:1][H:15])[H:6]",
+                  "inchi_key": "FJCFFCXMEXZEIM-FZOZFQFYNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149005,
+                  "cmiles": "[H:8][c:7]1[c:5]([c:4]([c:13]([n+:11]([c:9]1[H:10])[O-:12])[H:14])[C:2](=[O:3])[O:1][H:15])[H:6]",
+                  "inchi_key": "FJCFFCXMEXZEIM-FZOZFQFYNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149013,
+                  "cmiles": "[H:7][C:1](=[C:2]([H:9])[S:3](=[O:4])(=[O:5])[N+:6]([H:10])([H:11])[H:12])[H:8]",
+                  "inchi_key": "JOXWSDNHLSQKCC-ADUUYSSWNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149130,
+                  "cmiles": "[H:7][C:1](=[C:2]([H:9])[S:3](=[O:4])(=[O:5])[N+:6]([H:10])([H:11])[H:12])[H:8]",
+                  "inchi_key": "JOXWSDNHLSQKCC-ADUUYSSWNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149018,
+                  "cmiles": "[H:12][C:6]([H:13])([H:14])[N+:5]([H:10])([H:11])[S:2](=[O:3])(=[O:4])[C:1]([H:7])([H:8])[H:9]",
+                  "inchi_key": "UHNHTTIUNATJKL-FDUDNIEWNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149019,
+                  "cmiles": "[H:12][C:6]([H:13])([H:14])[N+:5]([H:10])([H:11])[S:2](=[O:3])(=[O:4])[C:1]([H:7])([H:8])[H:9]",
+                  "inchi_key": "UHNHTTIUNATJKL-FDUDNIEWNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149020,
+                  "cmiles": "[H:11][C:5]([H:12])([H:13])[N+:4]([H:9])([H:10])[S:2](=[O:3])[C:1]([H:6])([H:7])[H:8]",
+                  "inchi_key": "AJUFAGSXJJYIAV-LHIISKKRNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149021,
+                  "cmiles": "[H:11][C:5]([H:12])([H:13])[N+:4]([H:9])([H:10])[S:2](=[O:3])[C:1]([H:6])([H:7])[H:8]",
+                  "inchi_key": "AJUFAGSXJJYIAV-LHIISKKRNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149023,
+                  "cmiles": "[H:8][C:1](=[C:2]([H:10])[S:3](=[O:4])(=[O:5])[N+:6]([H:11])([H:12])[C:7]([H:13])([H:14])[H:15])[H:9]",
+                  "inchi_key": "MVUKBEZYHBERNA-PQLOFIBWNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149024,
+                  "cmiles": "[H:8][C:1](=[C:2]([H:10])[S:3](=[O:4])(=[O:5])[N+:6]([H:11])([H:12])[C:7]([H:13])([H:14])[H:15])[H:9]",
+                  "inchi_key": "MVUKBEZYHBERNA-PQLOFIBWNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149026,
+                  "cmiles": "[H:8][C:1](=[C:2]([H:10])[S:3](=[O:4])(=[O:5])[N+:6]([H:11])([H:12])[C:7]([H:13])([H:14])[H:15])[H:9]",
+                  "inchi_key": "MVUKBEZYHBERNA-PQLOFIBWNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149025,
+                  "cmiles": "[H:8][C:1](=[C:2]([H:10])[S:3](=[O:4])(=[O:5])[N+:6]([H:11])([H:12])[C:7]([H:13])([H:14])[H:15])[H:9]",
+                  "inchi_key": "MVUKBEZYHBERNA-PQLOFIBWNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149029,
+                  "cmiles": "[H:7][C:1](=[C:2]([H:9])[S:3](=[O:4])[N+:5]([H:10])([H:11])[C:6]([H:12])([H:13])[H:14])[H:8]",
+                  "inchi_key": "INUKCUODZCHWNE-FSQGERRONA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149033,
+                  "cmiles": "[H:7][C:1](=[C:2]([H:9])[S:3](=[O:4])[N+:5]([H:10])([H:11])[C:6]([H:12])([H:13])[H:14])[H:8]",
+                  "inchi_key": "INUKCUODZCHWNE-FSQGERRONA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149030,
+                  "cmiles": "[H:7][C:1](=[C:2]([H:9])[S:3](=[O:4])[N+:5]([H:10])([H:11])[C:6]([H:12])([H:13])[H:14])[H:8]",
+                  "inchi_key": "INUKCUODZCHWNE-FSQGERRONA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149035,
+                  "cmiles": "[H:7][C:1](=[C:2]([H:9])[S:3](=[O:4])[N+:5]([H:10])([H:11])[C:6]([H:12])([H:13])[H:14])[H:8]",
+                  "inchi_key": "INUKCUODZCHWNE-FSQGERRONA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149036,
+                  "cmiles": "[H:8][C:1](=[C:2]([H:10])[S:3](=[O:4])[N:5]([H:11])[N:6]=[C:7]([H:12])[H:13])[H:9]",
+                  "inchi_key": "ZPKUISNIUURHBS-SSDOTTSWNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149037,
+                  "cmiles": "[H:8][C:1](=[C:2]([H:10])[S:3](=[O:4])[N:5]([H:11])[N:6]=[C:7]([H:12])[H:13])[H:9]",
+                  "inchi_key": "ZPKUISNIUURHBS-SSDOTTSWNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149044,
+                  "cmiles": "[H:8][C:1](=[C:2]([H:10])[S:3](=[O:4])[N:5]([H:11])[N:6]=[C:7]([H:12])[H:13])[H:9]",
+                  "inchi_key": "ZPKUISNIUURHBS-SSDOTTSWNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149039,
+                  "cmiles": "[H:8][C:1](=[C:2]([H:10])[S:3](=[O:4])[N:5]([H:11])[N:6]=[C:7]([H:12])[H:13])[H:9]",
+                  "inchi_key": "ZPKUISNIUURHBS-SSDOTTSWNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149043,
+                  "cmiles": "[H:8][C:1](=[C:2]([H:10])[S:3](=[O:4])[N:5]([H:11])[N:6]=[C:7]([H:12])[H:13])[H:9]",
+                  "inchi_key": "ZPKUISNIUURHBS-SSDOTTSWNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149045,
+                  "cmiles": "[H:8][C:1](=[C:2]([H:10])[S:3](=[O:4])[N:5]([H:11])[N:6]=[C:7]([H:12])[H:13])[H:9]",
+                  "inchi_key": "ZPKUISNIUURHBS-SSDOTTSWNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149046,
+                  "cmiles": "[H:9][C:5](=[N:4][S:2](=[O:3])[C:1]([H:6])([H:7])[H:8])[H:10]",
+                  "inchi_key": "JZZJSPATKILJCC-RXMQYKEDNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149047,
+                  "cmiles": "[H:9][C:5](=[N:4][S:2](=[O:3])[C:1]([H:6])([H:7])[H:8])[H:10]",
+                  "inchi_key": "JZZJSPATKILJCC-RXMQYKEDNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149051,
+                  "cmiles": "[H:10][C:9]([H:11])([H:12])[C:5]([H:13])([N:6]([H:7])[H:8])[P:2]([O:3][H:4])[O:1][H:14]",
+                  "inchi_key": "OGMKRYBVSZJTFC-REOHCLBHNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149173,
+                  "cmiles": "[H:10][C:9]([H:11])([H:12])[C:5]([H:13])([N:6]([H:7])[H:8])[P:2]([O:3][H:4])[O:1][H:14]",
+                  "inchi_key": "OGMKRYBVSZJTFC-REOHCLBHNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149057,
+                  "cmiles": "[H:3][N+:1]([H:4])([H:5])[N+:2]([H:6])([H:7])[H:8]",
+                  "inchi_key": "DIDREYHESYMPRP-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149058,
+                  "cmiles": "[H:6][C:1]([H:7])([H:8])[S:2](=[O:3])(=[O:4])[N+:5]([H:9])([H:10])[H:11]",
+                  "inchi_key": "HNQIVZYLYMDVSB-AHRFIDEJNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149059,
+                  "cmiles": "[H:5][C:1]([H:6])([H:7])[S:2](=[O:3])[N+:4]([H:8])([H:9])[H:10]",
+                  "inchi_key": "SZEHYTUQQCTUQK-BXAJWQDJNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149060,
+                  "cmiles": "[H:15][c:14]1[c:12]([c:10]([c:9]([c:18]([c:16]1[H:17])[H:19])[C:8]2([c:31]3[c:32]([c:34]([c:36]([c:38]([c:40]3[C:6](=[C:5]4[C:3](=[C:1]([C:45](=[O+:46][C:47]([H:48])([H:49])[H:50])[C:43](=[C:41]4[H:42])[H:44])[H:2])[H:4])[S:7]2)[H:39])[H:37])[H:35])[H:33])[c:20]5[c:21]([c:23]([c:25]([c:27]([c:29]5[H:30])[H:28])[H:26])[H:24])[H:22])[H:11])[H:13]",
+                  "inchi_key": "XCIKRKJLFZIMBH-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149061,
+                  "cmiles": "[H:15][c:14]1[c:12]([c:10]([c:9]([c:18]([c:16]1[H:17])[H:19])[C:8]2([c:31]3[c:32]([c:34]([c:36]([c:38]([c:40]3[C:6](=[C:5]4[C:3](=[C:1]([C:45](=[O+:46][C:47]([H:48])([H:49])[H:50])[C:43](=[C:41]4[H:42])[H:44])[H:2])[H:4])[S:7]2)[H:39])[H:37])[H:35])[H:33])[c:20]5[c:21]([c:23]([c:25]([c:27]([c:29]5[H:30])[H:28])[H:26])[H:24])[H:22])[H:11])[H:13]",
+                  "inchi_key": "XCIKRKJLFZIMBH-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149062,
+                  "cmiles": "[H:15][c:14]1[c:12]([c:10]([c:9]([c:18]([c:16]1[H:17])[H:19])[C:8]2([c:31]3[c:32]([c:34]([c:36]([c:38]([c:40]3[C:6](=[C:5]4[C:3](=[C:1]([C:45](=[O+:46][C:47]([H:48])([H:49])[H:50])[C:43](=[C:41]4[H:42])[H:44])[H:2])[H:4])[S:7]2)[H:39])[H:37])[H:35])[H:33])[c:20]5[c:21]([c:23]([c:25]([c:27]([c:29]5[H:30])[H:28])[H:26])[H:24])[H:22])[H:11])[H:13]",
+                  "inchi_key": "XCIKRKJLFZIMBH-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149063,
+                  "cmiles": "[H:15][c:14]1[c:12]([c:10]([c:9]([c:18]([c:16]1[H:17])[H:19])[C:8]2([c:31]3[c:32]([c:34]([c:36]([c:38]([c:40]3[C:6](=[C:5]4[C:3](=[C:1]([C:45](=[O+:46][C:47]([H:48])([H:49])[H:50])[C:43](=[C:41]4[H:42])[H:44])[H:2])[H:4])[S:7]2)[H:39])[H:37])[H:35])[H:33])[c:20]5[c:21]([c:23]([c:25]([c:27]([c:29]5[H:30])[H:28])[H:26])[H:24])[H:22])[H:11])[H:13]",
+                  "inchi_key": "XCIKRKJLFZIMBH-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149064,
+                  "cmiles": "[H:2][C:1]1([C:4]([N+:7]23[C:8]([C:11]([C:14]([N+:17]2([C:18]1([H:19])[H:20])[C:21]([C:24]([C:27]3([H:28])[H:29])([H:25])[H:26])([H:22])[H:23])([H:15])[H:16])([H:12])[H:13])([H:9])[H:10])([H:5])[H:6])[H:3]",
+                  "inchi_key": "PYGJOUPTFFZYNV-PHIMTYICNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149076,
+                  "cmiles": "[H:9][c:8]1[c:6]([c:4]([c:3]([c:12]([c:10]1[H:11])[H:13])[S:2](=[N:1][H:25])[c:14]2[c:15]([c:17]([c:19]([c:21]([c:23]2[H:24])[H:22])[H:20])[H:18])[H:16])[H:5])[H:7]",
+                  "inchi_key": "LEXXWUCMDYEREL-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149106,
+                  "cmiles": "[H:9][c:8]1[c:6]([c:4]([c:3]([c:12]([c:10]1[H:11])[H:13])[S:2](=[N:1][H:25])[c:14]2[c:15]([c:17]([c:19]([c:21]([c:23]2[H:24])[H:22])[H:20])[H:18])[H:16])[H:5])[H:7]",
+                  "inchi_key": "LEXXWUCMDYEREL-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149093,
+                  "cmiles": "[H:2][c:1]1[c:3]([c:5]([c:10]([c:12]([c:14]1[C:15](=[O:16])[N:17]([H:30])/[S:18](=[N:19]/[C:20](=[O:21])[C:22]([H:23])([H:24])[H:25])/[C:26]([Cl:27])([Cl:28])[Cl:29])[H:13])[H:11])[C:6]([H:7])([H:8])[H:9])[H:4]",
+                  "inchi_key": "NGBCICVEPBKRJQ-SGLSCZHXNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149108,
+                  "cmiles": "[H:8][C:7]([H:9])([H:10])[C:2]([C:1]([H:11])([H:12])[H:13])([N+:4](=[O:5])[O-:6])[Cl:3]",
+                  "inchi_key": "JQYFSFNSNVRUPY-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149140,
+                  "cmiles": "[H:4][C:3]([H:5])([H:6])[P:2]([C:7]([H:8])([H:9])[H:10])[C:1]([H:11])([H:12])[H:13]",
+                  "inchi_key": "YWWDBCBWQNCYNR-UHFFFAOYNA-N"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149149,
+                  "cmiles": "[H:6][c:5]1[c:3]([c:2]([c:26]([c:24]([c:7]1/[C:8](=[N:9]\\[N+:10]([C:11]([H:12])([H:13])[H:14])([C:15]([H:16])([H:17])[H:18])[C:19]([H:20])([H:21])[H:22])/[H:23])[H:25])[O:27][H:28])[O:1][H:29])[H:4]",
+                  "inchi_key": "DDIPCSIALILULA-CVLZNAGDNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149152,
+                  "cmiles": "[H:6][c:5]1[c:3]([c:2]([c:26]([c:24]([c:7]1/[C:8](=[N:9]\\[N+:10]([C:11]([H:12])([H:13])[H:14])([C:15]([H:16])([H:17])[H:18])[C:19]([H:20])([H:21])[H:22])/[H:23])[H:25])[O:27][H:28])[O:1][H:29])[H:4]",
+                  "inchi_key": "DDIPCSIALILULA-CVLZNAGDNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149151,
+                  "cmiles": "[H:6][c:5]1[c:3]([c:2]([c:26]([c:24]([c:7]1/[C:8](=[N:9]\\[N+:10]([C:11]([H:12])([H:13])[H:14])([C:15]([H:16])([H:17])[H:18])[C:19]([H:20])([H:21])[H:22])/[H:23])[H:25])[O:27][H:28])[O:1][H:29])[H:4]",
+                  "inchi_key": "DDIPCSIALILULA-CVLZNAGDNA-O"
+                },
+                {
+                  "type": "optimization",
+                  "record_id": 137149153,
+                  "cmiles": "[H:2][C:1]1=[N:3][C:4]2([C:14](=[N:13][C:10]([N:8]([C:6]2=[O:7])[H:9])([H:11])[H:12])[N:15]1[H:16])[H:5]",
+                  "inchi_key": "GOWAEHNMGNTMPX-IQTGVIGANA-N"
                 },
                 {
                   "type": "optimization",

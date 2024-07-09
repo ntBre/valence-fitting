@@ -25776,6 +25776,538 @@ remote 1
 $end
 
 $target
+name torsion-137061125
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061126
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061127
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061130
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061134
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061135
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061137
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061138
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061139
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061144
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061145
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061147
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061148
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061152
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061153
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061155
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061156
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061157
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061159
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061162
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061168
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061169
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061172
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061173
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061174
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061178
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061180
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
+name torsion-137061181
+weight 1.0
+
+type TorsionProfile_SMIRNOFF
+
+mol2 input.sdf
+pdb conf.pdb
+coords scan.xyz
+
+writelevel 2
+
+attenuate 1
+
+energy_denom 1.0
+energy_upper 8.0
+remote 1
+$end
+
+$target
 name opt-geo-batch-0
 weight 0.01
 
@@ -27707,6 +28239,16 @@ $end
 
 $target
 name opt-geo-batch-193
+weight 0.01
+
+type OptGeoTarget_SMIRNOFF
+
+writelevel 1
+remote 1
+$end
+
+$target
+name opt-geo-batch-194
 weight 0.01
 
 type OptGeoTarget_SMIRNOFF

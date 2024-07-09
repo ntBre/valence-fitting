@@ -150,7 +150,8 @@
           "P",
           "F",
           "Cl",
-          "Br"
+          "Br",
+          "I"
         ]
       },
       "ChargeCheckFilter-5": {}

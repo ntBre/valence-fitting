@@ -119,25 +119,29 @@ class StageBase(SchemaBase, abc.ABC):
     @classmethod
     @abc.abstractmethod
     def is_available(cls) -> bool:
-        """Check any dependencies to make sure that this stage is available to run."""
+        """Check any dependencies to make sure that this stage is available to
+        run."""
         ...
 
     @abc.abstractmethod
     def run(self, molecule: "Ligand", **kwargs) -> "Ligand":
-        """The main function of the stage which should perform some parametrisation and return the complete molecule."""
+        """The main function of the stage which should perform some
+        parametrisation and return the complete molecule."""
         ...
 
     @abc.abstractmethod
     def start_message(self, **kwargs) -> str:
-        """
-        A friendly message to let users know that stage is starting with any important options.
+        """A friendly message to let users know that stage is starting with
+        any important options.
+
         """
         ...
 
     @abc.abstractmethod
     def finish_message(self, **kwargs) -> str:
-        """
-        A friendly message to let users know that the stage is complete and any checks that have been performed.
+        """A friendly message to let users know that the stage is complete and
+        any checks that have been performed.
+
         """
         ...
 
@@ -234,9 +238,11 @@ class CloudPen:
 
 
 class Atom(BaseModel):
-    """
-    Class to hold all of the "per atom" information.
-    All atoms in Molecule will have an instance of this Atom class to describe their properties.
+    """Class to hold all of the "per atom" information.
+
+    All atoms in Molecule will have an instance of this Atom class to describe
+    their properties.
+
     """
 
     class Config:
@@ -245,7 +251,8 @@ class Atom(BaseModel):
 
     atomic_number: int = Field(
         ...,
-        description="The atomic number of the atom all other properties are based on this number.",
+        description="The atomic number of the atom all other properties"
+        " are based on this number.",
         ge=0,
     )
     atom_index: int = Field(
@@ -255,11 +262,14 @@ class Atom(BaseModel):
     )
     atom_name: Optional[str] = Field(
         None,
-        description="An optional unqiue atom name that should be assigned to the atom, the ligand object will make sure all atoms have unique names.",
+        description="An optional unqiue atom name that should be assigned to "
+        "the atom, the ligand object will make sure all atoms have "
+        "unique names.",
     )
     formal_charge: int = Field(
         ...,
-        description="The formal charge of the atom, used to calculate the molecule total charge",
+        description="The formal charge of the atom, used to calculate the "
+        "molecule total charge",
     )
     aromatic: bool = Field(
         ...,
@@ -696,16 +706,20 @@ class RDKit:
 
     @staticmethod
     def find_symmetry_classes(rdkit_mol: Chem.Mol) -> Dict[int, str]:
-        """
-        Generate list of tuples of symmetry-equivalent (homotopic) atoms in the molecular graph
-        based on: https://sourceforge.net/p/rdkit/mailman/message/27897393/
-        Our thanks to Dr Michal Krompiec for the symmetrisation method and its implementation.
+        """Generate list of tuples of symmetry-equivalent (homotopic) atoms in
+        the molecular graph based on:
+        https://sourceforge.net/p/rdkit/mailman/message/27897393/
+
+        Our thanks to Dr Michal Krompiec for the symmetrisation method and its
+        implementation.
+
         Args:
             rdkit_mol:
                 Molecule to find symmetry classes for (rdkit mol class object)
         return:
             A dict where the keys are the atom indices and the values are their types
             (type is arbitrarily based on index; only consistency is needed, no specific values)
+
         """
 
         # Check CIPRank is present for first atom (can assume it is present for all afterwards)
@@ -728,7 +742,8 @@ class RDKit:
             for rank in range(max(cip_ranks) + 1)
         ]
 
-        # Convert from list of classes to dict where each key is an atom and each value is its class (just a str)
+        # Convert from list of classes to dict where each key is an atom and
+        # each value is its class (just a str)
         atom_symmetry_classes_dict = {}
         # i will be used to define the class (just index based)
         for i, sym_class in enumerate(atom_symmetry_classes):
@@ -741,8 +756,9 @@ class RDKit:
     def get_conformer_rmsd(
         rdkit_mol: Chem.Mol, ref_index: int, align_index: int
     ) -> float:
-        """
-        Get the rmsd between the current rdkit molecule and the coordinates provided.
+        """Get the rmsd between the current rdkit molecule and the coordinates
+        provided.
+
         Args:
             rdkit_mol:
                 rdkit representation of the molecule, conformer 0 is the base
@@ -752,6 +768,7 @@ class RDKit:
                 the conformer index which should be aligned
         return:
             The RMSD value
+
         """
 
         return Chem.AllChem.GetConformerRMS(rdkit_mol, ref_index, align_index)

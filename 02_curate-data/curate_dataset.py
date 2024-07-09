@@ -15,7 +15,7 @@ from qcportal.torsiondrive.record_models import (
     TorsiondriveRecord,
 )
 
-type Record = typing.Union[TorsiondriveRecord, OptimizationRecord]
+Record = typing.Union[TorsiondriveRecord, OptimizationRecord]
 
 
 def safe_ring_bond(mol: Molecule, i: int, j: int) -> bool:

@@ -3,6 +3,7 @@ import decimal
 import os
 import re
 import xml.etree.ElementTree as ET
+from collections import namedtuple
 from datetime import datetime
 from enum import Enum
 from itertools import groupby
@@ -14,16 +15,28 @@ from xml.dom.minidom import parseString
 import networkx as nx
 import numpy as np
 import qcelemental as qcel
+import qubekit
 from pydantic.v1 import BaseModel, Field, dataclasses, validator
 from qcelemental.models.types import Array
-from qubekit.molecules.components import Atom, Bond, Element
-from qubekit.utils import constants
-from qubekit.utils.constants import BOHR_TO_ANGS
-from qubekit.utils.datastructures import StageBase
+from qubekit.forcefield import (
+    BaseForceGroup,
+    HarmonicAngleForce,
+    HarmonicBondForce,
+    LennardJones126Force,
+    PeriodicImproperTorsionForce,
+    PeriodicTorsionForce,
+    RBImproperTorsionForce,
+    RBProperTorsionForce,
+    VirtualSiteGroup,
+)
+from qubekit.utils.datastructures import SchemaBase, StageBase
 from qubekit.utils.exceptions import (
+    ConformerError,
     FileTypeError,
     MissingReferenceData,
     SmartsError,
+    StereoChemistryError,
+    TopologyMismatch,
     TorsionDriveDataError,
 )
 from rdkit import Chem
@@ -42,30 +55,62 @@ except (ModuleNotFoundError, ImportError):
     from simtk.openmm.app import (
         Aromatic,
         Double,
+        PDBFile,
         Single,
         Topology,
         Triple,
-        PDBFile,
     )
     from simtk.openmm.app.element import Element
+AVOGADRO = 6.02214179e23  # Particles in 1 Mole
+ROOM_TEMP = 298.15  # Kelvin
+ROOM_PRESSURE = 101325  # Pascals
+VACUUM_PERMITTIVITY = 8.8541878128e-12  # Farads per Metre
+ELECTRON_CHARGE = 1.602176634e-19  # Coulombs
+KB_KCAL_P_MOL_K = 0.0019872041  # Boltzmann constant in KCal/(mol * K)
 
-import qubekit
-from qubekit.forcefield import (
-    BaseForceGroup,
-    HarmonicAngleForce,
-    HarmonicBondForce,
-    LennardJones126Force,
-    PeriodicImproperTorsionForce,
-    PeriodicTorsionForce,
-    RBImproperTorsionForce,
-    RBProperTorsionForce,
-    VirtualSiteGroup,
-)
-from qubekit.utils.datastructures import SchemaBase
-from qubekit.utils.exceptions import (
-    ConformerError,
-    StereoChemistryError,
-    TopologyMismatch,
+PI = 3.141592653589793  # Pi
+DEG_TO_RAD = PI / 180  # Degrees to radians
+RAD_TO_DEG = 180 / PI  # Radians to degrees
+
+
+KCAL_TO_KJ = 4.184  # Kilocalories to kiloJoules
+KJ_TO_KCAL = 0.23900573613  # KiloJoules to kilocalories
+J_TO_KCAL = 0.0002390057  # Joules to kilocalories
+
+J_TO_KCAL_P_MOL = J_TO_KCAL * AVOGADRO  # Joules to kilocalories per mole
+
+HA_TO_KCAL_P_MOL = 627.509391  # Hartrees to kilocalories per mole
+KCAL_P_MOL_TO_HA = 0.00159360164  # Kilocalories per mole to Hartrees
+
+NM_TO_ANGS = 10  # Nanometres to Angstroms
+ANGS_TO_NM = 0.1  # Angstroms to nanometres
+
+ANGS_TO_M = 1e-10  # Angstroms to metres
+M_TO_ANGS = 1e10  # Metres to Angstroms
+
+BOHR_TO_ANGS = 0.529177  # Bohrs to Angstroms
+ANGS_TO_BOHR = 1.88972687777  # Angstroms to Bohrs
+
+EPSILON_CONVERSION = (
+    (BOHR_TO_ANGS**6) * HA_TO_KCAL_P_MOL * KCAL_TO_KJ
+)  # L-J Conversion
+SIGMA_CONVERSION = ANGS_TO_NM  # L-J Conversion
+
+
+# Used for printing colours to terminal. Wrap a colour and end around a block like so:
+# f'{COLOURS.red}sample message here{COLOURS.end}'
+Colours = namedtuple("colours", "red green orange blue purple end")
+
+# Uses exit codes to set terminal font colours.
+# \033[ is the exit code. 1;32m are the style (bold); colour (green) m reenters the code block.
+# The end code resets the style back to default; this MUST be applied to avoid errors.
+COLOURS = Colours(
+    red="\033[1;31m",
+    green="\033[1;32m",
+    orange="\033[1;33m",
+    blue="\033[1;34m",
+    purple="\033[1;35m",
+    end="\033[0m",
 )
 
 
@@ -2466,7 +2511,7 @@ class Ligand(Molecule):
             )
         coords = copy.deepcopy(self.coordinates)
         # input must be in bohr
-        coords *= constants.ANGS_TO_BOHR
+        coords *= ANGS_TO_BOHR
         # we do not store explicit bond order so guess at 1
         bonds = [
             (bond.atom1_index, bond.atom2_index, bond.bond_order)
@@ -2726,7 +2771,7 @@ class ModSeminario(StageBase):
         molecule.BondForce.clear_parameters()
         molecule.AngleForce.clear_parameters()
         # convert the hessian from atomic units
-        conversion = constants.HA_TO_KCAL_P_MOL / (constants.BOHR_TO_ANGS**2)
+        conversion = HA_TO_KCAL_P_MOL / (BOHR_TO_ANGS**2)
         # make sure we do not change the molecule hessian
         hessian = copy.deepcopy(molecule.hessian)
         hessian *= conversion
@@ -2890,7 +2935,7 @@ class ModSeminario(StageBase):
             len(molecule.angles)
         )
 
-        conversion = constants.KCAL_TO_KJ * 2
+        conversion = KCAL_TO_KJ * 2
 
         with open("Modified_Seminario_Angles.txt", "w") as angle_file:
 
@@ -2932,7 +2977,7 @@ class ModSeminario(StageBase):
                 # Add ModSem values to ligand object.
                 molecule.AngleForce.create_parameter(
                     atoms=angle,
-                    angle=theta_0[i] * constants.DEG_TO_RAD,
+                    angle=theta_0[i] * DEG_TO_RAD,
                     k=k_theta[i] * conversion,
                 )
 
@@ -2944,7 +2989,7 @@ class ModSeminario(StageBase):
         """
 
         bonds = molecule.to_topology().edges
-        conversion = constants.KCAL_TO_KJ * 200
+        conversion = KCAL_TO_KJ * 200
 
         k_b, bond_len_list = np.zeros(len(bonds)), np.zeros(len(bonds))
 

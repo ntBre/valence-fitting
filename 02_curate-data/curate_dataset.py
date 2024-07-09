@@ -16,7 +16,7 @@ from qcportal.torsiondrive.record_models import (
 
 
 def check_torsion_is_in_ring(
-    molecule: "Molecule",
+    molecule: Molecule,
     indices: typing.Tuple[int, int, int, int],
 ) -> bool:
     """
@@ -36,9 +36,9 @@ def check_torsion_is_in_ring(
 
 def label_and_tag_ids(
     record_and_molecule: typing.Tuple[
-        typing.Union["TorsiondriveRecord", "OptimizationRecord"], "Molecule"
+        typing.Union[TorsiondriveRecord, OptimizationRecord], Molecule
     ],
-    force_field: "ForceField",
+    force_field: ForceField,
     parameter_types: typing.List[str],
     explicit_ring_torsions: typing.Optional[str] = None,
 ) -> typing.Set[typing.Tuple[str, str, int]]:
@@ -82,10 +82,10 @@ def label_and_tag_ids(
 
 def get_parameter_distribution(
     dataset: typing.Union[
-        "TorsionDriveResultCollection", "OptimizationResultCollection"
+        TorsionDriveResultCollection, OptimizationResultCollection
     ],
     parameter_types: typing.List[str],
-    force_field: "ForceField",
+    force_field: ForceField,
     explicit_ring_torsions: typing.Optional[str] = None,
     n_processes: int = 4,
 ) -> typing.Tuple[
@@ -110,8 +110,8 @@ def get_parameter_distribution(
 
 
 def cap_torsions_per_parameter(
-    force_field: "ForceField",
-    dataset: "TorsionDriveResultCollection",
+    force_field: ForceField,
+    dataset: TorsionDriveResultCollection,
     cap_size: int = 5,
     explicit_ring_torsions: typing.Optional[str] = None,
     method: typing.Literal[
@@ -179,10 +179,10 @@ def cap_torsions_per_parameter(
 
 def select_parameters(
     dataset: typing.Union[
-        "TorsionDriveResultCollection", "OptimizationResultCollection"
+        TorsionDriveResultCollection, OptimizationResultCollection
     ],
     parameter_types: typing.List[str],
-    force_field: "ForceField",
+    force_field: ForceField,
     explicit_ring_torsions: typing.Optional[str] = None,
     n_processes: int = 1,
     min_coverage: int = 5,

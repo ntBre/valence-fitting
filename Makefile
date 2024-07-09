@@ -41,7 +41,7 @@ $(CURATE)/datasets/supp2-td.json: $(CURATE)/download_td.py
 	cd $(CURATE); python download_td.py -o ../$@ -d "OpenFF Torsion Multiplicity Torsion Drive Coverage Supplement v1.0"
 
 $(CURATE)/datasets/supp-opt.json: $(CURATE)/download_opt.py
-	cd $(CURATE); python $< -o ../$@ -d "OpenFF Torsion Multiplicity Optimization Training Coverage Supplement v1.0"
+	cd $(CURATE); python $(notdir $<) -o ../$@ -d "OpenFF Torsion Multiplicity Optimization Training Coverage Supplement v1.0"
 
 ## step 2b filter sage data sets for charge issues
 $(CURATE)/sage/filtered-opt.json: $(CURATE)/sage/opt.json $(CURATE)/charge-filter.py
@@ -154,7 +154,7 @@ $(FIT)/ready: $(DEPS)
 	--torsion-dataset           ../$(CURATE)/datasets/combined-td.json      \
 	--valence-to-optimize       ../$(CURATE)/output/opt-smirks.json		\
 	--torsions-to-optimize      ../$(CURATE)/output/td-smirks.json		\
-	--impropers-to-optimize      ../$(CURATE)/output/impropers-smirks.json		\
+	--impropers-to-optimize      ../$(CURATE)/output/improper-smirks.json		\
 	--forcefield                ../$(MSM_FF)                                \
 	--smiles-to-exclude         smiles-to-exclude.dat                       \
 	--smarts-to-exclude         smarts-to-exclude.dat                       \

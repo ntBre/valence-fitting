@@ -48,7 +48,7 @@ adaptive_factor 0.2
 adaptive_damping 1.0
 normalize_weights False
 # any extras are added here like print hessian
-wq_port  55387
+wq_port  27368
 asynchronous  True
 search_tolerance  0.1
 backup  0
@@ -26062,25 +26062,6 @@ $end
 
 $target
 name torsion-137061155
-weight 1.0
-
-type TorsionProfile_SMIRNOFF
-
-mol2 input.sdf
-pdb conf.pdb
-coords scan.xyz
-
-writelevel 2
-
-attenuate 1
-
-energy_denom 1.0
-energy_upper 8.0
-remote 1
-$end
-
-$target
-name torsion-137061156
 weight 1.0
 
 type TorsionProfile_SMIRNOFF

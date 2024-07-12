@@ -29,7 +29,6 @@ COLORS = {
 
 
 def draw_single(df, torsiondrive_id: int, width=300, height=300):
-    from cairosvg import svg2png
     from matplotlib import pyplot as plt
     from openff.toolkit import Molecule
     from rdkit.Chem.Draw import rdMolDraw2D
@@ -43,17 +42,14 @@ def draw_single(df, torsiondrive_id: int, width=300, height=300):
     for index in dihedral:
         atom = rdmol.GetAtomWithIdx(int(index))
         atom.SetProp("atomNote", str(index))
-    drawer = rdMolDraw2D.MolDraw2DSVG(width, height)
+    drawer = rdMolDraw2D.MolDraw2DCairo(width, height)
     # options.baseFontSize = 1
     drawer.DrawMolecule(rdmol, highlightAtoms=dihedral)
     drawer.FinishDrawing()
-    svg = drawer.GetDrawingText()
     with tempfile.TemporaryDirectory() as tempdir:
-        cwd = os.getcwd()
-        os.chdir(tempdir)
-        svg2png(bytestring=svg, write_to="tmp.png", scale=10)
-        png = plt.imread("tmp.png")
-        os.chdir(cwd)
+        path = os.path.join(tempdir, "tmp.png")
+        png = drawer.WriteDrawingText(path)
+        png = plt.imread(path)
 
     return png
 
@@ -115,8 +111,8 @@ def plot_mm_vs_qm_profile(
     else:
         ax1.set_title(f"{torsiondrive_id}")
 
-    # png = draw_single(df, torsiondrive_id)
-    # imgax.imshow(png, rasterized=True)
+    png = draw_single(df, torsiondrive_id)
+    imgax.imshow(png, rasterized=True)
     imgax.set_xticks([])
     imgax.set_yticks([])
     imgax.spines["left"].set_visible(False)
@@ -133,7 +129,8 @@ def plot_mm_vs_qm_profile(
     if with_rmsds:
         basename += "-rmsd"
     imgfile = output_directory / f"{basename}{suffix}.png"
-    plt.savefig(imgfile, dpi=300)
+    plt.savefig(imgfile, dpi=150)
+    plt.close()
     print(f"Saved to {imgfile}")
 
 

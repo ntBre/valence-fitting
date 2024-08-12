@@ -1,3 +1,5 @@
+from tempfile import TemporaryDirectory
+
 import click
 from openff.qcsubmit.results import OptimizationResultCollection
 from openff.qcsubmit.results.filters import (
@@ -8,6 +10,7 @@ from openff.qcsubmit.results.filters import (
     RecordStatusFilter,
     UnperceivableStereoFilter,
 )
+from openff.qcsubmit.utils import _CachedPortalClient, portal_client_manager
 
 from filters import ChargeCheckFilter, NoisyFilter
 
@@ -22,20 +25,26 @@ def main(input, output, nprocs, chunksize):
 
     elements = ["H", "C", "N", "O", "S", "P", "F", "Cl", "Br", "I"]
 
-    dataset = dataset.filter(
-        NoisyFilter(name="RecordStatusFilter"),
-        RecordStatusFilter(status=RecordStatusEnum.complete),
-        NoisyFilter(name="ConnectivityFilter"),
-        ConnectivityFilter(tolerance=1.2),
-        NoisyFilter(name="UnperceivableStereoFilter()"),
-        UnperceivableStereoFilter(),
-        NoisyFilter(name="ElementFilter"),
-        ElementFilter(allowed_elements=elements),
-        NoisyFilter(name="ConformerRMSDFilter"),
-        ConformerRMSDFilter(max_conformers=12),  # default arg from filters
-        NoisyFilter(name="ChargeCheckFilter"),
-        ChargeCheckFilter(nprocs=nprocs, chunksize=chunksize),
+    d = TemporaryDirectory()
+    client = _CachedPortalClient(
+        "https://api.qcarchive.molssi.org:443/", cache_dir=d.name
     )
+
+    with portal_client_manager(lambda _: client):
+        dataset = dataset.filter(
+            NoisyFilter(name="RecordStatusFilter"),
+            RecordStatusFilter(status=RecordStatusEnum.complete),
+            NoisyFilter(name="ConnectivityFilter"),
+            ConnectivityFilter(tolerance=1.2),
+            NoisyFilter(name="UnperceivableStereoFilter()"),
+            UnperceivableStereoFilter(),
+            NoisyFilter(name="ElementFilter"),
+            ElementFilter(allowed_elements=elements),
+            NoisyFilter(name="ConformerRMSDFilter"),
+            ConformerRMSDFilter(max_conformers=12),  # default arg from filters
+            NoisyFilter(name="ChargeCheckFilter"),
+            ChargeCheckFilter(nprocs=nprocs, chunksize=chunksize),
+        )
 
     with open(output, "w") as out:
         out.write(dataset.json(indent=2))

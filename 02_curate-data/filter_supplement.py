@@ -9,13 +9,15 @@ from openff.qcsubmit.results.filters import (
     UnperceivableStereoFilter,
 )
 
-from filters import ChargeCheckFilter
+from filters import ChargeCheckFilter, NoisyFilter
 
 
 @click.command()
 @click.option("--input")
 @click.option("--output")
-def main(input, output):
+@click.option("--nprocs", "-n", default=1)
+@click.option("--chunksize", "-c", default=1)
+def main(input, output, nprocs, chunksize):
     "Filter a TorsionDrive dataset"
 
     dataset = TorsionDriveResultCollection.parse_file(input)
@@ -35,12 +37,18 @@ def main(input, output):
 
     # filter out other unsuitable entries
     dataset = dataset.filter(
+        NoisyFilter(name="RecordStatusFilter"),
         RecordStatusFilter(status=RecordStatusEnum.complete),
+        NoisyFilter(name="HydrogenBondFilter"),
         HydrogenBondFilter(method="baker-hubbard"),
+        NoisyFilter(name="ConnectivityFilter"),
         ConnectivityFilter(tolerance=1.2),
+        NoisyFilter(name="UnperceivableStereoFilter()"),
         UnperceivableStereoFilter(),
+        NoisyFilter(name="ElementFilter"),
         ElementFilter(allowed_elements=elements),
-        ChargeCheckFilter(),
+        NoisyFilter(name="ChargeCheckFilter"),
+        ChargeCheckFilter(nprocs=nprocs, chunksize=chunksize),
     )
 
     with open(output, "w") as out:

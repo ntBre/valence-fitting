@@ -69,11 +69,13 @@ DEPS := $(CURATE)/datasets/core-td.json $(CURATE)/filters.py	\
 $(CURATE)/datasets/filtered-td.json: $(DEPS)
 	cd $(CURATE) ; python filter-td.py --input ../$< --output ../$@
 
+FILT_NPROCS := 1
+FILT_CHUNKS := 1
 $(CURATE)/datasets/filtered-%-td.json: $(CURATE)/datasets/%-td.json $(CURATE)/filters.py $(CURATE)/filter_supplement.py
-	cd $(CURATE) ; python filter_supplement.py --input ../$< --output ../$@
+	cd $(CURATE) ; python filter_supplement.py --input ../$< --output ../$@ -n $(FILT_NPROCS) -c $(FILT_CHUNKS)
 
 $(CURATE)/datasets/filtered-%-opt.json: $(CURATE)/datasets/%-opt.json $(CURATE)/filters.py $(CURATE)/filter_opt_supplement.py
-	cd $(CURATE) ; python filter_opt_supplement.py --input ../$< --output ../$@
+	cd $(CURATE) ; python filter_opt_supplement.py --input ../$< --output ../$@ -n $(FILT_NPROCS) -c $(FILT_CHUNKS)
 
 ## step 2d combine the core and sage datasets
 OPT_SETS := \

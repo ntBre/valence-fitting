@@ -43,6 +43,13 @@ $(CURATE)/datasets/supp2-td.json: $(CURATE)/download_td.py
 $(CURATE)/datasets/supp-opt.json: $(CURATE)/download_opt.py
 	cd $(CURATE); python $(notdir $<) -o ../$@ -d "OpenFF Torsion Multiplicity Optimization Training Coverage Supplement v1.0"
 
+# XFF datasets
+$(CURATE)/datasets/xff-td.json: $(CURATE)/download_td.py
+	cd $(CURATE); python $(notdir $<) -o ../$@ -d "XtalPi 20-percent Fragments TorsiondriveDataset v1.0"
+
+$(CURATE)/datasets/xff-opt.json: $(CURATE)/download_opt.py
+	cd $(CURATE); python $(notdir $<) -o ../$@ -d "XtalPi 20-percent Fragments OptimizationDataset v1.0"
+
 ## step 2b filter sage data sets for charge issues
 $(CURATE)/sage/filtered-opt.json: $(CURATE)/sage/opt.json $(CURATE)/charge-filter.py
 	python $(CURATE)/charge-filter.py --input $< --output $@

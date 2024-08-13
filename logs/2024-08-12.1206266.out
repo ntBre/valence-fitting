@@ -1,0 +1,735 @@
+Mon Aug 12 16:21:22 PDT 2024
+hpc3-22-14
+32511140
+/data/homezvol0/bwestbr1/oe_license.txt
+cd 02_curate-data ; python filter_supplement.py --input ../02_curate-data/datasets/xff-td.json --output ../02_curate-data/datasets/filtered-xff-td.json -n 16 -c 32
+WARNING: This client version is newer than the server version. This may work if the versions are close, but expect exceptions and errors if attempting things the server does not support. client version: 0.56, server version: 0.55
+/data/homezvol0/bwestbr1/mambaforge/envs/openff-benchmarks/lib/python3.12/site-packages/mdtraj/utils/validation.py:113: UnitStrippedWarning: The unit of the quantity is stripped when downcasting to ndarray.
+  val = np.array(list(val), dtype=dtype)
+[21:43:22] Warning: molecule is tagged as 3D, but all Z coords are zero and 2D stereo markers have been found, marking the mol as 2D.
+[21:43:33] Warning: molecule is tagged as 3D, but all Z coords are zero and 2D stereo markers have been found, marking the mol as 2D.
+starting filter: RecordStatusFilter on 8704 records
+starting filter: HydrogenBondFilter on 8704 records
+starting filter: ConnectivityFilter on 7777 records
+starting filter: UnperceivableStereoFilter() on 7769 records
+starting filter: ElementFilter on 6741 records
+starting filter: ChargeCheckFilter on 6696 records
+Filtering charge errors:   0%|          | 0/6696 [00:00<?, ?it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: template fit failed.  rms/cutoff = 0.20/0.15
+Warning: OEMMFFParams::PrepMol() : unable to type atom 21 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 21 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 27 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 27 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 28 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 28 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 24 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 24 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: : Failed to build structure from CT
+Warning: : Failed to build structure from CT
+Warning: OEMMFFParams::PrepMol() : unable to type atom 31 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 31 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:   0%|          | 1/6696 [01:48<201:40:59, 108.45s/it]Warning: OEMMFFParams::PrepMol() : unable to type atom 11 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 N on residue UNL-1
+Warning: OEMMFFParams::PrepMol() : unable to type atom 21 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 N on residue UNL-1
+Warning: OEMMFFParams::PrepMol() : unable to type atom 21 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:   2%|▏         | 161/6696 [02:12<1:07:58,  1.60it/s] Warning: OEMMFFParams::PrepMol() : unable to type atom 30 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 30 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 29 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 29 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:   6%|▌         | 385/6696 [02:20<24:19,  4.32it/s]  Warning: OEMMFFParams::PrepMol() : unable to type atom 26 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 26 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 29 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 29 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:   6%|▌         | 385/6696 [02:40<24:19,  4.32it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 23 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 23 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 22 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 22 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:   8%|▊         | 545/6696 [03:11<27:24,  3.74it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 33 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 33 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:   9%|▊         | 577/6696 [03:14<25:20,  4.02it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 27 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 27 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 19 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 19 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 28 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 28 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:   9%|▊         | 577/6696 [03:30<25:20,  4.02it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 28 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 28 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  11%|█         | 705/6696 [03:46<24:53,  4.01it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  14%|█▍        | 929/6696 [04:11<17:36,  5.46it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 32 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 32 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  16%|█▌        | 1057/6696 [04:37<17:43,  5.30it/s]Filtering charge errors:  19%|█▉        | 1281/6696 [04:51<12:15,  7.36it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 18 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  19%|█▉        | 1281/6696 [05:10<12:15,  7.36it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  20%|█▉        | 1313/6696 [06:01<26:36,  3.37it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 29 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 29 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  25%|██▍       | 1665/6696 [06:16<13:08,  6.38it/s]Filtering charge errors:  25%|██▍       | 1665/6696 [06:30<13:08,  6.38it/s]Warning: : Failed due to unspecified stereochemistry
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 S on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 33 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 33 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 27 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 27 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 27 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 27 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 28 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 28 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  27%|██▋       | 1793/6696 [07:34<21:04,  3.88it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 25 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 25 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: bond stereochemistry may be assigned incorrectly for molecule 
+Warning: bond stereochemistry may be assigned incorrectly for molecule C/C/1=C/C=C\C=C/C=C1
+Warning: bond stereochemistry may be assigned incorrectly for molecule C/C/1=C/C=C\C=C/C=C1
+Warning: OEMMFFParams::PrepMol() : unable to type atom 33 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 33 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 30 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 30 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 29 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 29 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 20 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 20 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 21 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 21 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 8 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 8 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  29%|██▊       | 1921/6696 [08:15<21:35,  3.68it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 20 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 20 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 34 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 34 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  31%|███       | 2049/6696 [08:53<21:40,  3.57it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 37 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 37 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 30 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 30 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 23 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 23 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 19 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 19 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 21 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 21 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 20 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 20 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 25 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 25 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 26 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 26 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 35 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 35 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  35%|███▌      | 2369/6696 [10:08<18:32,  3.89it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 26 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 26 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 28 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 28 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  45%|████▍     | 3009/6696 [10:28<07:48,  7.86it/s]Filtering charge errors:  46%|████▌     | 3073/6696 [10:39<07:52,  7.66it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  47%|████▋     | 3137/6696 [10:47<07:43,  7.68it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  47%|████▋     | 3137/6696 [11:00<07:43,  7.68it/s]Filtering charge errors:  49%|████▉     | 3297/6696 [11:01<06:41,  8.46it/s]Filtering charge errors:  50%|████▉     | 3329/6696 [11:04<06:33,  8.55it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  50%|████▉     | 3329/6696 [11:20<06:33,  8.55it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 25 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 25 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  50%|█████     | 3361/6696 [12:01<14:50,  3.74it/s]Filtering charge errors:  54%|█████▍    | 3649/6696 [12:15<07:33,  6.72it/s]Filtering charge errors:  55%|█████▍    | 3681/6696 [12:21<07:43,  6.51it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 26 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 26 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: 1024 max ring conf limit reached for C1C[C@H]2CNCC=NCC=NCCOC[C@@H](C(=O)N2C1)[NH]
+Warning: OEMMFFParams::PrepMol() : unable to type atom 28 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 28 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 23 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 23 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  56%|█████▋    | 3777/6696 [13:42<15:52,  3.07it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 26 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 26 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 26 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 26 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 27 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 27 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  61%|██████    | 4065/6696 [14:04<08:37,  5.08it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 25 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 25 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  61%|██████    | 4065/6696 [14:20<08:37,  5.08it/s]Filtering charge errors:  62%|██████▏   | 4161/6696 [14:43<10:05,  4.19it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  64%|██████▎   | 4257/6696 [14:52<08:20,  4.88it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  65%|██████▍   | 4321/6696 [15:07<08:23,  4.72it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 9 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 1 C on residue UNL-1
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 1 C on residue UNL-1
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  65%|██████▌   | 4353/6696 [15:30<10:29,  3.72it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 19 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 19 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 19 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 19 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 7 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 7 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 23 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 23 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 31 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 31 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 26 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 26 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  71%|███████   | 4769/6696 [16:47<06:48,  4.72it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: : Failed due to unspecified stereochemistry
+Warning: OEMMFFParams::PrepMol() : unable to type atom 22 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 22 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 7 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 7 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  80%|███████▉  | 5345/6696 [17:52<03:30,  6.42it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  85%|████████▌ | 5697/6696 [18:05<01:56,  8.61it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  86%|████████▌ | 5729/6696 [18:16<02:01,  7.96it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  87%|████████▋ | 5825/6696 [18:23<01:42,  8.52it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 10 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 18 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  87%|████████▋ | 5825/6696 [18:40<01:42,  8.52it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 23 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 23 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: : Failed due to unspecified stereochemistry
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 17 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  88%|████████▊ | 5889/6696 [18:51<02:07,  6.35it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 12 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: : Failed due to unspecified stereochemistry
+Warning: OEMMFFParams::PrepMol() : unable to type atom 7 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 7 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 14 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 7 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 7 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 16 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 13 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 15 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  89%|████████▉ | 5985/6696 [19:24<02:20,  5.07it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 11 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 9 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  92%|█████████▏| 6145/6696 [19:39<01:29,  6.16it/s]Filtering charge errors:  92%|█████████▏| 6145/6696 [19:50<01:29,  6.16it/s]Filtering charge errors:  97%|█████████▋| 6465/6696 [20:33<00:38,  6.06it/s]Warning: OEMMFFParams::PrepMol() : unable to type atom 22 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Warning: OEMMFFParams::PrepMol() : unable to type atom 22 H on residue UNL-1
+Warning: : Force field setup failed due to missing parameters
+Filtering charge errors:  97%|█████████▋| 6497/6696 [21:11<00:46,  4.31it/s]Filtering charge errors: 100%|██████████| 6696/6696 [21:11<00:00,  5.27it/s]
+Mon Aug 12 23:52:40 PDT 2024
